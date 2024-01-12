@@ -8,6 +8,6 @@ public class HomeController {
 	
 	@RequestMapping("/index")
 	public String index() {
-		return "index";
+		return "indexghj";
 	}
 }
