@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Sucicakes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/kimi.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div data-th-insert="~{include/navbaradmin.html}"></div>
+
+<div class="container kimi-container">
+    <ol class="breadcrumb hidden-xs">
+        <li>Home</li>
+        <li><a href="#">Sucicakes</a></li>
+    </ol>
+</div>
+
+
+
+<div class="container channel-cover">
+    <img src="images/coverSucicakes.jpg" class="cover-image">
+    <div class="hidden-xs channel-info">
+        <h1 class="text-red">Sucicakes</h1>
+        <img src="images/premium.png" class="pull-left">
+        <h4 style="margin-left: 10px; float: left;">Premium Seller</h4>
+        <div class="clearfix maya-small-padding"></div>
+        <img src="images/halal35.png">
+    </div>
+</div><!-- /.container -->
+
+
+
+<div class="container visible-xs" style="padding-top: 15px; background: white; padding-bottom: 10px; border-bottom: 1px solid #E7EAEA;">
+    <div class="row">
+        <div class="col-xs-1" style="padding-left: 5px;">
+            <img src="images/premium_badge.png" style="margin-top: 10px;">
+        </div>
+        <div class="col-xs-3 less-padding-left">
+            <img src="images/sucicakes_logo.png" width="100%">
+        </div>
+        <div class="col-xs-8 less-padding-left">
+            <p class="roboto-14 text-bold less-margin less-padding" style="margin-top: 10px;">Sucicakes</p>
+            <p class="roboto-14 less-margin less-padding">Kebon Jeruk</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="background: white; padding-bottom: 50px; padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-2 hidden-xs">
+            <p class="text-center"><img src="images/sucicakes_logo.png" width="100"></p>
+        </div>
+        <div class="col-md-3">
+            <p>Page: <a href="#" class="text-secondary">backtokimi.com/sucicakes</a></p>
+            <p>Coverage: Jabodetabek</p>
+            <p>Location: Kebon Jeruk, Jakarta Barat</p>
+        </div>
+        <div class="col-md-4">
+            <p>Last Logged in: Wed 23 Agustus 2017</p>
+            <p>Join: April 2017</p>
+            <p>Favourites: 290</p>
+        </div>
+        <div class="col-md-3">
+            <button class="button-gray-2 btn btn-block">Make Favourite</button>
+            <div class="clearfix" style="margin-bottom: 15px;"></div>
+            <a href="channelDashboard.html" class="button-gray-2 btn btn-block">Go to My Dashboard</a>
+        </div>
+    </div>
+
+    <div class="row maya-well-padding">
+        <div class="col-md-8 col-md-offset-2">
+            <p class="text-center helvetica-18">Sucicakes adalah home industry makanan dan kue baik modern maupun tradisional.  Didirikan oleh Aurelia Suci di tahun 2012, sekarang Sucicakes sudah melayani ratusan customer. Sucicakes sangat menjaga kualitas dan kebersihan bahan makanan.</p>
+        </div>
+    </div>
+
+    <div class="row maya-well-padding">
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="images/sosisSolo.jpg" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Sosis Solo Sucicakes</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 4.500 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="images/nasi_bakar_ayam_woku_2.jpg" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Nasi Bakar Ayam Woku</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
+                        <span class="min-order">5 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="images/risotto_square.jpg" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Lemon Risotto</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--include footer-->
+<div class="include-footer"></div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+
+<!--kimi basic js-->
+<script src="js/kimi.js"></script>
+
+</body>
+</html>
