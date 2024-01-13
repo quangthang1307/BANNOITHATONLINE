@@ -8,6 +8,11 @@ public class HomeController {
 	
 	@RequestMapping("/index")
 	public String index() {
-		return "indexghj";
+		return "index";
+	}
+
+	@RequestMapping("/login")
+	public String showLogin() {
+		return "login";
 	}
 }
