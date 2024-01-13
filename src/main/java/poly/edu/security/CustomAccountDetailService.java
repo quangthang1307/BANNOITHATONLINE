@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import poly.edu.Service.AccountService;
 import poly.edu.entity.Account;
 import poly.edu.entity.AccountRole;
-import poly.edu.services.AccountService;
 
 @Service
 public class CustomAccountDetailService implements UserDetailsService {
