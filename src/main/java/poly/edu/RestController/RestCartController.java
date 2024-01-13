@@ -37,8 +37,6 @@ public class RestCartController {
         List<Cart> filteredCarts = carts.stream()
                 .filter(cart -> cart.getProduct().isProductactivate())
                 .collect(Collectors.toList());
-
-        System.out.println(carts);
         return ResponseEntity.ok(filteredCarts);
     }
 
