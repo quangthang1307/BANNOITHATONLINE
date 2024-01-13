@@ -98,6 +98,5 @@ public class Account {
     public void setAccountroles(Set<AccountRole> accountroles) {
         this.accountroles = accountroles;
     }
-
     
 }
