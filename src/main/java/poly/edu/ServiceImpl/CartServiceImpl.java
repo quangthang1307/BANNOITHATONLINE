@@ -53,5 +53,8 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findByCustomerId(customerId);
     }
 
-    
+    @Override
+	public Optional<Cart> findByCustomerAndProduct(Integer customerId, Integer productId) {
+		return cartRepository.findByCustomer_CustomerIdAndProduct_ProductID(customerId, productId);
+	}
 }

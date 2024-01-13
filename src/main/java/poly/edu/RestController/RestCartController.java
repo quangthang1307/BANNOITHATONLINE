@@ -1,6 +1,7 @@
 package poly.edu.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,16 +48,58 @@ public class RestCartController {
         return new ResponseEntity<>(savedCartItem, HttpStatus.CREATED);
     }
 
-    // @DeleteMapping("/rest/removeFromCart/{cartId}")
-    // public ResponseEntity<Void> removeFromCart(@PathVariable Integer cartId) {
-    //     cartService.delete(cartId);
-    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    // }
+    @DeleteMapping("/rest/removeFromCart/{cartId}")
+    public void removeFromCart(@PathVariable Integer cartId) {
+        cartService.delete(cartId);
+    }
 
     @DeleteMapping("/rest/removeAllCarts/{customerId}")
     public void removeAllCarts(@PathVariable Integer customerId) {
         List<Cart> carts = cartService.findByCustomerId(customerId);
         cartResponsitory.deleteAll(carts);
+    }
+
+    @PutMapping("/rest/cart/up/{customerId}/{productId}")
+    public ResponseEntity<?> upCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId) {
+        try {
+            Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
+
+            if (cartEntry.isPresent()) {
+                Cart cart = cartEntry.get();
+                int newQuantity = cart.getQuantity() + 1;
+                cart.setQuantity(newQuantity);
+                cartService.update(cart);
+                return new ResponseEntity<>(cart, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Cart entry not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to update cart quantity: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/rest/cart/down/{customerId}/{productId}")
+    public ResponseEntity<?> downCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId) {
+        try {
+            Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
+
+            if (cartEntry.isPresent()) {
+                Cart cart = cartEntry.get();
+                if (cart.getQuantity() <= 1) {
+                    return new ResponseEntity<>("Quantity not < 1", HttpStatus.BAD_REQUEST);
+                }
+                int newQuantity = cart.getQuantity() - 1;
+                cart.setQuantity(newQuantity);
+                cartService.update(cart);
+                return new ResponseEntity<>(cart, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Cart entry not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to update cart quantity: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

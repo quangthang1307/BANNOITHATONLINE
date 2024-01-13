@@ -25,5 +25,7 @@ public interface CartService {
 
     List<Cart> findByCustomerId(Integer customerId);
 
+    public Optional<Cart> findByCustomerAndProduct(Integer customerId, Integer productId);
+
     
 }
