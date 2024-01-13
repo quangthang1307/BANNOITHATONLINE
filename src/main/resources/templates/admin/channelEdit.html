@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Sucicakes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/kimi.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div data-th-insert="~{include/navbaradmin.html}"></div>
+
+<div class="container-fluid kimi-container">
+    <ol class="breadcrumb hidden-xs">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="channelDashboard.html">Channel Dashboard</a></li>
+        <li>Channel Edit</li>
+    </ol>
+</div>
+
+<div class="container-fluid" style="padding-bottom: 50px; padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked nav-stacked-kimi">
+                <li role="presentation" class="active"><a href="#">Settings</a></li>
+                <li role="presentation"><a href="changePassword.html">Change Password</a></li>
+                <li role="presentation"><a href="resetPassword.html">Reset Password</a></li>
+                <li role="presentation"><a href="#">Subscription</a></li>
+                <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
+            </ul>
+
+            <div style="background: #FCFCFC; border: 1px solid #E7EAEA; margin-top: 30px; padding: 15px;" class="hidden-xs">
+                <h2>Sucicakes</h2>
+                <h4>This week Sales:</h4>
+                <h2>Rp 40.000</h2>
+                <p>Anda belum berlangganan <a href="#" class="text-secondary">Premium Merchant</a> </p>
+                <p>Berminat jadi Premium Merchant?
+                    Coba gratis selama 1 bulan.
+                    <a href="#" class="text-secondary"> Klik disini</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 edit-channel-form">
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label for="business_name">Business Name</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="business_name" placeholder="My Business Name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label for="tagline">Tagline</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="tagline" placeholder="Tagline of my Business">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label for="business_url">Business Url</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="business_url" placeholder="https://backtokimi.com/SkQexeNzo29081603" disabled>
+                        <p style="margin-top: 10px;"><a href="#" class="text-secondary pull-right">Upgrade to premium to get unique display name</a></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label for="bank_account">Bank Account <i class="fa fa-lock" aria-hidden="true"></i></label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="bank_account" placeholder="eg: BCA">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="" placeholder="eg: 1234567890">
+                    </div>
+
+                    <div class="col-md-9 col-md-offset-3" style="margin-top: 10px;">
+                        <input type="text" class="form-control" id="" placeholder="Nama Pemilik Rekening">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label>Business Logo</label>
+                    </div>
+
+                    <div style="position:relative;">
+                        <img src="images/sucicakes_logo.png" width="90">
+                        <label for="file-upload" class="custom-file-upload" style="position:absolute;">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </label>
+                        <input id="file-upload" type="file"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 label-wrapper">
+                        <label>Business Cover</label>
+                    </div>
+                    <div class="col-md-12" style="position: relative;">
+                        <img src="images/coverSucicakes.jpg" width="100%">
+                        <label for="file-upload" class="custom-file-upload" style="position:absolute; top: 0; right: 20px;">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </label>
+                        <input id="file-upload" type="file"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 label-wrapper">
+                        <label>Business Description</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 label-wrapper">
+                        <label>Seller Pick up Address</label>
+                    </div>
+                    <div class="col-md-12" style="position: relative;">
+                        <!--map-->
+                        <input id="mapsearch" class="controls" type="text" placeholder="Search Box">
+                        <div id="map-canvas"></div>
+
+
+                        <p class="text-red text-center" style="margin-top: 10px;">Pastikan lokasi yang Anda tandai di peta sesuai dengan alamat Anda</p>
+
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvqyEC4TKKElR_nYdJr0pgiM616s-PSwc&libraries=places" type="text/javascript"></script>
+
+                        <script>
+                            var map = new google.maps.Map(document.getElementById('map-canvas'),{
+                                center:{
+                                    lat: -6.2160092,
+                                    lng: 106.8417918
+                                },
+                                zoom:12
+                            });
+
+                            var map = new google.maps.Map(document.getElementById('map-canvas'),{
+                                center:{
+                                    lat: -6.2160092,
+                                    lng: 106.8417918
+                                },
+                                zoom:12
+                            })
+
+                            var marker = new google.maps.Marker({
+                                map:map,
+                                position: map.getCenter()
+                            })
+
+                            var searchBox = new google.maps.places.SearchBox(document.getElementById('mapsearch'));
+
+                            google.maps.event.addListener(map,'center_changed', function() {
+                                marker.setPosition(map.getCenter());
+                                document.getElementById('lat').value=map.getCenter().lat();
+                                document.getElementById('lng').value=map.getCenter().lng();
+                            })
+
+                            google.maps.event.addListener(searchBox, 'places_changed', function(){
+
+                                var places = searchBox.getPlaces();
+
+                                var bounds = new google.maps.LatLngBounds();
+                                var i, place;
+
+                                for(i=0; place=places[i]; i++){
+
+                                    console.log(place.geometry.location);
+
+                                    bounds.extend(place.geometry.location);
+                                    marker.setPosition(place.geometry.location);
+                                }
+
+                                map.fitBounds(bounds);
+                                map.setZoom(16);
+                            })
+                        </script>
+                        <!--map-->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 label-wrapper">
+                        <label>Detail Address</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="form-control text-thin" rows="3">Jl Madrasah 2 no 30 D Kelurahan Sukabumi Utara Kecamatan Kebon Jeruk Jakarta 11540</textarea>
+                    </div>
+                </div>
+                <div class="maya-small-padding"></div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button class="btn button-green-free btn-lg">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+
+        <div class="col-md-3">
+            <div class="box-promo">
+                <h3>Let’s become Kimi Premium Merchant</h3>
+                <p>Premium Merchant menyediakan berbagai fitur istimewa untuk meningkatkan penjualan Anda.</p>
+                <ul>
+                    <li>Badge Premium Seller</li>
+                    <li>Full Statistik Business</li>
+                    <li>50% tambahan promosi di berbagai channel ads</li>
+                    <li>Premium Support</li>
+                </ul>
+                <div class="maya-small-padding"></div>
+
+                <button class="btn btn-block button button-outline">Join Premium Merchant</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--include footer-->
+<div class="include-footer"></div>
+
+
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+
+<!--kimi basic js-->
+<script src="js/kimi.js"></script>
+
+</body>
+</html>

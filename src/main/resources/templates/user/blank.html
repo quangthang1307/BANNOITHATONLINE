@@ -1,15 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <div data-th-insert="~{include/style.html}"></div>
-</head>
 
-<body>
-
-    <div data-th-insert="~{include/navbar.html}"></div>
-
-    <title>Login</title>
+    <title>Blank Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -18,25 +13,35 @@
 
 
     <![endif]-->
+</head>
+
+<body>
+
+    <div data-th-insert="~{include/navbar.html}"></div>
 
 <div class="container">
 
     <div class="kimi-container">
         <!--breadcrumb start-->
         <ol class="breadcrumb hidden-xs">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Search Result</a></li>
+            <li><a href="#">Cart</a></li>
+            <li class="active">Payment Method</li>
         </ol>
+
+        <div class="clearfix"></div>
+
 
         <div class="row">
             <div class="col-md-12">
-                <form action="search.html">
-                    <input type="text" name="q" id="tipue_search_input" class="searchbox-search-result" placeholder="search anything. Try Kimi">
-                </form>
-                <div id="tipue_search_content"></div>
+
+                <div class="row">
+                    <div class="box-bg-white col-md-12 col-xs-12">
+                        <h3 class="section-title">Blank Page</h3>
+
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
 </div><!-- /.container -->
@@ -52,15 +57,8 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="./js/bootstrap.min.js"></script>
 
-
-<!--tipuesearch-->
-<script src="js/tipusearch/tipuesearch_content.js"></script>
-<script src="js/tipusearch/tipuesearch_set.js"></script>
-<script src="js/tipusearch/tipuesearch.js"></script>
-
 <!--kimi basic js-->
 <script src="js/kimi.js"></script>
-
 
 </body>
 </html>

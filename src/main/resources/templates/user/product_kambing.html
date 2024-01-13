@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div data-th-insert="~{include/style.html}"></div>
+
+    <title>Back to Kimi</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/kimi.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div data-th-insert="~{include/navbar.html}"></div>
+
+<div class="container kimi-container">
+    <ol class="breadcrumb hidden-xs">
+        <li>Home</li>
+        <li><a href="channelDetail.html">Sucicakes</a></li>
+        <li><a href="#">Sosis Solo Sucicakes</a></li>
+    </ol>
+</div>
+
+
+<div class="container" style="background: white; padding-bottom: 50px;">
+    <div class="col-md-6">
+        <!--carousel-->
+        <div id="main_area">
+            <!-- Slider -->
+            <div class="row" style="margin-top: 25px;">
+
+                <div class="col-sm-9 less-padding">
+                    <div class="col-xs-12 less-padding" id="slider">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-12" id="carousel-bounding-box">
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        <div class="active item" data-slide-number="0">
+                                            <img src="images/sosisSolo_carousel.jpg">
+                                        </div>
+
+                                        <div class="item" data-slide-number="1">
+                                            <img src="images/sosisSolo_carousel_2.jpg">
+                                        </div>
+
+                                    </div>
+                                    <!-- Carousel nav -->
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/Slider-->
+
+                <div class="col-sm-3" id="slider-thumbs">
+                    <a class="thumbnail" id="carousel-selector-0">
+                        <img src="images/sosisSolo_carousel.jpg">
+                    </a>
+
+                    <a class="thumbnail" id="carousel-selector-1">
+                        <img src="images/sosisSolo_carousel_2.jpg">
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+        <!--carousel ends-->
+    </div>
+
+    <div class="col-md-6" style="position: relative;">
+        <div class="bookmarked"><img src="images/bookmarked.png" width="86"> </div>
+        <h1>Sosis Solo Sucicakes</h1>
+
+        <div class="row">
+            <div class="col-md-10">
+                <a href="channelDetail.html" class="text-secondary"><h4>By Sucicakes</h4></a>
+                <h4>Location: Kebon Jeruk, Jakarta Barat</h4>
+            </div>
+            <div class="col-md-2"><img src="images/halal.png" width="60"> </div>
+        </div>
+
+
+        <p class="product-description">Cemilan tradisional dari daerah Jawa, berisi irisan ayam berbumbu tradisional, dibalut dan digoreng dengan telur, sangat menggugah selera. Cocok untuk acara keluarga, meeting, dan moment lainnya. Bahan - bahan yang kami gunakan sangat terjaga kualitas dan kebersihannya.</p>
+        <p class="product-description">Min-order: 10 pcs</p>
+
+        <div class="product-detail-tag-container">
+            <button class="btn outline-white-button">Healty</button>
+            <button class="btn outline-white-button">Tradisional</button>
+            <button class="btn outline-white-button">Cemilan Ringan</button>
+            <button class="btn outline-white-button">Side Dish</button>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Rp 4.000</h3>
+            </div>
+            <div class="col-md-6" style="padding-top: 18px;">
+                <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Quantity</p>
+                <form class="form-inline product-detail-form">
+                    <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
+                    <div class="form-group pull-left">
+                        <input type="number" class="form-control number-input" id="" placeholder="10" style="width: 60px; border: none; font-weight: bold; font-size: 20px;">
+                    </div>
+                    <div class="form-group"><button class="btn btn-default">+</button></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="product-detail-action-button-container">
+            <button onclick="location.href='shoppingCart.html'" class="btn button-add-to-bag" style="margin-right: 10px;">Add to Bag</button>
+            <button class="btn btn-default button-black button-learn-more" id="bookmarkButton">Set Favourite</button>
+            <button class="btn btn-default button-black button-learn-more" id="deleteBookmarkButton" style="display: none;">Delete Favourite</button>
+        </div>
+
+
+    </div>
+</div><!-- /.container -->
+
+<div class="container" style="background: white; padding-bottom: 50px;">
+    <h2 class="text-center">Sosis Solo</h2>
+    <hr class="hr-short">
+
+    <div class="col-md-8 col-md-offset-2">
+        <p class="helvetica-18 text-center">Sosis Solo has been known as the specialty snack from Solo, is made of chopped beef combined with spices wrapped in a thin egg crepes. It’s similar with rissoles but has different kind of filling. Some people said that sosis solo get influenced by sausage roll (Dutch food). </p>
+        <img src="images/sosisSolo_landscape.jpg" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+
+        <p class="helvetica-18 text-center">The story comes when the colonial came to Indonesia, they ate sausage roll which has minced beef inside wrap with pastry. Because it’s difficult for local people to get sausage roll and of course it’s expensive as well then they come with their creativity try to make food that is similar with sausage roll. They change pastry with the mixture of flour, egg and water. They still used minced beef for the filling but in a simple way and using small amount to reduce the cost. And the most important is the taste be adapted to our local taste. And since that time sosis solo becoming popular. You could easily find it in the market.</p>
+    </div>
+</div>
+
+
+<div class="container" style="background: white; padding-bottom: 50px;">
+    <h2 class="text-center">Complete your Dish</h2>
+    <hr class="hr-short">
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="images/nasi_bakar_ayam_woku_2.jpg" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Nasi Bakar Ayam Woku</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
+                        <span class="min-order">5 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4" data-behavior="sample_code">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <!--<img src="https://res.cloudinary.com/kimithemes/image/upload/c_thumb,g_center,h_600,q_auto:best,w_600/v1506066842/risotto_ri5sle.jpg" alt="risotto lemon">-->
+                <img src="images/risotto_square.jpg" alt="risotto lemon">
+            </a>
+            <div class="caption box">
+                <h3>Lemon Risotto</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <!--<img src="http://res.cloudinary.com/kimithemes/image/upload/c_thumb,h_480,w_480/v1506069881/IMG_20161004_075006_v8yiq2.jpg" alt="sosis solo">-->
+                <img src="images/sosisSolo.jpg" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Sosis Solo Sucicakes</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 4.500 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!--include footer-->
+<div class="include-footer"></div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+
+
+
+<script>
+    jQuery(document).ready(function($) {
+
+        // bookmark
+        $('.bookmarked').hide();
+
+
+        $('#bookmarkButton').on('click', function () {
+            $('.bookmarked').fadeIn(200);
+            $('#bookmarkButton').hide();
+            $('#deleteBookmarkButton').show();
+        });
+
+
+
+        // Delete bookmark
+
+        $('#deleteBookmarkButton').on('click', function () {
+            $('.bookmarked').fadeOut(200);
+            $('#bookmarkButton').show();
+            $('#deleteBookmarkButton').hide();
+        });
+
+
+        $('#myCarousel').carousel({
+            interval: 5000
+        });
+
+        //Handles the carousel thumbnails
+        $('[id^=carousel-selector-]').click(function () {
+            var id_selector = $(this).attr("id");
+            try {
+                var id = /-(\d+)$/.exec(id_selector)[1];
+                console.log(id_selector, id);
+                jQuery('#myCarousel').carousel(parseInt(id));
+            } catch (e) {
+                console.log('Regex failed!', e);
+            }
+        });
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+            var id = $('.item.active').data('slide-number');
+            $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+    });
+</script>
+
+<!--kimi basic js-->
+<script src="js/kimi.js"></script>
+
+</body>
+</html>
