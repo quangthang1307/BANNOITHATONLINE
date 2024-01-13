@@ -1,0 +1,16 @@
+package poly.edu.Responsitory;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import poly.edu.entity.Cart;
+
+public interface CartResponsitory extends JpaRepository<Cart, Integer> {
+    @Query(value="SELECT * FROM Cart WHERE CustomerID = ?", nativeQuery = true)
+    List<Cart> findByCustomerId(Integer customerId);
+
+    
+    @Query(value="DELETE FROM Cart WHERE CustomerID = ?", nativeQuery = true)
+    public void deleteAllByCustomerId2(Integer customerId);
+}
