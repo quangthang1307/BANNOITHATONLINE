@@ -13,9 +13,9 @@ app.controller("CartController", function ($scope, $http) {
     console.log($scope.listCart);
 
     $scope.checkboxClicked = function (cart) {
-      var index = $scope.listCartId.indexOf(cart.cartId);
+        var index = $scope.listCartId.findIndex(item => item.cartId === cart.cartId);
       if (index === -1) {
-        $scope.listCartId.push(cart.cartId);
+        $scope.listCartId.push(cart);
       } else {
         $scope.listCartId.splice(index, 1);
       }
