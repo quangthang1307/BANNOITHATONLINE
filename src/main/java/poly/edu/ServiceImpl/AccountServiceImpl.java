@@ -1,11 +1,11 @@
-package poly.edu.servicesimpl;
+package poly.edu.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import poly.edu.Service.AccountService;
 import poly.edu.entity.Account;
 import poly.edu.repository.AccountRepository;
-import poly.edu.services.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService{
