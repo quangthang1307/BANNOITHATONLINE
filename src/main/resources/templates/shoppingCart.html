@@ -213,18 +213,18 @@
                         <div class="col-md-5 col-xs-12">
                             <span>Brownies Chocolate</span><br/>
                             <p class="text-gray-3 text-thin">Sucicakes</p>
-                            <p class="section-title">IDR 50.000</p>
+                            <p class="section-title">{{cart.product.pricexuat | currency:'VND ':0}}</p>
                             <button class="btn btn-default outline-default-button outline-small-default-button">Remove</button>
                         </div>
 
                         <div class="col-md-3 col-xs-7">
                             <p>Quantity</p>
                             <form class="form-inline">
-                                <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
+                                <div class="form-group pull-left"><button class="btn btn-default" ng-click="downQuantityProduct(cart)">-</button></div>
                                 <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" placeholder="1" style="width: 60px;">
+                                    <input type="number" class="form-control number-input" id="" ng-model="cart.quantity" style="width: 60px;">
                                 </div>
-                                <div class="form-group"><button class="btn btn-default">+</button></div>
+                                <div class="form-group"><button class="btn btn-default" ng-click="upQuantityProduct(cart)">+</button></div>
                             </form>
                         </div>
                         <div class="col-md-2 col-xs-5">
