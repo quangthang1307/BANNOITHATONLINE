@@ -208,21 +208,21 @@
                         </div>
                         
                         <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="images/brownies.jpg" width="100%">
+                            <img ng-src="{{cart.imageUrl}}" width="100%" class="img-thumbnail">
                         </div>
-                        <div class="col-md-5 col-xs-12">
-                            <span>Brownies Chocolate</span><br/>
+                        <div class="col-md-3 col-xs-12">
+                            <span>{{cart.product.productname}}</span><br/>
                             <p class="text-gray-3 text-thin">Sucicakes</p>
                             <p class="section-title">{{cart.product.pricexuat | currency:'VND ':0}}</p>
                             <button class="btn btn-default outline-default-button outline-small-default-button" ng-click="deleteProduct(cart)">Remove</button>
                         </div>
 
-                        <div class="col-md-3 col-xs-7">
-                            <p>Quantity</p>
+                        <div class="col-md-4 col-xs-7">
+                            <p>Số lượng</p>
                             <form class="form-inline">
                                 <div class="form-group pull-left"><button class="btn btn-default" ng-click="downQuantityProduct(cart)">-</button></div>
                                 <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" ng-model="cart.quantity" style="width: 60px;">
+                                    <input type="text" class="form-control number-input" id="" ng-model="cart.quantity" style="width: 60px;">
                                 </div>
                                 <div class="form-group"><button class="btn btn-default" ng-click="upQuantityProduct(cart)">+</button></div>
                             </form>
@@ -232,7 +232,6 @@
                             <p class="text-right section-title">IDR 50.000</p>
                         </div>
                     </div>
-                    <hr>
                 </div>
 
                 <a href="checkout1.html" class="btn btn-default pull-right button-black">Continue to checkout</a>
