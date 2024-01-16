@@ -1,7 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="bannoithatonline">
 <head>
-    <div data-th-insert="~{include/style.html}"></div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kimi is a curated foods and beverages artisans.">
+    <meta name="author" content="Johnson Chandra, Allysa Prabandani, Philipus Herlambang, Maya Editorial">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+
+    <meta name="twitter:card" content="summary">
+    <meta name="title" content="Back to Kimi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="en-id">
+
+
+    <!-- open graph metadata facebook, slack, whatsapp line -->
+    <meta property="fb:app_id" content="150112802189143"/>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Back to Kimi" />
+    <meta property='og:site_name' content='Kimi | Curated Foods and Beverages' />
+    <meta property="og:url" content="http://kimistatic.s3-website-ap-southeast-1.amazonaws.com/" />
+    <meta property="og:description" content="Kimi is a curated foods and beverages artisans." />
+    <meta property='og:image' content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png" />
+
+
+    <!-- open graph metadata twitter -->
+    <meta name="twitter:title" content="Back to Kimi">
+    <meta name="twitter:url" content="http://www.backtokimi.com">
+    <meta name="twitter:description" content="Kimi is a curated foods and beverages artisans.">
+    <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
+    <meta name="twitter:site" content="@backtokimi">
+
+
+    <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
 
     <title>Shopping Cart</title>
 
@@ -18,7 +53,33 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 
 
-    <div data-th-insert="~{include/navbar.html}"></div>
+    <div class="container-fluid hidden-xs">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <button class="pull-left search-button" id="buttonOpenSearchbar"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <button class="pull-left search-button" id="buttonCloseSearchbar" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+                <div id="searchbar" style="display: none;">
+                    <div>
+                        <div class="top-nav-searchbar">
+                            <div class="input-group">
+                                <form action="search.html">
+                                    <input class="form-control" type="text" name="q" id="tipue_search_input" placeholder="Search for" autofocus="autofocus">
+                                </form>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                </div>
+                <p class="help-text hidden-sm hidden-md" id="helpText">Find any troubles? Drop us an email at <a href="mailto:grow@backtokimi.com" class="text-secondary">grow@backtokimi.com</a> </p>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <p class="text-center logo-container"><a href="index.html"><img src="images/logo.png" width="100"></a></p>
+            </div>
+            <div class="col-md-4 less-padding-right">
+                <a href="registerMerchant.html" class="btn pull-right button-green-top-nav">Be Kimi Merchant</a>
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid" style="background: white;">
         <div class="navbar-header pull-left">
@@ -124,28 +185,36 @@
 
 
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="kimi-container">
-        <!--breadcrumb start-->
-        <ol class="breadcrumb hidden-xs">
-            <li><a href="index.html">Home</a></li>
-            <li>Cart</li>
-            <li>Customer Information</li>
-            <li>Shipping Mehtod</li>
-            <li>Payment Method</li>
-        </ol>
+        
 
 
         <div class="row">
             <div class="col-md-8">
-                <h3 class="section-title">Shopping Cart</h3>
-                <h3 class="section-title"><button ng-click="selectAll()">Chọn tất cả</button></h3>
-                <h3 class="section-title"><button>Xóa tất cả</button></h3>
-                <div class="box-bg-white col-md-12"  ng-repeat="cart in listCart">                   
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="section-title" style="font-size: 25px;"><strong>Giỏ hàng của bạn</strong></h3>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <h3 class="section-title">
+                            <button ng-click="selectAll()" class="btn btn-primary">Chọn tất cả</button>
+                            <button class="btn btn-danger" ng-click="deleteAll()">Xóa tất cả</button>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3" ng-if="listCart.length === 0">
+                    <div class="alert alert-info" role="alert">
+                        Giỏ hàng của bạn hiện tại chưa có sản phẩm.
+                    </div>
+                    <a class="btn btn-danger" href="index">Thêm sản phẩm</a>
+                </div>
+                <div class="box-bg-white col-md-12"  ng-repeat="cart in listCart">
                     <div class="row">
                         <div class="col-md-1 col-xs-2">
-                            <input type="checkbox" ng-model="cart.isSelected" ng-click="checkboxClicked(cart)" style="margin:40%;margin-top:150%;transform: scale(1.5);" />
+                            <input type="checkbox" ng-model="cart.isSelected" ng-click="checkboxClicked(cart)" style="margin:40%;margin-top:140%;transform: scale(1.5);" />
                         </div>
                         
                         <div class="col-md-2 col-xs-6 less-padding-right">
@@ -154,7 +223,7 @@
                         <div class="col-md-3 col-xs-12">
                             <span>{{cart.product.productname}}</span><br/>
                             <p class="text-gray-3 text-thin">Sucicakes</p>
-                            <p class="section-title">{{cart.product.pricexuat | currency:'VND ':0}}</p>
+                            <p class="section-title">{{cart.product.pricexuat |  currency:'':0}} VND</p>
                             <button class="btn btn-default outline-default-button outline-small-default-button" ng-click="deleteProduct(cart)">Remove</button>
                         </div>
 
@@ -169,30 +238,33 @@
                             </form>
                         </div>
                         <div class="col-md-2 col-xs-5">
-                            <p class="text-right">Subtotal</p>
-                            <p class="text-right section-title">{{ cart.product.pricexuat * cart.quantity | currency:'VND ':0}}</p>
+                            <p class="text-right">Tổng</p>
+                            <p class="text-right section-title">{{ cart.product.pricexuat * cart.quantity |  currency:'':0}} VND</p>
                         </div>
                     </div>
                 </div>
 
-                <a href="checkout1.html" class="btn btn-default pull-right button-black">Continue to checkout</a>
+                
                 <div class="clearfix maya-small-padding"></div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4">
                 <div class="box-bg-white">
                     <div class="clearfix maya-small-padding"></div>
-                    <h3 class="text-right text-oswald">Need Help ? </h3>
-                    <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call or write question by email</p>
+                    <h3 class="text-left text-oswald">Tổng tiền toàn bộ giỏ hàng : {{ totalAmount | currency:'':0}} VND</h3>
+                    <h3 class="text-left text-oswald">Tổng tiền sẽ thanh toán : {{ selectedTotalAmount | currency:'':0}} VND</h3>
+                    <p class="text-right text-gray-3 text-medium text-thin"></p>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
+                            <p class="text-gray-2 text-thin"><br></p>
                         </div>
                         <div class="col-md-6">
-                            <p class="text-right">+62 21 567898765<br><a class="text-black text-underline" href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
+                            <p class="text-right"><br><a class="text-black text-underline" href="mailto: info@backtokimi.com"></a></p>
                         </div>
                     </div>
+                    <div class="clearfix maya-small-padding"></div>
+                    <a href="checkout1.html" class="btn btn-default pull-right button-black">Tiến hành thanh toán</a>
                     <div class="clearfix maya-small-padding"></div>
                 </div>
             </div>

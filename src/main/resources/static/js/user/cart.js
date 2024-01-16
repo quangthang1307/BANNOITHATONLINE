@@ -6,6 +6,7 @@ const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
 const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostCustomerId = "http://localhost:8080/rest/customer";
+const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 
 app.controller("CartController", function ($scope, $http, $window) {
   $scope.listCart = [];
@@ -13,7 +14,6 @@ app.controller("CartController", function ($scope, $http, $window) {
 
   //Gọi customerId khi login thành công
   // const hostCustomerId = "http://localhost:8080/rest/customer";
-  
 
   //Lấy thông tin khách hàng
   var getCustomer = localStorage.getItem("customerId");
@@ -37,7 +37,29 @@ app.controller("CartController", function ($scope, $http, $window) {
         });
       });
 
-      console.log($scope.listCart);
+      //Tổng tiền toàn bộ giỏ hàng
+      $scope.calculateTotalAmount();
+      $scope.calculateSelectedTotalAmount();
+    });
+  };
+
+  $scope.calculateTotalAmount = function () {
+    $scope.totalAmount = 0;
+
+    $scope.listCart.forEach(function (cartItem) {
+      var productPrice = cartItem.product.pricexuat;
+      var quantity = cartItem.quantity;
+      $scope.totalAmount += productPrice * quantity;
+    });
+  };
+
+  $scope.calculateSelectedTotalAmount = function () {
+    $scope.selectedTotalAmount = 0;
+
+    $scope.listCartId.forEach(function (cartItem) {
+      var productPrice = cartItem.product.pricexuat;
+      var quantity = cartItem.quantity;
+      $scope.selectedTotalAmount += productPrice * quantity;
     });
   };
 
@@ -52,6 +74,9 @@ app.controller("CartController", function ($scope, $http, $window) {
     }
     console.log("Checkbox clicked for cart with ID:", cart.cartId);
     console.log($scope.listCartId);
+
+    $scope.calculateSelectedTotalAmount();
+    console.log($scope.selectedTotalAmount);
   };
 
   $scope.upQuantityProduct = function (cart) {
@@ -59,6 +84,8 @@ app.controller("CartController", function ($scope, $http, $window) {
     $http.put(urlUpQuantityProduct).then((resp) => {
       // $scope.loadCart();
       cart.quantity++;
+      $scope.calculateTotalAmount();
+      $scope.calculateSelectedTotalAmount();
     });
   };
 
@@ -68,6 +95,8 @@ app.controller("CartController", function ($scope, $http, $window) {
       .put(urlUpQuantityProduct)
       .then((resp) => {
         cart.quantity--;
+        $scope.calculateTotalAmount();
+        $scope.calculateSelectedTotalAmount();
       })
       .catch((err) => {
         Swal.fire({
@@ -107,6 +136,8 @@ app.controller("CartController", function ($scope, $http, $window) {
       if (result.isConfirmed) {
         $http.delete(urlDeleteProduct).then(() => {
           $scope.loadCart();
+          $scope.calculateTotalAmount();
+          $scope.calculateSelectedTotalAmount();
         });
         Swal.fire(
           "Đã xóa!",
@@ -126,9 +157,65 @@ app.controller("CartController", function ($scope, $http, $window) {
         break;
       }
     }
-    // Nếu tất cả đã được chọn, hủy chọn tất cả; ngược lại, chọn tất cả
     for (var j = 0; j < $scope.listCart.length; j++) {
       $scope.listCart[j].isSelected = !allSelected;
+      if ($scope.listCart[j].isSelected) {
+        if (
+          !$scope.listCartId.some(
+            (item) => item.cartId === $scope.listCart[j].cartId
+          )
+        ) {
+          $scope.listCartId.push($scope.listCart[j]);
+          $scope.calculateSelectedTotalAmount();
+        }
+      } else {
+        $scope.listCartId = $scope.listCartId.filter(
+          (item) => item.cartId !== $scope.listCart[j].cartId
+        );
+        $scope.calculateSelectedTotalAmount();
+      }
+    }
+  };
+
+  $scope.deleteAll = function () {
+    var urlDeleteAllProduct = `${hostDeleteAllProductInCart}/${customer.customerId}`;
+
+    if ($scope.listCart.length > 0) {
+      Swal.fire({
+        title: "Bạn có chắc muốn xóa không?",
+        text: "Hành động này sẽ xóa vĩnh viễn dữ liệu!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy bỏ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http.delete(urlDeleteAllProduct).then((response) => {
+            $scope.loadCart();
+            $scope.calculateTotalAmount();
+            $scope.calculateSelectedTotalAmount();
+            Swal.fire(
+              "Đã xóa!",
+              "Tất cả sản phẩm đã được xóa khỏi giỏ hàng.",
+              "Thành công"
+            );
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title:
+          "Bạn chưa có sản phẩm trong giỏ hàng, tiến hành mua thêm sản phẩm nhé ?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Thêm sản phẩm",
+        cancelButtonText: "Hủy bỏ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $window.location.href = "/index";
+        }
+      });
     }
   };
 
