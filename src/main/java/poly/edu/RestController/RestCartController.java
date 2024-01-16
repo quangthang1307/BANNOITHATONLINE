@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.edu.Responsitory.CartResponsitory;
 import poly.edu.Service.CartService;
 import poly.edu.entity.Cart;
+import poly.edu.repository.CartRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -28,7 +28,7 @@ public class RestCartController {
     CartService cartService;
 
     @Autowired
-    CartResponsitory cartResponsitory;
+    CartRepository cartResponsitory;
 
     @GetMapping("/rest/showCart/{customerId}")
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {

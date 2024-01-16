@@ -1,4 +1,4 @@
-var app = angular.module('productApp', []);
+var app = angular.module('bannoithatonline', []);
 const host = "http://localhost:8080/rest/product";
 
 app.controller('productController', function ($scope, $http) {
