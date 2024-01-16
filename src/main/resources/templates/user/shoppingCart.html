@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+<html lang="en" ng-app="bannoithatonline">
 <head>
     <div data-th-insert="~{include/style.html}"></div>
 
@@ -15,7 +15,113 @@
 
 <body ng-controller="CartController">
 
+<nav class="navbar navbar-default navbar-fixed-top">
+
+
     <div data-th-insert="~{include/navbar.html}"></div>
+
+    <div class="container-fluid" style="background: white;">
+        <div class="navbar-header pull-left">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar icon-short"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar icon-medium"></span>
+            </button>
+        </div>
+        <div class="visible-xs logo-center">
+            <p class="text-center logo-container visible-xs"><a href="index.html"><img src="images/logo.png" width="90"></a></p>
+        </div>
+        <div class="visible-xs pull-right">
+            <button class="pull-left search-button-mobile" id="buttonOpenSearchbarMobile"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="fly-searchbar" style="display: none;">
+            <div class="top-nav-searchbar searchbar-mobile">
+                <div class="input-group">
+                    <form action="search.html">
+                        <input class="form-control" type="text" name="q" id="tipue_search_input" placeholder="Search for" autofocus="autofocus">
+                    </form>
+                    <button class="pull-right" id="buttonCloseSearchbarMobile"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Sho</a></li>
+                <li><a href="#">Articles</a></li>
+                <li><a href="#">How to Order</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Location <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Jakarta Barat</a></li>
+                        <li><a href="#">Jakarta Selatan</a></li>
+                        <li><a href="#">Jakarta Pusat</a></li>
+                        <li><a href="#">Jakarta Utara</a></li>
+                        <li><a href="#">Jakarta Timur</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Depok</a></li>
+                        <li><a href="#">Tangerang</a></li>
+                    </ul>
+                </li>
+                <li><a href="questions.html">FAQs</a></li>
+                <li><a href="about.html">About Kimi</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="chefDirectory.html">Chef Directory</a></li>
+                <li><a href="login.html">Login / Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart (2)</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="cart-flyout">
+                                <h4 class="text-oswald">Recently Added Product(s)</h4>
+                                <div class="row">
+                                    <div class="col-sm-2 col-xs-3 less-padding">
+                                        <img src="images/brownies.jpg" width="100%">
+                                    </div>
+                                    <div class="col-sm-8 col-xs-9">
+                                        <span class="text-gray-1">Brownies Chocolate</span>
+                                        <p class="text-gray-2">1 x 50.000</p>
+                                    </div>
+                                    <!--<div class="col-sm-2">-->
+                                    <!--<button><i class="fa fa-times-circle" aria-hidden="true"></i></button>-->
+                                    <!--</div>-->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2 col-xs-3 less-padding">
+                                        <img src="images/lapisSurabaya.jpg" width="100%">
+                                    </div>
+                                    <div class="col-sm-8 col-xs-9">
+                                        <span class="text-gray-1">Lapis Surabaya</span>
+                                        <p class="text-gray-2">1 x 175.000</p>
+                                    </div>
+
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-6 less-padding"><h4><small>Total</small><br><span>IDR 225.000</span></h4></div>
+                                    <div class="col-sm-6 col-xs-6 less-padding">
+                                        <a href="checkout2.html" class="button-green-top-nav btn pull-right btn-block text-oswald text-uppercase">View Cart</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
 
 
 <div class="container">
@@ -34,38 +140,39 @@
         <div class="row">
             <div class="col-md-8">
                 <h3 class="section-title">Shopping Cart</h3>
+                <h3 class="section-title"><button ng-click="selectAll()">Chọn tất cả</button></h3>
+                <h3 class="section-title"><button>Xóa tất cả</button></h3>
                 <div class="box-bg-white col-md-12"  ng-repeat="cart in listCart">                   
                     <div class="row">
                         <div class="col-md-1 col-xs-2">
-                            <input type="checkbox" ng-click="checkboxClicked(cart)" style="margin:40%;margin-top:150%;transform: scale(1.5);" />
+                            <input type="checkbox" ng-model="cart.isSelected" ng-click="checkboxClicked(cart)" style="margin:40%;margin-top:150%;transform: scale(1.5);" />
                         </div>
                         
                         <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="images/brownies.jpg" width="100%">
+                            <img ng-src="{{cart.imageUrl}}" width="100%" class="img-thumbnail">
                         </div>
-                        <div class="col-md-5 col-xs-12">
-                            <span>Brownies Chocolate</span><br/>
+                        <div class="col-md-3 col-xs-12">
+                            <span>{{cart.product.productname}}</span><br/>
                             <p class="text-gray-3 text-thin">Sucicakes</p>
                             <p class="section-title">{{cart.product.pricexuat | currency:'VND ':0}}</p>
                             <button class="btn btn-default outline-default-button outline-small-default-button" ng-click="deleteProduct(cart)">Remove</button>
                         </div>
 
-                        <div class="col-md-3 col-xs-7">
-                            <p>Quantity</p>
+                        <div class="col-md-4 col-xs-7">
+                            <p>Số lượng</p>
                             <form class="form-inline">
                                 <div class="form-group pull-left"><button class="btn btn-default" ng-click="downQuantityProduct(cart)">-</button></div>
                                 <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" ng-model="cart.quantity" style="width: 60px;">
+                                    <input type="text" class="form-control number-input" id="" ng-model="cart.quantity" style="width: 60px;">
                                 </div>
                                 <div class="form-group"><button class="btn btn-default" ng-click="upQuantityProduct(cart)">+</button></div>
                             </form>
                         </div>
                         <div class="col-md-2 col-xs-5">
                             <p class="text-right">Subtotal</p>
-                            <p class="text-right section-title">IDR 50.000</p>
+                            <p class="text-right section-title">{{ cart.product.pricexuat * cart.quantity | currency:'VND ':0}}</p>
                         </div>
                     </div>
-                    <hr>
                 </div>
 
                 <a href="checkout1.html" class="btn btn-default pull-right button-black">Continue to checkout</a>
