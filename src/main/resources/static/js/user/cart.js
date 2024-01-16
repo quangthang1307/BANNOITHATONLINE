@@ -13,10 +13,7 @@ app.controller("CartController", function ($scope, $http, $window) {
 
   //Gọi customerId khi login thành công
   // const hostCustomerId = "http://localhost:8080/rest/customer";
-  $http.get(hostCustomerId).then(function (response) {
-    $scope.customer = response.data;
-    $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
-  });
+  
 
   //Lấy thông tin khách hàng
   var getCustomer = localStorage.getItem("customerId");
