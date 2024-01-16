@@ -8,14 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import poly.edu.Responsitory.CartResponsitory;
 import poly.edu.Service.CartService;
 import poly.edu.entity.Cart;
+import poly.edu.repository.CartRepository;
 
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
-    private CartResponsitory cartRepository;
+    private CartRepository cartRepository;
 
     @Override
     public List<Cart> findAll() {

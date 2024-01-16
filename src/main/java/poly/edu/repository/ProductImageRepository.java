@@ -1,4 +1,4 @@
-package poly.edu.Responsitory;
+package poly.edu.repository;
 
 import java.util.List;
 
