@@ -28,19 +28,40 @@ public class CustomerRestController {
     public ResponseEntity<Customer> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        if(username != null){
+        try {
             Account account = accountRepository.findByUsername(username);
-            if(account != null){
+            if (account != null) {
                 Customer customer = customerRepository.getCustomerID(account.getAccountId());
                 return ResponseEntity.ok(customer);
-            }
-        }else{
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof CustomerOauth2User) {
-                        CustomerOauth2User customerOauth2User = (CustomerOauth2User) principal;
-                        System.out.println("Logged in user details: " + customerOauth2User.getAttributes());
+            } else {
+                Object principal = authentication.getPrincipal();
+                if (principal instanceof CustomerOauth2User) {
+                    CustomerOauth2User customerOauth2User = (CustomerOauth2User) principal;
+
+                    String email = customerOauth2User.getAttribute("email");
+                    String id = customerOauth2User.getAttribute("id");
+                    Account Oauth2Account = accountRepository.findByUsername(id);
+                    if (Oauth2Account != null) {
+                        Customer customer = customerRepository.getCustomerID(Oauth2Account.getAccountId());
+                        return ResponseEntity.ok(customer);
+                    } else {
+                        Account newAccount = new Account();
+                        newAccount.setUsername(id);
+                        newAccount.setEmail(email);
+                        newAccount.setActive(true);
+                        accountRepository.save(newAccount);
+
+                        Customer newCustomer = new Customer();
+                        newCustomer.setAccount(newAccount);
+                        customerRepository.save(newCustomer);
+                        return ResponseEntity.ok(newCustomer);
                     }
+                }
+            }
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
+
         System.out.println("Logged in user: " + username);
         return ResponseEntity.notFound().build();
     }
