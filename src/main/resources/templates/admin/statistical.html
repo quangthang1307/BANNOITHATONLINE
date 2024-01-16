@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<div data-th-insert="~{include/styleadmin.html}"></div>
+
+<title>Statistical</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/kimi.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+	<div data-th-insert="~{include/navbaradmin.html}"></div>
+
+	<div class="container-fluid kimi-container">
+		<ol class="breadcrumb hidden-xs">
+			<li><a href="index.html">Home</a></li>
+			<li><a href="channelDashboard.html">Channel Dashboard</a></li>
+			<li>Channel Edit</li>
+		</ol>
+	</div>
+	<div class="container-fluid"
+		style="padding-bottom: 50px; padding-top: 20px;">
+		<div class="row">
+			<div class="col-md-3">
+				<ul class="nav nav-pills nav-stacked nav-stacked-kimi">
+					<li role="presentation"><a href="/admin/statistical">Statistical</a></li>
+					<li role="presentation"><a href="changePassword.html">Change
+							Password</a></li>
+					<li role="presentation"><a href="resetPassword.html">Reset
+							Password</a></li>
+					<li role="presentation"><a href="/admin/brands">Brands</a></li>
+					<li role="presentation"><a href="plan.html">Subscription</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!--include footer-->
+	<div class="include-footer"></div>
+
+
+	<script src="./js/jquery.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+	</script>
+	<script src="./js/bootstrap.min.js"></script>
+
+	<!--kimi basic js-->
+	<script src="js/kimi.js"></script>
+</body>
+</html>
