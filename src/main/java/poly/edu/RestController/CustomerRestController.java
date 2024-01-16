@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.entity.Account;
 import poly.edu.entity.Customer;
+import poly.edu.oauth2.CustomerOauth2User;
 import poly.edu.repository.AccountRepository;
 import poly.edu.repository.CustomerRepository;
 
@@ -33,8 +34,15 @@ public class CustomerRestController {
                 Customer customer = customerRepository.getCustomerID(account.getAccountId());
                 return ResponseEntity.ok(customer);
             }
+        }else{
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof CustomerOauth2User) {
+                        CustomerOauth2User customerOauth2User = (CustomerOauth2User) principal;
+                        System.out.println("Logged in user details: " + customerOauth2User.getAttributes());
+                    }
         }
         System.out.println("Logged in user: " + username);
         return ResponseEntity.notFound().build();
     }
+
 }
