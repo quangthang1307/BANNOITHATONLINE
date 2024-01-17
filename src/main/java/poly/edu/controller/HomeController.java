@@ -20,4 +20,9 @@ public class HomeController {
 	public String showProductdetail() {
 		return "productDetail";
 	}
+
+	@RequestMapping("/checkout")
+	public String showpayment() {
+		return "user/checkout1";
+	}
 }
