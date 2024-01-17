@@ -1,4 +1,4 @@
-package poly.edu.Responsitory;
+package poly.edu.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import poly.edu.entity.Cart;
 
-public interface CartResponsitory extends JpaRepository<Cart, Integer> {
+public interface CartRepository extends JpaRepository<Cart, Integer> {
     @Query(value="SELECT * FROM Cart WHERE CustomerID = ?", nativeQuery = true)
     List<Cart> findByCustomerId(Integer customerId);
 
