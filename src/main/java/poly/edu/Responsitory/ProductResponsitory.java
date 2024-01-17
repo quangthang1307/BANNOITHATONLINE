@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import poly.edu.entity.Product;
 
 public interface ProductResponsitory extends JpaRepository<Product, Integer>{
-    @Query(value="SELECT * FROM Product WHERE Productactivate = 1", nativeQuery = true)
-    List<Product> findAllProducts();
+    // @Query(value="SELECT * FROM Product WHERE Productactivate = 1", nativeQuery = true)
+    // List<Product> findAllProducts();
+
 }
