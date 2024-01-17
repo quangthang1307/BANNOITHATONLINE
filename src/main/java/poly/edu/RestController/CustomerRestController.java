@@ -1,5 +1,7 @@
 package poly.edu.RestController;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -37,8 +39,7 @@ public class CustomerRestController {
                 OidcUser oidcUser = (OidcUser) oauthToken.getPrincipal();
                 String email = oidcUser.getAttribute("email");
                 Account Oauth2GoogleAccount = accountRepository.findByUsername(email);
-                if (Oauth2GoogleAccount != null) {
-                    System.out.println(authentication);
+                if (Oauth2GoogleAccount != null) {                    
                     Customer customer = customerRepository.getCustomerID(Oauth2GoogleAccount.getAccountId());
                     return ResponseEntity.ok(customer);
                 } else {
@@ -46,6 +47,7 @@ public class CustomerRestController {
                     newAccount.setUsername(email);
                     newAccount.setEmail(email);
                     newAccount.setActive(true);
+                    newAccount.setPassword(generateRandomString());
                     accountRepository.save(newAccount);
 
                     Customer newCustomer = new Customer();
@@ -58,7 +60,6 @@ public class CustomerRestController {
         try {
             Account account = accountRepository.findByUsername(username);
             if (account != null) {
-                System.out.println(authentication);
                 Customer customer = customerRepository.getCustomerID(account.getAccountId());
                 return ResponseEntity.ok(customer);
             } else {
@@ -68,7 +69,7 @@ public class CustomerRestController {
                     CustomerOauth2User customerOauth2User = (CustomerOauth2User) principal;
 
                     String email = customerOauth2User.getAttribute("email");
-                    String id = customerOauth2User.getAttribute("id");
+                    // String id = customerOauth2User.getAttribute("id");
                     Account Oauth2Account = accountRepository.findByUsername(email);
                     if (Oauth2Account != null) {
                         System.out.println(authentication);
@@ -79,6 +80,7 @@ public class CustomerRestController {
                         newAccount.setUsername(email);
                         newAccount.setEmail(email);
                         newAccount.setActive(true);
+                        newAccount.setPassword(generateRandomString());
                         accountRepository.save(newAccount);
 
                         Customer newCustomer = new Customer();
@@ -94,6 +96,36 @@ public class CustomerRestController {
 
         // System.out.println("Logged in user: " + username);
         return ResponseEntity.notFound().build();
+    }
+
+
+    public static String generateRandomString() {
+        // Ký tự từ 'a' đến 'z'
+        String lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+        // Ký tự từ 'A' đến 'Z'
+        String uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        // Số từ 0 đến 9
+        String numericChars = "0123456789";
+
+        // Kết hợp các ký tự để tạo ra chuỗi ký tự hoa và số
+        String allChars = lowercaseChars + uppercaseChars + numericChars;
+
+        Random random = new Random();
+        StringBuilder randomString = new StringBuilder();
+
+        // Thêm ít nhất 1 ký tự hoa
+        randomString.append(uppercaseChars.charAt(random.nextInt(uppercaseChars.length())));
+
+        // Thêm ít nhất 1 số
+        randomString.append(numericChars.charAt(random.nextInt(numericChars.length())));
+
+        // Thêm các ký tự ngẫu nhiên cho đến khi độ dài là từ 8 đến 12
+        int randomLength = random.nextInt(5) + 8; // Ngẫu nhiên từ 8 đến 12
+        for (int i = 2; i < randomLength; i++) {
+            randomString.append(allChars.charAt(random.nextInt(allChars.length())));
+        }
+
+        return randomString.toString();
     }
 
 }
