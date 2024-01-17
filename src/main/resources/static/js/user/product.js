@@ -20,14 +20,17 @@ app.controller('productController', function ($scope, $http) {
 
     $scope.getData = function () {
 
-        var apiUrl = host+'?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage; 
+        var apiUrl = host + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage;
 
         $http.get(apiUrl)
             .then(function (response) {
+
                 $scope.products = response.data.content;
                 console.log($scope.products);
+
                 $scope.totalItems = response.data.totalElements;
                 console.log($scope.totalItems);
+
                 $scope.totalPages = parseInt(response.data.totalPages, 10);
                 console.log($scope.totalPages);
 
@@ -53,11 +56,11 @@ app.controller('productController', function ($scope, $http) {
     }
 
     $scope.clickById = function (productId) {
-        var url = `${host}/${productId}`;
-        console.log(productId);
+        var url = host + '/' + productId;
+        console.log(url);
         $http.get(url)
             .then(resp => {
-                $scope.form = resp.data;
+
                 console.log("Success", resp.data);
                 // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
                 localStorage.setItem('productById', JSON.stringify(resp.data));
@@ -73,4 +76,11 @@ app.controller('productController', function ($scope, $http) {
 
     // Load data for the first time
     $scope.getData();
+});
+
+app.controller('productDetailController', function ($scope, $http) {
+
+    $scope.prodcuctdetail = JSON.parse(localStorage.getItem('productById'));
+
+    console.log("ProductDetail", $scope.prodcuctdetail);
 });

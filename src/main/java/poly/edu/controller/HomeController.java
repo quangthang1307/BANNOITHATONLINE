@@ -26,4 +26,9 @@ public class HomeController {
 	public String showProductDetail(@PathVariable Integer productid) {
 		return "user/productDetail";
 	}
+
+	// 	@RequestMapping("/productdetail")
+	// public String showProductDetail() {
+	// 	return "user/productDetail";
+	// }
 }

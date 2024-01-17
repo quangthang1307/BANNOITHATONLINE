@@ -112,7 +112,7 @@
             </div>
 
             <div class="col-sm-6 col-md-4" data-behavior="sample_code" ng-repeat="product in products">
-                <a ng-click="clickById(product.productid)" class="thumbnail_item thumbnail less-padding less-margin">
+                <a href="productdetail/{{product.productid}}" ng-click="clickById(product.productid)" class="thumbnail_item thumbnail less-padding less-margin">
                     <img src="images/risotto_square.jpg" alt="risotto lemon">
                 </a>
                 <div class="caption box">
@@ -246,7 +246,7 @@
                   <span>Total Pages: {{ totalPages }}</span>
                   <nav aria-label="Page navigation">
                     <ul class="pagination">
-                        <li ng-repeat="page in numberArray()" ng-if="page !== undefined" ng-class="{'active' : currentPage === page}" class="">
+                        <li ng-repeat="page in numberArray()" ng-if="page !== undefined"  ng-class="{'active' : currentPage === page} ">
                             <a href="#" ng-click="goToPage(page)">{{ page }}</a>
                         </li>
                     </ul>
