@@ -222,6 +222,7 @@
                                         </label>
                                     </div>
                                 </form>
+                                <a  ng-click="submitOrder()" ><button class="btn btn-primary" id="vnpay" ng-disabled="isButtonDisabled">Thanh toán với VNPay</button></a>
                                 <a href="shoppingcart.html" class="text-gray-1"><i class="fa fa-angle-left"
                                         aria-hidden="true"></i> Shopping Cart</a>
                                 <a href="checkout2.html"
@@ -262,7 +263,7 @@
                         <form style="margin-left: 10%;margin-right: 10%;">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-12" ><input type="text" class="form-control" id="discountInput"
+                                    <div class="col-md-12"><input type="text" class="form-control" id="discountInput"
                                             placeholder="Nhập mã giảm giá ?" ng-model-options="{ debounce: 1500 }"
                                             ng-model="discountCode" ng-change="discount()" ng-click="checkClear()">
                                     </div>
