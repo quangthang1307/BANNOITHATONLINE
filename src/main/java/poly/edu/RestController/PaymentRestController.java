@@ -26,19 +26,11 @@ public class PaymentRestController {
 
     @PostMapping("/rest/vnpay")
     public ResponseEntity<PaymentResponse> submitOrder(@RequestBody Map<String, Object> requestBody, HttpServletRequest request) {
-        // Lấy giá trị từ JSON
+        
         int orderTotal = (int) requestBody.get("amount");
         String orderInfo = (String) requestBody.get("orderInfo");
-
-        // Xử lý logic khác nếu cần thiết
-
-        // Tạo URL dựa trên request
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        
-        // Gọi service để tạo đơn hàng và nhận URL từ VNPayService
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-
-        // Trả về redirect URL
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", vnpayUrl);
 
@@ -66,9 +58,10 @@ public class PaymentRestController {
 
         HttpStatus httpStatus = (paymentStatus == 1) ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 
+        System.out.println(responseJson);
+
         if(paymentStatus == 1) {
-            PaymentResponse response = new PaymentResponse(httpStatus.toString(), "Order created successfully");
-            System.out.println(response);
+            PaymentResponse response = new PaymentResponse(responseJson.toString(), "Order created successfully");
             return ResponseEntity.ok(response);
         }else{
             return ResponseEntity.badRequest().build();

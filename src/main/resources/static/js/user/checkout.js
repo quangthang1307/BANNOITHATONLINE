@@ -105,6 +105,21 @@ app.controller(
     };
 
 
+    // Lấy URL hiện tại
+// var currentUrl = window.location.href;
+// var checkoutIndex = currentUrl.indexOf("checkout?");
+// if (checkoutIndex !== -1) {
+//     var queryParams = currentUrl.substring(checkoutIndex + "checkout?".length);
+//     var decodedParams = decodeURIComponent(queryParams);
+//     console.log(decodedParams);
+// } else {
+//     console.log("Không tìm thấy chuỗi 'checkout?' trong URL");
+// }
+
+    
+  
+
+
     console.log(showListProduct);
   }
 );
