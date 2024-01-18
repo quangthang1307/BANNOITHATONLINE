@@ -222,11 +222,18 @@
                                         </label>
                                     </div>
                                 </form>
-                                <a  ng-click="submitOrder()" ><button class="btn btn-primary" id="vnpay" ng-disabled="isButtonDisabled">Thanh toán với VNPay</button></a>
+                                <select id="paymentMethod" ng-model="selectedPaymentMethod" ng-change="onPaymentMethodChange()">
+                                    <option value="" disabled selected>Hãy chọn phương thức thanh toán</option>
+                                    <option value="offline">Thanh toán khi nhận hàng</option>
+                                    <option value="vnpay">VNPay</option>
+                                    <option value="momo">Momo</option>
+                                    <!-- Các option khác -->
+                                  </select>
+                               
                                 <a href="shoppingcart.html" class="text-gray-1"><i class="fa fa-angle-left"
                                         aria-hidden="true"></i> Shopping Cart</a>
-                                <a href="checkout2.html"
-                                    class="btn btn-default pull-right button-black hidden-xs">Continue to Shipping</a>
+                                <a ng-click="continuePayment()"
+                                    class="btn btn-default pull-right button-black hidden-xs">Tiếp tục thanh toán</a>
                                 <a href="checkout2.html"
                                     class="btn btn-default pull-right button-black visible-xs">Shipping <i
                                         class="fa fa-angle-right" aria-hidden="true"></i></a>

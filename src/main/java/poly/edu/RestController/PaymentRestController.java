@@ -40,7 +40,7 @@ public class PaymentRestController {
     }
 
     @GetMapping("/vnpay-payment")
-    public ResponseEntity<PaymentResponse> getPayment(HttpServletRequest request) {
+    public ResponseEntity<?> getPayment(HttpServletRequest request) {
         int paymentStatus = vnPayService.orderReturn(request);
 
         String orderInfo = request.getParameter("vnp_OrderInfo");
@@ -62,9 +62,10 @@ public class PaymentRestController {
 
         if(paymentStatus == 1) {
             PaymentResponse response = new PaymentResponse(responseJson.toString(), "Order created successfully");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(responseJson);
         }else{
-            return ResponseEntity.badRequest().build();
+            PaymentResponse response = new PaymentResponse(responseJson.toString(), "Order created failed");
+            return new ResponseEntity<>(responseJson, HttpStatus.BAD_REQUEST);
         }
 
         

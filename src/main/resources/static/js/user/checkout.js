@@ -97,9 +97,7 @@ app.controller(
 
       // Gửi POST request đến endpoint
       var urlVNPay = `${hostSubmitOder}`;
-      console.log(urlVNPay);
       $http.post(urlVNPay, data).then((resp) => {
-        console.log(resp.data);
         window.location.href = resp.data.vnpayUrl;
       });
     };
@@ -116,8 +114,20 @@ app.controller(
 //     console.log("Không tìm thấy chuỗi 'checkout?' trong URL");
 // }
 
-    
-  
+$scope.onPaymentMethodChange = function () {
+  console.log('Người dùng đã chọn: ' + $scope.selectedPaymentMethod);
+};
+
+$scope.continuePayment = function () {
+  var optionPayment = $scope.selectedPaymentMethod;
+  console.log(optionPayment);
+  if(optionPayment == 'vnpay'){
+    $scope.submitOrder();
+  }
+
+
+};  
+
 
 
     console.log(showListProduct);
