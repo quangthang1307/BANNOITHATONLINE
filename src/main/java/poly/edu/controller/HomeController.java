@@ -1,12 +1,14 @@
 package poly.edu.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 public class HomeController {
-	
+
 	@RequestMapping("/index")
 	public String index() {
 		return "user/index";
@@ -22,13 +24,25 @@ public class HomeController {
 		return "user/products";
 	}
 
+	@RequestMapping("/logout")
+	public String showLogout() {
+		return "login";
+	}
+
 	@RequestMapping("/productdetail/{productid}")
 	public String showProductDetail(@PathVariable Integer productid) {
 		return "user/productDetail";
 	}
 
-	// 	@RequestMapping("/productdetail")
+	// @RequestMapping("/productdetail")
 	// public String showProductDetail() {
-	// 	return "user/productDetail";
+	// return "user/productDetail";
 	// }
+	@RequestMapping("/checkout")
+	public String showpayment() {
+		return "user/checkout1";
+	}
+
+
+	
 }

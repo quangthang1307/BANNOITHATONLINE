@@ -46,6 +46,23 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+.custom-popup-class {
+  width: 400px; /* Đặt chiều rộng mong muốn */
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: space-between; /* Đặt khoảng trống giữa icon và title */
+}
+
+.custom-title-class {
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+
+
+</style>
+
 </head>
 
 <body ng-controller="CartController">
@@ -264,7 +281,7 @@
                         </div>
                     </div>
                     <div class="clearfix maya-small-padding"></div>
-                    <a href="checkout1.html" class="btn btn-default pull-right button-black">Tiến hành thanh toán</a>
+                    <a ng-click="PaymentAction()" class="btn btn-default pull-right button-black">Tiến hành thanh toán</a>
                     <div class="clearfix maya-small-padding"></div>
                 </div>
             </div>

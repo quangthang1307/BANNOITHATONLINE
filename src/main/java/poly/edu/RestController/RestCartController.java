@@ -100,4 +100,16 @@ public class RestCartController {
         }
     }
 
+    @GetMapping("/rest/cart/{customerId}/{productId}")
+    public Boolean checkCart(@PathVariable Integer customerId, @PathVariable Integer productId){
+        Optional<Cart> cart = cartResponsitory.findByCustomer_CustomerIdAndProduct_ProductID(customerId, productId);
+        if(cart.isPresent()){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+    }
+
 }
