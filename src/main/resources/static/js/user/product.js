@@ -11,6 +11,11 @@ const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 app.controller("productController", function ($scope, $http, $window) {
 
     $scope.listCart = [];
+    // Gán CustomerId người dùng
+    $http.get(hostCustomerId).then(function (response) {
+        $scope.customer = response.data;
+        $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
+      });
 
     // $http.get('/rest/product')
     // .then(function (response) {
@@ -85,7 +90,7 @@ app.controller("productController", function ($scope, $http, $window) {
 
     // Load data for the first time
     $scope.getData();
-});
+
 
 app.controller('productDetailController', function ($scope, $http) {
 
@@ -170,6 +175,7 @@ app.controller('productDetailController', function ($scope, $http) {
     var getCustomer = localStorage.getItem("customerId");
     var customer = JSON.parse(getCustomer);
     console.log(customer);
+    
     var urlListCart = `${hostListCart}/${customer.customerId}`;
 
   $http.get(urlListCart).then((resp) => {
