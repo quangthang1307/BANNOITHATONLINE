@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+
 <head>
     <div data-th-insert="~{include/style.html}"></div>
 
@@ -10,6 +10,9 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="css/kimi.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -17,307 +20,327 @@
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
-<div class="container">
+    <div class="container-fluid" ng-controller="checkoutController">
 
-    <div class="kimi-container">
-        <!--breadcrumb start-->
-        <ol class="breadcrumb hidden-xs">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shoppingCart.html">Cart</a></li>
-            <li>Customer Information</li>
-            <li>Shipping Mehtod</li>
-            <li>Payment Method</li>
-        </ol>
-        <div class="clearfix"></div>
+        <div class="kimi-container">
+            <!--breadcrumb start-->
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shoppingCart.html">Cart</a></li>
+                <li>Customer Information</li>
+                <li>Shipping Mehtod</li>
+                <li>Payment Method</li>
+            </ol>
+            <div class="clearfix"></div>
 
-        <div class="box-bg-gray visible-xs less-padding-left">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <div class="box-bg-gray visible-xs less-padding-left">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 
-            <a style="margin-right: 15px;" class="text-black" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Show Order Summary <i class="fa fa-angle-down" aria-hidden="true"></i>
-            </a>
+                <a style="margin-right: 15px;" class="text-black" role="button" data-toggle="collapse"
+                    href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Show Order Summary <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
 
-            <strong class="pull-right">IDR 225.000</strong>
+                <strong class="pull-right">IDR 225.000</strong>
+
+                <div class="clearfix"></div>
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="box-bg-gray">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="images/brownies.jpg" width="100%">
+                                </div>
+                                <div class="col-xs-5">
+                                    <span>Brownies Chocolate</span><br />
+                                    <small>Sucicakes</small>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="text-right">IDR 50.000</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="images/lapisSurabaya.jpg" width="100%">
+                                </div>
+                                <div class="col-xs-5">
+                                    <span>Brownies Chocolate</span><br />
+                                    <small>Sucicakes</small>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="text-right">IDR 50.000</p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <form class="form-inline">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="" placeholder="Discount Code">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button type="submit" class="btn btn-default button-black-medium">Apply</button>
+                                </div>
+                            </form>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-xs-6">Subtotal</div>
+                                <div class="col-xs-6">
+                                    <p class="text-right"><strong>IDR 207.000</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6">Shipping + Trx Fee</div>
+                                <div class="col-xs-6">
+                                    <p class="text-right"><strong> - </strong></p>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="pull-left">Total</div>
+                            <div class="pull-right"><strong>IDR 232.000</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="clearfix"></div>
-            <div class="collapse" id="collapseExample">
-                <div class="row">
-                    <div class="box-bg-gray">
+
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="box-bg-white" style="width:100%">
+                        <h3 class="section-title">Customer Information <span class="text-right hidden-xs"><small>Already
+                                    have an account? <a href="login.html" class="text-secondary">Login</a>
+                                </small></span></h3>
+
                         <div class="row">
-                            <div class="col-xs-3">
-                                <img src="images/brownies.jpg" width="100%">
-                            </div>
-                            <div class="col-xs-5">
-                                <span>Brownies Chocolate</span><br/>
-                                <small>Sucicakes</small>
-                            </div>
-                            <div class="col-xs-4">
-                                <p class="text-right">IDR 50.000</p>
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Email">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Subscribe to our newsletter
+                                        </label>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
+
+
+                        <h3 class="section-title">Alamat Pengiriman</h3>
+
                         <div class="row">
-                            <div class="col-xs-3">
-                                <img src="images/lapisSurabaya.jpg" width="100%">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="" placeholder="Full Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id=""
+                                            placeholder="Nama Perusahaan (optional)">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="" placeholder="Address Line 1">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id=""
+                                                    placeholder="Address Line 1">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id=""
+                                                    placeholder="Address Line 1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-6">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-block"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Kota Administrasi <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Jakarta Barat</a></li>
+                                                    <li><a href="#">Jakarta Selatan</a></li>
+                                                    <li><a href="#">Jakarta Timur</a></li>
+                                                    <li><a href="#">Jakarta Pusat</a></li>
+                                                    <li><a href="#">Jakarta Utara</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Bekasi</a></li>
+                                                    <li><a href="#">Depok</a></li>
+                                                    <li><a href="#">Tangerang</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5 col-xs-6">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-block"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Kode Pos <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">11540</a></li>
+                                                    <li><a href="#">11530</a></li>
+                                                    <li><a href="#">11520</a></li>
+                                                    <li><a href="#">11510</a></li>
+                                                    <li><a href="#">11550</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix" style="margin-bottom: 15px;"></div>
+
+                                    <div class="form-group">
+                                        <input type="tel" class="form-control" id="" placeholder="Phone Number">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="" placeholder="Tambahan Keterangan">
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Save this information for next time
+                                        </label>
+                                    </div>
+                                </form>
+                                <select id="paymentMethod" ng-model="selectedPaymentMethod" ng-change="onPaymentMethodChange()" ng-options="paymentOption.paymentid as paymentOption.paymentname for paymentOption in paymentOptions">
+                                    <option value="" disabled selected>Hãy chọn phương thức thanh toán</option>
+                                </select>
+
+                                  
+                               
+                                <a href="shoppingcart.html" class="text-gray-1"><i class="fa fa-angle-left"
+                                        aria-hidden="true"></i> Shopping Cart</a>
+                                <a ng-click="continuePayment()"
+                                    class="btn btn-default pull-right button-black hidden-xs">Tiếp tục thanh toán</a>
+                                <a href="checkout2.html"
+                                    class="btn btn-default pull-right button-black visible-xs">Shipping <i
+                                        class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                <div class="clearfix maya-small-padding"></div>
                             </div>
-                            <div class="col-xs-5">
-                                <span>Brownies Chocolate</span><br/>
-                                <small>Sucicakes</small>
-                            </div>
-                            <div class="col-xs-4">
-                                <p class="text-right">IDR 50.000</p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-5">
+                    <div class="box-bg-white hidden-xs" style="width: 100%;">
+                        <div class="row" ng-repeat="payment in products">
+                            <div ng-repeat="product in payment.Product">
+                                <div class="col-md-2 col-xs-6 less-padding-right">
+                                    <img ng-src="{{product.imageUrl}}" width="100%">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <span>{{product.product.productname}}</span><br />
+                                    <span class="text-gray-2 text-thin">Số lượng : {{product.quantity}}</span>
+                                </div>
+                                <div class="col-md-4 col-xs-5">
+                                    <p class="text-right">{{product.product.pricexuat | currency : '' :0}} VND</p>
+                                </div>
+                                <div class="clearfix maya-small-padding"></div>
                             </div>
                         </div>
 
                         <hr>
 
-                        <form class="form-inline">
-                            <div class="col-xs-8">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Discount Code">
+                        <form style="margin-left: 10%;margin-right: 10%;">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12"><input type="text" class="form-control" id="discountInput"
+                                            placeholder="Nhập mã giảm giá ?" ng-model-options="{ debounce: 1500 }"
+                                            ng-model="discountCode" ng-change="discount()" ng-click="checkClear()">
+                                    </div>
+                                    <!-- <div class="col-sm-4"><button type="submit" class="btn btn-default button-black-medium btn-block" ng-click="discount()">Áp dụng</button></div> -->
                                 </div>
                             </div>
-                            <div class="col-xs-4">
-                                <button type="submit" class="btn btn-default button-black-medium">Apply</button>
-                            </div>
+
                         </form>
-                        <hr/>
+                        <hr />
 
                         <div class="row">
-                            <div class="col-xs-6">Subtotal</div>
-                            <div class="col-xs-6"><p class="text-right"><strong>IDR 207.000</strong></p></div>
+                            <div class="col-sm-8">Tổng tiền</div>
+                            <div class="col-sm-4 text-right">{{products[0].TotalPayment | currency : '' :0}} VND</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-6">Shipping + Trx Fee</div>
-                            <div class="col-xs-6"><p class="text-right"><strong> - </strong></p></div>
+                            <div class="col-sm-8 less">Tiền giảm giá: </div>
+                            <div class="col-sm-4 text-right">{{valueDiscountCode | currency : '' :0}} VND</div>
                         </div>
 
-                        <hr/>
 
-                        <div class="pull-left">Total</div>
-                        <div class="pull-right"><strong>IDR 232.000</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="row">
-            <div class="col-md-8">
-                <div class="box-bg-white">
-                    <h3 class="section-title">Customer Information <span class="text-right hidden-xs"><small>Already have an account? <a href="login.html" class="text-secondary">Login</a> </small></span></h3>
-
-                    <div class="row">
-                        <div class="col-md-9">
-                            <form>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Subscribe to our newsletter
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
-
-                    <h3 class="section-title">Alamat Pengiriman</h3>
-
-                    <div class="row">
-                        <div class="col-md-9">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Full Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Nama Perusahaan (optional)">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Address Line 1">
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="" placeholder="Address Line 1">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="" placeholder="Address Line 1">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5 col-xs-6">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Kota Administrasi <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Jakarta Barat</a></li>
-                                                <li><a href="#">Jakarta Selatan</a></li>
-                                                <li><a href="#">Jakarta Timur</a></li>
-                                                <li><a href="#">Jakarta Pusat</a></li>
-                                                <li><a href="#">Jakarta Utara</a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="#">Bekasi</a></li>
-                                                <li><a href="#">Depok</a></li>
-                                                <li><a href="#">Tangerang</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-5 col-xs-6">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Kode Pos <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">11540</a></li>
-                                                <li><a href="#">11530</a></li>
-                                                <li><a href="#">11520</a></li>
-                                                <li><a href="#">11510</a></li>
-                                                <li><a href="#">11550</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix" style="margin-bottom: 15px;"></div>
-
-                                <div class="form-group">
-                                    <input type="tel" class="form-control" id="" placeholder="Phone Number">
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Tambahan Keterangan">
-                                </div>
-
-                                <img src="images/map.png" width="100%">
-
-
-
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Save this information for next time
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <a href="shoppingcart.html" class="text-gray-1"><i class="fa fa-angle-left" aria-hidden="true"></i> Shopping Cart</a>
-                <a href="checkout2.html" class="btn btn-default pull-right button-black hidden-xs">Continue to Shipping</a>
-                <a href="checkout2.html" class="btn btn-default pull-right button-black visible-xs">Shipping <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                <div class="clearfix maya-small-padding"></div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="box-bg-white hidden-xs">
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="images/brownies.jpg" width="100%">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <span>Brownie Chocolate</span><br/>
-                            <span class="text-gray-2 text-thin">Sucicakes</span>
-                        </div>
-                        <div class="col-md-4 col-xs-5">
-                            <p class="text-right">IDR 50.000</p>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="images/lapisSurabaya.jpg" width="100%">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <span>Brownie Chocolate</span><br/>
-                            <span class="text-gray-2 text-thin">Sucicakes</span>
-                        </div>
-                        <div class="col-md-4 col-xs-5">
-                            <p class="text-right">IDR 50.000</p>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div>
-                    </div>
-
-                    <hr>
-
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-8"><input type="text" class="form-control" id="" placeholder="Discount Code"></div>
-                                <div class="col-sm-4"><button type="submit" class="btn btn-default button-black-medium btn-block">Apply</button></div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-4 less">Số tiền cần thanh toán</div>
+                            <div class="col-sm-8 text-right">
+                                <h3 class="less-margin">{{products[0].TotalPayment - valueDiscountCode | currency : ''
+                                    :0}} VND</h3>
                             </div>
                         </div>
-
-                    </form>
-                    <hr/>
-
-                    <div class="row">
-                        <div class="col-sm-8">Subtotal</div>
-                        <div class="col-sm-4 text-right">IDR 207.000</div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-sm-8 less">Shipping + Transaction Fee</div>
-                        <div class="col-sm-4 text-right">-</div>
-                    </div>
-
-
-                    <hr/>
-                    <div class="row">
-                        <div class="col-sm-4 less">Total</div>
-                        <div class="col-sm-8 text-right"><h3 class="less-margin"><small>IDR</small> 232.000</h3></div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
 
 
-                <div class="box-bg-white">
-                    <div class="clearfix maya-small-padding"></div>
-                    <h3 class="text-right text-oswald">Need Help ? </h3>
-                    <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call or write question by email</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
+                    <div class="box-bg-white" style="width: 100%;">
+                        <div class="clearfix maya-small-padding"></div>
+                        <h3 class="text-right text-oswald">Need Help ? </h3>
+                        <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call
+                            or write question by email</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-right">+62 21 567898765<br><a class="text-black text-underline"
+                                        href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <p class="text-right">+62 21 567898765<br><a class="text-black text-underline" href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
-                        </div>
+                        <div class="clearfix maya-small-padding"></div>
                     </div>
-                    <div class="clearfix maya-small-padding"></div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div><!-- /.container -->
+    </div><!-- /.container -->
 
-<!--include footer-->
-<div class="include-footer"></div>
+    <!--include footer-->
+    <div class="include-footer"></div>
 
 
-<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./js/bootstrap.min.js"></script>
 
-<!--kimi basic js-->
-<script src="js/kimi.js"></script>
+    <!--kimi basic js-->
+    <script src="js/kimi.js"></script>
+    <script src="js/user/checkout.js"></script>
 
 </body>
+
 </html>
