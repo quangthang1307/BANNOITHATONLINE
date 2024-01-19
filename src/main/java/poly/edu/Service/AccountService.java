@@ -8,4 +8,6 @@ public interface AccountService {
     Account findByUserName(String userName);
 
     Account saveAccount(Account account);
+
+    Account findByEmail(String email);
 }

@@ -1,6 +1,7 @@
 package poly.edu.RestController;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,13 @@ public class RestAccountController {
 
     @Autowired
     AccountService accountService;
+    
+    @PostMapping("/rest/user/forgotpassword")
+    public ResponseEntity<?> forgotPassWord(@RequestBody AccountDTO accountDTO){
+        Account checkEmail = accountService.findByEmail(accountDTO.getEmail());
+
+        return new ResponseEntity<>(Collections.singletonMap("message", "Mật khẩu đã được gửi vào email của bạn"), HttpStatus.OK);
+    }
 
     @PostMapping("/rest/user/sigup")
     public ResponseEntity<?> registerUser(@RequestBody AccountDTO accountDTO) {
