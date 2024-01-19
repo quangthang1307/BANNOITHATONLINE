@@ -8,8 +8,8 @@ public class StatisticalConTroller {
 	public String statistical() {
 		return "admin/statistical";
 	}
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin/statistical";
-	}
+	// @RequestMapping("/admin")
+	// public String admin() {
+	// 	return "admin/statistical";
+	// }
 }

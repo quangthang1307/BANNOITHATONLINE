@@ -11,6 +11,16 @@ public class HomeController {
 		return "user/index";
 	}
 
+	@RequestMapping("/admin/index")
+	public String showAdminindex() {
+		return "admin/index";
+	}
+
+	@RequestMapping("/admin")
+	public String Adminindex() {
+		return "redirect:/admin/index";
+	}
+
 	@RequestMapping("/login")
 	public String showLogin() {
 		return "login";
