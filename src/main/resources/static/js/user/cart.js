@@ -135,6 +135,16 @@ app.controller("CartController", function ($scope, $http, $window) {
     }).then((result) => {
       if (result.isConfirmed) {
         $http.delete(urlDeleteProduct).then(() => {
+
+          var indexToRemove = $scope.listCartId.findIndex(
+            (item) => item.cartId === cart.cartId
+          );
+  
+          if (indexToRemove !== -1) {
+            $scope.listCartId.splice(indexToRemove, 1);
+          }
+
+          
           $scope.loadCart();
           $scope.calculateTotalAmount();
           $scope.calculateSelectedTotalAmount();
