@@ -1,9 +1,5 @@
 package poly.edu.entity;
 
-
-
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,32 +16,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Transactions")
-public class Transaction {
+@Table(name = "Address")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transactionID")
-    private Integer transaction;
+    @Column(name = "AddressID")
+    private Integer addressID;
 
-    @Column(name = "Amount")
-    private Integer amount;
+    @Column(name = "Tinhthanhpho")
+    private String tinhthanhpho;
+
+    @Column(name = "Quanhuy")
+    private String quanhuy;
+    
+
+    @Column(name = "Phuongxa")
+    private String phuongxa;
 
 
-    @Column(name = "Status")
-    private String status;
+    @Column(name = "Sonha")
+    private String sonha;
 
-
-    @Column(name = "Date")
-    private LocalDateTime date;
-
-    @Column(name = "Message")
-    private String message;
-
-    @Column(name = "Bank")
-    private String bank;
+    @Column(name = "Duong")
+    private String duong;
 
     @ManyToOne
-    @JoinColumn(name = "OrderID")
-    private Order order;
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
     
 }

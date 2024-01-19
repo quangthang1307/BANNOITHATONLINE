@@ -222,13 +222,11 @@
                                         </label>
                                     </div>
                                 </form>
-                                <select id="paymentMethod" ng-model="selectedPaymentMethod" ng-change="onPaymentMethodChange()">
+                                <select id="paymentMethod" ng-model="selectedPaymentMethod" ng-change="onPaymentMethodChange()" ng-options="paymentOption.paymentid as paymentOption.paymentname for paymentOption in paymentOptions">
                                     <option value="" disabled selected>Hãy chọn phương thức thanh toán</option>
-                                    <option value="offline">Thanh toán khi nhận hàng</option>
-                                    <option value="vnpay">VNPay</option>
-                                    <option value="momo">Momo</option>
-                                    <!-- Các option khác -->
-                                  </select>
+                                </select>
+
+                                  
                                
                                 <a href="shoppingcart.html" class="text-gray-1"><i class="fa fa-angle-left"
                                         aria-hidden="true"></i> Shopping Cart</a>

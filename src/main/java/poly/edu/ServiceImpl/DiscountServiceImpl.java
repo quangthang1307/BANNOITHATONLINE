@@ -66,4 +66,9 @@ public class DiscountServiceImpl implements DiscountService {
 		discountRepository.deleteById(id);
 	}
 
+	@Override
+	public Discount findByCode(String code) {
+		return discountRepository.findName(code);
+	}
+
 }

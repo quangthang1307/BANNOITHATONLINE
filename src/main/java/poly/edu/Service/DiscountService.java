@@ -21,6 +21,7 @@ public interface DiscountService {
 	public Discount update(Discount accountRole) ;
 
 	public void delete(Integer id) ;
+	public Discount findByCode(String code);
 	
 	
 	Optional<Discount> findById(int id);
