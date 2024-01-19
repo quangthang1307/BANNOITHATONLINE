@@ -16,6 +16,11 @@ public class HomeController {
 		return "login";
 	}
 
+	@RequestMapping("/logout")
+	public String showLogout() {
+		return "login";
+	}
+
 	@RequestMapping("/productdetails")
 	public String showProductdetail() {
 		return "productDetail";

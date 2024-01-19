@@ -41,14 +41,16 @@ public class SecurityConfig {
 						.defaultSuccessUrl("/default", true)
 						.successHandler(new CustomAuthenticationSuccessHandler())
 						.failureUrl("/login?error=true"))
-
+						
 				// .oauth2Login().loginPage("/login").userInfoEndpoint().userService(oAuth2UserService);
 
 				.oauth2Login(oauth2 -> oauth2
 						.loginPage("/login")
 						.userInfoEndpoint().userService(oAuth2UserService)
 						.and()
-						.successHandler(new CustomAuthenticationSuccessHandler()));
+						.successHandler(new CustomAuthenticationSuccessHandler()))
+						.logout((logout) -> logout.permitAll());
+						
 
 		http.exceptionHandling().accessDeniedPage("/denied-page");
 		return http.build();
