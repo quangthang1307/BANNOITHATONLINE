@@ -2,6 +2,7 @@
 var app = angular.module('bannoithatonline', ['ui.bootstrap']);
 
 const host = "http://localhost:8080/rest/product";
+const hostCategory = "http://localhost:8080/rest/category";
 const hostCustomerId = "http://localhost:8080/rest/customer";
 
 app.controller('productController', function ($scope, $http, $window) {
@@ -10,7 +11,7 @@ app.controller('productController', function ($scope, $http, $window) {
     $http.get(hostCustomerId).then(function (response) {
         $scope.customer = response.data;
         $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
-      });
+    });
 
     // $http.get('/rest/product')
     // .then(function (response) {
@@ -55,6 +56,20 @@ app.controller('productController', function ($scope, $http, $window) {
         $scope.getData();
     };
 
+    $scope.next = function () {
+        if ($scope.totalPages == $scope.currentPage) return;
+        console.log('Next');
+        $scope.currentPage++;
+        $scope.getData();
+    };
+
+    $scope.back = function () {
+        if ($scope.currentPage == 1) return;
+        console.log('Back');
+        $scope.currentPage--;
+        $scope.getData();
+    };
+
 
     $scope.numberArray = function () {
         var result = [];
@@ -83,13 +98,36 @@ app.controller('productController', function ($scope, $http, $window) {
             });
     }
 
+    //Loc Sản Phẩm
+    $scope.getDataCategory = function () {
+
+        $scope.categorys = [];
+
+        $http.get(hostCategory)
+            .then(function (response) {
+                $scope.categorys = response.data;
+                console.log("Success", $scope.categorys);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching category:', error);
+            });
+    };
+
+    $scope.clickCategory = function (id) {
+        console.log("OK" + id)
+        var checkboxes = document.getElementById('categoryCheckbox'+id);
+        console.log(checkboxes.checked);
+    }
+
     // Load data for the first time
     $scope.getData();
+    $scope.getDataCategory();
 });
 
 app.controller('productDetailController', function ($scope, $http) {
 
-    $scope.prodcuctdetail = JSON.parse(localStorage.getItem('productById'));
+    $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
 
-    console.log("ProductDetail", $scope.prodcuctdetail);
+    console.log("ProductDetail", $scope.productdetail);
 });
