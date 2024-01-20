@@ -10,13 +10,16 @@ const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 
 app.controller("productController", function ($scope, $http, $window) {
 
-    $scope.listCart = [];
+    $scope.listCart = [];    
 
   // Gán CustomerId người dùng
-  $http.get(hostCustomerId).then(function (response) {
-    $scope.customer = response.data;
-    $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
-  });
+  function fetchCustomer() {
+    return $http.get(hostCustomerId)
+      .then(function (response) {
+        $scope.customer = response.data;
+        $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
+      });
+  }
 
 
   
@@ -49,6 +52,7 @@ app.controller("productController", function ($scope, $http, $window) {
             product.productid;
 
           $http.put(url);
+          $scope.loadCart();
           Swal.fire({
             title: "Thêm sản phẩm thành công !",
             text: "",
@@ -68,6 +72,7 @@ app.controller("productController", function ($scope, $http, $window) {
             quantity: 1,
           };
           $http.post(url, dataPost);
+          $scope.loadCart();
           Swal.fire({
             title: "Thêm sản phẩm thành công !",
             text: "",
@@ -86,26 +91,29 @@ app.controller("productController", function ($scope, $http, $window) {
 
 
   $scope.loadCart = function () {
-    var getCustomer = localStorage.getItem("customerId");
-    var customer = JSON.parse(getCustomer);
-    console.log(customer);
-    var urlListCart = `${hostListCart}/${customer.customerId}`;
-
-  $http.get(urlListCart).then((resp) => {
-    $scope.listCart = resp.data;
-    $scope.listCart.forEach((cart) => {
-      cart.isSelected = false;
-      var urlProduct = `${hostProductImage}/${cart.product.productid}`;
-      $http.get(urlProduct).then((respProduct) => {
-        cart.imageUrl = respProduct.data[0].image;
+    // Use the fetchCustomer function to ensure it completes before moving to the next step
+    fetchCustomer().then(function () {
+      var getCustomer = localStorage.getItem("customerId");
+      var customer = JSON.parse(getCustomer);
+      console.log(customer);
+      var urlListCart = `${hostListCart}/${customer.customerId}`;
+  
+      $http.get(urlListCart).then((resp) => {
+        $scope.listCart = resp.data;
+        $scope.listCart.forEach((cart) => {
+          cart.isSelected = false;
+          var urlProduct = `${hostProductImage}/${cart.product.productid}`;
+          $http.get(urlProduct).then((respProduct) => {
+            cart.imageUrl = respProduct.data[0].image;
+          });
+        });
+  
+        //Tổng tiền toàn bộ giỏ hàng
+        $scope.calculateTotalAmount();
+        //   $scope.calculateSelectedTotalAmount();
       });
     });
-
-    //Tổng tiền toàn bộ giỏ hàng
-      $scope.calculateTotalAmount();
-    //   $scope.calculateSelectedTotalAmount();
-  });
-};
+  };
 
 $scope.calculateTotalAmount = function () {
     $scope.totalAmount = 0;

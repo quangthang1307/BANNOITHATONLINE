@@ -1,5 +1,7 @@
 package poly.edu.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class PaymentController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
+        String vnp_TransactionStatus = request.getParameter("vnp_TransactionStatus");
+        System.out.println(vnp_TransactionStatus);
         
 
         return paymentStatus == 1 ? "ordersuccess" : "orderfail";
