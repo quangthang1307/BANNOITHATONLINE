@@ -142,6 +142,7 @@ app.controller(
         confirmButtonText: "Đồng ý",
         cancelButtonText: "Hủy bỏ",
       }).then((result) => {
+        if (result.isConfirmed) {
         // xóa sản phẩm thanh toán khỏi giỏ hàng
         var urlDelete = "http://localhost:8080/rest/deleteProductInCartByCustomerId";
         for (var i = 0; i < $scope.products.length; i++) {
@@ -159,7 +160,7 @@ app.controller(
           }
         }
 
-        if (result.isConfirmed) {
+
           if (optionPayment == "1") {
             if ($scope.valueDiscountCode > 0) {
               var url = `${host}/rest/discount/${$scope.discountCode}`;
