@@ -9,21 +9,28 @@ const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 
 app.controller("productController", function ($scope, $http, $window) {
-
-    $scope.listCart = [];    
+  $scope.listCart = [];
 
   // Gán CustomerId người dùng
   function fetchCustomer() {
-    return $http.get(hostCustomerId)
+    return $http
+      .get(hostCustomerId)
       .then(function (response) {
-        $scope.customer = response.data;
-        $window.localStorage.setItem("customerId", JSON.stringify($scope.customer));
+        // Kiểm tra xem request có thành công không
+        if (response && response.data) {
+          $scope.customer = response.data;
+          $window.localStorage.setItem(
+            "customerId",
+            JSON.stringify($scope.customer)
+          );
+        } else {
+          // Xử lý khi request không thành công hoặc không có dữ liệu 
+        }
+      })
+      .catch(function (error) {        
+        // console.error("Lỗi khi thực hiện request để lấy customerId:", error);       
       });
   }
-
-
-  
-
 
   $http
     .get("/rest/product")
@@ -36,6 +43,27 @@ app.controller("productController", function ($scope, $http, $window) {
     });
 
   $scope.addToCart = function (product) {
+    if ($scope.customer == null) {
+      Swal.fire({
+        title: "Bạn chưa có tài khoản",
+        text: "Cần đăng nhập hoặc đăng ký",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Đăng nhập",
+        cancelButtonText: "Đăng ký",
+        timer: 10000,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // Người dùng chọn "Đăng ký"
+          console.log("Đăng ký");
+        }
+      });
+
+      return;
+    }
+
     var urlCheckCart =
       "http://localhost:8080/rest/cart/" +
       $scope.customer.customerId +
@@ -87,35 +115,34 @@ app.controller("productController", function ($scope, $http, $window) {
       });
   };
 
-
-
-
   $scope.loadCart = function () {
     // Use the fetchCustomer function to ensure it completes before moving to the next step
     fetchCustomer().then(function () {
-      var getCustomer = localStorage.getItem("customerId");
-      var customer = JSON.parse(getCustomer);
-      console.log(customer);
-      var urlListCart = `${hostListCart}/${customer.customerId}`;
-  
-      $http.get(urlListCart).then((resp) => {
-        $scope.listCart = resp.data;
-        $scope.listCart.forEach((cart) => {
-          cart.isSelected = false;
-          var urlProduct = `${hostProductImage}/${cart.product.productid}`;
-          $http.get(urlProduct).then((respProduct) => {
-            cart.imageUrl = respProduct.data[0].image;
+      if (window.localStorage.getItem("customerId")) {
+        var getCustomer = localStorage.getItem("customerId");
+        var customer = JSON.parse(getCustomer);
+        console.log(customer);
+        var urlListCart = `${hostListCart}/${customer.customerId}`;
+
+        $http.get(urlListCart).then((resp) => {
+          $scope.listCart = resp.data;
+          $scope.listCart.forEach((cart) => {
+            cart.isSelected = false;
+            var urlProduct = `${hostProductImage}/${cart.product.productid}`;
+            $http.get(urlProduct).then((respProduct) => {
+              cart.imageUrl = respProduct.data[0].image;
+            });
           });
+
+          //Tổng tiền toàn bộ giỏ hàng
+          $scope.calculateTotalAmount();
+          //   $scope.calculateSelectedTotalAmount();
         });
-  
-        //Tổng tiền toàn bộ giỏ hàng
-        $scope.calculateTotalAmount();
-        //   $scope.calculateSelectedTotalAmount();
-      });
+      }
     });
   };
 
-$scope.calculateTotalAmount = function () {
+  $scope.calculateTotalAmount = function () {
     $scope.totalAmount = 0;
 
     $scope.listCart.forEach(function (cartItem) {
@@ -125,9 +152,6 @@ $scope.calculateTotalAmount = function () {
     });
   };
 
-// Call loadCart when the customer is loaded
-$scope.loadCart();
-
-
-
+  // Call loadCart when the customer is loaded
+  $scope.loadCart();
 });
