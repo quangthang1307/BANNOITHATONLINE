@@ -143,6 +143,11 @@ app.controller(
         cancelButtonText: "Hủy bỏ",
       }).then((result) => {
         if (result.isConfirmed) {
+
+          //kiểm tra discount có tồn tại hay không ?
+          console.log($scope.discountCode);
+
+
         // xóa sản phẩm thanh toán khỏi giỏ hàng
         var urlDelete = "http://localhost:8080/rest/deleteProductInCartByCustomerId";
         for (var i = 0; i < $scope.products.length; i++) {
@@ -206,7 +211,7 @@ app.controller(
               console.log(dataPost);
               $http.post(urlCreateOrder, dataPost).then((response) => {});
             }
-            $scope.submitOrderVNPay();
+            // $scope.submitOrderVNPay();
           }
         } else {
           console.log("Hủy bỏ");
@@ -256,6 +261,26 @@ app.controller(
     //       console.error('Error:', error);
     //   });
 
+
+
+
+
+    
+
+    $scope.loadInforCustomer = function(){
+      var getCustomer = localStorage.getItem("customerId");
+      var customer = JSON.parse(getCustomer);
+      console.log(customer);
+      $scope.fullname = customer.name;
+      $scope.phone = customer.phone;
+      $scope.email = customer.account.email;
+    }
+
+
+
+
+
+    $scope.loadInforCustomer();
     $scope.listOptionPayments();
 
     console.log(showListProduct);

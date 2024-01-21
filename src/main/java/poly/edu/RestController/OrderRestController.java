@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,9 @@ import poly.edu.Service.DiscountService;
 import poly.edu.Service.OrderService;
 import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
+import poly.edu.entity.DiscountUsage;
 import poly.edu.entity.Order;
+import poly.edu.repository.DiscountUsageRepository;
 import poly.edu.repository.OrderRepository;
 
 @CrossOrigin("*")
@@ -37,6 +40,9 @@ public class OrderRestController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    DiscountUsageRepository discountUsageRepository;
     
     
 
@@ -47,15 +53,21 @@ public class OrderRestController {
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
-                if(discount.isPresent()) {
-                    discount.get().setQuantityUsed(discount.get().getQuantityUsed()+1);
-                    discountService.update(discount.get());
+                List<DiscountUsage> usageList = discountUsageRepository.findAllByCustomerId(order.getCustomer().getCustomerId());                
+                if (usageList.size() < discount.get().getMaxUsage()) {
+                    if(discount.isPresent()) {
+                        discount.get().setQuantityUsed(discount.get().getQuantityUsed()+1);
+                        discountService.update(discount.get());
+                        DiscountUsage usage = new DiscountUsage();
+                        usage.setCustomer(order.getCustomer());
+                        usage.setDiscount(order.getDiscount());
+                        usage.setUseddate(LocalDateTime.now());                    
+                        discountUsageRepository.save(usage);  
+                    }                    
                 }
             }
 
         } catch (Exception e) {}
-        
-
         return new ResponseEntity<>(newOrder, HttpStatus.OK);
     }
 
@@ -64,8 +76,7 @@ public class OrderRestController {
         Optional<Cart> cart = cartService.findByCustomerAndProduct(customerId, productId);
         if(cart.isPresent()){
             cartService.delete(cart.get().getCartId());
-        }
-        
+        }        
         return ResponseEntity.noContent().build();
     }
 

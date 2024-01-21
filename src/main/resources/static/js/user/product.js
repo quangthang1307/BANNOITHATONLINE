@@ -73,13 +73,14 @@ app.controller("productController", function ($scope, $http, $window) {
       .get(urlCheckCart)
       .then(function (response) {
         if (response.data) {
+          
           var url =
             "http://localhost:8080/rest/cart/up/" +
             $scope.customer.customerId +
             "/" +
             product.productid;
 
-          $http.put(url);
+          $http.put(url, null, {params : { quantity: response.data.quantity + 1}});
           $scope.loadCart();
           Swal.fire({
             title: "Thêm sản phẩm thành công !",
@@ -88,8 +89,10 @@ app.controller("productController", function ($scope, $http, $window) {
             confirmButtonText: "OK",
             timer: 850,
           });
-        } else {
-          var url = "http://localhost:8080/rest/addToCart";
+        } 
+      })
+      .catch(function (error) {
+        var url = "http://localhost:8080/rest/addToCart";
           var dataPost = {
             customer: {
               customerId: $scope.customer.customerId,
@@ -108,10 +111,6 @@ app.controller("productController", function ($scope, $http, $window) {
             confirmButtonText: "OK",
             timer: 850,
           });
-        }
-      })
-      .catch(function (error) {
-        console.error("Error checking cart:", error);
       });
   };
 
