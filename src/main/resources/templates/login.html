@@ -58,20 +58,28 @@
                         </div>
                         <div class="clearfix maya-small-padding"></div>
 
-                        <form th:action="@{/login}" method="post">
+                        <form th:action="@{/login}" method="post" onsubmit="return validateForm()">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Tên đăng nhập" name="username">
+                                <span id="username-error" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="Mật khẩu" name="password">
+                                <span id="password-error" class="text-danger"></span>
                             </div>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox"> <span class="text-gray-2 helvetica-12">Ghi nhớ đăng nhập</span>
                                 </label>
                             </div>
+                        
+                            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                                Tên đăng nhập hoặc mật khẩu sai.
+                            </div>
+                        
                             <button type="submit" class="btn btn-block button-green-free btn-lg">Đăng nhập</button>
                         </form>
+
                         <div class="clearfix maya-tiny-padding"></div>
                         <p class="text-center">Chưa có tài khoản? <a th:href="@{/user/register}" class="text-secondary">Đăng ký</a></p>
 
@@ -98,6 +106,34 @@
 
 <!--kimi basic js-->
 <script src="js/kimi.js"></script>
+
+<script>
+    function validateForm() {
+        var username = document.getElementsByName('username')[0].value;
+        var password = document.getElementsByName('password')[0].value;
+        var usernameError = document.getElementById('username-error');
+        var passwordError = document.getElementById('password-error');
+
+        // Reset errors
+        usernameError.innerHTML = '';
+        passwordError.innerHTML = '';
+
+        // Validate username
+        if (username.trim() === '') {
+            usernameError.innerHTML = 'Vui lòng nhập tên đăng nhập.';
+            return false;
+        }
+
+        // Validate password
+        if (password.trim() === '') {
+            passwordError.innerHTML = 'Vui lòng nhập mật khẩu.';
+            return false;
+        }
+
+        // Continue with form submission if no errors
+        return true;
+    }
+</script>
 
 </body>
 </html>
