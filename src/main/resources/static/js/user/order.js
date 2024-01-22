@@ -36,7 +36,7 @@ app.controller("OrderController", function ($scope, $http) {
               orderDetailsResponse.data.forEach((orderDetail) => {
                 var urlProduct = `${host}/rest/products/${orderDetail.product.productid}`;
                 $http.get(urlProduct).then((productResponse) => {
-                  order.products.push({
+                  order.products.push({                    
                     name: productResponse.data[0].product.productname,
                     imageUrl: productResponse.data[0].image,
                   });

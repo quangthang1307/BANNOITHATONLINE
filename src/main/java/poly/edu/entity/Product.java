@@ -34,13 +34,13 @@ public class Product {
     private boolean productactivate;
 
     @Column(name = "Viewcount")
-    private int viewcount;
+    private Integer viewcount;
 
     @Column(name = "Createddate")
     private LocalDateTime createddate;
 
     @Column(name = "Pricenhap")
-    private double pricenhap;
+    private Double pricenhap;
 
     @Column(name = "Pricexuat")
     private double pricexuat;
