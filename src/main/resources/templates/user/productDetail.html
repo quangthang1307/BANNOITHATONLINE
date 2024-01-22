@@ -1,19 +1,26 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 <head>
     <div data-th-insert="~{include/style.html}"></div>
 
     <title>Back to Kimi</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/kimi.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/kimi.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 
 </head>
 
-<body>
+<body ng-controller="productDetailController">
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
@@ -42,11 +49,11 @@
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
                                         <div class="active item" data-slide-number="0">
-                                            <img src="images/sosisSolo_carousel.jpg">
+                                            <img src="../images/product/{{productdetail.productimages[0].image}}">
                                         </div>
 
                                         <div class="item" data-slide-number="1">
-                                            <img src="images/sosisSolo_carousel_2.jpg">
+                                            <img src="../images/product/{{productdetail.productimages[1].image}}">
                                         </div>
 
                                     </div>
@@ -66,11 +73,11 @@
 
                 <div class="col-sm-3" id="slider-thumbs">
                     <a class="thumbnail" id="carousel-selector-0">
-                        <img src="images/sosisSolo_carousel.jpg">
+                        <img src="../images/product/{{productdetail.productimages[0].image}}">
                     </a>
 
                     <a class="thumbnail" id="carousel-selector-1">
-                        <img src="images/sosisSolo_carousel_2.jpg">
+                        <img src="../images/product/{{productdetail.productimages[1].image}}">
                     </a>
 
                 </div>
@@ -81,15 +88,15 @@
     </div>
 
     <div class="col-md-6" style="position: relative;">
-        <div class="bookmarked"><img src="images/bookmarked.png" width="86"> </div>
-        <h1>Sosis Solo Sucicakes</h1>
+        <div class="bookmarked"><img src="../images/bookmarked.png" width="86"> </div>
+        <h1>{{productdetail.productname}}</h1>
 
         <div class="row">
             <div class="col-md-10">
                 <a href="channelDetail.html" class="text-secondary"><h4>By Sucicakes</h4></a>
                 <h4>Location: Kebon Jeruk, Jakarta Barat</h4>
             </div>
-            <div class="col-md-2"><img src="images/halal.png" width="60"> </div>
+            <div class="col-md-2"><img src="../images/halal.png" width="60"> </div>
         </div>
 
 
@@ -107,7 +114,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h3>Rp 4.000</h3>
+                <h3>{{productdetail.pricexuat}} VNĐ</h3>
             </div>
             <div class="col-md-6" style="padding-top: 18px;">
                 <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Quantity</p>
@@ -137,7 +144,7 @@
 
     <div class="col-md-8 col-md-offset-2">
         <p class="helvetica-18 text-center">Sosis Solo has been known as the specialty snack from Solo, is made of chopped beef combined with spices wrapped in a thin egg crepes. It’s similar with rissoles but has different kind of filling. Some people said that sosis solo get influenced by sausage roll (Dutch food). </p>
-        <img src="images/sosisSolo_landscape.jpg" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+        <img src="../images/sosisSolo_landscape.jpg" width="100%" class="maya-small-padding" style="margin: 30px 0;">
 
         <p class="helvetica-18 text-center">The story comes when the colonial came to Indonesia, they ate sausage roll which has minced beef inside wrap with pastry. Because it’s difficult for local people to get sausage roll and of course it’s expensive as well then they come with their creativity try to make food that is similar with sausage roll. They change pastry with the mixture of flour, egg and water. They still used minced beef for the filling but in a simple way and using small amount to reduce the cost. And the most important is the taste be adapted to our local taste. And since that time sosis solo becoming popular. You could easily find it in the market.</p>
     </div>
@@ -151,7 +158,7 @@
     <div class="row">
         <div class="col-sm-6 col-md-4">
             <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                <img src="images/nasi_bakar_ayam_woku_2.jpg" alt="sosis solo">
+                <img src="../images/nasi_bakar_ayam_woku_2.jpg" alt="sosis solo">
             </a>
             <div class="caption box">
                 <h3>Nasi Bakar Ayam Woku</h3>
@@ -171,7 +178,7 @@
         <div class="col-sm-6 col-md-4" data-behavior="sample_code">
             <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
                 <!--<img src="https://res.cloudinary.com/kimithemes/image/upload/c_thumb,g_center,h_600,q_auto:best,w_600/v1506066842/risotto_ri5sle.jpg" alt="risotto lemon">-->
-                <img src="images/risotto_square.jpg" alt="risotto lemon">
+                <img src="../images/risotto_square.jpg" alt="risotto lemon">
             </a>
             <div class="caption box">
                 <h3>Lemon Risotto</h3>
@@ -191,7 +198,7 @@
         <div class="col-sm-6 col-md-4">
             <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
                 <!--<img src="http://res.cloudinary.com/kimithemes/image/upload/c_thumb,h_480,w_480/v1506069881/IMG_20161004_075006_v8yiq2.jpg" alt="sosis solo">-->
-                <img src="images/sosisSolo.jpg" alt="sosis solo">
+                <img src="../images/sosisSolo.jpg" alt="sosis solo">
             </a>
             <div class="caption box">
                 <h3>Sosis Solo Sucicakes</h3>
@@ -215,15 +222,22 @@
 
 
 <!--include footer-->
-<div class="include-footer"></div>
+
+    <div data-th-insert="~{include/footer.html}"></div>
+
 
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+
+<!-- owl carousel -->
+<script src="../js/owl_carousel/owl.carousel.js"></script>
+
+<!--boostrap js-->
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 
 
 
@@ -275,7 +289,10 @@
 </script>
 
 <!--kimi basic js-->
-<script src="js/kimi.js"></script>
+<!-- <script src="../js/kimi.js"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+<script src="../js/user/product.js"></script>
 
 </body>
 </html>

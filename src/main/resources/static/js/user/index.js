@@ -8,7 +8,7 @@ const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 
-app.controller("productController", function ($scope, $http, $window) {
+app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
 
   // Gán CustomerId người dùng
@@ -35,7 +35,7 @@ app.controller("productController", function ($scope, $http, $window) {
   $http
     .get("/rest/product")
     .then(function (response) {
-      $scope.products = response.data;
+      $scope.products = response.data.content;
       console.log(response.data);
     })
     .catch(function (error) {

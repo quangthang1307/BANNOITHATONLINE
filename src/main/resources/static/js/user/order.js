@@ -32,12 +32,13 @@ app.controller("OrderController", function ($scope, $http) {
               params: { orderId: order.orderID },
             })
             .then((orderDetailsResponse) => {
+              console.log(orderDetailsResponse);
               // Iterate through each product in order details
               orderDetailsResponse.data.forEach((orderDetail) => {
                 var urlProduct = `${host}/rest/products/${orderDetail.product.productid}`;
                 $http.get(urlProduct).then((productResponse) => {
-                  order.products.push({                    
-                    name: productResponse.data[0].product.productname,
+                  order.products.push({
+                    name: orderDetail.product.productname,
                     imageUrl: productResponse.data[0].image,
                   });
                 });
@@ -68,8 +69,7 @@ app.controller("OrderController", function ($scope, $http) {
 
   // Button Xem chi tiết
   $scope.btnXemChiTiet = function (order) {
-    window.localStorage.setItem("orderDetails",JSON.stringify(order)); 
-    window.location.href = "/orderdetail";   
-    
+    window.localStorage.setItem("orderDetails", JSON.stringify(order));
+    window.location.href = "/orderdetail";
   };
 });
