@@ -1,8 +1,6 @@
 package poly.edu.entity;
 
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,23 +14,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Productimage")
-public class ProductImage {
+@Table(name = "Discountusage")
+public class DiscountUsage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer ID;
+    @Column(name = "UsageID")
+    private Integer usageID;
 
-    @Column(name = "Image")
-    private String image;
 
     @ManyToOne
-    @JoinColumn(name = "ProductID")
-    @JsonBackReference 
-    private Product product;
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "DiscountID")
+    private Discount discount;
+
+
+    @Column(name = "Useddate")
+    private LocalDateTime Useddate;
+
+    
+
 }
