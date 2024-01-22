@@ -29,8 +29,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
-    public Page<Product> findByCategory(Pageable pageable) {
-        return productResponsitory.findProductByCategory(pageable);
+    public Page<Product> findByCategory(Pageable pageable, Integer category) {
+        return productResponsitory.findProductByCategory(pageable, category);
     }
 
     // @Override

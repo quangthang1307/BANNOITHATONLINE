@@ -1,6 +1,7 @@
 var app = angular.module("bannoithatonline", []);
 const host = "http://localhost:8080/rest/product";
 const hostCategory = "http://localhost:8080/rest/category";
+const hostProductByCategory = "http://localhost:8080/rest/product/category";
 const hostCustomerId = "http://localhost:8080/rest/customer";
 const hostListCart = "http://localhost:8080/rest/showCart";
 const hostUpQuantityProduct = "http://localhost:8080/rest/cart/up";
@@ -156,13 +157,55 @@ app.controller("productController", function ($scope, $http, $window) {
             });
     };
 
+
     $scope.clickCategory = function (id) {
         console.log("OK" + id)
         var checkboxes = document.getElementById('categoryCheckbox' + id);
         console.log(checkboxes.checked);
+
+        if (checkboxes.checked === true) {
+
+            console.log($scope.products);
+            // const data = $scope.products;
+
+            // const updatedData = data.filter(product => product.category === id); 
+
+            // $scope.products = updatedData;
+            // console.log(updatedData);
+
+            var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + id;
+            console.log(apiUrl);
+            
+
+            $http.get(apiUrl)
+                .then(function (response) {
+
+                    // ProductByCategory.push( response.data.content);
+                    // console.log(ProductByCategory);
+                    console.log($scope.products);
+                    console.log(response.data);
+                    
+                    
+                    $scope.products.push($scope.products);
+                    console.log($scope.products);
+
+                    $scope.totalItems = response.data.totalElements;
+                    console.log($scope.totalItems);
+
+                    $scope.totalPages = parseInt(response.data.totalPages, 10);
+                    console.log($scope.totalPages);
+
+                })
+                .catch(function (error) {
+                    console.error('Error fetching products:', error);
+                });
+        }else{
+
+        }
+
     }
 
-   
+
 
 
     app.controller('productDetailController', function ($scope, $http) {
@@ -206,10 +249,10 @@ app.controller("productController", function ($scope, $http, $window) {
     // Call loadCart when the customer is loaded
     $scope.getCustomer();
     $scope.loadCart();
-     // Load data for the first time
-     $scope.getData();
-     $scope.getDataCategory();
-    
+    // Load data for the first time
+    $scope.getData();
+    $scope.getDataCategory();
+
 
 
 

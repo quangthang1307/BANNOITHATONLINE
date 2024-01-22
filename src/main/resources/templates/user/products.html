@@ -116,7 +116,7 @@
                             <h4 class="fw-bolder">BỘ LỌC:</h4>
                         </div>
                         <div class="dropdown col-md-3">
-                            <button class="btn btn-default dropdown-toggle  " type="button" id="dropdownMenu1"
+                            <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu1"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 DANH MỤC
                                 <span class="caret"></span>
@@ -125,8 +125,9 @@
                                 <li ng-repeat="category in categorys" style="margin: 10px;">
                                    
                                     <div class="form-check">
-                                        <input id="categoryCheckbox{{category.id}}" type="checkbox" ng-click="clickCategory(category.id)" class="form-check-input">
-                                        <label class="form-check-label ml-2">{{category.productname}}</label>
+                                        <!-- <input id="categoryCheckbox{{category.id}}" type="checkbox" ng-click="clickCategory(category.id)" class="form-check-input">
+                                        <label class="form-check-label ml-2">{{category.productname}}</label> -->
+                                        <a href="" ng-click="clickCategory(category.id)">{{category.productname}}</a>
                                       </div>
                                 </li>
                             </ul>

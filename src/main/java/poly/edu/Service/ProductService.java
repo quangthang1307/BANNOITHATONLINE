@@ -16,5 +16,5 @@ public interface ProductService {
 
     Optional<Product> findById(int id);
 
-    Page<Product> findByCategory(Pageable pageable);
+    Page<Product> findByCategory(Pageable pageable, Integer category);
 }
