@@ -3,7 +3,10 @@
 
 <head>
   <div data-th-insert="~{include/styleadmin.html}"></div>
-  <script src="https://code.highcharts.com/10/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
   <!-- Thêm css để dùng chart -->
@@ -63,15 +66,13 @@
         <!-- ============================================================== -->
 
         <figure class="highcharts-figure">
-          <div id="parent-container">
-            <div id="play-controls">
-              <button id="play-pause-button" class="fa fa-play" title="play"></button>
-              <input id="play-range" type="range" value="1960" min="1960" max="new Date()" />
-            </div>
-            <div id="container"></div>
-          </div>
+          <div id="container"></div>
           <p class="highcharts-description">
-            Bar chart showing the world population by countries from 1960 to 2018.
+            A basic column chart comparing estimated corn and wheat production
+            in some countries.
+
+            The chart is making use of the axis crosshair feature, to highlight
+            the hovered country.
           </p>
         </figure>
 
