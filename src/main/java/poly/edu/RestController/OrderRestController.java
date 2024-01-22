@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,9 @@ import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
 import poly.edu.entity.Order;
+import poly.edu.entity.Orderdetails;
 import poly.edu.repository.DiscountUsageRepository;
+import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
 
 @CrossOrigin("*")
@@ -43,13 +46,16 @@ public class OrderRestController {
 
     @Autowired
     DiscountUsageRepository discountUsageRepository;
+
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
     
     
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
-        Order newOrder = orderService.createdOrder(order);
-        
+        order.setTime(LocalDateTime.now());
+        orderService.createdOrder(order);        
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
@@ -68,7 +74,7 @@ public class OrderRestController {
             }
 
         } catch (Exception e) {}
-        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @DeleteMapping("/rest/deleteProductInCartByCustomerId")
@@ -78,6 +84,18 @@ public class OrderRestController {
             cartService.delete(cart.get().getCartId());
         }        
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/rest/orderByCustomer")
+    public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId){
+        List<Order> order = orderService.getOrderListByCustomerId(customerId);
+        if(order.size() > 0){
+            return ResponseEntity.ok(order);
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+        
     }
 
 }

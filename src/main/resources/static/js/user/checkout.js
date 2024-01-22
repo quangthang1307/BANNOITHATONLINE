@@ -147,6 +147,7 @@ app.controller(
           //kiểm tra discount có tồn tại hay không ?
           console.log($scope.discountCode);
 
+          console.log($scope.products);
 
         // xóa sản phẩm thanh toán khỏi giỏ hàng
         var urlDelete = "http://localhost:8080/rest/deleteProductInCartByCustomerId";

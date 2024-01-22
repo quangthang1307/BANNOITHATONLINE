@@ -28,6 +28,11 @@ public class HomeController {
 		return "user/checkout1";
 	}
 
+	@RequestMapping("/order")
+	public String showpayment2() {
+		return "user/checkout2";
+	}
+
 
 	
 }
