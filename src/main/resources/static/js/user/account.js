@@ -47,7 +47,9 @@ app.controller('registerController', function ($scope, $http) {
         var data = {
             username: $scope.username,
             email: $scope.email,
-            password: $scope.password
+            password: $scope.password,
+            name: $scope.name,
+            phone: $scope.phone
         };
 
         $http.post('http://localhost:8080/rest/user/sigup', data)
