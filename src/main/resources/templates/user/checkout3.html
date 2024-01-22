@@ -30,8 +30,8 @@
                 <div class="">
                     <div class="box-bg-white" style="width: 100%;">
                         <div class="">
-                            <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
-                            <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
+                            <h5 class="">Mã hóa đơn: {{orderDetail.orderID }}</h5>
+                            <h5 class="">Ngày mua: {{orderDetail.formattedTime}}</h5>
                             <div class="row">
                                 <div class="col-md-12">
                                   <!-- Display product images side by side in the same row -->
@@ -43,7 +43,7 @@
                               </div>
                               
                             <div class="">
-                                <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
+                                <p class="">Thành tiền: {{orderDetail.sumpayment | currency : '' : 0}} VND</p>
                             </div>
                             <a href="" class="btn btn-primary" style="float: left">Hủy đơn</a>
                             <a href="" class="btn btn-primary" style="float: right" ng-click="btnXemChiTiet(order)">Xem chi tiết</a>

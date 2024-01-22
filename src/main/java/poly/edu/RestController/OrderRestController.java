@@ -55,7 +55,7 @@ public class OrderRestController {
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
         order.setTime(LocalDateTime.now());
-        orderService.createdOrder(order);        
+        orderService.createdOrder(order); 
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
