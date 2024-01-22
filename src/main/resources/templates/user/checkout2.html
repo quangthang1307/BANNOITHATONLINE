@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 
@@ -21,54 +20,61 @@
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
-<div class="container-fluid" ng-controller="OrderController">
+    <div class="container-fluid" ng-controller="OrderController">
 
-    <div class="kimi-container">
-        <!--breadcrumb start-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="">
-                    <div class="box-bg-white" style="width: 100%;" ng-repeat="order in orders">
-                        <div class="">
-                            <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
-                            <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <!-- Display product images side by side in the same row -->
-                                  <div ng-repeat="product in order.products" class="d-inline-block col-md-2 text-center">
-                                    <img style="width: 200%; height: 20%;" class="img img-thumbnail" ng-src="{{product.imageUrl}}" alt="{{product.name}}">
-                                    <p class="mt-2">{{product.name}}</p>
-                                  </div>
+        <div class="kimi-container">
+            <!--breadcrumb start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="box-bg-white" style="width: 100%;" ng-repeat="order in orders">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- Display product images side by side in the same row -->
+                                        <div ng-repeat="product in order.products"
+                                            class="d-inline-block col-md-4 col-lg-3 col-xs-4 text-center">
+                                            <img style="width: 200%; height: 20%;" class="img img-thumbnail"
+                                                ng-src="{{product.imageUrl}}" alt="{{product.name}}">
+                                            <p class="mt-2">{{product.name}}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                              
-                            <div class="">
-                                <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
                             </div>
-                            <a href="" class="btn btn-primary" style="float: left">Hủy đơn</a>
-                            <a href="" class="btn btn-primary" style="float: right" ng-click="btnXemChiTiet(order)">Xem chi tiết</a>
+                            <div class="col-lg-6 col-md-6">
+                                <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
+                                <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
+                                <div class="">
+                                    <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
+                                </div>
+                                <div style="margin-top: 8%;">
+                                    <a href="" class="btn btn-primary" style="float: right"
+                                        ng-click="btnXemChiTiet(order)">Xem chi tiết</a>
+                                    <a href="" class="btn btn-danger" style="float: left">Hủy đơn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div><!-- /.container -->
+    </div><!-- /.container -->
 
-<!--include footer-->
-<div class="include-footer"></div>
+    <!--include footer-->
+    <div class="include-footer"></div>
 
 
-<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./js/bootstrap.min.js"></script>
 
-<!--kimi basic js-->
-<script src="js/kimi.js"></script>
-<script src="js/user/order.js"></script>
+    <!--kimi basic js-->
+    <script src="js/kimi.js"></script>
+    <script src="js/user/order.js"></script>
 
 </body>
+
 </html>
