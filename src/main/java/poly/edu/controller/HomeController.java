@@ -53,6 +53,15 @@ public class HomeController {
 		return "user/checkout1";
 	}
 
+	@RequestMapping("/order")
+	public String showpayment2() {
+		return "user/checkout2";
+	}
+	@RequestMapping("/orderdetail")
+	public String showpayment3() {
+		return "user/checkout3";
+	}
+
 
 	
 }

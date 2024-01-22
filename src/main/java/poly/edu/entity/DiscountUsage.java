@@ -1,8 +1,5 @@
 package poly.edu.entity;
 
-
-
-
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -21,40 +18,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "[Order]")
-public class Order {
+@Table(name = "Discountusage")
+public class DiscountUsage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderID")
-    private Integer OrderID;
+    @Column(name = "UsageID")
+    private Integer usageID;
 
-    @Column(name = "Sumpayment")
-    private Double sumpayment;
-
-    @Column(name = "[Time]")
-    private LocalDateTime time;
-
-    @ManyToOne
-    @JoinColumn(name = "DiscountID")
-    private Discount discount;
 
     @ManyToOne
     @JoinColumn(name = "CustomerID")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "PaymentID")
-    private Payment payment;
-
-    @ManyToOne
-    @JoinColumn(name = "OrderstatusID")
-    private Orderstatus orderstatus;
-
-    @ManyToOne
-    @JoinColumn(name = "AddressID")
-    private Address address;
+    @JoinColumn(name = "DiscountID")
+    private Discount discount;
 
 
+    @Column(name = "Useddate")
+    private LocalDateTime Useddate;
 
     
+
 }

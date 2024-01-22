@@ -44,5 +44,8 @@ public class Discount {
     @Column(name = "Description")
     private String description;
 
+    @Column(name = "Maxusage")
+    private Integer MaxUsage;
+
     // other fields, getters, and setters
 }

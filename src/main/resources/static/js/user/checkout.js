@@ -120,68 +120,139 @@ app.controller(
     $scope.continuePayment = function () {
       var optionPayment = $scope.selectedPaymentMethod;
 
-      if (!($scope.selectedPaymentMethod != null)) {
-        return;
-      }
-
-      console.log(optionPayment);
       var getCustomer = localStorage.getItem("customerId");
       var customer = JSON.parse(getCustomer);
       var urlCreateOrder = `${host}/rest/createOrder`;
       var discount = null;
 
-      if (optionPayment == "1") {
-        if ($scope.valueDiscountCode > 0) {
-          var url = `${host}/rest/discount/${$scope.discountCode}`;
-          $http.get(url).then((response) => {
-            var dataPost = {
-              sumpayment: $scope.products[0].TotalPayment - $scope.valueDiscountCode,
-              discount: response.data,
-              customer: {
-                customerId: customer.customerId,
-              },
-              payment: {
-                paymentid: $scope.selectedPaymentMethod,
-              },
-              orderstatus: {
-                orderstatusID: 1,
-              },
-              address: {
-                addressID: 1,
-              },
-            };
-  
-            console.log(dataPost);
-          $http.post(urlCreateOrder, dataPost).then((response) => {});
-          });
-  
-  
-        } else {
-          var dataPost = {
-            sumpayment: $scope.products[0].TotalPayment - $scope.valueDiscountCode,
-            discount: null,
-            customer: {
-              customerId: customer.customerId,
-            },
-            payment: {
-              paymentid: $scope.selectedPaymentMethod,
-            },
-            orderstatus: {
-              orderstatusID: 1,
-            },
-            address: {
-              addressID: 1,
-            },
-          };
-  
-          console.log(dataPost);
-          $http.post(urlCreateOrder, dataPost).then((response) => {});
-        }
-
-
-        $scope.submitOrderVNPay();
+      if (!($scope.selectedPaymentMethod != null)) {
+        Swal.fire({
+          title: "Hãy họn phương thức thanh toán!",
+          icon: "warning",
+          timer: 900,
+        });
+        return;
       }
 
+      Swal.fire({
+        title: "Xác nhận đặt hàng",
+        text: "Bạn có chắc chắn muốn đặt hàng ?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy bỏ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //kiểm tra discount có tồn tại hay không ?
+          console.log($scope.discountCode);
+
+          console.log($scope.products);
+
+          // xóa sản phẩm thanh toán khỏi giỏ hàng
+          var urlDelete =
+            "http://localhost:8080/rest/deleteProductInCartByCustomerId";
+          for (var i = 0; i < $scope.products.length; i++) {
+            var productGroup = $scope.products[i].Product;
+
+            for (var j = 0; j < productGroup.length; j++) {
+              var product = productGroup[j].product;
+              $http.delete(urlDelete, {
+                params: {
+                  customerId: customer.customerId,
+                  productId: product.productid,
+                },
+              });
+              console.log(product.productid);
+            }
+          }
+
+          if (optionPayment == "1") {
+            if ($scope.valueDiscountCode > 0) {
+              var url = `${host}/rest/discount/${$scope.discountCode}`;
+              $http.get(url).then((response) => {
+                var dataPost = {
+                  sumpayment:
+                    $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+                  discount: response.data,
+                  customer: customer,
+                  payment: {
+                    paymentid: $scope.selectedPaymentMethod,
+                  },
+                  orderstatus: {
+                    orderstatusID: 1,
+                  },
+                  address: {
+                    addressID: 1,
+                  },
+                };
+                console.log(dataPost);
+                $http.post(urlCreateOrder, dataPost).then((response) => {
+                  var urlPost = `${host}/rest/createOrderDetail`;
+                  $scope.products[0].Product.forEach((element) => {
+                    dataPost = {
+                      productquantity: element.quantity,
+                      totalpayment:
+                        element.quantity * element.product.pricexuat,
+                      price: element.product.pricexuat,
+                      order: {
+                        orderID: response.data.orderID,
+                      },
+                      product: {
+                        productid: element.product.productid,
+                        // Thêm các trường khác của Product nếu cần
+                      },
+                    };
+                    console.log(dataPost);
+                    $http.post(urlPost, dataPost);
+                  });
+                });
+              });
+            } else {
+              var dataPost = {
+                sumpayment:
+                  $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+                discount: null,
+                customer: {
+                  customerId: customer.customerId,
+                },
+                payment: {
+                  paymentid: $scope.selectedPaymentMethod,
+                },
+                orderstatus: {
+                  orderstatusID: 1,
+                },
+                address: {
+                  addressID: 1,
+                },
+              };
+              console.log(dataPost);
+              $http.post(urlCreateOrder, dataPost).then((response) => {
+                var urlPost = `${host}/rest/createOrderDetail`;
+                $scope.products[0].Product.forEach((element) => {
+                  dataPost = {
+                    productquantity: element.quantity,
+                    totalpayment: element.quantity * element.product.pricexuat,
+                    price: element.product.pricexuat,
+                    order: {
+                      orderID: response.data.orderID,
+                    },
+                    product: {
+                      productid: element.product.productid,
+                      // Thêm các trường khác của Product nếu cần
+                    },
+                  };
+                  console.log(dataPost);
+                  $http.post(urlPost, dataPost);
+                });
+              });
+            }
+            $scope.submitOrderVNPay();
+          }
+        } else {
+          // console.log(optionPayment);
+          // console.log("Hủy bỏ");
+        }
+      });
     };
 
     // $http.get('/rest/test', { params: { customerid: customerId } })
@@ -226,6 +297,16 @@ app.controller(
     //       console.error('Error:', error);
     //   });
 
+    $scope.loadInforCustomer = function () {
+      var getCustomer = localStorage.getItem("customerId");
+      var customer = JSON.parse(getCustomer);
+      console.log(customer);
+      $scope.fullname = customer.name;
+      $scope.phone = customer.phone;
+      $scope.email = customer.account.email;
+    };
+
+    $scope.loadInforCustomer();
     $scope.listOptionPayments();
 
     console.log(showListProduct);
