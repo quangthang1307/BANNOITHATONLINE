@@ -161,9 +161,6 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.clickCategory = function (id) {
         console.log("OK" + id)
         var checkboxes = document.getElementById('categoryCheckbox' + id);
-        console.log(checkboxes.checked);
-
-        if (checkboxes.checked === true) {
 
             console.log($scope.products);
             // const data = $scope.products;
@@ -186,7 +183,7 @@ app.controller("productController", function ($scope, $http, $window) {
                     console.log(response.data);
                     
                     
-                    $scope.products.push($scope.products);
+                    $scope.products = response.data.content;
                     console.log($scope.products);
 
                     $scope.totalItems = response.data.totalElements;
@@ -199,9 +196,7 @@ app.controller("productController", function ($scope, $http, $window) {
                 .catch(function (error) {
                     console.error('Error fetching products:', error);
                 });
-        }else{
-
-        }
+       
 
     }
 
