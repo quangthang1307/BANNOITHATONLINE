@@ -1,9 +1,5 @@
 package poly.edu.entity;
 
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,23 +12,36 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Productimage")
-public class ProductImage {
+@Table(name = "Address")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer ID;
+    @Column(name = "AddressID")
+    private Integer addressID;
 
-    @Column(name = "Image")
-    private String image;
+    @Column(name = "Tinhthanhpho")
+    private String tinhthanhpho;
+
+    @Column(name = "Quanhuy")
+    private String quanhuy;
+    
+
+    @Column(name = "Phuongxa")
+    private String phuongxa;
+
+
+    @Column(name = "Sonha")
+    private String sonha;
+
+    @Column(name = "Duong")
+    private String duong;
 
     @ManyToOne
-    @JoinColumn(name = "ProductID")
-    @JsonBackReference 
-    private Product product;
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
+    
 }

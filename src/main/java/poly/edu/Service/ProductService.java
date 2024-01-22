@@ -13,5 +13,8 @@ import poly.edu.entity.Product;
 public interface ProductService {
     // List<Product> findAll();
     Page<Product> findAll(Pageable pageable);
+
     Optional<Product> findById(int id);
+
+    Page<Product> findByCategory(Pageable pageable, Integer category);
 }

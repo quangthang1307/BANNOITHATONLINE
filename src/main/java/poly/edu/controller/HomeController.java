@@ -1,8 +1,10 @@
 package poly.edu.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 public class HomeController {
@@ -46,4 +48,20 @@ public class HomeController {
 	// public String showProductDetail() {
 	// return "user/productDetail";
 	// }
+	@RequestMapping("/checkout")
+	public String showpayment() {
+		return "user/checkout1";
+	}
+
+	@RequestMapping("/order")
+	public String showpayment2() {
+		return "user/checkout2";
+	}
+	@RequestMapping("/orderdetail")
+	public String showpayment3() {
+		return "user/checkout3";
+	}
+
+
+	
 }

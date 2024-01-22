@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.CartService;
@@ -58,13 +59,13 @@ public class RestCartController {
     }
 
     @PutMapping("/rest/cart/up/{customerId}/{productId}")
-    public ResponseEntity<?> upCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId) {
+    public ResponseEntity<?> upCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId, @RequestParam Integer quantity) {
         try {
             Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
 
             if (cartEntry.isPresent()) {
                 Cart cart = cartEntry.get();
-                int newQuantity = cart.getQuantity() + 1;
+                int newQuantity = quantity;
                 cart.setQuantity(newQuantity);
                 cartService.update(cart);
                 return new ResponseEntity<>(cart, HttpStatus.OK);
@@ -98,6 +99,18 @@ public class RestCartController {
             return new ResponseEntity<>("Failed to update cart quantity: " + e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/rest/cart/{customerId}/{productId}")
+    public ResponseEntity<?> checkCart(@PathVariable Integer customerId, @PathVariable Integer productId){
+        Optional<Cart> cart = cartResponsitory.findByCustomer_CustomerIdAndProduct_ProductID(customerId, productId);
+        if(cart.isPresent()){
+            return ResponseEntity.ok(cart.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+        
+        
     }
 
 }
