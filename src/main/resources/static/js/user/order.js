@@ -42,7 +42,6 @@ app.controller("OrderController", function ($scope, $http) {
                   });
                 });
               });
-              console.log($scope.orders);
             });
         });
 
@@ -69,7 +68,8 @@ app.controller("OrderController", function ($scope, $http) {
 
   // Button Xem chi tiết
   $scope.btnXemChiTiet = function (order) {
-    // Handle the logic to display detailed information for the selected order
-    // You can use order.products to access the product details for this order
+    window.localStorage.setItem("orderDetails",JSON.stringify(order)); 
+    window.location.href = "/orderdetail";   
+    
   };
 });

@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+
 <head>
     <div data-th-insert="~{include/style.html}"></div>
 
@@ -10,176 +11,48 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="css/kimi.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <![endif]-->
 </head>
 
 <body>
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
-<div class="container">
+<div class="container-fluid" ng-controller="OrderDetailController">
 
     <div class="kimi-container">
         <!--breadcrumb start-->
-        <ol class="breadcrumb hidden-xs">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shoppingCart.html">Cart</a></li>
-            <li><a href="checkout1.html">Customer Information</a></li>
-            <li><a href="checkout2.html">Shipping Mehtod</a></li>
-            <li>Payment Method</li>
-        </ol>
-
-        <div class="box-bg-gray visible-xs less-padding-left">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-
-            <a style="margin-right: 15px;" class="text-black" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Show Order Summary <i class="fa fa-angle-down" aria-hidden="true"></i>
-            </a>
-
-            <strong class="pull-right">IDR 250.000</strong>
-
-            <div class="clearfix"></div>
-            <div class="collapse" id="collapseExample">
-                <div class="row">
-                    <div class="box-bg-gray">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <img src="images/brownies.jpg" width="100%">
-                            </div>
-                            <div class="col-xs-5">
-                                <span>Brownies Chocolate</span><br/>
-                                <small>Sucicakes</small>
-                            </div>
-                            <div class="col-xs-4">
-                                <p class="text-right">IDR 50.000</p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <img src="images/lapisSurabaya.jpg" width="100%">
-                            </div>
-                            <div class="col-xs-5">
-                                <span>Lapis Surabaya</span><br/>
-                                <small>Sucicakes</small>
-                            </div>
-                            <div class="col-xs-4">
-                                <p class="text-right">IDR 175.000</p>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <form class="form-inline">
-                            <div class="col-xs-8">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="Discount Code">
-                                </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="submit" class="btn btn-default button-black-medium">Apply</button>
-                            </div>
-                        </form>
-                        <hr/>
-
-                        <div class="row">
-                            <div class="col-xs-6">Subtotal</div>
-                            <div class="col-xs-6"><p class="text-right"><strong>IDR 225.000</strong></p></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-6">Shipping + Trx Fee</div>
-                            <div class="col-xs-6"><p class="text-right"><strong> IDR 25.000 </strong></p></div>
-                        </div>
-
-                        <hr/>
-
-                        <div class="pull-left">Total</div>
-                        <div class="pull-right"><strong>IDR 250.000</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-
         <div class="row">
-            <div class="col-md-8">
-
+            <div class="col-md-12">
                 <div class="">
-                    <div class="box-bg-white">
-                        <h3 class="section-title">Alamat Pengiriman</h3>
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <p class="text-gray-4">Jalan Madrasah 2 no 30 D RT 08 / RW 02 Kelurahan Sukabumi Utara Kecamatan Kebon Jeruk Jakarta 11540</p>
+                    <div class="box-bg-white" style="width: 100%;">
+                        <div class="">
+                            <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
+                            <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <!-- Display product images side by side in the same row -->
+                                  <div ng-repeat="product in orderDetail.products" class="d-inline-block col-md-2 text-center">
+                                    <img style="width: 200%; height: 20%;" class="img img-thumbnail" ng-src="{{product.imageUrl}}" alt="{{product.name}}">
+                                    <p class="mt-2">{{product.name}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                            <div class="">
+                                <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
                             </div>
-
-                            <div class="col-sm-2">
-                                <a href="checkout1.html" class="btn btn-default button-black-medium">Edit</a>
-                            </div>
-                        </div>
-
-
-                        <h3 class="section-title">Waktu Kedatangan Pesanan</h3>
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <p class="text-gray-4"><strong style="font-size: 24px" class="text-black">12:30</strong> <span>Diantar oleh <strong class="text-black">Porter.id</strong>. Estimasi kedatangan 1 jam Rp 25.000</span></p>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <a href="checkout2.html" class="btn btn-default button-black-medium">Edit</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="">
-                    <div class="box-bg-white col-md-12">
-                        <h3 class="section-title">Metode Pembayaran Bank Transfer</h3>
-
-                        <p class="text-gray-4">Terima kasih atas kepercayaanmu telah berbelanja di Backtokimi.com. <br>Mohon segera lakukan pembayaran sebelum:</p>
-                        <h4>Jumat, 11 Agustus 2017 Pukul 17:13 WIB (1x24 jam)</h4>
-
-                        <p class="text-gray-4">Lakukan pembayaran sebesar:</p>
-                        <h4>IDR 232.140</h4>
-                        <p class="text-gray-4">TEPAT hingga 3 digit terakhir. Perbedaan nilai transfer akan menghambat proses verifikasi</p>
-                        <p>Pembayaran dapat dilakukan ke  nomor rekening a/n <strong>PT Maya Katalis Cipta Buana</strong>, BCA Yos Sudarso</p>
-                        <img src="images/bca.gif">  <p style="font-size: 18px; line-height: 50px;"><strong>Nomor Rekening 691 035 5536</strong> </p>
-
-
-                    </div>
-                </div>
-                <a href="checkout2.html" class="text-gray-1"><i class="fa fa-angle-left" aria-hidden="true"></i> Shipping Method</a>
-                <a href="thankyou.html" class="btn btn-default pull-right button-black hidden-xs">Complete Order</a>
-                <a href="thankyou.html" class="btn btn-default pull-right button-black visible-xs">Complete Order <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                <div class="clearfix maya-small-padding"></div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="box-bg-white">
-                    <div class="clearfix maya-small-padding"></div>
-                    <h3 class="text-right text-oswald">Need Help ? </h3>
-                    <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call or write question by email</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="text-right">+62 21 567898765<br><a class="text-black text-underline" href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
+                            <a href="" class="btn btn-primary" style="float: left">Hủy đơn</a>
+                            <a href="" class="btn btn-primary" style="float: right" ng-click="btnXemChiTiet(order)">Xem chi tiết</a>
                         </div>
                     </div>
-                    <div class="clearfix maya-small-padding"></div>
                 </div>
             </div>
         </div>
     </div>
-
 </div><!-- /.container -->
 
 <!--include footer-->
@@ -195,6 +68,7 @@
 
 <!--kimi basic js-->
 <script src="js/kimi.js"></script>
+<script src="js/user/orderdetail.js"></script>
 
 </body>
 </html>
