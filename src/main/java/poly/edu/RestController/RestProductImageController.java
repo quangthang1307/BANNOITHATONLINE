@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.ProductImageService;
-import poly.edu.entity.Productimage;
+import poly.edu.entity.ProductImage;
 
 @CrossOrigin("*")
 @RestController
@@ -20,8 +20,8 @@ public class RestProductImageController {
 
 
     @GetMapping("/rest/products/{productID}")
-    public ResponseEntity<List<Productimage>> getProducts(@PathVariable Integer productID){
-        List<Productimage> listProductImages = productImageService.getProductImageById(productID);
+    public ResponseEntity<List<ProductImage>> getProducts(@PathVariable Integer productID){
+        List<ProductImage> listProductImages = productImageService.getProductImageById(productID);
         
         return ResponseEntity.ok(listProductImages);
         

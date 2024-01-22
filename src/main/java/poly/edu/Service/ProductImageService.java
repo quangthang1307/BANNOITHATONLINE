@@ -2,9 +2,9 @@ package poly.edu.Service;
 
 import java.util.List;
 
-import poly.edu.entity.Productimage;
+import poly.edu.entity.ProductImage;
 
 
 public interface ProductImageService {
-    public List<Productimage> getProductImageById(Integer productID);
+    public List<ProductImage> getProductImageById(Integer productID);
 }

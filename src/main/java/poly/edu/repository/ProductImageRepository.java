@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import poly.edu.entity.Productimage;
+import poly.edu.entity.ProductImage;
 
-public interface ProductImageRepository extends JpaRepository<Productimage, Integer>{
+public interface ProductImageRepository extends JpaRepository<ProductImage, Integer>{
 
 
     @Query(value="Select * from ProductImage where ProductID = ?", nativeQuery = true)
-    List<Productimage> getProductImageById(Integer productID);
+    List<ProductImage> getProductImageById(Integer productID);
 
 }

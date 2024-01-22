@@ -58,6 +58,6 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Productimage> productimages;
+    private List<ProductImage> productimages;
 
 }

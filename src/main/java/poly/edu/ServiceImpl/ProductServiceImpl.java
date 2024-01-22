@@ -28,6 +28,11 @@ public class ProductServiceImpl implements ProductService {
 		return productResponsitory.findById(id);
 	}
 
+    @Override
+    public Page<Product> findByCategory(Pageable pageable) {
+        return productResponsitory.findProductByCategory(pageable);
+    }
+
     // @Override
     // public List<Product> findAll() {
     //     return productResponsitory.findAllProducts();

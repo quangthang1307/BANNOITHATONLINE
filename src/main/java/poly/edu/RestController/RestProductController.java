@@ -45,4 +45,15 @@ public class RestProductController {
         return ResponseEntity.ok(product);
     
     }
+
+    @GetMapping("/rest/product/category")
+    public ResponseEntity<Page<Product>> getProductByCategory(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findAll(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
 }
