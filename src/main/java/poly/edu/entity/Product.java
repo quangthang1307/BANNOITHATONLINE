@@ -39,13 +39,13 @@ public class Product {
     private boolean productactivate;
 
     @Column(name = "Viewcount")
-    private int viewcount;
+    private Integer viewcount;
 
     @Column(name = "BrandID")
-    private int brand;
+    private Integer brand;
 
     @Column(name = "CategoryID")
-    private int category;
+    private Integer category;
 
     @Column(name = "Createddate")
     private LocalDateTime createddate;
@@ -54,7 +54,7 @@ public class Product {
     private double pricenhap;
 
     @Column(name = "Pricexuat")
-    private double pricexuat;
+    private Double pricexuat;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
