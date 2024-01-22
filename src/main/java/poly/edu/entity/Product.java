@@ -47,12 +47,6 @@ public class Product {
     @Column(name = "CategoryID")
     private Integer category;
 
-    @Column(name = "BrandID")
-    private int brand;
-
-    @Column(name = "CategoryID")
-    private int category;
-
     @Column(name = "Createddate")
     private LocalDateTime createddate;
 
