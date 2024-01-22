@@ -35,7 +35,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
   $http
     .get("/rest/product")
     .then(function (response) {
-      $scope.products = response.data;
+      $scope.products = response.data.content;
       console.log(response.data);
     })
     .catch(function (error) {

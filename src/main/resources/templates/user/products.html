@@ -168,7 +168,7 @@
                     <div class="col-sm-6 col-md-3" data-behavior="sample_code" ng-repeat="product in products">
                         <a href="productdetail/{{product.productid}}" ng-click="clickById(product.productid)"
                             class="thumbnail_item thumbnail less-padding less-margin">
-                            <img src="../images/product/{{product.productimages[0].image}}" alt="risotto lemon">
+                            <img src="{{product.productimages[0].image}}" alt="risotto lemon">
                         </a>
                         <div class="caption box">
                             <h3>{{product.productname}}</h3>
@@ -179,10 +179,8 @@
                                 </div>
 
                                 <div class="col-sm-4 col-xs-6">
-                                    <button onclick="location.href='shoppingCart.html'"
-                                        class="btn default-userProductList-CardList-button pull-right" role="button">Add
-                                        to
-                                        Cart</button>
+                                    <button 
+                                        class="btn default-userProductList-CardList-button pull-right" role="button">Thêm vào giỏ</button>
                                 </div>
                             </div>
                         </div>
