@@ -16,7 +16,7 @@ public class StatisticsController {
     @RequestMapping("/admin/statistics")
     public String showstatistics(Model model){
 
-        // model.addAttribute("message", orderRepository.findSumpaymentOrder(1, 2024));
+        model.addAttribute("message", orderRepository.findSumpaymentOrder(1, 2024));
         return "admin/charts";
     }
 

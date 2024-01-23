@@ -8,6 +8,7 @@
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Thêm css để dùng chart -->
   <!-- <script src="../css/chart.css"></script> -->
@@ -75,6 +76,35 @@
             the hovered country.
           </p>
         </figure>
+        <script th:inline="javascript">
+           var sumpayment = [[${ message }]];
+        </script>
+
+        <!-- <canvas id="myChart" width="400" height="400"></canvas>
+        <script th:inline="javascript">
+          var sumpayment = [[${ message }]]; // Dữ liệu từ server
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Tháng 1'],
+              datasets: [{
+                label: 'Tổng tiền thanh toán',
+                data: [sumpayment], // Dữ liệu từ server
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        </script> -->
 
         <!-- End Charts -->
         <!-- ============================================================== -->
