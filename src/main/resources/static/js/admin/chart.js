@@ -3,15 +3,15 @@ Highcharts.chart('container', {
         type: 'column'
     },
     title: {
-        text: 'Corn vs wheat estimated production for 2020',
+        text: 'Bảng thống kê doanh thu của tháng',
         align: 'left'
     },
-    subtitle: {
-        text:
-            'Source: <a target="_blank" ' +
-            'href="https://www.indexmundi.com/agriculture/?commodity=corn">indexmundi</a>',
-        align: 'left'
-    },
+    // subtitle: {
+    //     text:
+    //         'Source: <a target="_blank" ' +
+    //         'href="https://www.indexmundi.com/agriculture/?commodity=corn">indexmundi</a>',
+    //     align: 'left'
+    // },
     xAxis: {
         categories: ['Tháng 1'],
         crosshair: true
