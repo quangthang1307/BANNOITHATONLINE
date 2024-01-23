@@ -3,7 +3,7 @@ Highcharts.chart('container', {
         type: 'column'
     },
     title: {
-        text: 'Bảng thống kê doanh thu của tháng',
+        text: 'Bảng thống kê doanh thu của năm',
         align: 'left'
     },
     // subtitle: {
@@ -13,7 +13,7 @@ Highcharts.chart('container', {
     //     align: 'left'
     // },
     xAxis: {
-        categories: ['Tháng 1'],
+        categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
         crosshair: true
     },
     // yAxis: {
@@ -33,8 +33,8 @@ Highcharts.chart('container', {
     },
     series: [
         {
-            name: 'Quần áo',
-            data: [sumpayment]
+            name: 'Doanh thu',
+            data: sumpayment
         },
         // {
         //     name: 'Wheat',
