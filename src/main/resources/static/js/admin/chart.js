@@ -36,6 +36,11 @@ Highcharts.chart('container', {
             name: 'Doanh thu',
             data: sumpayment
         },
+
+        {
+            name: 'Doanh thu',
+            data: sumpaymentWithVNPay
+        },
         // {
         //     name: 'Wheat',
         //     data: [51086, 136000, 5500, 141000, 107180, 77000]
