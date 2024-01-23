@@ -16,7 +16,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
 
     // Order findBySumpayment(Double sumpayment);
 
-    @Query(value = "SELECT SUM(o.Sumpayment) FROM [Order] o WHERE o.OrderstatusID = 2 and MONTH(o.[Time]) = ?1  AND YEAR(o.[Time]) = ?2", nativeQuery=true)
-     Integer findSumpaymentOrder (Integer month, Integer year);
+    @Query(value = "SELECT SUM(o.Sumpayment) FROM [Order] o JOIN Orderstatus os ON o.OrderstatusID = os.OrderstatusID WHERE os.Orderstatusname = ?1 and MONTH(o.[Time]) = ?2  AND YEAR(o.[Time]) = ?3", nativeQuery=true)
+     Integer findSumpaymentOrder (String payment, Integer month, Integer year);
 
 }

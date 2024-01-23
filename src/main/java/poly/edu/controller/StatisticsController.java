@@ -22,7 +22,7 @@ public class StatisticsController {
         Integer year = 2024;
         List<Integer> sumpayments = new ArrayList<>();
         for(int month = 1; month <= 12; month ++){
-            Integer sumpayment  = orderRepository.findSumpaymentOrder(month, year);
+            Integer sumpayment  = orderRepository.findSumpaymentOrder("Thanh Toán", month, year);
             sumpayments.add(sumpayment);
         }
         model.addAttribute("message", sumpayments);
