@@ -27,9 +27,11 @@ import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
 import poly.edu.entity.Order;
 import poly.edu.entity.Orderdetails;
+import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
 import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
+import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -49,53 +51,73 @@ public class OrderRestController {
 
     @Autowired
     OrderDetailRepository orderDetailRepository;
-    
-    
+
+    @Autowired
+    TransactionRepository transactionRepository;
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
         order.setTime(LocalDateTime.now());
-        orderService.createdOrder(order); 
+        orderService.createdOrder(order);
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
-                List<DiscountUsage> usageList = discountUsageRepository.findAllByCustomerId(order.getCustomer().getCustomerId());                
+                List<DiscountUsage> usageList = discountUsageRepository
+                        .findAllByCustomerId(order.getCustomer().getCustomerId());
                 if (usageList.size() < discount.get().getMaxUsage()) {
-                    if(discount.isPresent()) {
-                        discount.get().setQuantityUsed(discount.get().getQuantityUsed()+1);
+                    if (discount.isPresent()) {
+                        discount.get().setQuantityUsed(discount.get().getQuantityUsed() + 1);
                         discountService.update(discount.get());
                         DiscountUsage usage = new DiscountUsage();
                         usage.setCustomer(order.getCustomer());
                         usage.setDiscount(order.getDiscount());
-                        usage.setUseddate(LocalDateTime.now());                    
-                        discountUsageRepository.save(usage);  
-                    }                    
+                        usage.setUseddate(LocalDateTime.now());
+                        discountUsageRepository.save(usage);
+                    }
                 }
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @DeleteMapping("/rest/deleteProductInCartByCustomerId")
-    public ResponseEntity<?> deleteProductInCartByCustomerId(@RequestParam Integer customerId, @RequestParam Integer productId){
+    public ResponseEntity<?> deleteProductInCartByCustomerId(@RequestParam Integer customerId,
+            @RequestParam Integer productId) {
         Optional<Cart> cart = cartService.findByCustomerAndProduct(customerId, productId);
-        if(cart.isPresent()){
+        if (cart.isPresent()) {
             cartService.delete(cart.get().getCartId());
-        }        
+        }
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/rest/orderByCustomer")
-    public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId){
+    public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId) {
         List<Order> order = orderService.getOrderListByCustomerId(customerId);
-        if(order.size() > 0){
+        if (order.size() > 0) {
             return ResponseEntity.ok(order);
-        }else{
+        } else {
             return ResponseEntity.noContent().build();
         }
-        
+
+    }
+
+    @DeleteMapping("/rest/deleteOrder")
+    public void deleteOrder(@RequestParam Integer orderId) {
+        List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+        Optional<Order> order = orderRepository.findById(orderId);
+
+        Transaction transaction = transactionRepository.findByOrder(order.get());
+        if (transaction != null) {
+            transactionRepository.delete(transaction);
+            orderDetailRepository.deleteAll(orderDetails);
+            orderRepository.deleteById(orderId);
+        } else {
+            orderDetailRepository.deleteAll(orderDetails);
+            orderRepository.deleteById(orderId);
+        }
+
     }
 
 }

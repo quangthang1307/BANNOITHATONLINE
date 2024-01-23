@@ -37,7 +37,7 @@
                                   <!-- Display product images side by side in the same row -->
                                   <div ng-repeat="product in orderDetail.products" class="d-inline-block col-md-2 text-center">
                                     <img style="width: 200%; height: 20%;" class="img img-thumbnail" ng-src="{{product.imageUrl}}" alt="{{product.name}}">
-                                    <p class="mt-2">{{product.name}}</p>
+                                    <p class="mt-2">{{product.name}} x {{product.quantity}}</p>
                                   </div>
                                 </div>
                               </div>
