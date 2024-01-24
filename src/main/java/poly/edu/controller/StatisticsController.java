@@ -1,5 +1,6 @@
 package poly.edu.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class StatisticsController {
     @RequestMapping("/admin/statistics")
     public String showstatistics(Model model) {
 
-        // Integer year = 2024;
+        Integer year = 2024;
 
         // List<Integer> sumpayments = new ArrayList<>();
         // List<Integer> sumpaymentWithVNPays = new ArrayList<>();
@@ -37,10 +38,20 @@ public class StatisticsController {
 
         // model.addAttribute("message", sumpayments);
         // model.addAttribute("message2", sumpaymentWithVNPays);
+        // int yearHientai = LocalDate.now().getYear();    
 
-        Integer year = 2024;
+        // List<Integer> yearArrays = new ArrayList<>();
+        // yearArrays.add(2023);
+        // System.out.println(yearArrays);
+
+        // if(yearHientai != yearArrays.get(yearArrays.size() - 1)){
+
+        //     yearArrays.add(yearHientai);
+        // }
+
+        // System.out.println("Đây là kết quả cuối cùng: " + yearArrays.get(yearArrays.size() - 1));
+
         List<Integer> totalSumpayments = new ArrayList<>();
-
         for (int month = 1; month <= 12; month++) {
 
             // Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh Toán", "Trả tiền mặt", month, year);
