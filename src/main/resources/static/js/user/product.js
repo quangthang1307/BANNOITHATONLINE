@@ -9,6 +9,7 @@ const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
 const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
+const hostProductSale = "http://localhost:8080/rest/product/sale";
 
 app.controller("productController", function ($scope, $http, $window) {
 
@@ -24,13 +25,14 @@ app.controller("productController", function ($scope, $http, $window) {
 
 
 
-
+    //Gọi API lấy sản phẩm
     $scope.itemsPerPage = 9;
     $scope.currentPage = 1;
     $scope.totalItems = 0;
     $scope.totalPages = 0;
     $scope.products = [];
     $scope.listCart = [];
+    $scope.productsale = [];
 
     $scope.getData = function () {
 
@@ -51,13 +53,65 @@ app.controller("productController", function ($scope, $http, $window) {
             })
             .catch(function (error) {
                 console.error('Error fetching products:', error);
-            });
+            }
+            );
+
+        $http.get(hostProductSale)
+            .then(function (response) {
+
+                $scope.productsale = response.data
+                console.log($scope.productsale);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching productsale:', error);
+            }
+            );
+
+
+    };
+    //
+
+
+    //Kiểm tra sản phẩm sale để thay đổi giá
+    $scope.isProductInSale = function (productId) {
+        return $scope.productsale.some(item => item.productID === productId);
     };
 
+    $scope.getPercentSaleForProduct = function (productId) {
+        var foundItem = $scope.productsale.find(item => item.productID === productId);
+        return foundItem ? foundItem.percent : null;
+    };
+    //
 
+    // Hàm xử lý khi nhấp vào tên sản phẩm
+    $scope.clickById = function (productId) {
+        var url = `${host}/${productId}`;
 
+        $http.get(url)
+            .then(resp => {
+                $scope.productbyid = resp.data;
+                // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
+                if ($scope.isProductInSale(resp.data.productid)){
+                   var percent = $scope.getPercentSaleForProduct(resp.data.productid);
+                   resp.data.percent = percent;
+                }else{
+                    resp.data.percent = 0;
+                }
+                localStorage.setItem('productById', JSON.stringify(resp.data));
 
+                // Chuyển hướng đến trang chi tiết sản phẩm
+                window.location.href = `/productdetail/${productId}`;
+                //  console.log("Success", resp);
+            })
+            .catch(error => {
+                console.log("Error", error);
+            });
+    }
+    //
 
+    //Điều hướng phân trang
     $scope.next = function () {
         if ($scope.totalPages == $scope.currentPage) return;
         console.log('Next');
@@ -84,7 +138,7 @@ app.controller("productController", function ($scope, $http, $window) {
         }
         return result;
     };
-
+    //
 
 
 
@@ -160,55 +214,38 @@ app.controller("productController", function ($scope, $http, $window) {
 
     $scope.clickCategory = function (id) {
         console.log("OK" + id)
-        var checkboxes = document.getElementById('categoryCheckbox' + id);
+        if (id === 0) return $scope.getData();
+        var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + id;
+        console.log(apiUrl);
 
-            console.log($scope.products);
-            // const data = $scope.products;
+        $http.get(apiUrl)
+            .then(function (response) {
 
-            // const updatedData = data.filter(product => product.category === id); 
+                console.log($scope.products);
+                console.log(response.data);
 
-            // $scope.products = updatedData;
-            // console.log(updatedData);
 
-            var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + id;
-            console.log(apiUrl);
-            
+                $scope.products = response.data.content;
+                console.log($scope.products);
 
-            $http.get(apiUrl)
-                .then(function (response) {
+                $scope.totalItems = response.data.totalElements;
+                console.log($scope.totalItems);
 
-                    // ProductByCategory.push( response.data.content);
-                    // console.log(ProductByCategory);
-                    console.log($scope.products);
-                    console.log(response.data);
-                    
-                    
-                    $scope.products = response.data.content;
-                    console.log($scope.products);
+                $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
 
-                    $scope.totalItems = response.data.totalElements;
-                    console.log($scope.totalItems);
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
 
-                    $scope.totalPages = parseInt(response.data.totalPages, 10);
-                    console.log($scope.totalPages);
-
-                })
-                .catch(function (error) {
-                    console.error('Error fetching products:', error);
-                });
-       
 
     }
 
 
 
 
-    app.controller('productDetailController', function ($scope, $http) {
 
-        $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
-
-        console.log("ProductDetail", $scope.productdetail);
-    });
     $scope.loadCart = function () {
         var getCustomer = localStorage.getItem("customerId");
         var customer = JSON.parse(getCustomer);
@@ -251,4 +288,13 @@ app.controller("productController", function ($scope, $http, $window) {
 
 
 
+});
+
+//Product Details Controller
+app.controller('productDetailController', function ($scope, $http) {
+    $scope.productdetail = [];
+    console.log("ProductDetailController");
+    $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
+
+    console.log("ProductDetail", $scope.productdetail); 
 });

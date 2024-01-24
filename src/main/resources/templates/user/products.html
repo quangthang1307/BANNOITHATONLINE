@@ -122,13 +122,17 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li style="margin: 10px;"> 
+                                    <a href="" ng-click="clickCategory(0)">Tất cả</a>
+                                </li>
                                 <li ng-repeat="category in categorys" style="margin: 10px;">
                                    
-                                    <div class="form-check">
+                                    
                                         <!-- <input id="categoryCheckbox{{category.id}}" type="checkbox" ng-click="clickCategory(category.id)" class="form-check-input">
                                         <label class="form-check-label ml-2">{{category.productname}}</label> -->
+                                        
                                         <a href="" ng-click="clickCategory(category.id)">{{category.productname}}</a>
-                                      </div>
+                                  
                                 </li>
                             </ul>
                         </div>
@@ -166,15 +170,18 @@
 
 
                     <div class="col-sm-6 col-md-4" data-behavior="sample_code" ng-repeat="product in products">
-                        <a href="productdetail/{{product.productid}}" ng-click="clickById(product.productid)"
+                        
+                        <a ng-click="clickById(product.productid)"
                             class="thumbnail_item thumbnail less-padding less-margin">
                             <img src="../images/product/{{product.productimages[0].image}}" alt="risotto lemon">
                         </a>
                         <div class="caption box">
                             <h3>{{product.productname}}</h3>
+                            
                             <div class="row">
-                                <div class="col-sm-8 col-xs-6">
-                                    <p class="default-userProductList-CardList-price">{{product.pricexuat}}</p>
+                                <div class="col-sm-8 col-xs-6" >
+                                    <p class="default-userProductList-CardList-price" ng-if="isProductInSale(product.productid)"><s style="font-size: x-small;color: gray;">{{product.pricexuat}}</s><span style="color: red;">{{product.pricexuat - (product.pricexuat * getPercentSaleForProduct(product.productid) / 100)}}đ</span></p>
+                                    <p class="default-userProductList-CardList-price text-black" ng-if="!isProductInSale(product.productid)">{{product.pricexuat}}đ</p>
                                     <span class="min-order">10 pcs min order {{itemsPerPage}}</span>
                                 </div>
 
