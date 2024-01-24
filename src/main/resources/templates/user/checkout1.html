@@ -12,7 +12,11 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>       
+    <!-- Add these script and style references in your HTML -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <style>
         #paymentMethod {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -20,7 +24,7 @@
             height: 100%;
         }
 
-       
+
         label {
             display: block;
             margin-bottom: 10px;
@@ -135,101 +139,50 @@
                             <div class="col-md-12">
                                 <form>
                                     <div class="form-group row">
-                                        <p for="fullname" class="col-sm-2 col-form-label" style="margin-top: 5px; font-weight: bold;">Họ và tên:</p>
+                                        <p for="fullname" class="col-sm-2 col-form-label"
+                                            style="margin-top: 5px; font-weight: bold;">Họ và tên:</p>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="fullname" ng-model="fullname" disabled>
+                                            <input type="text" class="form-control" id="fullname"
+                                                ng-model="customer.name" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <p for="fullname" class="col-sm-2 col-form-label" style="margin-top: 5px; font-weight: bold;" >Số điện thoại:</p>
+                                        <p for="fullname" class="col-sm-2 col-form-label"
+                                            style="margin-top: 5px; font-weight: bold;">Số điện thoại:</p>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id=""
-                                        ng-model="phone" disabled>
+                                            <input type="text" class="form-control" id="" ng-model="customer.phone"
+                                                disabled>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <p for="fullname" class="col-sm-2 col-form-label" style="margin-top: 5px; font-weight: bold;">Địa chỉ email:</p>
+                                    <div class="form-group row" style="margin-bottom: 5%;">
+                                        <p for="fullname" class="col-sm-2 col-form-label"
+                                            style="margin-top: 5px; font-weight: bold;">Địa chỉ email:</p>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="" ng-model="email" disabled>
+                                            <input type="email" class="form-control" id=""
+                                                ng-model="customer.account.email" disabled>
+                                        </div>
+                                    </div>
+
+
+                                    
+                                    <!-- Trong template HTML của bạn -->
+                                    <span>Địa chỉ của bạn:</span>
+                                    <div style="margin-bottom: 5%; margin-top: 1%;">
+                                        <div class="form-check" ng-repeat="addr in address" style="margin-bottom: 1%;">
+                                            <input class="form-check-input"  type="radio" id="{{addr.addressID}}" ng-model="selectedAddress" value="{{addr.addressID}}"
+                                                name="addressGroup" ng-change="onAddressSelected(addr)" />
+                                            Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}
                                         </div>
                                     </div>
                                     
+                                    <span>Bạn muốn thay đổi địa chỉ khác ?</span>
+                                    <a class="" ng-click="showSelectedInfoModal()">Thay đổi</a>
+
+
                                     
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="" placeholder="Address Line 1">
-                                    </div>
+                                    
 
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id=""
-                                                    placeholder="Address Line 1">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id=""
-                                                    placeholder="Address Line 1">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-5 col-xs-6">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle btn-block"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Kota Administrasi <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Jakarta Barat</a></li>
-                                                    <li><a href="#">Jakarta Selatan</a></li>
-                                                    <li><a href="#">Jakarta Timur</a></li>
-                                                    <li><a href="#">Jakarta Pusat</a></li>
-                                                    <li><a href="#">Jakarta Utara</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Bekasi</a></li>
-                                                    <li><a href="#">Depok</a></li>
-                                                    <li><a href="#">Tangerang</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-5 col-xs-6">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle btn-block"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Kode Pos <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">11540</a></li>
-                                                    <li><a href="#">11530</a></li>
-                                                    <li><a href="#">11520</a></li>
-                                                    <li><a href="#">11510</a></li>
-                                                    <li><a href="#">11550</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix" style="margin-bottom: 15px;"></div>
-
-                                    <div class="form-group">
-                                        <input type="tel" class="form-control" id="" placeholder="Phone Number">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="" placeholder="Tambahan Keterangan">
-                                    </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Save this information for next time
-                                        </label>
-                                    </div>
-                                </form>
-                                
                                 <div style="margin-bottom: 20px;">
                                     <label>Chọn phương thức thanh toán:</label>
                                     <select id="paymentMethod" class="form-control" ng-model="selectedPaymentMethod"
@@ -239,9 +192,11 @@
                                     </select>
                                 </div>
 
-                                <a href="/cart" class="btn btn-default pull-left button-black hidden-xs" style="border-radius: 10px;">Giỏ hàng</a>
+                                <a href="/cart" class="btn btn-default pull-left btn-warning text-black hidden-xs"
+                                    style="border-radius: 10px;">Giỏ hàng</a>
                                 <a ng-click="continuePayment()"
-                                    class="btn btn-default pull-right button-black hidden-xs" style="border-radius: 10px;">Tiếp tục thanh toán</a>                                
+                                    class="btn btn-default pull-right btn-primary hidden-xs"
+                                    style="border-radius: 10px;">Tiếp tục thanh toán</a>
                                 <div class="clearfix maya-small-padding"></div>
                             </div>
 
@@ -256,14 +211,14 @@
                     <div class="box-bg-white hidden-xs" style="width: 100%;">
                         <div class="row" ng-repeat="payment in products">
                             <div ng-repeat="product in payment.Product">
-                                <div class="col-md-2 col-xs-6 less-padding-right">
+                                <div class="col-lg-4 col-md-4 col-xs-6 less-padding-right">
                                     <img ng-src="{{product.imageUrl}}" width="100%">
                                 </div>
-                                <div class="col-md-6 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-xs-12">
                                     <span>{{product.product.productname}}</span><br />
                                     <span class="text-gray-2 text-thin">Số lượng : {{product.quantity}}</span>
                                 </div>
-                                <div class="col-md-4 col-xs-5">
+                                <div class="col-lg-4 col-md-4 col-xs-5">
                                     <p class="text-right">{{product.product.pricexuat | currency : '' :0}} VND</p>
                                 </div>
                                 <div class="clearfix maya-small-padding"></div>

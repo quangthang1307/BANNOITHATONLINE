@@ -71,10 +71,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
-                                <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
+                                <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>                                
                                 <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
                                 <h5 class="">Trạng thái: {{order.orderstatus.orderstatusname}}</h5>
                                 <h5 class="">Phương thức thanh toán: {{order.payment.paymentname}} <p ng-if="order.statusPayment.status == '0'">- Thanh toán thành công</p>  <p ng-if="order.statusPayment.status == '1'">- Chưa thanh toán</p>  </h5>
+                                
+                                <h5 class="">Địa chỉ nhận hàng: Số nhà : {{ order.address.sonha }} - Đường {{order.address.duong }} - {{ order.address.phuongxa }} - {{ order.address.quanhuyen }} - {{ order.address.tinhthanhpho }}</h5>
                                 <div class="">
                                     <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
                                 </div>
