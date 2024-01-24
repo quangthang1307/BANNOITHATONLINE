@@ -1,3 +1,22 @@
+function updateChart(selectedYear) {
+    // Perform an AJAX request to get new data based on the selected year
+    // You may need to adjust the URL and data format based on your server-side implementation
+    // Here, it's assumed that the server returns JSON data with the same structure as the 'sumpayment' array
+    $.ajax({
+        type: "GET",
+        url: "/admin/statistics", // Update with the actual endpoint
+        data: { selectedYear: selectedYear },
+        dataType: "json",
+        success: function (data) {
+            // Update chart data and redraw
+            chart.series[0].setData(data);
+        },
+        error: function (error) {
+            console.error("Error fetching data:", error);
+        }
+    });
+}
+
 Highcharts.chart('container', {
     chart: {
         type: 'column'
@@ -41,4 +60,9 @@ Highcharts.chart('container', {
         //     data: [51086, 136000, 5500, 141000, 107180, 77000]
         // }
     ]
+});
+
+$('#year').change(function () {
+    var selectedYear = $(this).val();
+    updateChart(selectedYear);
 });

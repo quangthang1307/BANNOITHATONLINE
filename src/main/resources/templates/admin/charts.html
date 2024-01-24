@@ -57,6 +57,16 @@
       </div>
       <!-- ============================================================== -->
       <!-- End Bread crumb and right sidebar toggle -->
+
+      <form action="/admin/statistics" method="get">
+        <label for="year">Chọn năm:</label>
+        <select id="year" name="selectedYear" th:value="${selectedYear}">
+          <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+        </select>
+        <button type="submit">Xem Thống kê</button>
+      </form>
+
+
       <!-- ============================================================== -->
       <!-- ============================================================== -->
       <!-- Container fluid  -->
@@ -77,7 +87,7 @@
           </p>
         </figure>
         <script th:inline="javascript">
-           var sumpayment = [[${ message }]];
+          var sumpayment = [[${ message }]];
           //  var sumpaymentWithVNPay = [[${ message2 }]];
         </script>
 
