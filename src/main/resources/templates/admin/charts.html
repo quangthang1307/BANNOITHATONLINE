@@ -3,6 +3,15 @@
 
 <head>
   <div data-th-insert="~{include/styleadmin.html}"></div>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Thêm css để dùng chart -->
+  <!-- <script src="../css/chart.css"></script> -->
 
   <title>Charts</title>
 </head>
@@ -22,7 +31,7 @@
   <!-- ============================================================== -->
   <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
     data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-    
+
     <div data-th-insert="~{include/navbaradmin.html}"></div>
 
     <div class="page-wrapper">
@@ -56,143 +65,48 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-        <!-- Chart-1 -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Real Time Chart</h5>
-                <div id="real-time" style="height: 400px"></div>
-                <p>
-                  Time between updates:
-                  <input id="updateInterval" type="text" value="" style="text-align: right; width: 5em" />
-                  milliseconds
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- ENd chart-1 -->
-        <!-- Chart-2 -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Turning-series chart</h5>
-                <div id="placeholder" style="height: 400px"></div>
-                <p id="choices" class="mt-3"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Chart-2 -->
-        <!-- Cards -->
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card mt-0">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="peity_line_neutral left text-center mt-2">
-                    <span><span style="display: none">10,15,8,14,13,10,10</span>
-                      <canvas width="50" height="24"></canvas>
-                    </span>
-                    <h6>10%</h6>
-                  </div>
-                </div>
-                <div class="col-md-6 border-left text-center pt-2">
-                  <h3 class="mb-0 fw-bold">150</h3>
-                  <span class="text-muted">New Users</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card mt-0">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="peity_bar_bad left text-center mt-2">
-                    <span><span style="display: none">3,5,6,16,8,10,6</span>
-                      <canvas width="50" height="24"></canvas>
-                    </span>
-                    <h6>-40%</h6>
-                  </div>
-                </div>
-                <div class="col-md-6 border-left text-center pt-2">
-                  <h3 class="mb-0 fw-bold">4560</h3>
-                  <span class="text-muted">Orders</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card mt-0">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="peity_line_good left text-center mt-2">
-                    <span><span style="display: none">12,6,9,23,14,10,17</span>
-                      <canvas width="50" height="24"></canvas>
-                    </span>
-                    <h6>+60%</h6>
-                  </div>
-                </div>
-                <div class="col-md-6 border-left text-center pt-2">
-                  <h3 class="mb-0">5672</h3>
-                  <span class="text-muted">Active Users</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card mt-0">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="peity_bar_good left text-center mt-2">
-                    <span>12,6,9,23,14,10,13</span>
-                    <h6>+30%</h6>
-                  </div>
-                </div>
-                <div class="col-md-6 border-left text-center pt-2">
-                  <h3 class="mb-0 fw-bold">2560</h3>
-                  <span class="text-muted">Register</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End cards -->
-        <!-- Chart-3 -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Bar Chart</h5>
-                <div class="flot-chart">
-                  <div class="flot-chart-content" id="flot-line-chart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End chart-3 -->
-        <!-- Charts -->
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Pie Chart</h5>
-                <div class="pie" style="height: 400px"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Line Chart</h5>
-                <div class="bars" style="height: 400px"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <figure class="highcharts-figure">
+          <div id="container"></div>
+          <p class="highcharts-description">
+            A basic column chart comparing estimated corn and wheat production
+            in some countries.
+
+            The chart is making use of the axis crosshair feature, to highlight
+            the hovered country.
+          </p>
+        </figure>
+        <script th:inline="javascript">
+           var sumpayment = [[${ message }]];
+           var sumpaymentWithVNPay = [[${ message2 }]];
+        </script>
+
+        <!-- <canvas id="myChart" width="400" height="400"></canvas>
+        <script th:inline="javascript">
+          var sumpayment = [[${ message }]]; // Dữ liệu từ server
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Tháng 1'],
+              datasets: [{
+                label: 'Tổng tiền thanh toán',
+                data: [sumpayment], // Dữ liệu từ server
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        </script> -->
+
         <!-- End Charts -->
         <!-- ============================================================== -->
         <!-- End PAge Content -->
@@ -255,6 +169,9 @@
   <script src="../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
   <script src="../assets/libs/chart/turning-series.js"></script>
   <script src="../dist/js/pages/chart/chart-page-init.js"></script>
+
+  <!-- Thêm js để dùng chart -->
+  <script src="../js/admin/chart.js"></script>
 </body>
 
 </html>
