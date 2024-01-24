@@ -42,20 +42,23 @@ public class StatisticsController {
         List<Integer> totalSumpayments = new ArrayList<>();
 
         for (int month = 1; month <= 12; month++) {
-            
-            Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh Toán", month,
-             year, 2);
-            Integer sumpaymentWithVNPay = orderRepository.findTransactionsOrder("Thanh toán VNPay", month, year);
 
-            if(sumpaymentWithVNPay == null){
-                sumpaymentWithVNPay = 0;
-            }
+            // Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh Toán", "Trả tiền mặt", month, year);
+            // Integer sumpaymentWithVNPay = orderRepository.findTransactionsOrder("Thanh toán VNPay", month, year);
 
-            if(sumpayment == null){
-                sumpayment = 0;
-            }
+            Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh Toán", month, year);
 
-            totalSumpayments.add(sumpayment + sumpaymentWithVNPay);
+            // if (sumpaymentWithVNPay == null) {
+            //     sumpaymentWithVNPay = 0;
+            // }
+
+            // if (sumpayment == null) {
+            //     sumpayment = 0;
+            // }
+
+            // totalSumpayments.add(sumpayment + sumpaymentWithVNPay);
+
+            totalSumpayments.add(sumpayment);
         }
         model.addAttribute("message", totalSumpayments);
 
