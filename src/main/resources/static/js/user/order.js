@@ -115,23 +115,25 @@ app.controller("OrderController", function ($scope, $http) {
   };
 
   $scope.searchProducts = function () {
-    var inputValue = $scope.searchValue;  
+    var inputValue = $scope.searchProduct;  
 
     $scope.filteredOrders = [];
     $scope.listFind = [];  
     var addedOrderIDs = [];
-  
+
     $scope.orders.forEach(function (order) {
       var orderID = order.orderID;
-  
+
       // Kiểm tra xem orderID đã được thêm vào kết quả chưa
       if (addedOrderIDs.indexOf(orderID) === -1) {
         addedOrderIDs.push(orderID);
         $scope.filteredOrders.push(order);
       }
-  
+
       // Kiểm tra điều kiện tìm kiếm cho từng sản phẩm trong order
       order.products.forEach((product) => {
+        // console.log(product.name);
+        // console.log($scope.searchProduct);
         if (product.name.toLowerCase().includes(inputValue.toLowerCase())) {
           // Kiểm tra xem order đã được thêm vào danh sách tìm kiếm chưa
           if ($scope.listFind.indexOf(order) === -1) {
@@ -141,11 +143,11 @@ app.controller("OrderController", function ($scope, $http) {
         }       
       });
     });
-  
+
     console.log(addedOrderIDs);
     console.log($scope.filteredOrders);
     console.log($scope.listFind);
-    
+
   };
 
   
