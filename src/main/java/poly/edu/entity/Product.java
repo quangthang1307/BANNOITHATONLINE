@@ -51,7 +51,7 @@ public class Product {
     private LocalDateTime createddate;
 
     @Column(name = "Pricenhap")
-    private double pricenhap;
+    private Double pricenhap;
 
     @Column(name = "Pricexuat")
     private Double pricexuat;

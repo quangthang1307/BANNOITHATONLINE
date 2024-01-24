@@ -166,55 +166,14 @@ app.controller(
             }
           }
 
-          if (optionPayment == "1") {
-            if ($scope.valueDiscountCode > 0) {
-              var url = `${host}/rest/discount/${$scope.discountCode}`;
-              $http.get(url).then((response) => {
-                var dataPost = {
-                  sumpayment:
-                    $scope.products[0].TotalPayment - $scope.valueDiscountCode,
-                  discount: response.data,
-                  customer: customer,
-                  payment: {
-                    paymentid: $scope.selectedPaymentMethod,
-                  },
-                  orderstatus: {
-                    orderstatusID: 1,
-                  },
-                  address: {
-                    addressID: 1,
-                  },
-                };
-                console.log(dataPost);
-                $http.post(urlCreateOrder, dataPost).then((response) => {
-                  var urlPost = `${host}/rest/createOrderDetail`;
-                  $scope.products[0].Product.forEach((element) => {
-                    dataPost = {
-                      productquantity: element.quantity,
-                      totalpayment:
-                        element.quantity * element.product.pricexuat,
-                      price: element.product.pricexuat,
-                      order: {
-                        orderID: response.data.orderID,
-                      },
-                      product: {
-                        productid: element.product.productid,
-                        // Thêm các trường khác của Product nếu cần
-                      },
-                    };
-                    console.log(dataPost);
-                    $http.post(urlPost, dataPost);
-                  });
-                });
-              });
-            } else {
+          if ($scope.valueDiscountCode > 0) {
+            var url = `${host}/rest/discount/${$scope.discountCode}`;
+            $http.get(url).then((response) => {
               var dataPost = {
                 sumpayment:
                   $scope.products[0].TotalPayment - $scope.valueDiscountCode,
-                discount: null,
-                customer: {
-                  customerId: customer.customerId,
-                },
+                discount: response.data,
+                customer: customer,
                 payment: {
                   paymentid: $scope.selectedPaymentMethod,
                 },
@@ -231,7 +190,8 @@ app.controller(
                 $scope.products[0].Product.forEach((element) => {
                   dataPost = {
                     productquantity: element.quantity,
-                    totalpayment: element.quantity * element.product.pricexuat,
+                    totalpayment:
+                      element.quantity * element.product.pricexuat,
                     price: element.product.pricexuat,
                     order: {
                       orderID: response.data.orderID,
@@ -245,9 +205,64 @@ app.controller(
                   $http.post(urlPost, dataPost);
                 });
               });
-            }
-            $scope.submitOrderVNPay();
+            });
+          } else {
+            var dataPost = {
+              sumpayment:
+                $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+              discount: null,
+              customer: {
+                customerId: customer.customerId,
+              },
+              payment: {
+                paymentid: $scope.selectedPaymentMethod,
+              },
+              orderstatus: {
+                orderstatusID: 1,
+              },
+              address: {
+                addressID: 1,
+              },
+            };
+            console.log(dataPost);
+            $http.post(urlCreateOrder, dataPost).then((response) => {
+              var urlPost = `${host}/rest/createOrderDetail`;
+              $scope.products[0].Product.forEach((element) => {
+                window.localStorage.setItem('orderId', response.data.orderID);
+                dataPost = {
+                  productquantity: element.quantity,
+                  totalpayment: element.quantity * element.product.pricexuat,
+                  price: element.product.pricexuat,
+                  order: {
+                    orderID: response.data.orderID,
+                  },
+                  product: {
+                    productid: element.product.productid,
+                    // Thêm các trường khác của Product nếu cần
+                  },
+                };
+                console.log(dataPost);
+                $http.post(urlPost, dataPost);
+              });
+            });
           }
+
+          if (optionPayment == "1") {            
+            $scope.submitOrderVNPay();
+          }else{
+            Swal.fire({
+              title: "Đặt hàng",
+              text: "Bạn đã đặt hàng thành công !",
+              icon: "success",
+              timer: 850,
+              showConfirmButton: false, // Ẩn nút Xác nhận
+          })          
+          // Thiết lập một setTimeout để tự động chuyển hướng khi timer kết thúc
+          setTimeout(() => {
+              window.location.href = "/order";
+          }, 850);          
+          }
+
         } else {
           // console.log(optionPayment);
           // console.log("Hủy bỏ");
