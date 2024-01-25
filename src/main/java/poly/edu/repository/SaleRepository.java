@@ -13,4 +13,6 @@ import poly.edu.entity.Sale;
 public interface SaleRepository extends JpaRepository<Sale, Integer>{
     @Query(value="SELECT * FROM Sale WHERE Statussale = 1 and GETDATE() BETWEEN Daystartsale AND Dayendsale", nativeQuery = true)
     List<Sale> findProductOnSale();
+
+    Sale findByProductID(Integer productID);
 }
