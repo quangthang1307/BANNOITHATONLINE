@@ -114,7 +114,8 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h3>{{productdetail.pricexuat}} VNĐ</h3>
+                <h3 ng-if="productdetail.percent === 0">{{productdetail.pricexuat}}đ</h3>
+                <h3 ng-if="productdetail.percent !== 0"><s style="font-size: medium;color: gray;">{{productdetail.pricexuat}}</s><span class="text-danger">{{productdetail.pricexuat - (productdetail.pricexuat * productdetail.percent / 100)}}đ</span></h3>
             </div>
             <div class="col-md-6" style="padding-top: 18px;">
                 <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Quantity</p>
