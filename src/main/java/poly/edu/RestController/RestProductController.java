@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.ProductService;
+import poly.edu.Service.SaleService;
 import poly.edu.entity.Product;
+import poly.edu.entity.Sale;
 
 @CrossOrigin("*")
 @RestController
@@ -23,7 +25,8 @@ public class RestProductController {
 
      @Autowired
     private ProductService productService;
-
+     @Autowired
+     private SaleService saleService;
 
 
 
@@ -56,5 +59,10 @@ public class RestProductController {
         Page<Product> productPage = productService.findByCategory(pageRequest, categoryId);
 
         return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sale")
+    public ResponseEntity<List<Sale>> getProductByCategory(){
+        return ResponseEntity.ok(saleService.findAllOnSale());
     }
 }

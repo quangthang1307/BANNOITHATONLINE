@@ -1,5 +1,8 @@
 package poly.edu.RestController;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,7 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.CartService;
 import poly.edu.entity.Cart;
+import poly.edu.entity.Product;
+import poly.edu.entity.Sale;
 import poly.edu.repository.CartRepository;
+import poly.edu.repository.ProductRepository;
+import poly.edu.repository.SaleRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -31,14 +38,38 @@ public class RestCartController {
     @Autowired
     CartRepository cartResponsitory;
 
+    @Autowired
+    SaleRepository saleRepository;
+    @Autowired
+    ProductRepository productRepository;
+
     @GetMapping("/rest/showCart/{customerId}")
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {
         List<Cart> carts = cartService.findByCustomerId(customerId);
 
+        List<Cart> newCart = new ArrayList<Cart>();
+
+        for (Cart cart2 : carts) {
+            if (cart2.getProduct().isProductactivate()) {
+                Sale sale = saleRepository.findByProductID(cart2.getProduct().getProductid());
+                if (sale != null) {
+                    if (LocalDateTime.now().isAfter(sale.getDayStart())
+                            && LocalDateTime.now().isBefore(sale.getDayEnd())) {
+                        Optional<Product> product = productRepository.findById(sale.getProductID());
+                        product.get().setPricexuat(product.get().getPricexuat()
+                                - (product.get().getPricexuat() * sale.getPercent() / 100));
+                        cart2.setProduct(product.get());
+                    }
+
+                }
+                newCart.add(cart2);
+            }
+        }
+
         List<Cart> filteredCarts = carts.stream()
                 .filter(cart -> cart.getProduct().isProductactivate())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(filteredCarts);
+        return ResponseEntity.ok(newCart);
     }
 
     @PostMapping("/rest/addToCart")
@@ -59,7 +90,8 @@ public class RestCartController {
     }
 
     @PutMapping("/rest/cart/up/{customerId}/{productId}")
-    public ResponseEntity<?> upCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId, @RequestParam Integer quantity) {
+    public ResponseEntity<?> upCartQuantity(@PathVariable Integer customerId, @PathVariable Integer productId,
+            @RequestParam Integer quantity) {
         try {
             Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
 
@@ -102,15 +134,14 @@ public class RestCartController {
     }
 
     @GetMapping("/rest/cart/{customerId}/{productId}")
-    public ResponseEntity<?> checkCart(@PathVariable Integer customerId, @PathVariable Integer productId){
+    public ResponseEntity<?> checkCart(@PathVariable Integer customerId, @PathVariable Integer productId) {
         Optional<Cart> cart = cartResponsitory.findByCustomer_CustomerIdAndProduct_ProductID(customerId, productId);
-        if(cart.isPresent()){
+        if (cart.isPresent()) {
             return ResponseEntity.ok(cart.get());
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
-        
-        
+
     }
 
 }
