@@ -54,6 +54,7 @@ app.controller("OrderController", function ($scope, $http) {
                     quantity: orderDetail.productquantity,
                     name: orderDetail.product.productname,
                     imageUrl: productResponse.data[0].image,
+                    price: orderDetail.price
                   });
                 });
               });
