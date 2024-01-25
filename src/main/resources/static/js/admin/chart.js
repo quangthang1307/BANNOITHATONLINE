@@ -1,11 +1,12 @@
 function updateChart(selectedYear) {
     $.ajax({
         type: "GET",
-        url: "/admin/statistics",
+        url: "/admin/rest/statics/data",
         data: { selectedYear: selectedYear },
         dataType: "json",
         success: function (data) {
             chart.series[0].setData(data);
+            chart.setTitle({ text: 'Bảng thống kê doanh thu của năm ' + selectedYear });
         },
         error: function (error) {
             console.error("Error fetching data:", error);
@@ -13,33 +14,20 @@ function updateChart(selectedYear) {
     });
 }
 
-Highcharts.chart('container', {
+var currentYear = new Date().getFullYear();
+
+var chart = Highcharts.chart('container', {
     chart: {
         type: 'column'
     },
     title: {
-        text: 'Bảng thống kê doanh thu của năm',
+        text: 'Bảng thống kê doanh thu của năm ' + currentYear,
         align: 'left'
     },
-    // subtitle: {
-    //     text:
-    //         'Source: <a target="_blank" ' +
-    //         'href="https://www.indexmundi.com/agriculture/?commodity=corn">indexmundi</a>',
-    //     align: 'left'
-    // },
     xAxis: {
         categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
         crosshair: true
     },
-    // yAxis: {
-    //     min: 0,
-    //     title: {
-    //         text: '1000 metric tons (MT)'
-    //     }
-    // },
-    // tooltip: {
-    //     valueSuffix: ' (1000 MT)'
-    // },
     plotOptions: {
         column: {
             pointPadding: 0.2,
@@ -51,14 +39,13 @@ Highcharts.chart('container', {
             name: 'Doanh thu',
             data: sumpayment
         },
-        // {
-        //     name: 'Wheat',
-        //     data: [51086, 136000, 5500, 141000, 107180, 77000]
-        // }
     ]
 });
 
-$('#year').change(function () {
-    var selectedYear = $(this).val();
+$('#yearForm').submit(function (event) {
+    event.preventDefault();
+    var selectedYear = $('#year').val();
     updateChart(selectedYear);
 });
+
+

@@ -39,7 +39,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT SUM(o.[Sumpayment])FROM [Order] o JOIN [Orderstatus] os ON o.[OrderstatusID] = os.[OrderstatusID] WHERE os.[Orderstatusname] = ?1 AND MONTH(o.[Time]) = ?2 AND YEAR(o.[Time]) = ?3", nativeQuery = true)
     Integer findSumpaymentOrder(String orderStatus, Integer month, Integer year);
 
-    @Query(value = "SELECT DISTINCT YEAR(o.[Time]) FROM [Order] o", nativeQuery= true)
+    @Query(value = "SELECT DISTINCT YEAR(o.[Time]) FROM [Order] o ORDER BY YEAR(o.[Time]) DESC", nativeQuery= true)
     List<Integer> findDistinctYears();
 
 }
