@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,11 @@ import lombok.Data;
 import net.minidev.json.JSONObject;
 import poly.edu.Service.PaymentService;
 import poly.edu.Service.VNPayService;
+import poly.edu.entity.Order;
 import poly.edu.entity.Payment;
+import poly.edu.entity.Transaction;
+import poly.edu.repository.OrderRepository;
+import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -32,6 +37,12 @@ public class PaymentRestController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    TransactionRepository transactionRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @PostMapping("/rest/vnpay")
     public ResponseEntity<PaymentResponse> submitOrder(@RequestBody Map<String, Object> requestBody,
@@ -49,8 +60,6 @@ public class PaymentRestController {
 
     }
 
-    
-
     @Data
     public class PaymentResponse {
         private String vnpayUrl;
@@ -66,101 +75,135 @@ public class PaymentRestController {
         // Getters và setters
     }
 
-
-
     @GetMapping("/rest/checkAllOptionPayment")
-    public ResponseEntity<?> getAllOptionPayment(){
+    public ResponseEntity<?> getAllOptionPayment() {
         List<Payment> payment = paymentService.getPayments();
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 
     @GetMapping("/rest/checkOptionPayment/{paymentId}")
-    public ResponseEntity<?> getOptionPayment(@PathVariable Integer paymentId){
+    public ResponseEntity<?> getOptionPayment(@PathVariable Integer paymentId) {
         Optional<Payment> payment = paymentService.getPayment(paymentId);
         return new ResponseEntity<>(payment.get(), HttpStatus.OK);
     }
 
+    @PostMapping("/rest/createTransaction")
+    public ResponseEntity<?> createTransaction(
+            @RequestParam Integer orderID,
+            @RequestParam Integer Amount,
+            @RequestParam String Status,
+            @RequestParam String Message,
+            @RequestParam String bank) {
+
+        Optional<Order> order = orderRepository.findById(orderID);
+
+        Transaction transaction = transactionRepository.findByOrder(order.get());
+        if (transaction == null) {
+            Transaction tran = new Transaction();
+            tran.setAmount(Amount);
+            tran.setOrder(order.get());
+            tran.setStatus(Status);
+            tran.setBank(bank);
+            tran.setDate(LocalDateTime.now());
+            tran.setMessage(Message);
+            transactionRepository.save(tran);
+            return ResponseEntity.ok(tran);
+        } else {
+            return ResponseEntity.ok(transaction);
+        }
+    }
+
+    @GetMapping("/rest/findTransaction")
+    public ResponseEntity<?> getTransaction(@RequestParam Integer orderID) {
+
+        Optional<Order> order = orderRepository.findById(orderID);
+        if (order.isPresent()) {
+            Transaction transaction = transactionRepository.findByOrder(order.get());
+
+            if (transaction != null) {
+                return ResponseEntity.ok(transaction);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // @GetMapping("/vnpay-payment")
-    // public ResponseEntity<?> getPayment(HttpServletRequest request) {
-    //     int paymentStatus = vnPayService.orderReturn(request);
+// public ResponseEntity<?> getPayment(HttpServletRequest request) {
+// int paymentStatus = vnPayService.orderReturn(request);
 
-    //     String orderInfo = request.getParameter("vnp_OrderInfo");
-    //     String paymentTime = request.getParameter("vnp_PayDate");
-    //     String transactionId = request.getParameter("vnp_TransactionNo");
-    //     String totalPrice = request.getParameter("vnp_Amount");
+// String orderInfo = request.getParameter("vnp_OrderInfo");
+// String paymentTime = request.getParameter("vnp_PayDate");
+// String transactionId = request.getParameter("vnp_TransactionNo");
+// String totalPrice = request.getParameter("vnp_Amount");
 
-    //     // Tạo một JSON response thay vì sử dụng Model
-    //     JSONObject responseJson = new JSONObject();
-    //     responseJson.put("orderId", orderInfo);
-    //     responseJson.put("totalPrice", totalPrice);
-    //     responseJson.put("paymentTime", paymentTime);
-    //     responseJson.put("transactionId", transactionId);
-    //     responseJson.put("paymentStatus", paymentStatus);
+// // Tạo một JSON response thay vì sử dụng Model
+// JSONObject responseJson = new JSONObject();
+// responseJson.put("orderId", orderInfo);
+// responseJson.put("totalPrice", totalPrice);
+// responseJson.put("paymentTime", paymentTime);
+// responseJson.put("transactionId", transactionId);
+// responseJson.put("paymentStatus", paymentStatus);
 
-    //     HttpStatus httpStatus = (paymentStatus == 1) ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+// HttpStatus httpStatus = (paymentStatus == 1) ? HttpStatus.OK :
+// HttpStatus.BAD_REQUEST;
 
-    //     System.out.println(responseJson);
+// System.out.println(responseJson);
 
-    //     if (paymentStatus == 1) {
-    //         PaymentResponse response = new PaymentResponse(responseJson.toString(), "Order created successfully");
-    //         return ResponseEntity.ok(responseJson);
-    //     } else {
-    //         PaymentResponse response = new PaymentResponse(responseJson.toString(), "Order created failed");
-    //         return new ResponseEntity<>(responseJson, HttpStatus.BAD_REQUEST);
-    //     }
-    // }
+// if (paymentStatus == 1) {
+// PaymentResponse response = new PaymentResponse(responseJson.toString(),
+// "Order created successfully");
+// return ResponseEntity.ok(responseJson);
+// } else {
+// PaymentResponse response = new PaymentResponse(responseJson.toString(),
+// "Order created failed");
+// return new ResponseEntity<>(responseJson, HttpStatus.BAD_REQUEST);
+// }
+// }
 
-    // @GetMapping("/vnpay-payment1")
-    // public ResponseEntity<?> getPayment1(HttpServletRequest request,
-    //         @RequestParam Integer vnp_Amount,
-    //         @RequestParam String vnp_BankCode,
-    //         @RequestParam String vnp_CardType,
-    //         @RequestParam String vnp_OrderInfo,
-    //         @RequestParam String vnp_PayDate,
-    //         @RequestParam Integer vnp_ResponseCode,
-    //         @RequestParam String vnp_TmnCode,
-    //         @RequestParam Integer vnp_TransactionNo,
-    //         @RequestParam String vnp_TransactionStatus,
-    //         @RequestParam String vnp_TxnRef,
-    //         @RequestParam String vnp_SecureHash) {
+// @GetMapping("/vnpay-payment1")
+// public ResponseEntity<?> getPayment1(HttpServletRequest request,
+// @RequestParam Integer vnp_Amount,
+// @RequestParam String vnp_BankCode,
+// @RequestParam String vnp_CardType,
+// @RequestParam String vnp_OrderInfo,
+// @RequestParam String vnp_PayDate,
+// @RequestParam Integer vnp_ResponseCode,
+// @RequestParam String vnp_TmnCode,
+// @RequestParam Integer vnp_TransactionNo,
+// @RequestParam String vnp_TransactionStatus,
+// @RequestParam String vnp_TxnRef,
+// @RequestParam String vnp_SecureHash) {
 
-    //     int paymentStatus = vnPayService.orderReturn(request);
+// int paymentStatus = vnPayService.orderReturn(request);
 
-    //     String orderInfo = request.getParameter("vnp_OrderInfo");
-    //     String paymentTime = request.getParameter("vnp_PayDate");
-    //     String transactionId = request.getParameter("vnp_TransactionNo");
-    //     String totalPrice = request.getParameter("vnp_Amount");
-    //     String TransactionStatus = request.getParameter("vnp_TransactionStatus");
-    //     Map<String, String> response = new HashMap<>();
-    //     response.put("orderId", orderInfo);
-    //     response.put("totalPrice", totalPrice);
-    //     response.put("paymentTime", paymentTime);
-    //     response.put("transactionId", transactionId);
-    //     System.out.println(TransactionStatus);
-        
-    //     response.put("paymentStatus", String.valueOf(paymentStatus));
-    //     // response.put("data", "quadinh");
+// String orderInfo = request.getParameter("vnp_OrderInfo");
+// String paymentTime = request.getParameter("vnp_PayDate");
+// String transactionId = request.getParameter("vnp_TransactionNo");
+// String totalPrice = request.getParameter("vnp_Amount");
+// String TransactionStatus = request.getParameter("vnp_TransactionStatus");
+// Map<String, String> response = new HashMap<>();
+// response.put("orderId", orderInfo);
+// response.put("totalPrice", totalPrice);
+// response.put("paymentTime", paymentTime);
+// response.put("transactionId", transactionId);
+// System.out.println(TransactionStatus);
 
-    //     return new ResponseEntity<>(response, HttpStatus.OK);
-    // }
+// response.put("paymentStatus", String.valueOf(paymentStatus));
+// // response.put("data", "quadinh");
 
-    // @GetMapping("/rest/test")
-    // public ResponseEntity<Map<String, String>> getString(@RequestParam String customerid) {
-    //     Map<String, String> response = new HashMap<>();
-    //     response.put("data", "quadinh");
-    //     return new ResponseEntity<>(response, HttpStatus.OK);
-    // }
+// return new ResponseEntity<>(response, HttpStatus.OK);
+// }
+
+// @GetMapping("/rest/test")
+// public ResponseEntity<Map<String, String>> getString(@RequestParam String
+// customerid) {
+// Map<String, String> response = new HashMap<>();
+// response.put("data", "quadinh");
+// return new ResponseEntity<>(response, HttpStatus.OK);
+// }

@@ -26,8 +26,8 @@ public class Address {
     @Column(name = "Tinhthanhpho")
     private String tinhthanhpho;
 
-    @Column(name = "Quanhuy")
-    private String quanhuy;
+    @Column(name = "Quanhuyen")
+    private String quanhuyen;
     
 
     @Column(name = "Phuongxa")

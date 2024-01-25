@@ -27,6 +27,23 @@ public class AccountController {
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
+    //Edit profile
+    @RequestMapping("/user/editprofile")
+    public String showEditProfile() {
+        return "user/editprofile";
+    }
+
+    @RequestMapping("/user/profile")
+	public String showUserProfile(Model model) {
+	    return "user/profiles";
+	}
+	
+	@RequestMapping("/user/profile/pageaddress")
+	public String showAddressProfile(Model model) {
+	    return "user/profilesaddress";
+	}
+	//
+
     @RequestMapping("/user/register")
     public String showRegister() {
         return "user/register";

@@ -14,6 +14,16 @@ public class HomeController {
 		return "user/index";
 	}
 
+	@RequestMapping("/admin/index")
+	public String showAdminindex() {
+		return "admin/index";
+	}
+
+	@RequestMapping("/admin")
+	public String Adminindex() {
+		return "redirect:/admin/index";
+	}
+
 	@RequestMapping("/login")
 	public String showLogin() {
 		return "login";
@@ -41,6 +51,15 @@ public class HomeController {
 	@RequestMapping("/checkout")
 	public String showpayment() {
 		return "user/checkout1";
+	}
+
+	@RequestMapping("/order")
+	public String showpayment2() {
+		return "user/checkout2";
+	}
+	@RequestMapping("/orderdetail")
+	public String showpayment3() {
+		return "user/checkout3";
 	}
 
 

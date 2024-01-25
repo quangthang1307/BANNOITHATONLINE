@@ -81,12 +81,58 @@ app.controller("CartController", function ($scope, $http, $window) {
 
   $scope.upQuantityProduct = function (cart) {
     var urlUpQuantityProduct = `${hostUpQuantityProduct}/${customer.customerId}/${cart.product.productid}`;
-    $http.put(urlUpQuantityProduct).then((resp) => {
-      // $scope.loadCart();
-      cart.quantity++;
+    $http
+      .put(urlUpQuantityProduct, null, {
+        params: {
+          quantity: cart.quantity + 1,
+        },
+      })
+      .then((resp) => {
+        cart.quantity++;
+        $scope.calculateTotalAmount();
+        $scope.calculateSelectedTotalAmount();
+      });
+  };
+
+  $scope.changeQuantityProductInput = function (cart) {
+    var urlUpQuantityProduct = `${hostUpQuantityProduct}/${customer.customerId}/${cart.product.productid}`;
+    if (cart.quantity != null) {
+      $http
+        .put(urlUpQuantityProduct, null, {
+          params: {
+            quantity: cart.quantity,
+          },
+        })
+        .then((resp) => {
+          $scope.calculateTotalAmount();
+          $scope.calculateSelectedTotalAmount();
+        });
+    } else {
       $scope.calculateTotalAmount();
       $scope.calculateSelectedTotalAmount();
-    });
+      Swal.fire({
+        title: "Không được để trống số lượng ?",
+        text: "Nhập số lượng hoặc xóa sản phẩm ( nếu muốn )!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa sản phẩm",
+        cancelButtonText: "Nhập số lượng",
+      }).then((result) => {
+        var urlDeleteProduct = `${hostDeleteProduct}/${cart.cartId}`;
+        if (result.isConfirmed) {
+          $http.delete(urlDeleteProduct).then((resp) => {
+            $scope.loadCart();
+          });
+          Swal.fire(
+            "Đã xóa!",
+            "Sản phẩm đã được xóa khỏi giỏ hàng.",
+            "Thành công"
+          );
+        } else {
+          // $scope.loadCart();
+        }
+      });
+    }
   };
 
   $scope.downQuantityProduct = function (cart) {
@@ -135,16 +181,14 @@ app.controller("CartController", function ($scope, $http, $window) {
     }).then((result) => {
       if (result.isConfirmed) {
         $http.delete(urlDeleteProduct).then(() => {
-
           var indexToRemove = $scope.listCartId.findIndex(
             (item) => item.cartId === cart.cartId
           );
-  
+
           if (indexToRemove !== -1) {
             $scope.listCartId.splice(indexToRemove, 1);
           }
 
-          
           $scope.loadCart();
           $scope.calculateTotalAmount();
           $scope.calculateSelectedTotalAmount();
@@ -239,22 +283,20 @@ app.controller("CartController", function ($scope, $http, $window) {
         TotalPayment: $scope.selectedTotalAmount,
       });
 
-      console.log($scope.pay);      
-      $window.localStorage.setItem("listPayment",JSON.stringify($scope.pay));
-      window.location.href = '/checkout';
-    }else{
+      console.log($scope.pay);
+      $window.localStorage.setItem("listPayment", JSON.stringify($scope.pay));
+      window.location.href = "/checkout";
+    } else {
       Swal.fire({
         title: "Vui lòng chọn sản phẩm để thanh toán!",
         icon: "warning",
         showConfirmButton: false,
         timer: 3000,
         customClass: {
-          popup: 'custom-popup-class',
-          title: 'custom-title-class',
+          popup: "custom-popup-class",
+          title: "custom-title-class",
         },
       });
-      
-      
     }
     // var show = JSON.parse(localStorage.getItem("listPayment"));
   };

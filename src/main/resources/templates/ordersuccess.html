@@ -17,7 +17,8 @@
     <div class="container">
         <div class="w-50 m-auto">
             <!-- Thêm lớp "my-4" để tạo ra khoảng cách trên và dưới tiêu đề trang -->
-            <h1 class="my-3 text-success text-center">Thanh toán thành công</h1>
+            <h1 class="my-3 text-success text-center" th:if="${vnp_TransactionStatus} == '00'">Thanh toán thành công</h1>
+            <h1 class="my-3 text-danger text-center" th:unless="${vnp_TransactionStatus} == '00'">Thanh toán thất bại</h1>
             <!-- Sử dụng lớp "alert" và "alert-danger" để tạo ra thông báo lỗi -->
             <h2 class="my-2">Chi tiết đơn hàng</h2>
             <!-- Sử dụng lớp "table" và "table-bordered" để tạo ra bảng hiển thị thông tin chi tiết đơn hàng -->
@@ -41,12 +42,12 @@
                 </tr>
                 </tbody>
             </table>
-            <a href="/" class="btn btn-primary">Về trang chủ</a>
+            <a href="/index" class="btn btn-primary">Về trang chủ</a>
         </div>
     </div>
 </div>
 
-<div class="row" ng-repeat="payment in products">
+<!-- <div class="row" ng-repeat="payment in products">
     <div ng-repeat="product in payment.Product">
         <div class="col-md-2 col-xs-6 less-padding-right">
             <img ng-src="{{product.imageUrl}}" width="100%">
@@ -60,7 +61,7 @@
         </div>
         <div class="clearfix maya-small-padding"></div>
     </div>
-</div>
+</div> -->
 <!-- end body -->
 
 
@@ -70,6 +71,22 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
         <script src="js/user/donhang.js"></script>
+
+        <!-- Trong trang HTML của bạn -->
+<script th:inline="javascript">
+    /* Trích xuất giá trị từ Model */
+    // var myMessage = /*[[${vnp_TransactionStatus}]]*/ 'default value';
+
+    /* Xử lý giá trị ở đây, ví dụ: */
+    var vnp_TransactionStatus = [[${vnp_TransactionStatus}]];
+    var vnp_BankCode = [[${vnp_BankCode}]];
+    var vnp_Amount = [[${vnp_Amount}]];
+</script>
+
+<script src="js/user/donhang.js"></script>
+
+
+
 </body>
 
 </html>

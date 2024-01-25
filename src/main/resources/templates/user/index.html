@@ -25,7 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body ng-controller="productController">
+<body ng-controller="IndexController">
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
@@ -162,7 +162,7 @@
 
             <div class="col-sm-6 col-md-4" data-behavior="sample_code" ng-repeat="product in products">
                 <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="images/risotto_square.jpg" alt="risotto lemon">
+                    <img src="{{product.productimages[0].image}}" alt="risotto lemon">
                 </a>
                 <div class="caption box">
                     <h3>{{product.productname}}</h3>
@@ -398,7 +398,7 @@
 <script src="js/kimi.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
-<script src="/js/user/product.js"></script>
+<script src="/js/user/index.js"></script>
 
 </body>
 </html>

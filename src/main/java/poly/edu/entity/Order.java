@@ -3,6 +3,8 @@ package poly.edu.entity;
 
 
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,9 @@ public class Order {
 
     @Column(name = "Sumpayment")
     private Double sumpayment;
+
+    @Column(name = "[Time]")
+    private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "DiscountID")

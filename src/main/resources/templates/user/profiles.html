@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bannoithatonline" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/kimi.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body ng-controller="ProfileController">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container-fluid" style="padding-bottom: 50px; padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-3">
+            <div data-th-insert="~{common/profile/menu.html}"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="row">
+                    <div class="box-bg-white col-md-12 col-xs-12">
+                        <h3 class="section-title">Hồ sơ của tôi</h3>
+                        <p class="">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="box-bg-white col-md-12 col-xs-12">
+                        <h3 class="section-title">Thông tin</h3>
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-sm-6">
+                                <p><strong>Tên đăng nhập:</strong><br>
+                                <span class="text-gray-1">{{ customer.account.username }}</span></p>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <p><strong>Email:</strong><br>
+                                <span class="text-gray-1">{{ customer.account.email }}</span></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p><strong>Số điện thoại:</strong><br>
+                                <span class="text-gray-1">{{ customer.phone }}</span></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<!--include footer-->
+<div class="include-footer"></div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../js/bootstrap.min.js"></script>
+<!--kimi basic js-->
+<script src="../js/kimi.js"></script>
+<script src="../js/user/profile.js"></script>
+</body>
+</html>
