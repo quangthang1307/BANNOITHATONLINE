@@ -1,6 +1,10 @@
 package poly.edu.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,22 +32,22 @@ public class AccountController {
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
-    //Edit profile
+    // Edit profile
     @RequestMapping("/user/editprofile")
     public String showEditProfile() {
         return "user/editprofile";
     }
 
     @RequestMapping("/user/profile")
-	public String showUserProfile(Model model) {
-	    return "user/profiles";
-	}
-	
-	@RequestMapping("/user/profile/pageaddress")
-	public String showAddressProfile(Model model) {
-	    return "user/profilesaddress";
-	}
-	//
+    public String showUserProfile(Model model) {
+        return "user/profiles";
+    }
+
+    @RequestMapping("/user/profile/pageaddress")
+    public String showAddressProfile(Model model) {
+        return "user/profilesaddress";
+    }
+    //
 
     @RequestMapping("/user/register")
     public String showRegister() {
@@ -55,16 +60,29 @@ public class AccountController {
     }
 
     @PostMapping("/user/saveforgotpassword")
-    public String saveForgotpassword(@RequestParam("email") String email, Model model) {
+    public String saveForgotpassword(@RequestParam("email") String email, Model model, HttpServletRequest request) {
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        if (email == null || email.isEmpty()) {
+            model.addAttribute("error", "Hãy nhập email của bạn");
+            return "user/forgotpassword";
+        } else if (!matcher.matches()) {
+            model.addAttribute("error", "Vui lòng nhập đúng định dạng email");
+            return "user/forgotpassword";
+        }
+
         Account account = accountService.findByEmail(email);
         if (account == null) {
-            model.addAttribute("error", "Email không đúng với email đăng ký");
+            model.addAttribute("error", "Không tìm thấy tài khoản nào khớp với email này");
+            return "user/forgotpassword";
         }
 
         String emailLink = "http://localhost:8080/user/resetpassword";
 
         try {
-            forgotPasswordService.sendEmail(account.getEmail(), "Đường dẫn thay đổi mật khẩu", emailLink);
+            forgotPasswordService.sendEmail(request, account.getEmail(), "Đường dẫn thay đổi mật khẩu", emailLink);
         } catch (UnsupportedEncodingException | MessagingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -79,34 +97,70 @@ public class AccountController {
     }
 
     @PostMapping("/user/resetpassword")
-    public String saveResetPassword(HttpServletRequest request, Model model) {
-
-        String password = request.getParameter("password");
-        String username = request.getParameter("username");
-        String confirmPassword = request.getParameter("confirmpassword");
-
-        if(password.equals(confirmPassword)){
-            model.addAttribute("message", "Mật khẩu trùng khớp");
-        }else{
-            model.addAttribute("message", "Mật khẩu xác nhận không trùng khớp");
-        }
+    public String saveResetPassword(@RequestParam("password") String password,
+            @RequestParam("confirmpassword") String confirmPassword,
+            @RequestParam("resetTokenInput") String resetTokenInput,
+            HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession();
+        String resetEmail = (String) session.getAttribute("resetEmail");
         String resetToken = (String) session.getAttribute("resetToken");
 
-        if(resetToken != null && !resetToken.isEmpty()){
-            Account checkEmail = accountService.findByUserName(username);
-            if(checkEmail != null){
+        List<String> validationMessages = new ArrayList<>();
+
+        if (password == null || password.isEmpty()) {
+            validationMessages.add("Hãy nhập mật khẩu của bạn");
+        }
+        if (!validationMessages.isEmpty()) {
+            for (String message : validationMessages) {
+                redirectAttributes.addFlashAttribute("message", message);
+            }
+            redirectAttributes.addAttribute("token", resetToken);
+            return "redirect:/user/resetpassword";
+        }
+        if (confirmPassword == null || confirmPassword.isEmpty()) {
+            validationMessages.add("Hãy nhập lại mật khẩu của bạn");
+        }
+        if (!validationMessages.isEmpty()) {
+            for (String message : validationMessages) {
+                redirectAttributes.addFlashAttribute("message", message);
+            }
+            redirectAttributes.addAttribute("token", resetToken);
+            return "redirect:/user/resetpassword";
+        }
+        if (password != null && confirmPassword != null && !password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("message", "Mật khẩu xác nhận không trùng khớp");
+            redirectAttributes.addAttribute("token", resetToken);
+            return "redirect:/user/resetpassword";
+        }
+
+        if (resetTokenInput == null || resetTokenInput.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Hãy nhập mã Token");
+            redirectAttributes.addAttribute("token", resetToken);
+            return "redirect:/user/resetpassword";
+        }
+
+        if (!resetTokenInput.equals(resetToken)) {
+            redirectAttributes.addFlashAttribute("message", "Mã Token không hợp lệ");
+            redirectAttributes.addAttribute("token", resetToken);
+            return "redirect:/user/resetpassword";
+        }
+
+        if (resetEmail != null && resetTokenInput != null && !resetEmail.isEmpty() && !resetTokenInput.isEmpty()) {
+            Account checkEmail = accountService.findByEmail(resetEmail);
+            if (checkEmail != null) {
+                // Kiểm tra mật khẩu mới và cập nhật tùy thuộc vào đó
                 checkEmail.setPassword(password);
                 accountService.saveAccount(checkEmail);
 
                 session.removeAttribute("resetToken");
+                session.removeAttribute("resetEmail");
 
-                return "user/resetpassword";
+                redirectAttributes.addFlashAttribute("message", "Đổi mật khẩu thành công");
             }
-            
         }
 
-        return "user/resetpassword";
+        return "redirect:/user/resetpassword";
     }
+
 }

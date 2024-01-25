@@ -2,6 +2,8 @@ package poly.edu.RestController;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,6 +57,18 @@ public class RestAccountController {
     @PostMapping("/rest/user/sigup")
     public ResponseEntity<?> registerUser(@RequestBody AccountDTO accountDTO) {
 
+        if(accountDTO.getUsername() == null){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tài khoản"), HttpStatus.OK);
+        }else if(accountDTO.getEmail() == null){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập email"), HttpStatus.OK);
+        }else if(accountDTO.getPassword() == null){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập mật khẩu"), HttpStatus.OK);
+        }else if(accountDTO.getName() == null){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tên người dùng"), HttpStatus.OK);
+        }else if(accountDTO.getPhone() == null){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập số điện thoại"), HttpStatus.OK);
+        }
+
         // Kiểm tra tài khoản đã tồn tại hay chưa
         if (accountRepository.existsByUsername(accountDTO.getUsername())) {
             // return new ResponseEntity<>("Tên đăng nhập đã tồn tại", HttpStatus.BAD_REQUEST);
@@ -67,6 +81,10 @@ public class RestAccountController {
             // return new ResponseEntity<>("Email này đã tồn tại", HttpStatus.BAD_REQUEST);
 
             return new ResponseEntity<>(Collections.singletonMap("message", "Email này đã được sử dụng"), HttpStatus.OK);
+        }
+
+        if(!isValidEmail(accountDTO.getEmail())){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Email chưa đúng định dạng"), HttpStatus.OK);
         }
 
         if (customerRepository.existsByName(accountDTO.getName()
@@ -106,5 +124,12 @@ public class RestAccountController {
 
         return new ResponseEntity<>(Collections.singletonMap("message", "Đăng ký thành công"), HttpStatus.OK);
 
+    }
+
+    private boolean isValidEmail(String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

@@ -41,7 +41,7 @@
 
 //Viết bằng angular js
 var app = angular.module('bannoithatonline', []);
-app.controller('registerController', function ($scope, $http) {
+app.controller('registerController', function ($scope, $http, $location) {
 
     $scope.registerUser = function () {
         var data = {
@@ -54,14 +54,20 @@ app.controller('registerController', function ($scope, $http) {
 
         $http.post('http://localhost:8080/rest/user/sigup', data)
             .then(function (response) {
-                // console.log("Đăng ký thành công");
-                alert(response.data.message);
-                // $scope.msg="Đăng ký thành công"
+                //Đăng ký thành công
+                Swal.fire(
+                    'Thành công!',
+                    response.data.message,
+                    'success'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href='http://localhost:8080/login'
+                    }
+                });
             })
             .catch(function (error) {
-                // console.log("Đăng ký thất bại");
-                alert(error.data.message);
-                // $scope.msg2="Đăng ký thất bại"
+                document.getElementById('notification').innerHTML = error.data.message1;
             });
+
     };
 });
