@@ -34,7 +34,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService{
         session.setAttribute("resetToken", resetToken);
         session.setAttribute("resetEmail", email);
 
-        String emailTokenSession = emailLink + "?token=" + resetToken;
+        String emailTokenSession = emailLink;
         
         String emailContent = "<p>Xin chào!!!<p>"
                                 + "Nhấn vào đường dẫn để thay đổi mật khẩu:"

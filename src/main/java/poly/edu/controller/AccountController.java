@@ -71,6 +71,8 @@ public class AccountController {
         } else if (!matcher.matches()) {
             model.addAttribute("error", "Vui lòng nhập đúng định dạng email");
             return "user/forgotpassword";
+        }else{
+            model.addAttribute("error", "Email đã được gửi thành công!");
         }
 
         Account account = accountService.findByEmail(email);
@@ -115,7 +117,7 @@ public class AccountController {
             for (String message : validationMessages) {
                 redirectAttributes.addFlashAttribute("message", message);
             }
-            redirectAttributes.addAttribute("token", resetToken);
+            // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }
         if (confirmPassword == null || confirmPassword.isEmpty()) {
@@ -125,24 +127,24 @@ public class AccountController {
             for (String message : validationMessages) {
                 redirectAttributes.addFlashAttribute("message", message);
             }
-            redirectAttributes.addAttribute("token", resetToken);
+            // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }
         if (password != null && confirmPassword != null && !password.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("message", "Mật khẩu xác nhận không trùng khớp");
-            redirectAttributes.addAttribute("token", resetToken);
+            // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }
 
         if (resetTokenInput == null || resetTokenInput.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Hãy nhập mã Token");
-            redirectAttributes.addAttribute("token", resetToken);
+            // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }
 
         if (!resetTokenInput.equals(resetToken)) {
             redirectAttributes.addFlashAttribute("message", "Mã Token không hợp lệ");
-            redirectAttributes.addAttribute("token", resetToken);
+            // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }
 
