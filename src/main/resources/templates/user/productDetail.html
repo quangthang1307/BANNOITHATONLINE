@@ -49,11 +49,11 @@
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
                                         <div class="active item" data-slide-number="0">
-                                            <img src="../images/product/{{productdetail.productimages[0].image}}">
+                                            <img src="../{{productdetail.productimages[0].image}}">
                                         </div>
 
                                         <div class="item" data-slide-number="1">
-                                            <img src="../images/product/{{productdetail.productimages[1].image}}">
+                                            <img src="../{{productdetail.productimages[1].image}}">
                                         </div>
 
                                     </div>
@@ -73,11 +73,11 @@
 
                 <div class="col-sm-3" id="slider-thumbs">
                     <a class="thumbnail" id="carousel-selector-0">
-                        <img src="../images/product/{{productdetail.productimages[0].image}}">
+                        <img src="../{{productdetail.productimages[0].image}}">
                     </a>
 
                     <a class="thumbnail" id="carousel-selector-1">
-                        <img src="../images/product/{{productdetail.productimages[1].image}}">
+                        <img src="../{{productdetail.productimages[1].image}}">
                     </a>
 
                 </div>
@@ -118,19 +118,19 @@
                 <h3 ng-if="productdetail.percent !== 0"><s style="font-size: medium;color: gray;">{{productdetail.pricexuat}}</s><span class="text-danger">{{productdetail.pricexuat - (productdetail.pricexuat * productdetail.percent / 100)}}đ</span></h3>
             </div>
             <div class="col-md-6" style="padding-top: 18px;">
-                <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Quantity</p>
+                <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Số lượng</p>
                 <form class="form-inline product-detail-form">
-                    <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
+                    <div class="form-group pull-left"><button ng-click="decrease()" class="btn btn-default" id="btnGiam">-</button></div>
                     <div class="form-group pull-left">
-                        <input type="number" class="form-control number-input" id="" placeholder="10" style="width: 60px; border: none; font-weight: bold; font-size: 20px;">
+                        <input  type="number" readonly class="form-control number-input" id="" value="{{quantity}}" min="1" style="width: 60px; border: none; font-weight: bold; font-size: 20px;">
                     </div>
-                    <div class="form-group"><button class="btn btn-default">+</button></div>
+                    <div class="form-group"><button ng-click="increase()" class="btn btn-default" id="btnTang">+</button></div>
                 </form>
             </div>
         </div>
 
         <div class="product-detail-action-button-container">
-            <button onclick="location.href='shoppingCart.html'" class="btn button-add-to-bag" style="margin-right: 10px;">Add to Bag</button>
+            <button onclick="location.href='shoppingCart.html'" class="btn button-add-to-bag" style="margin-right: 10px;">Thêm vào giỏ hàng</button>
             <button class="btn btn-default button-black button-learn-more" id="bookmarkButton">Set Favourite</button>
             <button class="btn btn-default button-black button-learn-more" id="deleteBookmarkButton" style="display: none;">Delete Favourite</button>
         </div>

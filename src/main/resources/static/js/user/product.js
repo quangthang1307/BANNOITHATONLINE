@@ -298,7 +298,7 @@ app.controller("productController", function ($scope, $http, $window) {
                     });
 
                     //Tổng tiền toàn bộ giỏ hàng
-                    $scope.calculateTotalAmount();  
+                    $scope.calculateTotalAmount();
                     //   $scope.calculateSelectedTotalAmount();
                 });
             }
@@ -311,13 +311,13 @@ app.controller("productController", function ($scope, $http, $window) {
         $scope.listCart.forEach(function (cartItem) {
 
             var percent = 0;
-            console.log("san pham khong sale:"+$scope.isProductInSale(cartItem.product.productid));
+            console.log("san pham khong sale:" + $scope.isProductInSale(cartItem.product.productid));
             console.log(cartItem.product.productid);
-            if($scope.isProductInSale(cartItem.product.productid)){
+            if ($scope.isProductInSale(cartItem.product.productid)) {
                 percent = $scope.getPercentSaleForProduct(cartItem.product.productid);
             }
             console.log(percent);
-            var productPrice = cartItem.product.pricexuat - (cartItem.product.pricexuat * percent/100);
+            var productPrice = cartItem.product.pricexuat - (cartItem.product.pricexuat * percent / 100);
             var quantity = cartItem.quantity;
             $scope.totalAmount += productPrice * quantity;
             cartItem.product.pricexuat = productPrice;
@@ -326,6 +326,7 @@ app.controller("productController", function ($scope, $http, $window) {
     };
 
     // Load data for the first time
+    $scope.fetchCustomer();
     $scope.getData();
     $scope.getDataCategory();
 
@@ -338,9 +339,25 @@ app.controller("productController", function ($scope, $http, $window) {
 
 //Product Details Controller
 app.controller('productDetailController', function ($scope, $http) {
-    $scope.productdetail = [];
-    console.log("ProductDetailController");
-    $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
+    $scope.productdetail = null;
+    $scope.quantity = 1;
+    $scope.getProductDetail = function () {
+        $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
+        console.log("ProductDetail", $scope.productdetail);
+    };
 
-    console.log("ProductDetail", $scope.productdetail);
-});
+    // Hàm tăng số lượng
+    $scope.increase = function () {
+        $scope.quantity++;
+    };
+
+    // Hàm giảm số lượng
+    $scope.decrease = function () {
+        if ($scope.quantity > 1) {
+            $scope.quantity--;
+        }
+    }
+
+        // Load data for the first time
+        $scope.getProductDetail();
+    });
