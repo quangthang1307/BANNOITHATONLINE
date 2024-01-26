@@ -53,21 +53,27 @@ app.controller('registerController', function ($scope, $http, $location) {
         };
 
         $http.post('http://localhost:8080/rest/user/sigup', data)
-            .then(function (response) {
-                //Đăng ký thành công
-                Swal.fire(
-                    'Thành công!',
-                    response.data.message,
-                    'success'
-                ).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href='http://localhost:8080/login'
-                    }
-                });
-            })
-            .catch(function (error) {
-                document.getElementById('notification').innerHTML = error.data.message1;
+        .then(function (response) {
+            // Đăng ký thành công
+            Swal.fire(
+                'Thành công!',
+                response.data.message,
+                'success'
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'http://localhost:8080/login';
+                }
             });
+        })
+        .catch(function (error) {
+            // Đăng ký thất bại
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.data.message,
+                confirmButtonText: 'OK'
+            });
+        });
 
     };
 });

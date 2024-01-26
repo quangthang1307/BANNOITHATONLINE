@@ -47,58 +47,58 @@ public class RestAccountController {
     @Autowired
     AccountService accountService;
     
-    @PostMapping("/rest/user/forgotpassword")
-    public ResponseEntity<?> forgotPassWord(@RequestBody AccountDTO accountDTO){
-        Account checkEmail = accountService.findByEmail(accountDTO.getEmail());
+    // @PostMapping("/rest/user/forgotpassword")
+    // public ResponseEntity<?> forgotPassWord(@RequestBody AccountDTO accountDTO){
+    //     Account checkEmail = accountService.findByEmail(accountDTO.getEmail());
 
-        return new ResponseEntity<>(Collections.singletonMap("message", "Mật khẩu đã được gửi vào email của bạn"), HttpStatus.OK);
-    }
+    //     return new ResponseEntity<>(Collections.singletonMap("message", "Mật khẩu đã được gửi vào email của bạn"), HttpStatus.OK);
+    // }
 
     @PostMapping("/rest/user/sigup")
     public ResponseEntity<?> registerUser(@RequestBody AccountDTO accountDTO) {
 
         if(accountDTO.getUsername() == null){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tài khoản"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tài khoản"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getEmail() == null){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập email"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập email"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getPassword() == null){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập mật khẩu"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập mật khẩu"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getName() == null){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tên người dùng"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tên người dùng"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getPhone() == null){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập số điện thoại"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập số điện thoại"), HttpStatus.BAD_REQUEST);
         }
 
         // Kiểm tra tài khoản đã tồn tại hay chưa
         if (accountRepository.existsByUsername(accountDTO.getUsername())) {
             // return new ResponseEntity<>("Tên đăng nhập đã tồn tại", HttpStatus.BAD_REQUEST);
 
-            return new ResponseEntity<>(Collections.singletonMap("message", "Tên đăng nhập đã tồn tại"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Tên đăng nhập đã tồn tại"), HttpStatus.BAD_REQUEST);
         }
 
         // Kiểm tra Email đã tồn tại hay chưa
         if (accountRepository.existsByEmail(accountDTO.getEmail())) {
             // return new ResponseEntity<>("Email này đã tồn tại", HttpStatus.BAD_REQUEST);
 
-            return new ResponseEntity<>(Collections.singletonMap("message", "Email này đã được sử dụng"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Email này đã được sử dụng"), HttpStatus.BAD_REQUEST);
         }
 
         if(!isValidEmail(accountDTO.getEmail())){
-            return new ResponseEntity<>(Collections.singletonMap("message", "Email chưa đúng định dạng"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Email chưa đúng định dạng"), HttpStatus.BAD_REQUEST);
         }
 
         if (customerRepository.existsByName(accountDTO.getName()
         )){
             // return new ResponseEntity<>("Tên người dùng đã tồn tại", HttpStatus.BAD_REQUEST);
 
-            return new ResponseEntity<>(Collections.singletonMap("message", "Tên người dùng đã tồn tại"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Tên người dùng đã tồn tại"), HttpStatus.BAD_REQUEST);
         }
 
         if (customerRepository.existsByPhone(accountDTO.getPhone()
         )){
             // return new ResponseEntity<>("Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST);
 
-            return new ResponseEntity<>(Collections.singletonMap("message", "Số điện thoại đã được sử dụng"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Số điện thoại đã được sử dụng"), HttpStatus.BAD_REQUEST);
         }
 
         Account account = new Account();
