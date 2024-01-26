@@ -26,7 +26,7 @@ public class HomeController {
 
 	@RequestMapping("/login")
 	public String showLogin() {
-		return "logincuathang";
+		return "login";
 	}
 
 	@RequestMapping("/product")
