@@ -39,7 +39,7 @@
 				</span>
 				<div class="text-danger" id="notification" style="text-align: center;"></div>
 
-				<input autofocus type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="username">
+				<input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="username" autofocus>
 
 				<input type="text" class="form-control" placeholder="Email" ng-model="email">
 
@@ -61,7 +61,7 @@
 					<a th:href="@{/oauth2/authorization/google}" class="social"><i class="bi bi-google"></i></a>
 				</div>
 				<span>Hoặc đăng nhập với tài khoản</span>
-				<input autofocus type="text" placeholder="Tên đăng nhập" name="username">
+				<input type="text" placeholder="Tên đăng nhập" name="username" autofocus>
 				<span id="username-error" class="text-danger"></span>
 
 				<input type="password" placeholder="Mật khẩu" name="password">
