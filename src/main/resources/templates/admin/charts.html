@@ -13,6 +13,12 @@
   <!-- Thêm css để dùng chart -->
   <!-- <script src="../css/chart.css"></script> -->
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
   <title>Charts</title>
 </head>
 
@@ -41,13 +47,13 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Charts</h4>
+            <h4 class="page-title">Dữ liệu</h4>
             <div class="ms-auto text-end">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/index">Trang chủ</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Library
+                    Thống kê
                   </li>
                 </ol>
               </nav>
@@ -66,19 +72,26 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
 
-        <figure class="highcharts-figure">
+        <form id="yearForm" action="/admin/statistics" method="get">
+          <label for="year">Chọn năm:</label>
+          <select id="year" name="selectedYear">
+            <option th:each="year : ${years}" th:value="${year}" th:text="${year}"
+              th:selected="${year == selectedYear}"></option>
+          </select>
+          <button class="btn btn-primary" type="submit">Xem Thống kê</button>
+        </form>
+
+
+        <figure class="highcharts-figure mt-2">
           <div id="container"></div>
           <p class="highcharts-description">
-            A basic column chart comparing estimated corn and wheat production
-            in some countries.
-
-            The chart is making use of the axis crosshair feature, to highlight
-            the hovered country.
+           
           </p>
         </figure>
         <script th:inline="javascript">
-           var sumpayment = [[${ message }]];
-           var sumpaymentWithVNPay = [[${ message2 }]];
+          var hienThiNam = [[${ selectedYear }]]
+          var sumpayment = [[${ message }]];
+          //  var sumpaymentWithVNPay = [[${ message2 }]];
         </script>
 
         <!-- <canvas id="myChart" width="400" height="400"></canvas>
@@ -126,8 +139,6 @@
       <!-- footer -->
       <!-- ============================================================== -->
       <footer class="footer text-center">
-        All Rights Reserved by Matrix-admin. Designed and Developed by
-        <a href="https://www.wrappixel.com">WrapPixel</a>.
       </footer>
       <!-- ============================================================== -->
       <!-- End footer -->
