@@ -56,7 +56,7 @@ public class AccountController {
 
     @RequestMapping("/user/forgotpassword")
     public String showForgotpassword() {
-        return "user/forgotpassword";
+        return "user/forgotpasswordthang";
     }
 
     @PostMapping("/user/saveforgotpassword")
