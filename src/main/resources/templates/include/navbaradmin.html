@@ -9,13 +9,13 @@
         <b class="logo-icon ps-2">
           <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
           <!-- Dark Logo icon -->
-          <img src="../assets/images/logo-icon.png" alt="homepage" class="light-logo" width="25" />
+          <img th:src="@{/assets/images/logo-icon.png}" alt="homepage" class="light-logo" width="25" />
         </b>
         <!--End Logo icon -->
         <!-- Logo text -->
         <span class="logo-text ms-2">
           <!-- dark Logo text -->
-          <img src="../assets/images/logo-text.png" alt="homepage" class="light-logo" />
+          <img th:src="@{/assets/images/logo-text.png}" alt="homepage" class="light-logo" />
         </span>
         <!-- Logo icon -->
         <!-- <b class="logo-icon"> -->
@@ -201,7 +201,7 @@
                   waves-effect waves-dark
                   pro-pic
                 " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31" />
+            <img th:src="@{/assets/images/users/1.jpg}" alt="user" class="rounded-circle" width="31" />
           </a>
           <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-account me-1 ms-1"></i> My
@@ -245,16 +245,13 @@
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-              class="mdi mdi-receipt"></i><span class="hide-menu">Forms </span></a>
+              class="mdi mdi-receipt"></i><span class="hide-menu">Quản Lý </span></a>
           <ul aria-expanded="false" class="collapse first-level">
             <li class="sidebar-item">
-              <a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span
-                  class="hide-menu"> Form Basic </span></a>
+              <a th:href="@{/admin/brand}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span
+                  class="hide-menu"> Thương Hiệu </span></a>
             </li>
-            <li class="sidebar-item">
-              <a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu">
-                  Form Wizard </span></a>
-            </li>
+           
           </ul>
         </li>
 
@@ -263,16 +260,7 @@
               class="bi bi-clipboard-data-fill"></i><span class="hide-menu">Thống kê</span></a>
         </li>
 
-        <li class="sidebar-item p-3">
-          <a href="https://github.com/wrappixel/matrix-admin-bt5" target="_blank" class="
-                  w-100
-                  btn btn-cyan
-                  d-flex
-                  align-items-center
-                  text-white
-                "><i class="mdi mdi-cloud-download font-20 me-2"></i>Download
-            Free</a>
-        </li>
+     
       </ul>
     </nav>
     <!-- End Sidebar navigation -->
