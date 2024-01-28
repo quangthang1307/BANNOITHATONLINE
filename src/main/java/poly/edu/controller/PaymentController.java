@@ -24,11 +24,13 @@ public class PaymentController {
     @RequestMapping("/vnpay-payment")
 	public String GetMapping(HttpServletRequest request, Model model){
         int paymentStatus = vnPayService.orderReturn(request);
+        
 
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
+        int tongTien = Integer.valueOf(totalPrice);
         String vnp_Amount = request.getParameter("vnp_Amount");
         String vnp_BankCode = request.getParameter("vnp_BankCode");
 
@@ -36,7 +38,7 @@ public class PaymentController {
         model.addAttribute("vnp_Amount", vnp_Amount);
         model.addAttribute("vnp_BankCode", vnp_BankCode);
         model.addAttribute("orderId", orderInfo);
-        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("totalPrice", tongTien/100);
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 

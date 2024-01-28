@@ -9,7 +9,7 @@ app.controller("chiTietDonHangController", function ($scope, $http){
             var urlCreateTransaction = `${host}/rest/createTransaction`;
             $http.post(urlCreateTransaction, null, {params : { 
                 orderID : orderID,
-                Amount: vnp_Amount,
+                Amount: vnp_Amount/100,
                 Status : 0,
                 Message : 'Thanh toán thành công',
                 bank : vnp_BankCode
@@ -19,7 +19,7 @@ app.controller("chiTietDonHangController", function ($scope, $http){
             var urlCreateTransaction = `${host}/rest/createTransaction`;
             $http.post(urlCreateTransaction, null, {params : { 
                 orderID : orderID,
-                Amount: vnp_Amount,
+                Amount: vnp_Amount/100,
                 Status : 1,
                 Message : 'Chưa thanh toán',
                 bank : vnp_BankCode

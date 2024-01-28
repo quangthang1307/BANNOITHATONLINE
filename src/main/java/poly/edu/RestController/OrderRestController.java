@@ -19,18 +19,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import poly.edu.Service.CartService;
 import poly.edu.Service.DiscountService;
 import poly.edu.Service.OrderService;
+import poly.edu.entity.Address;
 import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
 import poly.edu.entity.Order;
 import poly.edu.entity.Orderdetails;
+import poly.edu.entity.Orderstatus;
+import poly.edu.entity.Payment;
+import poly.edu.entity.Product;
+import poly.edu.entity.ProductImage;
 import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
 import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
+import poly.edu.repository.OrderStatusRepository;
+import poly.edu.repository.ProductImageRepository;
 import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
@@ -54,6 +63,12 @@ public class OrderRestController {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    ProductImageRepository productImageRepository;
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
@@ -118,6 +133,77 @@ public class OrderRestController {
             orderRepository.deleteById(orderId);
         }
 
+    }
+
+    @GetMapping("/rest/options")
+public ResponseEntity<?> getOrder(@RequestParam String statusName, @RequestParam Integer customerId) {
+    List<JSONObject> response = new ArrayList<>();
+    Orderstatus orderStatus = orderStatusRepository.findByOrderStatusName(statusName);    
+    List<Order> orders = orderRepository.findByOrderstatus_OrderstatusID_CustomerID(orderStatus.getOrderstatusID(), customerId);
+
+    for (Order order : orders) {
+        JSONObject orderJson = new JSONObject();
+        
+        orderJson.put("sumpayment", order.getSumpayment());
+        orderJson.put("orderID", order.getOrderID());
+
+
+        JSONObject orderStatusJson = new JSONObject();
+        Orderstatus orderstatus = order.getOrderstatus();
+        orderStatusJson.put("orderstatusname",orderstatus.getOrderstatusname());
+        orderJson.put("orderstatus", orderStatusJson);
+
+        JSONObject paymentJson = new JSONObject();
+        Payment payment = order.getPayment();
+        paymentJson.put("paymentname", payment.getPaymentname());
+        orderJson.put("payment", paymentJson);
+
+        JSONObject addressJson = new JSONObject();
+        Address address = order.getAddress();
+        addressJson.put("addressID", address.getAddressID());
+        addressJson.put("duong",address.getDuong());
+        addressJson.put("phuongxa",address.getPhuongxa());
+        addressJson.put("quanhuyen",address.getQuanhuyen());
+        addressJson.put("sonha",address.getSonha());
+        addressJson.put("tinhthanhpho",address.getTinhthanhpho());
+        orderJson.put("address", addressJson);
+
+        List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(order.getOrderID());
+        JSONArray orderDetailsJsonArray = new JSONArray();
+
+        for (Orderdetails orderDetail : orderDetails) {
+            JSONObject orderDetailJson = new JSONObject();
+            // Thêm thông tin chi tiết đơn hàng vào JSONObject
+            orderDetailJson.put("orderDetailID", orderDetail.getOrderdetailsID());
+            orderDetailJson.put("productName", orderDetail.getProduct().getProductname());
+
+            List<ProductImage> product = productImageRepository.getProductImageById(orderDetail.getProduct().getProductid());
+            
+            orderDetailJson.put("imageUrl", product.get(0).getImage());
+            orderDetailJson.put("name",product.get(0).getProduct().getProductname());
+            orderDetailJson.put("quantity",orderDetail.getProductquantity());
+            orderDetailJson.put("price",orderDetail.getPrice());
+
+            orderDetailsJsonArray.add(orderDetailJson);
+        }
+
+        orderJson.put("products", orderDetailsJsonArray);
+
+        response.add(orderJson);
+    }
+
+    return ResponseEntity.ok(response);
+}
+
+
+    @GetMapping("/rest/optionss")
+    public ResponseEntity<?> getOrde(@RequestParam String statusName, @RequestParam Integer customerId) {
+
+        Orderstatus orderStatus = orderStatusRepository.findByOrderStatusName(statusName);
+        List<Order> order = orderRepository.findByOrderstatus_OrderstatusID_CustomerID(orderStatus.getOrderstatusID(),
+                customerId);
+
+        return ResponseEntity.ok(order);
     }
 
 }

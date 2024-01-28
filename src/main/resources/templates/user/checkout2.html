@@ -12,6 +12,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
 </head>
@@ -34,8 +35,8 @@
             <!-- Thêm input để người dùng nhập giá trị -->
             <div class="row" style="margin-top: 0.5%;">
                 <div class="col-lg-12 col-md-12 col-xs-12">
-                    <input class="form-control" type="text" ng-model="searchProduct" placeholder="Nhập tên sản phẩm cần tìm"
-                    ng-change="searchProducts()">
+                    <input class="form-control" type="text" ng-model="searchProduct"
+                        placeholder="Nhập tên sản phẩm cần tìm" ng-change="searchProducts()">
                 </div>
                 <!-- <div class="col-lg-4 col-md-4">
                     <button class="btn btn-primary" ng-click="searchProducts()">Tìm kiếm</button>
@@ -44,50 +45,81 @@
 
             <div class="row" style="margin-top: 0.5%;margin-bottom: 0.5%;">
                 <div class="col-lg-12 col-md-12 col-xs-12">
-                    <select class="form-control">
+                    <select class="form-control" ng-model="selectStatus" ng-change="optionStatusView()">
                         <option value="" disabled selected>Hiển thị đơn hàng theo trạng thái</option>
-                        <option value="" >Tất cả</option>
-                        <option value="">Đã mua</option>
-                        <option value="">Chờ xác nhận</option>
+                        <option value="Tất cả">Tất cả</option>
+                        <option value="Thanh toán">Đã mua</option>
+                        <option value="Chờ xác nhận">Chờ xác nhận</option>
                     </select>
-                </div>                
+                </div>
             </div>
 
             <div class="row" ng-if="listFind.length != 0">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="box-bg-white" style="width: 100%;" ng-repeat="order in orders">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!-- Display product images side by side in the same row -->
-                                        <div ng-repeat="product in order.products"
-                                            class="d-inline-block col-md-4 col-lg-3 col-xs-4 text-center">
-                                            <img style="width: 200%; height: 20%;" class="img img-thumbnail"
-                                                ng-src="{{product.imageUrl}}" alt="{{product.name}}">
-                                            <p class="mt-2">{{product.name}} x {{product.quantity}}</p>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8">
+                                    <h5>Ngày mua: {{order.formattedTime}}</h5>
+                                </div>
+                                <div class="col-lg-4 col-md-4" style="display: flex; align-items: center;">
+                                    <h5 style="margin-right: 5%;">Mã hóa đơn: {{order.orderID }}</h5>
+                                    <h5>Trạng thái: {{order.orderstatus.orderstatusname}} <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="12" fill="#FF0000"
+                                            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                        </svg>
+                                    </h5>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
-                                <h5 class="">Mã hóa đơn: {{order.orderID }}</h5>
-                                <h5 class="">Ngày mua: {{order.formattedTime}}</h5>
-                                <h5 class="">Trạng thái: {{order.orderstatus.orderstatusname}}</h5>
-                                <h5 class="">Phương thức thanh toán: {{order.payment.paymentname}} <p ng-if="order.statusPayment.status == '0'">- Thanh toán thành công</p>  <p ng-if="order.statusPayment.status == '1'">- Chưa thanh toán</p>  </h5>
-                                <div class="">
-                                    <p class="">Thành tiền: {{order.sumpayment | currency : '' : 0}} VND</p>
+                            <hr />
+
+                            <div class="row" ng-repeat="product in order.products">
+                                <div class="col-lg-2 col-md-8">
+                                    <img style="width: 100%; height: 100%;" class="img img-thumbnail"
+                                        ng-src="{{product.imageUrl}}" alt="{{product.name}}">
+
                                 </div>
-                                <div style="margin-top: 8%;">
-                                    <a href="" class="btn btn-primary" style="float: right"
-                                        ng-click="btnXemChiTiet(order)">Xem chi tiết</a>
-                                    <div>
-                                        <a href="" class="btn btn-danger" style="float: left"
-                                            ng-if="order.orderstatus.orderstatusname === 'Chờ xác nhận'"
-                                            ng-click="huyDon(order)">Hủy đơn</a>
-                                    </div>
+                                <div class="col-lg-7 col-md-4">
+                                    <p class="mt-2">{{product.name}} x {{product.quantity}}</p>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4">
+                                    <p class="mt-2">Giá sản phẩm: {{product.price | currency : '' : 0}} VND</p>
                                 </div>
                             </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h4>Địa chỉ nhận hàng:</h4>
+                                    <h5>Số nhà : {{
+                                        order.address.sonha }} - Đường {{order.address.duong }} - {{
+                                        order.address.phuongxa }} - {{ order.address.quanhuyen }} - {{
+                                        order.address.tinhthanhpho }}</h5>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h5 ng-if="order.statusPayment.status == '0'">
+                                        <h4>Phương thức thanh toán:</h4>
+                                        {{order.payment.paymentname}} - Thanh toán thành công
+                                    </h5>
+                                    <h5 ng-if="order.statusPayment.status == '1'">><p>Phương thức thanh toán:</p>
+                                        {{order.payment.paymentname}} - Chưa thanh toán </h5>
+                                </div>
+                                <p class="col-lg-8 col-md-8 col-xs-12">Thành tiền: {{order.sumpayment | currency
+                                    : '' : 0}} VND</p>
+                            </div>
+                            <div >
+                                <a href="" class="btn btn-primary" style="float: right"
+                                ng-if="order.orderstatus.orderstatusname === 'Thanh toán'">Đánh giá</a>
+                                <div>
+                                    <a href="" class="btn btn-danger" style="float: left"
+                                        ng-if="order.orderstatus.orderstatusname === 'Chờ xác nhận'"
+                                        ng-click="huyDon(order)">Hủy đơn</a>
+                                </div>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>

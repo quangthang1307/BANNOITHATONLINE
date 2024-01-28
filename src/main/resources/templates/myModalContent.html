@@ -1,0 +1,29 @@
+<!-- myModalContent.html -->
+<div class="modal-header">
+    <h3 class="modal-title">Selected Information</h3>
+</div>
+<div class="modal-body">
+    <form ng-submit="showSelectedInfo()">
+        <span>Tỉnh/Thành phố</span>
+        <select class="form-control" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
+            <option value="" disabled selected>Chọn Tỉnh/Thành phố</option>
+        </select>
+        <span>Quận/Huyện</span>
+        <select class="form-control" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
+            <option value="" disabled selected>Chọn Quận/Huyện</option>
+        </select>
+        <span>Phường/Xã</span>
+        <select class="form-control" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
+            <option value="" disabled selected>Chọn Phường/Xã</option>
+        </select>
+        <span>Đường</span>
+        <input class="form-control" type="text" ng-model="newAddress.duong" placeholder="Đường"> 
+        <span>Số nhà</span>
+        <input class="form-control" type="text" ng-model="newAddress.sonha" placeholder="Số nhà">
+               
+    </form>  
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="addAddress()">Thêm</button>
+</div>
+
