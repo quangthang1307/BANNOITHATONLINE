@@ -8,6 +8,7 @@ app.controller("checkoutController", [
   "$uibModal",
   function ($scope, $http, $uibModal) {
     var showListProduct = JSON.parse(localStorage.getItem("listPayment"));
+    console.log(showListProduct);
     $scope.products = showListProduct;
     $scope.customer = {};
 
@@ -29,6 +30,9 @@ app.controller("checkoutController", [
     };
 
     $scope.loadInforCustomer();
+
+
+    
 
     $scope.onAddressSelected = function (addr) {
       $scope.addressPayment = addr;
