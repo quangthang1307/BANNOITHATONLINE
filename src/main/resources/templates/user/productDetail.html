@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -130,7 +131,7 @@
         </div>
 
         <div class="product-detail-action-button-container">
-            <button onclick="location.href='shoppingCart.html'" class="btn button-add-to-bag" style="margin-right: 10px;">Thêm vào giỏ hàng</button>
+            <button ng-click="addToCart()" class="btn button-add-to-bag" style="margin-right: 10px;">Thêm vào giỏ hàng</button>
             <button class="btn btn-default button-black button-learn-more" id="bookmarkButton">Set Favourite</button>
             <button class="btn btn-default button-black button-learn-more" id="deleteBookmarkButton" style="display: none;">Delete Favourite</button>
         </div>
