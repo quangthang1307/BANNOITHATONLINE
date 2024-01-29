@@ -13,6 +13,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "select * from [Order] where CustomerID = ?", nativeQuery = true)
     List<Order> orderList(Integer customerId);
 
+    @Query(value = "select * from [Order] where CustomerID = ?1 and OrderID = ?2", nativeQuery = true)
+    Order getOrderByCustomerIdAndOrderId(Integer customerId, Integer orderId);
+
     // Order findBySumpayment(Double sumpayment);
 
     // @Query(value = "SELECT SUM(o.Sumpayment) FROM [Order] o JOIN Orderstatus os

@@ -91,32 +91,50 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   //   window.location.href = "/orderdetail";
   // };
 
-  // $scope.huyDon = function (order) {
-  //   Swal.fire({
-  //     title: "Hủy đặt đơn hàng ?",
-  //     text: "Bạn có chắc chắn muốn hủy đơn hàng ?",
-  //     icon: "question",
-  //     showCancelButton: true,
-  //     confirmButtonText: "Hủy đặt hàng",
-  //     cancelButtonText: "Đóng",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       var urlDelete = `${host}/rest/deleteOrder`;
 
-  //       $http.delete(urlDelete, {
-  //         params: {
-  //           orderId: order.orderID,
-  //         },
-  //       });
-  //       const index = $scope.orders.findIndex(
-  //         (o) => o.orderID === order.orderID
-  //       );
-  //       if (index !== -1) {
-  //         $scope.orders.splice(index, 1);
-  //       }
-  //     }
-  //   });
-  // };
+  $scope.thanhToan = function(order){
+    $http.get('http://localhost:8080/rest/payment/again?orderId=' + order.orderID).then((response) => {
+      window.localStorage.setItem("listPayment", JSON.stringify(response.data));
+      window.location.href = "/checkout";
+      console.log(response.data);
+    })
+  }
+
+
+  $scope.huyDon = function (order) {
+    Swal.fire({
+      title: "Hủy đặt đơn hàng ?",
+      text: "Bạn có chắc chắn muốn hủy đơn hàng ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Hủy đặt hàng",
+      cancelButtonText: "Đóng",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var urlDelete = `${host}/rest/deleteOrder`;
+
+        $http.delete(urlDelete, {
+          params: {
+            orderId: order.orderID,
+          },
+        });
+        const index = $scope.orders.findIndex(
+          (o) => o.orderID === order.orderID
+        );
+        if (index !== -1) {
+          $scope.orders.splice(index, 1);
+        }
+      }
+
+      Swal.fire({
+        title: 'Hủy thành công !',
+        text: "Bạn đã hủy thành công đơn đặt hàng !",
+        icon: "success",
+        timer: 850
+      });
+
+    });
+  };
 
   $scope.searchProducts = function () {
     var inputValue = $scope.searchProduct;
