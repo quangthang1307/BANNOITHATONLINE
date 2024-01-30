@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,12 +24,10 @@ import poly.edu.entity.Sale;
 @RestController
 public class RestProductController {
 
-     @Autowired
+    @Autowired
     private ProductService productService;
-     @Autowired
-     private SaleService saleService;
-
-
+    @Autowired
+    private SaleService saleService;
 
     @GetMapping("/rest/product")
     public ResponseEntity<Page<Product>> getAllProducts(
@@ -46,7 +45,7 @@ public class RestProductController {
         Optional<Product> productOptional = productService.findById(productId);
         Product product = productOptional.get();
         return ResponseEntity.ok(product);
-    
+
     }
 
     @GetMapping("/rest/product/category")
@@ -62,7 +61,20 @@ public class RestProductController {
     }
 
     @GetMapping("/rest/product/sale")
-    public ResponseEntity<List<Sale>> getProductByCategory(){
+    public ResponseEntity<List<Sale>> getProductByCategory() {
         return ResponseEntity.ok(saleService.findAllOnSale());
+    }
+
+    @GetMapping("/rest/product/bestseller")
+    public ResponseEntity<Optional<List<Product>>> getProductBestSeller() {
+        Integer[] idproduct = productService.findTop5ProductBestSeller();
+        System.out.println(idproduct[4]);
+        List<Product> productbestseller = new ArrayList();
+        for (int i = 0; i <= idproduct.length - 1; i++) {
+            Optional<Product> product = productService.findById(idproduct[i]);
+            productbestseller.add(product.get());
+        }
+        Optional<List<Product>> optionalProductList = Optional.ofNullable(productbestseller);
+        return ResponseEntity.ok(optionalProductList);
     }
 }
