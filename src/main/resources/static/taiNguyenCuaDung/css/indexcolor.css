@@ -1,0 +1,47 @@
+:root {
+    --shop-color-bg: #f8f8f8;
+    --shop-color-main: #c31425;
+    --shop-color-text: #252a2b;
+    --shop-color-title: #c31425;
+    --shop-color-hover: #c31425;
+    --shop-color-button: #c31425;
+    --shop-color-border: #eae4e8;
+
+    --home-category-bg-1: #faf1ff;
+    --home-category-bg-2: #faf4eb;
+    --home-category-bg-3: #f4e6e5;
+    --home-category-bg-4: #e6f2f4;
+    --home-category-bg-5: #fff6f6;
+
+    --home-coupon-bg: #f1c150;
+    --home-coupon-light: #f1c150;
+    --home-coupon-border: #f8d0d3;
+    --home-coupon-text: #333333;
+
+    --home-collection1-bg: #ffeef0;
+    --home-collection1-icon: #c4122f;
+    --home-collection1-color-text: #333333;
+
+    --home-categorize-bg: #c4122f;
+    --home-categorize-color: #ffffff;
+
+    --home-collection2-bg: #d7d5c9;
+    --home-collection2-title: #ff0000;
+    --home-collection3-bg: #e9dabe;
+
+    --footer-bg-color-1: #ffffff;
+    --footer-bg-color-2: #ffffff;
+    --footer-bg-color-copyright: #f2f8fd;
+    --footer-color-title: #333333;
+    --footer-color-text: #333333;
+    --footer-color-hover: #c31425;
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.eot?v=788');
+    src: url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.eot?v=788') format('embedded-opentype'), url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788') format('woff2'), url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788') format('woff'), url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.ttf?v=788') format('truetype'), url('//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.svg?v=788') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
