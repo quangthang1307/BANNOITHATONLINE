@@ -1,4 +1,4 @@
-var app = angular.module("bannoithatonline", []);
+var app = angular.module("bannoithatonline", [])
 const host = "http://localhost:8080/rest/product";
 const hostCustomerId = "http://localhost:8080/rest/customer";
 const hostListCart = "http://localhost:8080/rest/showCart";
@@ -10,7 +10,7 @@ const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
-
+  $scope.productsbestsellers = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -31,16 +31,19 @@ app.controller("IndexController", function ($scope, $http, $window) {
         // console.error("Lỗi khi thực hiện request để lấy customerId:", error);       
       });
   }
-
+$scope.getDataProductBestSeller = function() {
   $http
-    .get("/rest/product")
+    .get("/rest/product/bestseller")
     .then(function (response) {
-      $scope.products = response.data.content;
+      $scope.productsbestsellers = response.data;
       console.log(response.data);
     })
     .catch(function (error) {
       console.error("Error fetching products:", error);
     });
+}
+
+  
 
   $scope.addToCart = function (product) {
     if ($scope.customer == null) {
@@ -152,5 +155,6 @@ app.controller("IndexController", function ($scope, $http, $window) {
   };
 
   // Call loadCart when the customer is loaded
+  $scope.getDataProductBestSeller();
   $scope.loadCart();
 });
