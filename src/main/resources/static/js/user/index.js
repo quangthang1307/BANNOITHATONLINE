@@ -1,4 +1,4 @@
-var app = angular.module("bannoithatonline", []);
+var app = angular.module("bannoithatonline", [])
 const host = "http://localhost:8080/rest/product";
 const hostCustomerId = "http://localhost:8080/rest/customer";
 const hostListCart = "http://localhost:8080/rest/showCart";
@@ -42,6 +42,7 @@ $scope.getDataProductBestSeller = function() {
       console.error("Error fetching products:", error);
     });
 }
+
   
 
   $scope.addToCart = function (product) {
