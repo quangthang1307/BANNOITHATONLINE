@@ -31,7 +31,7 @@ public class HomeController {
 
 	@RequestMapping("/product")
 	public String showProduct() {
-		return "user/products";
+		return "user/testproduct";
 	}
 
 	@RequestMapping("/logout")
@@ -41,7 +41,7 @@ public class HomeController {
 
 	@RequestMapping("/productdetail/{productid}")
 	public String showProductDetail(@PathVariable Integer productid) {
-		return "user/productDetail";
+		return "user/testproductdetail";
 	}
 
 	// @RequestMapping("/productdetail")
