@@ -1,16 +1,71 @@
-const app = angular.module("bannoithatonline", []);
+const app = angular.module("bannoithatonline", ["ui.bootstrap"]);
 const hostListDiscount = "http://localhost:8080/rest/discount";
 const hostSubmitOder = "http://localhost:8080/rest/vnpay";
 const host = "http://localhost:8080";
-app.controller(
-  "checkoutController",
-  function ($scope, $http, $window, $timeout, $location) {
+app.controller("checkoutController", [
+  "$scope",
+  "$http",
+  "$uibModal",
+  function ($scope, $http, $uibModal) {
     var showListProduct = JSON.parse(localStorage.getItem("listPayment"));
+    console.log(showListProduct);
     $scope.products = showListProduct;
+    $scope.customer = {};
 
     $scope.discountCode = "";
     $scope.valueDiscountCode = 0;
     $scope.paymentOptions = "";
+    $scope.address = [];
+    $scope.addressPayment = {};
+
+    $scope.loadInforCustomer = function () {
+      var getCustomer = localStorage.getItem("customerId");
+      var customer = JSON.parse(getCustomer);
+      $scope.customer = customer;
+      var urlAddress = `${host}/rest/profile/customers/${customer.customerId}/addresses`;
+      $http.get(urlAddress).then((response) => {
+        $scope.address = response.data;
+        console.log($scope.address);
+      });
+    };
+
+    $scope.loadInforCustomer();
+
+
+    
+
+    $scope.onAddressSelected = function (addr) {
+      $scope.addressPayment = addr;
+      console.log("Địa chỉ được chọn: ", $scope.addressPayment);
+
+      if (
+        $scope.addressPayment &&
+        Object.keys($scope.addressPayment).length > 0
+      ) {
+        console.log("$scope.addressPayment có thuộc tính.");
+      } else {
+        console.log(
+          "$scope.addressPayment không có thuộc tính hoặc là một đối tượng rỗng."
+        );
+      }
+    };
+
+    $scope.clearAddressPayment = function () {
+      $scope.showFill = 1;
+      $scope.onAddressSelected(null);
+      var getCustomer = localStorage.getItem("customerId");
+      var customer = JSON.parse(getCustomer);
+      var urlAddress = `${host}/rest/profile/customers/${customer.customerId}/addresses`;
+      $http.get(urlAddress).then((response) => {
+        response.data.forEach((address) => {
+          var radioButton = document.getElementById(address.addressID);
+          radioButton.checked = false;
+        });
+      });
+    };
+
+    console.log(showListProduct);
+    console.log($scope.customer);
 
     $scope.discount = function () {
       if ($scope.discountCode.length > 0) {
@@ -111,6 +166,7 @@ app.controller(
         console.log(response.data);
       });
     };
+    $scope.listOptionPayments();
 
     $scope.onPaymentMethodChange = function () {
       console.log("Người dùng đã chọn: " + $scope.selectedPaymentMethod);
@@ -166,6 +222,22 @@ app.controller(
             }
           }
 
+          if (
+            !(
+              $scope.addressPayment &&
+              Object.keys($scope.addressPayment).length > 0
+            )
+          ) {
+            Swal.fire({
+              title: "Địa chỉ !",
+              text: "Hãy chọn địa chỉ nhận hàng !",
+              icon: "warning",
+              timer: 1500,
+              showConfirmButton: true,
+            });
+            return;
+          }
+
           if ($scope.valueDiscountCode > 0) {
             var url = `${host}/rest/discount/${$scope.discountCode}`;
             $http.get(url).then((response) => {
@@ -180,9 +252,7 @@ app.controller(
                 orderstatus: {
                   orderstatusID: 1,
                 },
-                address: {
-                  addressID: 1,
-                },
+                address: $scope.addressPayment,
               };
               console.log(dataPost);
               $http.post(urlCreateOrder, dataPost).then((response) => {
@@ -190,8 +260,7 @@ app.controller(
                 $scope.products[0].Product.forEach((element) => {
                   dataPost = {
                     productquantity: element.quantity,
-                    totalpayment:
-                      element.quantity * element.product.pricexuat,
+                    totalpayment: element.quantity * element.product.pricexuat,
                     price: element.product.pricexuat,
                     order: {
                       orderID: response.data.orderID,
@@ -220,15 +289,13 @@ app.controller(
               orderstatus: {
                 orderstatusID: 1,
               },
-              address: {
-                addressID: 1,
-              },
+              address: $scope.addressPayment,
             };
             console.log(dataPost);
             $http.post(urlCreateOrder, dataPost).then((response) => {
               var urlPost = `${host}/rest/createOrderDetail`;
               $scope.products[0].Product.forEach((element) => {
-                window.localStorage.setItem('orderId', response.data.orderID);
+                window.localStorage.setItem("orderId", response.data.orderID);
                 dataPost = {
                   productquantity: element.quantity,
                   totalpayment: element.quantity * element.product.pricexuat,
@@ -247,28 +314,201 @@ app.controller(
             });
           }
 
-          if (optionPayment == "1") {            
+          if (optionPayment == "1") {
             $scope.submitOrderVNPay();
-          }else{
+          } else {
             Swal.fire({
               title: "Đặt hàng",
               text: "Bạn đã đặt hàng thành công !",
               icon: "success",
               timer: 850,
               showConfirmButton: false, // Ẩn nút Xác nhận
-          })          
-          // Thiết lập một setTimeout để tự động chuyển hướng khi timer kết thúc
-          setTimeout(() => {
+            });
+            // Thiết lập một setTimeout để tự động chuyển hướng khi timer kết thúc
+            setTimeout(() => {
               window.location.href = "/order";
-          }, 850);          
+            }, 850);
           }
-
         } else {
           // console.log(optionPayment);
           // console.log("Hủy bỏ");
         }
       });
     };
+
+    $http.get("/rest/profile/customer").then(function (response) {
+      $scope.customer = response.data;
+      // $scope.customerId = $scope.customer.customerId;
+      // console.log($scope.customerId);
+    });
+
+    // $http.get("/rest/customers/" + $scope.customerId + "/addresses")
+    // .then(function(response) {
+    //     $scope.addresses = response.data;
+    // });
+
+    function getCustomerId() {
+      return $http.get("/rest/profile/customer").then(function (response) {
+        return response.data.customerId;
+      });
+    }
+
+    getCustomerId().then(function (customerId) {
+      $scope.customerId = customerId;
+
+      fetchAddresses(customerId);
+      console.log(customerId);
+    });
+
+    function fetchAddresses(customerId) {
+      $http
+        .get("/rest/profile/customers/" + customerId + "/addresses")
+        .then(function (response) {
+          $scope.addresses = response.data;
+        });
+    }
+
+    $scope.newAddress = {
+      sonha: "",
+      duong: "",
+    };
+
+    $scope.addAddress = function () {
+      if (
+        $scope.selectedProvince === null ||
+        $scope.selectedDistrict === null ||
+        $scope.selectedWard === null ||
+        $scope.newAddress.duong === "" ||
+        $scope.newAddress.duong === null
+      ) {
+        console.log($scope.newAddress.duong);
+        Swal.fire({
+          title: "Thông tin không hợp lệ",
+          text: "Vui lòng chọn đày đủ thông tin !",
+          icon: "error",
+          timer: 1000,
+        });
+        return;
+      }
+      var newAddress = {
+        tinhthanhpho: $scope.selectedProvince.Name,
+        quanhuyen: $scope.selectedDistrict.Name,
+        phuongxa: $scope.selectedWard.Name,
+        sonha: $scope.newAddressc,
+        duong: $scope.newAddress.duong,
+      };
+      $http
+        .post(
+          "/rest/profile/customers/" + $scope.customerId + "/addresses",
+          newAddress
+        )
+        .then(function (response) {
+          $scope.newAddress = {
+            sonha: "",
+            duong: "",
+          };
+          fetchAddresses($scope.customerId);
+
+          Swal.fire({
+            title: "Thành công",
+            text: "Thêm địa chỉ mới thành công !",
+            icon: "success",
+            timer: 1000,
+          });
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        });
+    };
+
+    $http.get("/js/data.json").then(function (response) {
+      $scope.provinces = response.data;
+    });
+
+    $scope.provinces = [];
+    $scope.selectedProvince = null;
+    $scope.selectedDistrict = null;
+    $scope.selectedWard = null;
+
+    $scope.updateDistricts = function () {
+      $scope.selectedDistrict = null;
+      $scope.selectedWard = null;
+    };
+
+    $scope.updateWards = function () {
+      $scope.selectedWard = null;
+    };
+
+    $scope.editAddress = function (address) {
+      $scope.editingAddress = angular.copy(address);
+      document.getElementById("editTinhthanhpho").value = address.tinhthanhpho;
+      document.getElementById("editQuanhuyen").value = address.quanhuyen;
+      document.getElementById("editPhuongxa").value = address.phuongxa;
+      document.getElementById("editSonha").value = address.sonha;
+      document.getElementById("editduong").value = address.duong;
+      document.getElementById("updateAddressForm").style.display = "block";
+    };
+
+    $scope.updateAddress = function () {
+      var newAddress = {
+        tinhthanhpho: $scope.selectedProvince.Name,
+        quanhuyen: $scope.selectedDistrict.Name,
+        phuongxa: $scope.selectedWard.Name,
+        sonha: document.getElementById("updateSonha").value,
+        duong: document.getElementById("updateduong").value,
+      };
+      $http
+        .put(
+          "/rest/profile/customers/" +
+            $scope.customerId +
+            "/addresses/" +
+            $scope.editingAddress.addressID,
+          newAddress
+        )
+        .then(function (response) {
+          $scope.editingAddress = null;
+          document.getElementById("updateAddressForm").style.display = "none";
+          fetchAddresses($scope.customerId);
+        });
+    };
+
+    $scope.deleteAddress = function (addressId) {
+      $http
+        .delete(
+          "/rest/profile/customers/" +
+            $scope.customerId +
+            "/addresses/" +
+            addressId
+        )
+        .then(function (response) {
+          fetchAddresses($scope.customerId);
+        });
+    };
+
+    $scope.showSelectedInfoModal = function () {
+      $scope.clearAddressPayment();
+      var modalInstance = $uibModal.open({
+        templateUrl: "myModalContent.html", // Create a template for your modal content
+        controller: "checkoutController", // Create a separate controller for the modal
+        resolve: {
+          selectedInfo: function () {
+            return $scope.provinces;
+          },
+        },
+      });
+
+      modalInstance.result.then(
+        function () {
+          // Handle modal closed (if needed)
+        },
+        function () {
+          // Handle modal dismissed (if needed)
+        }
+      );
+    };
+
+    // Existing code...
 
     // $http.get('/rest/test', { params: { customerid: customerId } })
     //         .then(function(response) {
@@ -311,19 +551,15 @@ app.controller(
     //   .catch(function (error) {
     //       console.error('Error:', error);
     //   });
+  },
+]);
 
-    $scope.loadInforCustomer = function () {
-      var getCustomer = localStorage.getItem("customerId");
-      var customer = JSON.parse(getCustomer);
-      console.log(customer);
-      $scope.fullname = customer.name;
-      $scope.phone = customer.phone;
-      $scope.email = customer.account.email;
-    };
-
-    $scope.loadInforCustomer();
-    $scope.listOptionPayments();
-
-    console.log(showListProduct);
-  }
-);
+app.controller("ModalInstanceCtrl", [
+  "$scope",
+  "$uibModalInstance",
+  "selectedInfo",
+  "$http",
+  function ($scope, $uibModalInstance, selectedInfo, $http) {
+    $scope.provinces = selectedInfo;
+  },
+]);

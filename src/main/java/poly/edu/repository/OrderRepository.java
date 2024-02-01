@@ -6,11 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import poly.edu.entity.Order;
+import poly.edu.entity.Orderstatus;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value = "select * from [Order] where CustomerID = ?", nativeQuery = true)
     List<Order> orderList(Integer customerId);
+
+    @Query(value = "select * from [Order] where CustomerID = ?1 and OrderID = ?2", nativeQuery = true)
+    Order getOrderByCustomerIdAndOrderId(Integer customerId, Integer orderId);
 
     // Order findBySumpayment(Double sumpayment);
 
@@ -41,5 +45,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value = "SELECT DISTINCT YEAR(o.[Time]) FROM [Order] o ORDER BY YEAR(o.[Time]) DESC", nativeQuery= true)
     List<Integer> findDistinctYears();
+
+
+    @Query(value = "Select * from [Order] where OrderstatusID = ?1 and CustomerID = ?2", nativeQuery = true)
+    List<Order> findByOrderstatus_OrderstatusID_CustomerID(Integer orderstatusId, Integer customerId);
 
 }

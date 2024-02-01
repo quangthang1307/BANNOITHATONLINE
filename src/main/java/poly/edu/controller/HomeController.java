@@ -62,6 +62,11 @@ public class HomeController {
 		return "user/checkout3";
 	}
 
+	@RequestMapping("/myModalContent.html")
+	public String modalShow() {
+		return "myModalContent";
+	}
+
 
 	
 }

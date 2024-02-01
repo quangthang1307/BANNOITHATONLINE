@@ -137,7 +137,7 @@ public class AccountController {
         }
 
         if (resetTokenInput == null || resetTokenInput.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Hãy nhập mã Token");
+            redirectAttributes.addFlashAttribute("message", "Hãy nhập mã xác thực");
             // redirectAttributes.addAttribute("token", resetToken);
             return "redirect:/user/resetpassword";
         }

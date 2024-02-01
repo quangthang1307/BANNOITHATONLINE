@@ -1,11 +1,11 @@
 const app = angular.module("bannoithatonline", []);
 const host = "http://localhost:8080";
 
-app.controller("OrderController", function ($scope, $http) {
+app.controller("OrderController", function ($scope, $http, $rootScope) {
   $scope.customer = {};
   $scope.orders = [];
 
-  var order =  $scope.orders;
+  var order = $scope.orders;
 
   $scope.loadCustomer = function () {
     if (window.localStorage.getItem("customerId")) {
@@ -25,17 +25,20 @@ app.controller("OrderController", function ($scope, $http) {
         // Iterate through each order
         response.data.forEach((order) => {
           order.formattedTime = formatOrderTime(order.time);
-          order.products = []; 
+          order.products = [];
           order.statusPayment = {};
 
-          if(order.payment.paymentname === 'Thanh toán VNPay'){
-            $http.get(`${host}/rest/findTransaction`, { params: { orderID: order.orderID }}).then((response) => {
-              console.log(response);
-              // order.statusPayment.push({status:response.data.status});
-              order.statusPayment = response.data;
-            })
+          if (order.payment.paymentname === "Thanh toán VNPay") {
+            $http
+              .get(`${host}/rest/findTransaction`, {
+                params: { orderID: order.orderID },
+              })
+              .then((response) => {
+                console.log(response);
+                // order.statusPayment.push({status:response.data.status});
+                order.statusPayment = response.data;
+              });
           }
-          
 
           // Fetch order details for the current order
           var urlBtnXemChiTiet = `${host}/rest/orderDetailsByOrderID`;
@@ -54,6 +57,7 @@ app.controller("OrderController", function ($scope, $http) {
                     quantity: orderDetail.productquantity,
                     name: orderDetail.product.productname,
                     imageUrl: productResponse.data[0].image,
+                    price: orderDetail.price,
                   });
                 });
               });
@@ -82,10 +86,20 @@ app.controller("OrderController", function ($scope, $http) {
   }
 
   // Button Xem chi tiết
-  $scope.btnXemChiTiet = function (order) {
-    window.localStorage.setItem("orderDetails", JSON.stringify(order));
-    window.location.href = "/orderdetail";
-  };
+  // $scope.btnXemChiTiet = function (order) {
+  //   window.localStorage.setItem("orderDetails", JSON.stringify(order));
+  //   window.location.href = "/orderdetail";
+  // };
+
+
+  $scope.thanhToan = function(order){
+    $http.get('http://localhost:8080/rest/payment/again?orderId=' + order.orderID).then((response) => {
+      window.localStorage.setItem("listPayment", JSON.stringify(response.data));
+      window.location.href = "/checkout";
+      console.log(response.data);
+    })
+  }
+
 
   $scope.huyDon = function (order) {
     Swal.fire({
@@ -111,14 +125,22 @@ app.controller("OrderController", function ($scope, $http) {
           $scope.orders.splice(index, 1);
         }
       }
+
+      Swal.fire({
+        title: 'Hủy thành công !',
+        text: "Bạn đã hủy thành công đơn đặt hàng !",
+        icon: "success",
+        timer: 850
+      });
+
     });
   };
 
   $scope.searchProducts = function () {
-    var inputValue = $scope.searchProduct;  
+    var inputValue = $scope.searchProduct;
 
     $scope.filteredOrders = [];
-    $scope.listFind = [];  
+    $scope.listFind = [];
     var addedOrderIDs = [];
 
     $scope.orders.forEach(function (order) {
@@ -140,17 +162,45 @@ app.controller("OrderController", function ($scope, $http) {
             $scope.listFind.push(order);
           }
           return;
-        }       
+        }
       });
     });
 
     console.log(addedOrderIDs);
     console.log($scope.filteredOrders);
     console.log($scope.listFind);
-
   };
 
+  function filterOrder() {
+    $http.get("/rest/options", {
+      params: { statusName: $scope.selectStatus, customerId: $scope.customer.customerId },
+    }).then((response) => {
+      console.log(response.data);
+      $scope.orders = response.data;
+      $scope.orders.sort((a, b) => b.orderID - a.orderID);
+    });
+  }
+
+  // Chức năng sắp xếp và cập nhật giao diện
+  $scope.optionStatusView = function () {
+    switch ($scope.selectStatus) {
+      case "Chờ xác nhận":
+        filterOrder();
+        break;
   
+      // Thêm các trường hợp khác tùy thuộc vào nhu cầu
+      case "Thanh toán":
+        filterOrder();
+        break;
   
+      case "Tất cả":
+        $scope.loadCustomer();
+        $scope.fillOrder();
+       
+        break;
+  
+     
+    }
+  };
   
 });
