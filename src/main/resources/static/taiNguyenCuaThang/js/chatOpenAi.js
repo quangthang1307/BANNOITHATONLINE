@@ -28,6 +28,10 @@ app.controller('openAiCtrl', function($scope, $http){
             .then(function (response) {
                 console.log(response);
                 $scope.responseMessage = "Server Response: " + response.data;
+                $scope.runThread();
+            })
+            .catch(function(error){
+                console.log("Lỗi khi gọi API: ", error);
             });
     };
 
@@ -35,18 +39,30 @@ app.controller('openAiCtrl', function($scope, $http){
         $http.post('http://localhost:8080/runThread').then(function(response) {
             console.log(response);
             $scope.runThreadId = response.data.runThreadId;
+            $scope.checkRunThreadId();
         });
     };
 
     $scope.checkRunThreadId = function() {
         $http.get('http://localhost:8080/checkRunThreadId').then(function(response) {
-            $scope.runThreadStatus = response.data;
-        });
+        $scope.runThreadStatus = response.data;
+
+        if (response.data && response.data.status === "completed") {
+            $scope.showFeedback();
+        } else {
+           
+            setTimeout(function() {
+                $scope.checkRunThreadId();
+            }, 2500);
+        }
+    });
     };
 
     $scope.showFeedback = function() {
         $http.get('http://localhost:8080/showFeedback').then(function(response) {
-            $scope.feedbackData = response.data;
+            $scope.feedbackData = response.data.content.text.value;
         });
     };
+
+    $scope.callAPI();
 });

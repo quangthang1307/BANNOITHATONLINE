@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="bannoithatonline">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- <link rel="stylesheet" href="taiNguyenCuaThang/css/chat.css"> -->
 </head>
+
 <body>
-    <div ng-controller="openAiCtrl">
+    <!-- <div ng-controller="openAiCtrl">
 
         <button ng-click="callAPI()">Bắt đầu</button>
         <br>
@@ -28,8 +31,21 @@
         <div ng-if="feedbackData">
             <p>Thông tin phản hồi: {{ feedbackData }}</p>
         </div>
+    </div> -->
+
+    <div ng-controller="openAiCtrl">
+
+        <div>
+            <h3>Feedback Data:</h3>
+            <pre>{{ feedbackData | json }}</pre>
+        </div>
+
+        <input type="text" ng-model="userMessage" placeholder="Type your message..." />
+        <button ng-click="sendMessage()">Send</button>
     </div>
 
     <script src="taiNguyenCuaThang/js/chatOpenAi.js"></script>
+    <!-- <script src="taiNguyenCuaThang/js/chathtml.js"></script> -->
 </body>
+
 </html>

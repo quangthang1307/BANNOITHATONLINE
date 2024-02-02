@@ -1,4 +1,4 @@
-package poly.edu.controller;
+package poly.edu.RestController;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -32,12 +32,12 @@ import com.fasterxml.jackson.databind.*;
 
 @RestController
 @CrossOrigin("*")
-public class OpenAIController {
+public class RestOpenAIController {
 
     // private final String OPENAI_API_URL_ASSISTANTS =
     // "https://api.openai.com/v1/assistants";
     private final String OPENAI_API_URL_THREADS = "https://api.openai.com/v1/threads";
-    private final String OPENAI_API_KEY = "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";
+    private final String OPENAI_API_KEY = "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";
 
     private String saveThreadId;
     private String saveRunThreadId;
@@ -67,7 +67,7 @@ public class OpenAIController {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode root = mapper.readTree(response.getBody());
                 String threadId = root.path("id").asText();
-                System.out.println("=========================================================");
+                System.out.println("==========================(1111)===============================");
                 System.out.println("++ID của Thread: " + threadId);
 
                 this.saveThreadId = threadId;
@@ -161,7 +161,7 @@ public class OpenAIController {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode root = mapper.readTree(response.getBody());
                 String runThreadId = root.path("id").asText();
-                System.out.println("=========================================================");
+                System.out.println("==============================(2222)===========================");
                 System.out.println("++MA CUA RUNTHEARDID LA: " + runThreadId);
                 System.out.println("++THONG TIN CUA QUA TRINH RUNTHREADID: " + root);
 
@@ -199,6 +199,8 @@ public class OpenAIController {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
             if (response.hasBody()) {
+                System.out.println("=============================(3333)============================");
+                System.out.println("++ TINH TRANG CUA RUNTHEARDID LA: " + response.getBody());
                 return ResponseEntity.ok(response.getBody());
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Dữ liệu trống");
@@ -223,6 +225,9 @@ public class OpenAIController {
 
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            
+            System.out.println("=============================(4444)============================");
+            System.out.println("++ CAU TRA LOI LA: " + response.getBody());
             return ResponseEntity.ok(response.getBody());
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(e.getRawStatusCode()).body(e.getResponseBodyAsString());
