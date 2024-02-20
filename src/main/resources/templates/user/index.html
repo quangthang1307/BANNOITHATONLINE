@@ -1,5 +1,5 @@
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline"><merlin-component
-    id="merlin-text-summarizer" class="merlin text-summarizer"></merlin-component><merlin-component
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+<merlin-component id="merlin-text-summarizer" class="merlin text-summarizer"></merlin-component><merlin-component
     id="merlin-preview-link" class="merlin merlin-preview-link"></merlin-component><merlin-component
     id="merlin-context-btn" class="merlin context-btn"></merlin-component><merlin-component id="merlin-chat"
     class="merlin chat"></merlin-component><!--<![endif]-->
@@ -59,7 +59,7 @@
 
     <link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
 
-
+    <link rel="stylesheet" href="taiNguyenCuaThang/css/chat.css">
 
     <link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
         as="style">
@@ -87,20 +87,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body class="mainBody-theme template-index scroll-body-up" itemscope="" itemtype="http://schema.org/Website">
     <div class="mainBody-theme-container mainBody-modalshow     layoutProduct_scroll ">
 
-        =======
-
         <body ng-controller="IndexController" class="mainBody-theme template-index scroll-body-up" itemscope=""
             itemtype="http://schema.org/Website">
             <div class="mainBody-theme-container mainBody-modalshow     layoutProduct_scroll ">
 
-
-
-                >>>>>>> dung
                 <div data-th-insert="~{include/navbar.html}"></div>
 
                 <main class="wrapperMain_content">
@@ -1288,6 +1284,46 @@
                         </div>
 
                         <div class="modal-coupon--backdrop"></div>
+
+                        <div id="body" ng-controller="openAiCtrl">
+
+                            <div class="icon-container" id="chat-circle">
+                                <i class="bi bi-robot"></i>
+                                <div class="color-container"></div>
+                                <!-- <div class="btn btn-raised">
+                                    <div id="chat-overlay"></div>
+                                </div> -->
+                            </div>
+
+                            <div class="chat-box">
+                                <div class="chat-box-header">
+                                    <span>ChatBot</span> <br>
+                                    <span>(Tư vấn sản phẩm tự động)</span>
+                                    <span class="chat-box-toggle">Đóng</span>
+                                </div>
+                                <div class="chat-box-body">
+                                    <div class="chat-box-overlay">
+                                    </div>
+                                    <div class="chat-logs">
+                                        <div>
+                                            <h3>Phản hồi:</h3>
+                                            <!-- <pre>{{ feedbackData.data[0].content[0].text.value }}</pre> -->
+                                        </div>
+                                    </div><!--chat-log -->
+
+                                    <span ng-if="responseStatus === 'in_progress'" style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
+                                    <span ng-if="responseStatus === 'completed'" style="font-weight: bolder; margin-left: 13px;">Thành công</span>
+                                </div>
+                                <div class="chat-input">
+                                    <form>
+                                        <input ng-model="userMessage" type="text" id="chat-input"
+                                            placeholder="Nhập vào câu hỏi..." />
+                                        <button ng-click="sendMessage()" type="submit" class="chat-submit"
+                                            id="chat-submit"><span class="material-icons">Gửi</span></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                 </main>
 
                 <div data-th-insert="~{include/footer.html}"></div>
@@ -1543,20 +1579,19 @@
                 </div>
             </div>
             <div class="quickviewOverlay"></div>
+
             <!-- SCRIPT THEME -->
             <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+            <!-- <script type="text/javascript" src="taiNguyenCuaThang/js/chatOpenAi.js"></script> -->
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> -->
             <!-- <script src="taiNguyenCuaThang/js/navbargiohang.js"></script> -->
             <!-- <script type="text/javascript" src="taiNguyenCuaDung/js/index.js" defer=""></script> -->
 
-
             <!-- SCRIPT THEME -->
             <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
             <script src="/js/user/index.js"></script>
 
-            <!-- POPUP LOAD -->
-            <!--END *** POPUP LOAD =====================-->
-
         </body>
+    </div>
 
 </html>

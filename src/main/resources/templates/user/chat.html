@@ -11,6 +11,43 @@
 </head>
 
 <body>
+    <!-- <div ng-controller="openAiCtrl">
+
+        <button ng-click="callAPI()">Bắt đầu</button>
+        <br>
+        <form ng-submit="sendMessage()">
+            <input type="text" ng-model="userMessage" placeholder="Type your message" required />
+            <button type="submit">Send Message</button>
+        </form>
+        <br>
+        <button ng-click="runThread()">Chạy Thread</button>
+        <br>
+        <button ng-click="checkRunThreadId()">Kiểm tra trạng thái Thread</button>
+        <br>
+        <div ng-if="runThreadStatus">
+            <p>Trạng thái Run Thread: {{ runThreadStatus }}</p>
+        </div>
+        <button ng-click="showFeedback()">Hiển thị phản hồi</button>
+        <div ng-if="feedbackData">
+            <p>Thông tin phản hồi: {{ feedbackData }}</p>
+        </div>
+    </div> -->
+
+    <!-- <div ng-controller="openAiCtrl">
+
+        <div>
+            <h3>Feedback Data:</h3>
+            <pre>{{ feedbackData | json }}</pre>
+        </div>
+
+        <input type="text" ng-model="userMessage" placeholder="Type your message..." />
+        <button ng-click="sendMessage()">Send</button>
+    </div> -->
+
+    <div id="center-text">
+        <h2>ChatBox UI</h2>
+        <p>Message send and scroll to bottom enabled </p>
+    </div>
     <div id="body" ng-controller="openAiCtrl">
 
         <div id="chat-circle" class="btn btn-raised">
@@ -32,7 +69,7 @@
                         <!-- <pre>{{ feedbackData.data[0].content[0].text.value }}</pre> -->
                     </div>
                 </div><!--chat-log -->
-            </div>
+            </div>  
             <div class="chat-input">
                 <form>
                     <input ng-model="userMessage" type="text" id="chat-input" placeholder="Send a message..." />

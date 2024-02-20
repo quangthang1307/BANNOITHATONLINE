@@ -1,5 +1,5 @@
 var app = angular.module('bannoithatonline', []);
-app.controller('openAiCtrl', function ($scope, $http) {
+app.controller("openAiCtrl", function ($scope, $http) {
 
     $scope.callAPI = function () {
         $http.post('http://localhost:8080/createThread', {})

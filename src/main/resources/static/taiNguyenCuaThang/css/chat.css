@@ -8,48 +8,52 @@
 
 }
 
-#chat-circle {
+/* #chat-circle {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 15px;
+    right: 15px;
     background: #5A5EB9;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     color: white;
-    padding: 28px;
+    padding: 15px;
     cursor: pointer;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-}
+} */
 
-.btn#my-btn {
-    background: white;
-    padding-top: 13px;
-    padding-bottom: 12px;
-    border-radius: 45px;
-    padding-right: 40px;
-    padding-left: 40px;
-    color: #5865C3;
-}
-
-#chat-overlay {
-    background: rgba(255, 255, 255, 0.1);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.color-container {
+    /* Thêm CSS của bạn ở đây */
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+    background: #d34056;
+    width: 47px;
+    height: 47px;
     border-radius: 50%;
-    display: none;
+    color: white;
+    /* padding: 15px; */
+    cursor: pointer;
+    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.2), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.4);
+    z-index: 997;
 }
 
+.bi.bi-robot {
+    /* Thêm CSS của bạn ở đây */
+    position: fixed;
+    bottom: 46px;
+    right: 31px;
+    /* padding: 15px; */
+    z-index: 999;
+}
 
 .chat-box {
+    z-index: 9999;
     display: none;
     background: #efefef;
     position: fixed;
     right: 30px;
-    bottom: 50px;
+    bottom: 15px;
     width: 350px;
     max-width: 85vw;
     max-height: 100vh;
@@ -61,18 +65,23 @@
 .chat-box-toggle {
     float: right;
     margin-right: 15px;
+    top: 0px;
     cursor: pointer;
 }
 
 .chat-box-header {
-    background: #5A5EB9;
+    background: #d34056;
     height: 70px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: white;
-    text-align: center;
-    font-size: 20px;
-    padding-top: 17px;
+    /* text-align: center; */
+    font-size: 15px;
+    padding-top: 13px;
+}
+
+.chat-box-header span {
+    margin-left: 13px;
 }
 
 .chat-box-body {
@@ -142,15 +151,15 @@
 
 .chat-submit {
     position: absolute;
-    bottom: 3px;
-    right: 10px;
-    background: transparent;
+    bottom: 1px;
+    right: 0px;
+    background: #f4c7cd;
     box-shadow: none;
     border: none;
-    border-radius: 50%;
-    color: #5A5EB9;
-    width: 35px;
-    height: 35px;
+    /* border-radius: 50%; */
+    color: #d34056;
+    width: 45px;
+    height: 46px;
 }
 
 .chat-logs {
@@ -216,7 +225,7 @@
 .chat-msg.self>.cm-msg-text {
     float: right;
     margin-right: 10px;
-    background: #5A5EB9;
+    background: #d34056;
     color: white;
 }
 
