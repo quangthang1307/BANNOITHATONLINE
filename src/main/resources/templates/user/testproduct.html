@@ -57,27 +57,10 @@
     as="style">
 <!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-<link href="//theme.hstatic.net/200000796751/1001150659/14/jquery-3.5.1.min.js?v=792" rel="preload" as="script">
-<script id="hrfwidget-core" src="//hstatic.net/harasocial/widget.js?v=1.1"></script>
-<script type="text/javascript" async=""
-    src="https://www.gstatic.com/recaptcha/releases/QUpyTKFkX5CIV6EF8TFSWEif/recaptcha__vi.js" crossorigin="anonymous"
-    integrity="sha384-igEUULfQ6KzkA60kCaXW1KsPJYVmqTUZMpdqRQ+bbfRswGcSPhfEBTq48E7X4pYM"></script>
-<script async="" src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
-<script type="text/javascript" async=""
-    src="https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026"></script>
-<script async="" src="https://www.clarity.ms/s/0.7.20/clarity.js"></script>
-<script async="" src="https://www.clarity.ms/tag/k8ossms4ac"></script>
-<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NZD72JPJ"></script>
-<script type="text/javascript" src="//theme.hstatic.net/200000796751/1001150659/14/jquery-3.5.1.min.js?v=792"></script>
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Products">
-<meta property="og:image" content="http://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=792">
-<meta property="og:image:secure_url"
-    content="https://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=792">
-<meta property="og:description" name="description" content="Tất cả sản phẩm">
-<meta property="og:url" content="https://baya.vn/collections/all">
-<meta property="og:site_name" content="Baya">
+
+
+<script type="text/javascript" src="/taiNguyenCuaDung/js/jquery.min.js"></script>
 
 
 
@@ -380,9 +363,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+<script src="/js/user/product.js"></script>
+
 </head>
 
-<body ng-controller="productController" class="mainBody-theme template-collection" itemscope="" itemtype="http://schema.org/Website">
+<body ng-controller="productController" class="mainBody-theme template-collection" itemscope=""
+    itemtype="http://schema.org/Website">
     <div data-th-insert="~{include/navbar.html}"></div>
     <main class="wrapperMain_content">
         <div class="layout-collections">
@@ -450,7 +438,7 @@
                                                 <div class="filter_group" aria-expanded="false">
                                                     <div class="group-menu filter_group_block">
                                                         <div class="filter_group-subtitle">
-                                                            <span>Danh mục sản phẩm</span>
+                                                            <span>Sản phẩm</span>
                                                         </div>
                                                         <div class="filter_group-content layered-category">
                                                             <div class="layered-content">
@@ -470,7 +458,8 @@
 
                                                                     <li class="active">
                                                                         <span></span>
-                                                                        <a class=" current" href="/collections/all"
+                                                                        <a class=" current"
+                                                                            ng-click="clickCategory(0, 0)"
                                                                             title="Tất cả sản phẩm" target="_self"
                                                                             previewlistener="true">
                                                                             Tất cả sản phẩm
@@ -539,149 +528,19 @@
                                                 <div class="filter_group" aria-expanded="false">
                                                     <div class="filter_group_block">
                                                         <div class="filter_group-subtitle">
-                                                            <span>Nhà cung cấp</span>
+                                                            <span>Danh mục sản phẩm</span>
                                                         </div>
                                                         <div class="filter_group-content filter-brand">
                                                             <ul class="checkbox-list">
 
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p1"
-                                                                        value="CHUFA" name="brand-filter"
+                                                                <li ng-repeat="category in categorys">
+                                                                    <input ng-model="CheckboxCategory[$index].isChecked"
+                                                                        ng-change="clickCategory(category.id, $index)"
+                                                                        type="checkbox" id="data-brand-p1" value="CHUFA"
+                                                                        name="brand-filter"
                                                                         data-vendor="(vendor:product contains CHUFA)">
-                                                                    <label for="data-brand-p1">CHUFA</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p2"
-                                                                        value="ICONICO" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains ICONICO)">
-                                                                    <label for="data-brand-p2">ICONICO</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p3"
-                                                                        value="SUND" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains SUND)">
-                                                                    <label for="data-brand-p3">SUND</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p4"
-                                                                        value="MOLLIS" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains MOLLIS)">
-                                                                    <label for="data-brand-p4">MOLLIS</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p5"
-                                                                        value="KONDO" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains KONDO)">
-                                                                    <label for="data-brand-p5">KONDO</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p6"
-                                                                        value="RECIPE" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains RECIPE)">
-                                                                    <label for="data-brand-p6">RECIPE</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p7"
-                                                                        value="EASYKID" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains EASYKID)">
-                                                                    <label for="data-brand-p7">EASYKID</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p8"
-                                                                        value="PUMPKIN" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains PUMPKIN)">
-                                                                    <label for="data-brand-p8">PUMPKIN</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p9"
-                                                                        value="ATRIUM" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains ATRIUM)">
-                                                                    <label for="data-brand-p9">ATRIUM</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p10"
-                                                                        value="HUNG-VUONG" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains HUNGVUONG)">
-                                                                    <label for="data-brand-p10">HUNG-VUONG</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p11"
-                                                                        value="XING" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains XING)">
-                                                                    <label for="data-brand-p11">XING</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p12"
-                                                                        value="MOZART" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains MOZART)">
-                                                                    <label for="data-brand-p12">MOZART</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p13"
-                                                                        value="QUINTUS" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains QUINTUS)">
-                                                                    <label for="data-brand-p13">QUINTUS</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p14"
-                                                                        value="Khác" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains Khác)">
-                                                                    <label for="data-brand-p14">Khác</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p15"
-                                                                        value="XYLIA" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains XYLIA)">
-                                                                    <label for="data-brand-p15">XYLIA</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p16"
-                                                                        value="SUSANA" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains SUSANA)">
-                                                                    <label for="data-brand-p16">SUSANA</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p17"
-                                                                        value="MOLLY" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains MOLLY)">
-                                                                    <label for="data-brand-p17">MOLLY</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p18"
-                                                                        value="SARA" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains SARA)">
-                                                                    <label for="data-brand-p18">SARA</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p19"
-                                                                        value="COBRA" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains COBRA)">
-                                                                    <label for="data-brand-p19">COBRA</label>
-                                                                </li>
-
-                                                                <li>
-                                                                    <input type="checkbox" id="data-brand-p20"
-                                                                        value="NSLEEP" name="brand-filter"
-                                                                        data-vendor="(vendor:product contains NSLEEP)">
-                                                                    <label for="data-brand-p20">NSLEEP</label>
+                                                                    <label
+                                                                        for="data-brand-p1">{{category.productname}}</label>
                                                                 </li>
 
                                                             </ul>
@@ -723,7 +582,8 @@
                                                     Tất cả sản phẩm
                                                 </h1>
                                                 <div class="filter-box">
-                                                    <span class="title-count"><b>316</b> sản phẩm</span>
+                                                    <span class="title-count"><b>{{totalItems}}</b> sản
+                                                        phẩm</span>
                                                     <p class="title-filter d-sm-flex d-lg-none">
 
                                                         <span>Bộ lọc</span>
@@ -802,7 +662,7 @@
                                                             <li><span data-value="created-ascending"
                                                                     data-filter="(updated_at:product=asc)">Cũ
                                                                     nhất</span></li>
-                                                            <li class="active"><span data-value="created-descending"
+                                                            <li><span data-value="created-descending"
                                                                     data-filter="(updated_at:product=desc)">Mới
                                                                     nhất</span></li>
                                                             <li><span data-value="best-selling"
@@ -813,6 +673,18 @@
                                                                     giảm dần</span></li>
                                                         </ul>
                                                     </div>
+
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('.sort-by-content li').click(function () {
+                                                                // Loại bỏ lớp "active" khỏi tất cả các thẻ li
+                                                                $('.sort-by-content li').removeClass('active');
+
+                                                                // Thêm lớp "active" cho thẻ li được click
+                                                                $(this).addClass('active');
+                                                            });
+                                                        });
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -848,16 +720,19 @@
 
 
 
-                                        <div ng-repeat="product in products" class="col-lg-cus5 col-md-6 col-6 product-loop" data-id="1117380330">
+                                        <div ng-repeat="product in products"
+                                            class="col-lg-cus5 col-md-6 col-6 product-loop" data-id="1117380330">
                                             <div class="product-inner" data-proid="1052192843" id="collection_loop_1">
-                                                <div  class="proloop-image">
-                                                    <div class="pro-sale" ng-if="isProductInSale(product.productid)"><span>-{{getPercentSaleForProduct(product.productid)}}%</span></div>
-                                                    
+                                                <div class="proloop-image">
+                                                    <div class="pro-sale" ng-if="isProductInSale(product.productid)">
+                                                        <span>-{{getPercentSaleForProduct(product.productid)}}%</span>
+                                                    </div>
+
                                                     <div class="product--image">
 
                                                         <div class="lazy-img first-image">
                                                             <picture>
-                                                                    <img class="img-loop lazyloaded"
+                                                                <img class="img-loop lazyloaded"
                                                                     src="{{product.productimages[0].image}}"
                                                                     alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                             </picture>
@@ -883,7 +758,8 @@
                                                         data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
                                                         title="Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair)"
                                                         previewlistener="true"></a>
-                                                    <div class="sticker_frame"><a
+                                                    <div ng-if="isProductInSale(product.productid)"
+                                                        class="sticker_frame"><a
                                                             href="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
                                                             previewlistener="true"><img class=" ls-is-cached lazyloaded"
                                                                 src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
@@ -892,19 +768,23 @@
                                                 <div class="proloop-detail">
                                                     <p class="proloop--vendor"><a title="Show vendor"
                                                             href="/collections/vendors?q=normandy"
-                                                            previewlistener="true">NORMANDY</a></p>
+                                                            previewlistener="true">{{product.brand.brandname}}</a></p>
                                                     <h3><a ng-click="clickById(product.productid)"
                                                             class="quickview-product"
                                                             data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
                                                             previewlistener="true">{{product.productname}}</a></h3>
-                                                    <p class="proloop--price on-sale" ng-if="isProductInSale(product.productid)">
-                                                        <span class="price">{{product.pricexuat - (product.pricexuat * getPercentSaleForProduct(product.productid) / 100)}}₫</span>
+                                                    <p class="proloop--price on-sale"
+                                                        ng-if="isProductInSale(product.productid)">
+                                                        <span class="price">{{product.pricexuat - (product.pricexuat *
+                                                            getPercentSaleForProduct(product.productid) / 100) | number
+                                                            }}₫</span>
 
-                                                        <span class="price-del">{{product.pricexuat}}₫</span>
-                                                        <span class="pro-percent">-33%</span>
+                                                        <span class="price-del">{{product.pricexuat | number }}₫</span>
+                                                        <!-- <span class="pro-percent">-33%</span> -->
                                                     </p>
-                                                    <p class="proloop--price " ng-if="!isProductInSale(product.productid)">
-                                                        <span class="price">{{product.pricexuat}}₫</span>
+                                                    <p class="proloop--price "
+                                                        ng-if="!isProductInSale(product.productid)">
+                                                        <span class="price">{{product.pricexuat | number }}₫</span>
                                                     </p>
 
                                                     <div class="proloop-actions" data-vrid="1117380330">
@@ -912,7 +792,7 @@
                                                             <div class="actions-primary">
                                                                 <button type="submit"
                                                                     class="btn-proloop-cart add-to-cart  "
-                                                                    onclick="HRT.All.addCartProdItem('1117380330')">
+                                                                    ng-click="addToCart(product)">
                                                                     <span class="btnadd"> Thêm vào giỏ </span>
                                                                     <span class="btnico" title="Thêm vào giỏ">
                                                                         <svg class="btnico-first" version="1.0"
@@ -932,55 +812,14 @@
                                                                 </button>
 
                                                             </div>
-                                                            <div class="actions-boxqty d-flex">
-                                                                <div class="actions-wrapqty d-flex">
-                                                                    <button class="qty-btn proloop-minus"
-                                                                        onclick="HRT.All.minusQtyProdItem('1117380330')">
-                                                                        <svg width="18" height="18" viewBox="0 0 20 20"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <rect height="1" width="18" y="9" x="1">
-                                                                            </rect>
-                                                                        </svg>
-                                                                    </button>
-                                                                    <input class="proloop-value" type="text" readonly=""
-                                                                        name="proloop-quantity" value="">
-                                                                    <button class="qty-btn proloop-plus"
-                                                                        onclick="HRT.All.plusQtyProdItem('1117380330')">
-                                                                        <svg width="18" height="18" viewBox="0 0 20 20"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <rect x="9" y="1" width="1" height="17">
-                                                                            </rect>
-                                                                            <rect x="1" y="9" width="17" height="1">
-                                                                            </rect>
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="actions-icon">
-                                                                    <span class="btnico"
-                                                                        onclick="HRT.All.addCartProdItem('1117380330')"
-                                                                        title="Thêm vào giỏ">
-                                                                        <svg version="1.0" viewBox="0 0 512 512"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <g
-                                                                                transform="translate(0 512) scale(.1 -.1)">
-                                                                                <path
-                                                                                    d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
-                                                                                </path>
-                                                                                <path
-                                                                                    d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
-                                                                                </path>
-                                                                            </g>
-                                                                        </svg>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                    
+
 
 
                                     </div>
@@ -991,6 +830,27 @@
                                             data-collectionhd="/collections/all" href="javascript:void(0);">Xem thêm
                                             sản phẩm</a>
 
+                                    </div>
+
+                                    <div class="col-md-12 hidden-xs text-center">
+                                        <!--pagination-->
+                                        <span>Total Pages: {{ totalPages }}</span>
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                <li ng-class="{'disabled' : currentPage === 1} ">
+                                                    <a ng-click="back()">
+                                                        < </a>
+                                                </li>
+                                                <li ng-repeat="page in numberArray()" ng-if="page !== undefined"
+                                                    ng-class="{'active' : currentPage === page}">
+                                                    <a href="#" ng-click="goToPage(page)">{{ page }}</a>
+                                                </li>
+                                                <li ng-class="{'disabled' : totalPages === currentPage} ">
+                                                    <a ng-click="next()">></a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <!--pagination ends-->
                                     </div>
 
                                 </div>
@@ -1229,8 +1089,7 @@
 
     <script src="/taiNguyenCuaDung/js/scripts.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
-    <script src="/js/user/product.js"></script>
+
 </body>
 
 </html>

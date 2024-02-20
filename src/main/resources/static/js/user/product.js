@@ -10,6 +10,8 @@ const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 const hostProductSale = "http://localhost:8080/rest/product/sale";
+const hostProductDESC = "http://localhost:8080/rest/product/desc";
+const hostProductASC = "http://localhost:8080/rest/product/asc";
 
 
 app.controller("productController", function ($scope, $http, $window) {
@@ -38,19 +40,18 @@ app.controller("productController", function ($scope, $http, $window) {
     }
 
     //Gọi API lấy sản phẩm
-    $scope.itemsPerPage = 9;
+    $scope.itemsPerPage = 15;
     $scope.currentPage = 1;
     $scope.totalItems = 0;
     $scope.totalPages = 0;
     $scope.products = [];
     $scope.listCart = [];
-    $scope.productsale = [];
+    $scope.productSale = [];
 
     $scope.getData = function () {
 
-        var apiUrl = host + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage;
-
-        $http.get(apiUrl)
+        var apiProduct = host + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage;
+        $http.get(apiProduct)
             .then(function (response) {
 
                 $scope.products = response.data.content;
@@ -71,26 +72,26 @@ app.controller("productController", function ($scope, $http, $window) {
         $http.get(hostProductSale)
             .then(function (response) {
 
-                $scope.productsale = response.data
-                console.log($scope.productsale);
-
+                $scope.productSale = response.data
+                console.log($scope.productSale);
 
             })
             .catch(function (error) {
-                console.error('Error fetching productsale:', error);
+                console.error('Error fetching productSale:', error);
             }
             );
+
     };
     //
 
 
     //Kiểm tra sản phẩm sale để thay đổi giá
     $scope.isProductInSale = function (productId) {
-        return $scope.productsale.some(item => item.productID === productId);
+        return $scope.productSale.some(item => item.productID === productId);
     };
 
     $scope.getPercentSaleForProduct = function (productId) {
-        var foundItem = $scope.productsale.find(item => item.productID === productId);
+        var foundItem = $scope.productSale.find(item => item.productID === productId);
         return foundItem ? foundItem.percent : null;
     };
     //
@@ -157,15 +158,28 @@ app.controller("productController", function ($scope, $http, $window) {
 
 
 
-    //Loc Sản Phẩm
+    //Loc Sản Phẩm Theo Danh Mục
+    $scope.categorys = [];
+    $scope.CheckboxCategory = [];
     $scope.getDataCategory = function () {
-
-        $scope.categorys = [];
-
         $http.get(hostCategory)
             .then(function (response) {
                 $scope.categorys = response.data;
-                console.log("Success", $scope.categorys);
+                console.log("Success", $scope.categorys[0].productname);
+                console.log("Success", $scope.categorys.length);
+
+                // Khởi tạo mảng chứa thông tin của các checkbox
+
+                for (var i = 0; i < $scope.categorys.length; i++) {
+                    console.log("hello");
+                    var cboCategoryItem = {
+                        label: 'CheckboxCategory' + i,
+                        isChecked: false
+                    };
+
+                    // Thêm đối tượng vào mảng CheckboxCategory
+                    $scope.CheckboxCategory.push(cboCategoryItem);
+                }
 
             })
             .catch(function (error) {
@@ -174,27 +188,43 @@ app.controller("productController", function ($scope, $http, $window) {
     };
 
 
-    $scope.clickCategory = function (id) {
-        console.log("OK" + id)
-        if (id === 0) return $scope.getData();
-        var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + id;
-        console.log(apiUrl);
 
+
+
+    var IntegerArray = [];
+    $scope.clickCategory = function (id, index) {
+        console.log(id);
+        if (id === 0) {
+            $scope.CheckboxCategory.forEach(function (item) {
+                if (item.isChecked) {
+                    item.isChecked = false;
+                }
+            });
+            return $scope.getData();
+        }
+
+
+        IntegerArray.push(id);
+
+        if (!$scope.CheckboxCategory[index].isChecked) {
+            IntegerArray = IntegerArray.filter(number => number !== id);
+            if ($scope.CheckboxCategory.every(category => category.isChecked === false)) return $scope.getData();
+        }
+
+        var apiUrl = hostProductByCategory + '?page=0' + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $scope.currentPage = 1;
+        console.log(apiUrl);
         $http.get(apiUrl)
             .then(function (response) {
 
-                console.log($scope.products);
-                console.log(response.data);
-
-
-                $scope.products = response.data.content;
-                console.log($scope.products);
+                $scope.products = response.data.content;         
 
                 $scope.totalItems = response.data.totalElements;
                 console.log($scope.totalItems);
 
                 $scope.totalPages = parseInt(response.data.totalPages, 10);
                 console.log($scope.totalPages);
+
 
             })
             .catch(function (error) {
@@ -203,8 +233,18 @@ app.controller("productController", function ($scope, $http, $window) {
 
 
     }
-    //
 
+     ////////////
+
+    //Lọc Sản Phẩm
+    $scope.filterActive = false;
+        $scope.clickFilter = function(index) {
+
+        }
+     ////////////
+
+
+    //Giỏ hàng
 
     $scope.addToCart = function (product) {
         if ($scope.customer == null) {
@@ -324,6 +364,8 @@ app.controller("productController", function ($scope, $http, $window) {
         });
 
     };
+
+    ////////////
 
     // Load data for the first time
     $scope.getData();

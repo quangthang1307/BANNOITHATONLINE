@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findByCategory(Pageable pageable, Integer category) {
+    public Page<Product> findByCategory(Pageable pageable, List<Integer> category) {
         return productResponsitory.findProductByCategory(pageable, category);
     }
 
@@ -37,6 +37,18 @@ public class ProductServiceImpl implements ProductService {
     public Integer[] findTop5ProductBestSeller() {
         return productResponsitory.findProductBestSeller();
     }
+
+    @Override
+    public Page<Product> findProductOrderByPriceDESC(Pageable pageable) {
+        return productResponsitory.findProductByPriceDESC(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductOrderByPriceASC(Pageable pageable) {
+        return productResponsitory.findProductByPriceASC(pageable);
+    }
+
+
 
     // @Override
     // public List<Product> findAll() {

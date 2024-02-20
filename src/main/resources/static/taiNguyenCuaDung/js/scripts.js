@@ -4,7 +4,7 @@ var viewout = true;
 var check_show_modal = true;
 var htmlQvApp = '',htmlCombo = "";
 var dataItemsCombo = [];
-const img_gift = 'https://file.hstatic.net/1000308580/file/icon-gifbox_21127e78739a40a28f058e5e123d41b1.png';
+
 
 //Delay action
 function delayTime (func, wait) {
@@ -597,9 +597,7 @@ HRT.All = {
 			item_product.find('img').attr('src',Haravan.resizeImage(product.image,'small')).attr('alt', product.url);
 		}
 		
-		if(product.promotionby.length > 0){
-			item_product.find('.mini-cart__left .mnc-link').append('<span class="mnc-gift"><img src="'+img_gift+'" alt="icon quÃ  táº·ng"></span>');
-		}
+
 		
 		item_product.find('.mnc-link').attr('href', product.url).attr('title', product.url);
 		item_product.find('.mini-cart__title .mnc-title').html(product.title);

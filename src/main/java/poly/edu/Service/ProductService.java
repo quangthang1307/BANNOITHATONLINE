@@ -16,7 +16,12 @@ public interface ProductService {
 
     Optional<Product> findById(int id);
 
-    Page<Product> findByCategory(Pageable pageable, Integer category);
+    Page<Product> findByCategory(Pageable pageable, List<Integer> category);
 
     Integer[] findTop5ProductBestSeller();
+
+    Page<Product> findProductOrderByPriceDESC(Pageable pageable);
+
+    Page<Product> findProductOrderByPriceASC(Pageable pageable);
+
 }

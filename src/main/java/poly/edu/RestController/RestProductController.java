@@ -40,6 +40,28 @@ public class RestProductController {
         return ResponseEntity.ok(productPage);
     }
 
+    @GetMapping("/rest/product/desc")
+    public ResponseEntity<Page<Product>> getAllProductsDESC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findAll(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/asc")
+    public ResponseEntity<Page<Product>> getAllProductsASC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findAll(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
     @GetMapping("/rest/product/{productId}")
     public ResponseEntity<Product> getProductDetails(@PathVariable Integer productId) {
         Optional<Product> productOptional = productService.findById(productId);
@@ -52,7 +74,7 @@ public class RestProductController {
     public ResponseEntity<Page<Product>> getProductByCategory(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(name = "categoryId") Integer categoryId) {
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Product> productPage = productService.findByCategory(pageRequest, categoryId);
@@ -64,6 +86,7 @@ public class RestProductController {
     public ResponseEntity<List<Sale>> getProductByCategory() {
         return ResponseEntity.ok(saleService.findAllOnSale());
     }
+
 
     @GetMapping("/rest/product/bestseller")
     public ResponseEntity<Optional<List<Product>>> getProductBestSeller() {
