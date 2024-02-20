@@ -171,7 +171,7 @@
                                     <div style="margin-bottom: 5%; margin-top: 1%;">
                                         <div class="form-check" ng-repeat="addr in address" style="margin-bottom: 1%;">
                                             <input class="form-check-input"  type="radio" id="{{addr.addressID}}" ng-model="selectedAddress" value="{{addr.addressID}}"
-                                                name="addressGroup" ng-change="onAddressSelected(addr)" />
+                                                name="addressGroup" ng-change="onAddressSelected(addr)" ng-click="isSelectedAddress(addr)"  />
                                             Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}
                                         </div>
                                     </div>
@@ -194,9 +194,15 @@
 
                                 <a href="/cart" class="btn btn-default pull-left btn-warning text-black hidden-xs"
                                     style="border-radius: 10px;">Giỏ hàng</a>
-                                <a ng-click="continuePayment()"
+                                <a id="checkoutButtonF" ng-click="continuePayment()"
                                     class="btn btn-default pull-right btn-primary hidden-xs"
                                     style="border-radius: 10px;">Tiếp tục thanh toán</a>
+
+                                    <a id="checkoutButtonL" ng-click="continuePayment()"
+                                    class="btn btn-default pull-right btn-primary hidden-xs"
+                                    style="border-radius: 10px;">Thanh toán</a>
+
+
                                 <div class="clearfix maya-small-padding"></div>
                             </div>
 
@@ -302,6 +308,7 @@
     <!--kimi basic js-->
     <script src="js/kimi.js"></script>
     <script src="js/user/checkout.js"></script>
+
 
 </body>
 

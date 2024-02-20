@@ -120,6 +120,18 @@ public class OrderRestController {
 
     }
 
+
+    @GetMapping("/rest/findOrder")
+    public ResponseEntity<?> getOrderOne(@RequestParam Integer orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isPresent()) {
+            return ResponseEntity.ok(order.get());
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+
+    }
+
     @DeleteMapping("/rest/deleteOrder")
     public void deleteOrder(@RequestParam Integer orderId) {
         List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
@@ -198,15 +210,7 @@ public class OrderRestController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/rest/optionss")
-    public ResponseEntity<?> getOrde(@RequestParam String statusName, @RequestParam Integer customerId) {
-
-        Orderstatus orderStatus = orderStatusRepository.findByOrderStatusName(statusName);
-        List<Order> order = orderRepository.findByOrderstatus_OrderstatusID_CustomerID(orderStatus.getOrderstatusID(),
-                customerId);
-
-        return ResponseEntity.ok(order);
-    }
+  
 
     @GetMapping("/rest/payment/again")
     public ResponseEntity<?> paymentAgain(@RequestParam Integer orderId) {
@@ -232,6 +236,10 @@ public class OrderRestController {
     
         return ResponseEntity.ok(response);
     }
+
+
+
+
     
     
 

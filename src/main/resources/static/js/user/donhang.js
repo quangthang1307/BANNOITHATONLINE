@@ -16,6 +16,7 @@ app.controller("chiTietDonHangController", function ($scope, $http){
                 
             }} ).then((resp) => { console.log(resp);})
         } else {
+            var orderID = JSON.parse(window.localStorage.getItem('orderId'));
             var urlCreateTransaction = `${host}/rest/createTransaction`;
             $http.post(urlCreateTransaction, null, {params : { 
                 orderID : orderID,

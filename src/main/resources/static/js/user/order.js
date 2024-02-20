@@ -95,8 +95,8 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   $scope.thanhToan = function(order){
     $http.get('http://localhost:8080/rest/payment/again?orderId=' + order.orderID).then((response) => {
       window.localStorage.setItem("listPayment", JSON.stringify(response.data));
-      window.location.href = "/checkout";
-      console.log(response.data);
+      window.localStorage.setItem("orderId", JSON.stringify(order.orderID));
+      window.location.href = "/checkout?again=true";
     })
   }
 
@@ -124,14 +124,15 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
         if (index !== -1) {
           $scope.orders.splice(index, 1);
         }
+        Swal.fire({
+          title: 'Hủy thành công !',
+          text: "Bạn đã hủy thành công đơn đặt hàng !",
+          icon: "success",
+          timer: 850
+        });
       }
 
-      Swal.fire({
-        title: 'Hủy thành công !',
-        text: "Bạn đã hủy thành công đơn đặt hàng !",
-        icon: "success",
-        timer: 850
-      });
+      
 
     });
   };
