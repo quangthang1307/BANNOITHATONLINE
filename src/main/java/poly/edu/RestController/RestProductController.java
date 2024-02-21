@@ -40,24 +40,13 @@ public class RestProductController {
         return ResponseEntity.ok(productPage);
     }
 
-    @GetMapping("/rest/product/desc")
-    public ResponseEntity<Page<Product>> getAllProductsDESC(
+    @GetMapping("/rest/product/sales")
+    public ResponseEntity<Page<Product>> getAllProductsSale(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Product> productPage = productService.findAll(pageRequest);
-
-        return ResponseEntity.ok(productPage);
-    }
-
-    @GetMapping("/rest/product/asc")
-    public ResponseEntity<Page<Product>> getAllProductsASC(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Product> productPage = productService.findAll(pageRequest);
+        Page<Product> productPage = productService.findProductSale(pageRequest);
 
         return ResponseEntity.ok(productPage);
     }

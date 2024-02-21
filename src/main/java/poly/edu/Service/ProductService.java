@@ -20,8 +20,6 @@ public interface ProductService {
 
     Integer[] findTop5ProductBestSeller();
 
-    Page<Product> findProductOrderByPriceDESC(Pageable pageable);
-
-    Page<Product> findProductOrderByPriceASC(Pageable pageable);
+    Page<Product> findProductSale(Pageable pageable);
 
 }
