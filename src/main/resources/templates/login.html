@@ -2,19 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 
 <head>
-	<div data-th-insert="~{include/style.html}"></div>
-
 	<title>Title</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-	<link rel="stylesheet" href="taiNguyenCuaThang/css/login.css">
 
 	<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
@@ -22,10 +13,17 @@
 	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
 	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
 	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+	<link rel="stylesheet" href="taiNguyenCuaThang/css/login.css">
 
 	<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
 	<script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+
+	<!--+++++++++++++ LIBARY THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 	<meta http-equiv="origin-trial"
 		content="Az520Inasey3TAyqLyojQa8MnmCALSEU29yQFW8dePZ7xQTvSt73pHazLFTK5f7SyLUJSo2uKLesEtEa9aUYcgMAAACPeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=">
@@ -117,7 +115,8 @@
 
 				<div class="row justify-content-center">
 					<div class="col-7 mb-2">
-						<input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="username" autofocus>
+						<input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="username"
+							autofocus>
 					</div>
 				</div>
 
@@ -141,11 +140,11 @@
 
 				<div class="row justify-content-center">
 					<div class="col-7 mb-2">
-						<input type="text" class="form-control" placeholder="Nhập số điện thoại" ng-model="phone" id="myInput"
-					onkeypress="return onlyNumberKey(event)">
+						<input type="text" class="form-control" placeholder="Nhập số điện thoại" ng-model="phone"
+							id="myInput" onkeypress="return onlyNumberKey(event)">
 					</div>
 				</div>
-				
+
 				<button type="submit">Đăng ký</button>
 			</form>
 		</div>
@@ -193,12 +192,12 @@
 		<div class="overlay-container">
 			<div class="overlay">
 				<div class="overlay-panel overlay-left">
-					<h1>Chào mừng trở lại!</h1>
+					<h1 style="color: white;">Chào mừng trở lại!</h1>
 					<p>Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
 					<button class="ghost" id="signIn">Đăng nhập</button>
 				</div>
 				<div class="overlay-panel overlay-right">
-					<h1>Chào bạn!</h1>
+					<h1 style="color: white;">Chào bạn!</h1>
 					<p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
 					<button class="ghost" id="signUp">Đăng ký</button>
 				</div>
@@ -251,6 +250,7 @@
 		} 
 	</script>
 
+	<!--+++++++++++++ LIBARY THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
