@@ -25,11 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT TOP 5 p.ProductID FROM Product p JOIN Orderdetails od ON p.ProductID = od.ProductID WHERE p.Productactivate = 1 GROUP BY p.ProductID ORDER BY SUM(od.Productquantity) DESC;", nativeQuery = true)
     Integer[] findProductBestSeller();
 
-    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY PriceXuat DESC", nativeQuery = true)
-    Page<Product> findProductByPriceDESC(Pageable pageable);
+    @Query(value = "SELECT Product.* FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale", nativeQuery = true)
+    Page<Product> findProductOnSale(Pageable pageable);
 
-    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY PriceXuat ASC", nativeQuery = true)
-    Page<Product> findProductByPriceASC(Pageable pageable);
 
 
 

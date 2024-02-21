@@ -39,14 +39,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findProductOrderByPriceDESC(Pageable pageable) {
-        return productResponsitory.findProductByPriceDESC(pageable);
+    public Page<Product> findProductSale(Pageable pageable) {
+        return productResponsitory.findProductOnSale(pageable);
     }
 
-    @Override
-    public Page<Product> findProductOrderByPriceASC(Pageable pageable) {
-        return productResponsitory.findProductByPriceASC(pageable);
-    }
 
 
 

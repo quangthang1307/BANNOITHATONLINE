@@ -15,6 +15,7 @@ const hostProductASC = "http://localhost:8080/rest/product/asc";
 
 
 app.controller("productController", function ($scope, $http, $window) {
+    $scope.titlePage = "Tất cả sản phẩm";
 
     $scope.listCart = [];
 
@@ -194,13 +195,31 @@ app.controller("productController", function ($scope, $http, $window) {
     var IntegerArray = [];
     $scope.clickCategory = function (id, index) {
         console.log(id);
-        if (id === 0) {
+        if (id === 0 && index === 0) {
             $scope.CheckboxCategory.forEach(function (item) {
                 if (item.isChecked) {
                     item.isChecked = false;
                 }
             });
+            $scope.titlePage = "Tất cả sản phẩm";
             return $scope.getData();
+        }
+
+        if (id === 0 && index === 1) {
+            console.log("OKKKKK");
+            // Tạo một mảng chứa tất cả các productID từ mảng data
+            const productIDs = $scope.productSale.map(item => item.productID);
+            console.log(productIDs);
+            // Lọc sản phẩm từ mảng dựa vào productID có trong mảng data
+            $scope.products = $scope.products.filter(product => productIDs.includes(product.productid));
+           
+            $scope.titlePage = "Sản phẩm khuyến mãi";
+
+            $scope.totalItems = $scope.productSale.length;
+
+            $scope.totalPages = Math.ceil(  $scope.totalItems / 15);
+
+            return;
         }
 
 
@@ -217,7 +236,7 @@ app.controller("productController", function ($scope, $http, $window) {
         $http.get(apiUrl)
             .then(function (response) {
 
-                $scope.products = response.data.content;         
+                $scope.products = response.data.content;
 
                 $scope.totalItems = response.data.totalElements;
                 console.log($scope.totalItems);
@@ -234,14 +253,56 @@ app.controller("productController", function ($scope, $http, $window) {
 
     }
 
-     ////////////
+    ////////////
 
     //Lọc Sản Phẩm
     $scope.filterActive = false;
-        $scope.clickFilter = function(index) {
+    $scope.clickFilter = function (key) {
+        switch (key) {
+            case 1:
+                $scope.products.sort((a, b) => a.pricexuat - b.pricexuat);
+                break;
+            case 2:
+                $scope.products.sort((a, b) => b.pricexuat - a.pricexuat);
+                break;
+            case 3:
+                // Sắp xếp mảng theo trường "productname" từ a đến z
+                $scope.products.sort((a, b) => {
+                    const nameA = a.productname.toLowerCase();
+                    const nameB = b.productname.toLowerCase();
+                    if (nameA < nameB) return -1;
+                    if (nameA > nameB) return 1;
+                    return 0;
+                });
+                break;
+            case 4:
+                // Sắp xếp mảng theo trường "productname" từ z đến a
+                $scope.products.sort((a, b) => {
+                    const nameA = a.productname.toLowerCase();
+                    const nameB = b.productname.toLowerCase();
+                    if (nameA > nameB) return -1;
+                    if (nameA < nameB) return 1;
+                    return 0;
+                });
+                break;
+            case 5:
 
+                break;
+            case 6:
+
+                break;
+            case 7:
+
+                break;
+            case 8:
+
+                break;
+
+            default:
+                break;
         }
-     ////////////
+    }
+    ////////////
 
 
     //Giỏ hàng
