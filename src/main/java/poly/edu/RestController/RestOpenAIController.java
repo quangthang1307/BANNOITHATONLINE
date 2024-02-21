@@ -37,7 +37,7 @@ public class RestOpenAIController {
     // private final String OPENAI_API_URL_ASSISTANTS =
     // "https://api.openai.com/v1/assistants";
     private final String OPENAI_API_URL_THREADS = "https://api.openai.com/v1/threads";
-    private final String OPENAI_API_KEY = "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";
+    private final String OPENAI_API_KEY = "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";
 
     private String saveThreadId;
     private String saveRunThreadId;
