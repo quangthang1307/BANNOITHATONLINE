@@ -109,6 +109,8 @@ public class PaymentRestController {
             transactionRepository.save(tran);
             return ResponseEntity.ok(tran);
         } else {
+            transaction.setStatus(Status);
+            transactionRepository.save(transaction);
             return ResponseEntity.ok(transaction);
         }
     }
