@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,6 +77,42 @@ public class OrderRestController {
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
         order.setTime(LocalDateTime.now());
         orderService.createdOrder(order);
+        try {
+            if (order.getDiscount().getDiscountId() != null) {
+                Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
+                List<DiscountUsage> usageList = discountUsageRepository
+                        .findAllByCustomerId(order.getCustomer().getCustomerId());
+                if (usageList.size() < discount.get().getMaxUsage()) {
+                    if (discount.isPresent()) {
+                        discount.get().setQuantityUsed(discount.get().getQuantityUsed() + 1);
+                        discountService.update(discount.get());
+                        DiscountUsage usage = new DiscountUsage();
+                        usage.setCustomer(order.getCustomer());
+                        usage.setDiscount(order.getDiscount());
+                        usage.setUseddate(LocalDateTime.now());
+                        discountUsageRepository.save(usage);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @PutMapping("/rest/editOrder")
+    public ResponseEntity<?> editOrder(@RequestBody Order order) {
+        order.setTime(LocalDateTime.now());
+        Optional<Order> orderfind = orderRepository.findById(order.getOrderID());
+        if(orderfind.isPresent()){
+            orderfind.get().setAddress(order.getAddress());
+            orderfind.get().setDiscount(order.getDiscount());
+            orderfind.get().setPayment(order.getPayment());
+            orderfind.get().setSumpayment(order.getSumpayment());
+            orderfind.get().setTime(order.getTime());
+        }
+        orderRepository.save(orderfind.get());
+        
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());

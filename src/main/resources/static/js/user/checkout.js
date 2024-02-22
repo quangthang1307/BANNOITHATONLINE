@@ -258,6 +258,86 @@ app.controller("checkoutController", [
                 address: $scope.addressPayment,
               };
               console.log(dataPost);
+
+              if (localStorage.getItem("orderId") !== null) {
+                var dataPut = {
+                  orderID: JSON.parse(localStorage.getItem("orderId")),
+                  sumpayment:
+                    $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+                  discount: response.data,
+                  customer: customer,
+                  payment: {
+                    paymentid: $scope.selectedPaymentMethod,
+                  },
+                  orderstatus: {
+                    orderstatusID: 1,
+                  },
+                  address: $scope.addressPayment,
+                };
+                $http.put("/rest/editOrder", dataPut).then((resp) => {});
+              } else {
+                $http.post(urlCreateOrder, dataPost).then((response) => {
+                  var urlPost = `${host}/rest/createOrderDetail`;
+                  $scope.products[0].Product.forEach((element) => {
+                    window.localStorage.setItem(
+                      "orderId",
+                      response.data.orderID
+                    );
+                    dataPost = {
+                      productquantity: element.quantity,
+                      totalpayment:
+                        element.quantity * element.product.pricexuat,
+                      price: element.product.pricexuat,
+                      order: {
+                        orderID: response.data.orderID,
+                      },
+                      product: {
+                        productid: element.product.productid,
+                        // Thêm các trường khác của Product nếu cần
+                      },
+                    };
+                    console.log(dataPost);
+                    $http.post(urlPost, dataPost);
+                  });
+                });
+              }
+            });
+          } else {
+            // Nếu không có mã giảm giá
+            var dataPost = {
+              sumpayment:
+                $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+              discount: null,
+              customer: {
+                customerId: customer.customerId,
+              },
+              payment: {
+                paymentid: $scope.selectedPaymentMethod,
+              },
+              orderstatus: {
+                orderstatusID: 1,
+              },
+              address: $scope.addressPayment,
+            };
+            console.log(dataPost);
+
+            if (localStorage.getItem("orderId") !== null) {
+              var dataPut = {
+                orderID: JSON.parse(localStorage.getItem("orderId")),
+                sumpayment:
+                  $scope.products[0].TotalPayment - $scope.valueDiscountCode,
+                discount: null,
+                customer: customer,
+                payment: {
+                  paymentid: $scope.selectedPaymentMethod,
+                },
+                orderstatus: {
+                  orderstatusID: 1,
+                },
+                address: $scope.addressPayment,
+              };
+              $http.put("/rest/editOrder", dataPut).then((resp) => {});
+            } else {
               $http.post(urlCreateOrder, dataPost).then((response) => {
                 var urlPost = `${host}/rest/createOrderDetail`;
                 $scope.products[0].Product.forEach((element) => {
@@ -278,45 +358,7 @@ app.controller("checkoutController", [
                   $http.post(urlPost, dataPost);
                 });
               });
-            });
-          } else {
-            // Nếu không có mã giảm giá
-            var dataPost = {
-              sumpayment:
-                $scope.products[0].TotalPayment - $scope.valueDiscountCode,
-              discount: null,
-              customer: {
-                customerId: customer.customerId,
-              },
-              payment: {
-                paymentid: $scope.selectedPaymentMethod,
-              },
-              orderstatus: {
-                orderstatusID: 1,
-              },
-              address: $scope.addressPayment,
-            };
-            console.log(dataPost);
-            $http.post(urlCreateOrder, dataPost).then((response) => {
-              var urlPost = `${host}/rest/createOrderDetail`;
-              $scope.products[0].Product.forEach((element) => {
-                window.localStorage.setItem("orderId", response.data.orderID);
-                dataPost = {
-                  productquantity: element.quantity,
-                  totalpayment: element.quantity * element.product.pricexuat,
-                  price: element.product.pricexuat,
-                  order: {
-                    orderID: response.data.orderID,
-                  },
-                  product: {
-                    productid: element.product.productid,
-                    // Thêm các trường khác của Product nếu cần
-                  },
-                };
-                console.log(dataPost);
-                $http.post(urlPost, dataPost);
-              });
-            });
+            }
           }
 
           // Xử lý phương thức thanh toán
@@ -532,7 +574,7 @@ app.controller("checkoutController", [
     if (checkoutAgainParam === "true") {
       // If true, hide the checkout button
       document.getElementById("checkoutButtonF").style.display = "none";
-      document.getElementById("checkoutButtonL").style.display = "inline-block";      
+      document.getElementById("checkoutButtonL").style.display = "inline-block";
     } else {
       window.localStorage.removeItem("orderId");
       document.getElementById("checkoutButtonF").style.display = "inline-block";
@@ -547,11 +589,12 @@ app.controller("checkoutController", [
           .then((response) => {
             console.log(response.data.address.addressID);
             $scope.selectedAddressID = response.data.address.addressID;
+            $scope.addressPayment = response.data.address;
+            
 
             if (response.data.discount !== null) {
               $scope.discountCode = response.data.discount.code;
               $scope.isDiscountInputDisabled = true;
-              
 
               let totalPrice = 0; // Khởi tạo biến tổng
 
@@ -563,9 +606,10 @@ app.controller("checkoutController", [
                 });
               });
               $scope.products[0].TotalPayment = totalPrice;
-              $scope.valueDiscountCode = totalPrice * response.data.discount.percent/100;
+              $scope.valueDiscountCode =
+                (totalPrice * response.data.discount.percent) / 100;
             }
-            
+
             $scope.selectedPaymentMethod = response.data.payment.paymentid;
           });
       }
