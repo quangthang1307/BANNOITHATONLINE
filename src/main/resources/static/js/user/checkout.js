@@ -177,6 +177,7 @@ app.controller("checkoutController", [
       // Lấy thông tin khách hàng từ localStorage
       var getCustomer = localStorage.getItem("customerId");
       var customer = JSON.parse(getCustomer);
+
       var urlCreateOrder = `${host}/rest/createOrder`;
       var discount = null;
 
@@ -531,8 +532,9 @@ app.controller("checkoutController", [
     if (checkoutAgainParam === "true") {
       // If true, hide the checkout button
       document.getElementById("checkoutButtonF").style.display = "none";
-      document.getElementById("checkoutButtonL").style.display = "inline-block";
+      document.getElementById("checkoutButtonL").style.display = "inline-block";      
     } else {
+      window.localStorage.removeItem("orderId");
       document.getElementById("checkoutButtonF").style.display = "inline-block";
       document.getElementById("checkoutButtonL").style.display = "none";
     }
@@ -543,65 +545,32 @@ app.controller("checkoutController", [
         $http
           .get("/rest/findOrder", { params: { orderId: orderId } })
           .then((response) => {
-            var radioButton = document.getElementById(
-              response.data.address.addressID
-            );
-            radioButton.checked = true;
+            console.log(response.data.address.addressID);
+            $scope.selectedAddressID = response.data.address.addressID;
 
-            var discount = document.getElementById("discountInput");
             if (response.data.discount !== null) {
-              discount.value = response.data.discount.code;
+              $scope.discountCode = response.data.discount.code;
+              $scope.isDiscountInputDisabled = true;
+              
+
+              let totalPrice = 0; // Khởi tạo biến tổng
+
+              showListProduct.forEach((resp) => {
+                resp.Product.forEach((element) => {
+                  let productPrice = element.product.pricexuat;
+                  let quantity = element.quantity;
+                  totalPrice += productPrice * quantity;
+                });
+              });
+              $scope.products[0].TotalPayment = totalPrice;
+              $scope.valueDiscountCode = totalPrice * response.data.discount.percent/100;
             }
+            
             $scope.selectedPaymentMethod = response.data.payment.paymentid;
-            console.log(response.data);
           });
       }
     };
     $scope.isSelectedAddress();
-
-    // Existing code...
-
-    // $http.get('/rest/test', { params: { customerid: customerId } })
-    //         .then(function(response) {
-    //             // Kiểm tra nếu response.data là một chuỗi
-    //             if (typeof response.data === 'string') {
-    //                 console.log(response.data);
-    //             } else {
-    //                 console.error('Invalid data format:', response.data);
-    //             }
-    //         })
-    //         .catch(function(error) {
-    //             console.error('Error:', error);
-    //         });
-
-    // Make sure to inject $http service in your controller or service
-
-    // $http.get('/vnpay-payment1', {
-    //   params: {
-    //       vnp_Amount: 250000000,
-    //       vnp_BankCode: 'VNPAY',
-    //       vnp_CardType: 'QRCODE',
-    //       vnp_OrderInfo: 'M? t? ?n h?ng',
-    //       vnp_PayDate: 20240118233915,
-    //       vnp_ResponseCode: 24,
-    //       vnp_TmnCode: 'NQOS23IZ',
-    //       vnp_TransactionNo: 0,
-    //       vnp_TransactionStatus: '00',
-    //       vnp_TxnRef: '01018729',
-    //       vnp_SecureHash: '64739e502affa5bc4cd838d47919a144c3757505a9304cb360763a28072c8664f373adc087aa94a635d6aecedca757de6581bd3f35b3457ba2ada63d7ac8bf4d'
-    //   }
-    // })
-    //   .then(function (response) {
-    //       // Check if response.data is a string
-    //       if (typeof response.data === 'string') {
-    //           console.log(response.data);
-    //       } else {
-    //           console.log('Invalid data format:', response.data);
-    //       }
-    //   })
-    //   .catch(function (error) {
-    //       console.error('Error:', error);
-    //   });
   },
 ]);
 
