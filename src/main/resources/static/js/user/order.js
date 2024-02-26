@@ -92,55 +92,95 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   //   window.location.href = "/orderdetail";
   // };
 
-
-  $scope.thanhToan = function(order){
-    $http.get('http://localhost:8080/rest/payment/again?orderId=' + order.orderID).then((response) => {
-      window.localStorage.setItem("listPayment", JSON.stringify(response.data));
-      window.localStorage.setItem("orderId", JSON.stringify(order.orderID));
-      window.location.href = "/checkout?again=true";
-    })
-  }
-
+  $scope.thanhToan = function (order) {
+    $http
+      .get("http://localhost:8080/rest/payment/again?orderId=" + order.orderID)
+      .then((response) => {
+        window.localStorage.setItem(
+          "listPayment",
+          JSON.stringify(response.data)
+        );
+        window.localStorage.setItem("orderId", JSON.stringify(order.orderID));
+        window.location.href = "/checkout?again=true";
+      });
+  };
 
   $scope.huyDon = function (order) {
-    Swal.fire({
-      title: "Hủy đặt đơn hàng ?",
-      text: "Bạn có chắc chắn muốn hủy đơn hàng ?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Hủy đặt hàng",
-      cancelButtonText: "Đóng",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        var urlDelete = `${host}/rest/deleteOrder`;
-        $http.get('/rest/sendEmailHuyDon', {params: {
-          to: $scope.customer.account.email,
-          subject: 'Hủy đơn đặt hàng',
-          content: 'Bạn vừa hủy đơn đặt hàng'
-        }});
+  console.log(order);
+  var product = [];
 
-        $http.delete(urlDelete, {
-          params: {
-            orderId: order.orderID,
-          },
-        });
-        const index = $scope.orders.findIndex(
-          (o) => o.orderID === order.orderID
-        );
-        if (index !== -1) {
-          $scope.orders.splice(index, 1);
+order.products.forEach((resp) => {
+  product.push(resp.name + ' - ' + resp.price)
+  console.log(product);
+})
+var productString = product.join(', '); 
+
+    if (order.statusPayment.status == "0") {
+      Swal.fire({
+        title: "Hủy đặt đơn hàng ?",
+        text: "Bạn đã thanh toán đơn hàng, nếu như hủy đơn hàng bạn chỉ nhận lại được 80% giá trị tổng tiền !",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Hủy đặt hàng",
+        cancelButtonText: "Đóng",
+      });
+    } else {
+      Swal.fire({
+        title: "Hủy đặt đơn hàng ?",
+        text: "Bạn có chắc chắn muốn hủy đơn hàng ?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Hủy đặt hàng",
+        cancelButtonText: "Đóng",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var urlDelete = `${host}/rest/deleteOrder`;
+          $http.get("/rest/sendEmailHuyDon", {
+            params: {
+              to: $scope.customer.account.email,
+              subject: "Hủy đơn đặt hàng",
+              content: "<html>"
+              + "<head>"
+              + "<style>"
+              + "body { font-family: Arial, sans-serif; }"
+              + ".container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }"
+              + "h2 { text-align: center; }"
+              + "</style>"
+              + "</head>"
+              + "<body>"
+              + "<div class='container'>"
+              + "<h2>Thông Báo Hủy Đơn Hàng</h2>"
+              + "<p>"
+              + "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" + order.orderID + "</strong><br>"
+              + "Gồm các sản phẩm: " + productString + "<br>"
+              + "Tổng giá trị đơn hàng là: <strong>" + order.sumpayment + " VND</strong>"
+              + "</p>"
+              + "</div>"
+              + "</body>"
+              + "</html>",
+            },
+          });
+
+          $http.delete(urlDelete, {
+            params: {
+              orderId: order.orderID,
+            },
+          });
+          const index = $scope.orders.findIndex(
+            (o) => o.orderID === order.orderID
+          );
+          if (index !== -1) {
+            $scope.orders.splice(index, 1);
+          }
+          Swal.fire({
+            title: "Hủy thành công !",
+            text: "Bạn đã hủy thành công đơn đặt hàng !",
+            icon: "success",
+            timer: 850,
+          });
         }
-        Swal.fire({
-          title: 'Hủy thành công !',
-          text: "Bạn đã hủy thành công đơn đặt hàng !",
-          icon: "success",
-          timer: 850
-        });
-      }
-
-      
-
-    });
+      });
+    }
   };
 
   $scope.searchProducts = function () {
@@ -179,13 +219,18 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   };
 
   function filterOrder() {
-    $http.get("/rest/options", {
-      params: { statusName: $scope.selectStatus, customerId: $scope.customer.customerId },
-    }).then((response) => {
-      console.log(response.data);
-      $scope.orders = response.data;
-      $scope.orders.sort((a, b) => b.orderID - a.orderID);
-    });
+    $http
+      .get("/rest/options", {
+        params: {
+          statusName: $scope.selectStatus,
+          customerId: $scope.customer.customerId,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        $scope.orders = response.data;
+        $scope.orders.sort((a, b) => b.orderID - a.orderID);
+      });
   }
 
   // Chức năng sắp xếp và cập nhật giao diện
@@ -194,20 +239,17 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
       case "Chờ xác nhận":
         filterOrder();
         break;
-  
+
       // Thêm các trường hợp khác tùy thuộc vào nhu cầu
       case "Thanh toán":
         filterOrder();
         break;
-  
+
       case "Tất cả":
         $scope.loadCustomer();
         $scope.fillOrder();
-       
+
         break;
-  
-     
     }
   };
-  
 });

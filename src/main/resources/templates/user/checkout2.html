@@ -14,16 +14,36 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+<link rel="stylesheet" href="taiNguyenCuaThang/css/login.css">
 
+<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
+<script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+<link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    crossorigin="">
+<link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    as="style">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+
+<link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+    as="style">
 </head>
 
-<body>
+<body  ng-controller="OrderController" >
 
     <div data-th-insert="~{include/navbar.html}"></div>
 
-    <div style="width: 60%;" class="container" ng-controller="OrderController">
 
-        <div class="kimi-container">
+        <div class="" style="margin-left: 10%; margin-right: 10%;">
 
             <div class="col-md-12 mt-3" ng-if="orders.length === 0">
                 <div class="alert alert-info" role="alert">
@@ -192,7 +212,7 @@
                 </div>
             </div>
         </div>
-    </div><!-- /.container -->
+
 
     <!--include footer-->
     <div class="include-footer"></div>
