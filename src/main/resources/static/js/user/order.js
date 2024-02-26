@@ -12,6 +12,7 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
       var getCustomer = localStorage.getItem("customerId");
       var customer = JSON.parse(getCustomer);
       $scope.customer = customer;
+      console.log($scope.customer);
     }
   };
   $scope.loadCustomer();
@@ -112,6 +113,11 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
     }).then((result) => {
       if (result.isConfirmed) {
         var urlDelete = `${host}/rest/deleteOrder`;
+        $http.get('/rest/sendEmailHuyDon', {params: {
+          to: $scope.customer.account.email,
+          subject: 'Hủy đơn đặt hàng',
+          content: 'Bạn vừa hủy đơn đặt hàng'
+        }});
 
         $http.delete(urlDelete, {
           params: {
