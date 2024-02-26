@@ -1,10 +1,9 @@
 package poly.edu.controller;
 
-
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 public class HomeController {
@@ -31,7 +30,7 @@ public class HomeController {
 
 	@RequestMapping("/product")
 	public String showProduct() {
-		return "user/products";
+		return "user/testproduct";
 	}
 
 	@RequestMapping("/logout")
@@ -41,7 +40,7 @@ public class HomeController {
 
 	@RequestMapping("/productdetail/{productid}")
 	public String showProductDetail(@PathVariable Integer productid) {
-		return "user/productDetail";
+		return "user/testproductdetail";
 	}
 
 	// @RequestMapping("/productdetail")
@@ -57,6 +56,7 @@ public class HomeController {
 	public String showpayment2() {
 		return "user/checkout2";
 	}
+
 	@RequestMapping("/orderdetail")
 	public String showpayment3() {
 		return "user/checkout3";
@@ -67,6 +67,8 @@ public class HomeController {
 		return "myModalContent";
 	}
 
-
-	
+	@GetMapping("/chat")
+	public String showChat() {
+		return "user/chat";
+	}
 }

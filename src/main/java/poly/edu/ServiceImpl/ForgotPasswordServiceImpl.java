@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import poly.edu.Service.ForgotPasswordService;
 
@@ -45,15 +46,17 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService{
     }
 
     @Override
-    public void sendEmail(String to, String subject, String emailLink) throws MessagingException, UnsupportedEncodingException {
+    public void sendEmail(HttpServletRequest request, String to, String subject, String emailLink) throws MessagingException, UnsupportedEncodingException {
         // TODO Auto-generated method stub
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         String resetToken = UUID.randomUUID().toString();
+        String email = request.getParameter("email");
         session.setAttribute("resetToken", resetToken);
+        session.setAttribute("resetEmail", email);
 
-        String emailTokenSession = emailLink + "?token" + resetToken;
+        String emailTokenSession = emailLink;
         
         String emailContent = "<p>Xin chào!!!<p>"
                                 + "Nhấn vào đường dẫn để thay đổi mật khẩu:"

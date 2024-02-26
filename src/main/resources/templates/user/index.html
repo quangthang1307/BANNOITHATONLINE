@@ -1,404 +1,1597 @@
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+<merlin-component id="merlin-text-summarizer" class="merlin text-summarizer"></merlin-component><merlin-component
+    id="merlin-preview-link" class="merlin merlin-preview-link"></merlin-component><merlin-component
+    id="merlin-context-btn" class="merlin context-btn"></merlin-component><merlin-component id="merlin-chat"
+    class="merlin chat"></merlin-component><!--<![endif]-->
 
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 <head>
-    <div data-th-insert="~{include/style.html}"></div>
+    <meta http-equiv="origin-trial"
+        content="Az520Inasey3TAyqLyojQa8MnmCALSEU29yQFW8dePZ7xQTvSt73pHazLFTK5f7SyLUJSo2uKLesEtEa9aUYcgMAAACPeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=">
 
-    <title>Kimi Themes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="revisit-after" content="1 day">
+    <meta name="HandheldFriendly" content="true">
 
-    <!-- Bootstrap core CSS -->
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/kimi.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <meta name="google-site-verification" content="mHatT3Z1rAVgHFQvMAiWWja2irFLxApxy0odN9PPts8">
+    <title>
+        Baya - Siêu thị nội thất &amp; trang trí Baya
+    </title>
+    <link rel="canonical" href="https://baya.vn/">
+    <link rel="alternate" href="https://baya.vn/" hreflang="vi-vn">
+    <meta name="keywords" content="Baya">
 
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="css/owl_carousel/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl_carousel/owl.theme.default.css">
+    <meta name="robots" content="index,follow,noodp">
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
 
-    <!--tipue search-->
-    <link rel="stylesheet" href="css/tipuesearch/tipuesearch.css">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="https://baya.vn">
+    <link rel="dns-prefetch" href="//hstatic.net">
+    <link rel="dns-prefetch" href="//theme.hstatic.net/">
+    <link rel="dns-prefetch" href="//product.hstatic.net/">
+    <link rel="dns-prefetch" href="//file.hstatic.net/">
+    <link rel="dns-prefetch" href="//www.google-analytics.com/">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com/">
+    <link rel="dns-prefetch" href="//www.google.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//www.facebook.com">
+    <link rel="dns-prefetch" href="//connect.facebook.net">
+    <link rel="dns-prefetch" href="//static.ak.facebook.com">
+    <link rel="dns-prefetch" href="//static.ak.fbcdn.net">
+    <link rel="dns-prefetch" href="//s-static.ak.facebook.com">
 
-    <link rel="stylesheet" href="css/prism/prism.css">
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
 
+
+    <link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+        crossorigin="">
+    <link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+        as="style">
+    <link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+        type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+        type="font/woff2" crossorigin="anonymous">
+    <!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
+
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
+
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+
+    <link rel="stylesheet" href="taiNguyenCuaThang/css/chat.css">
+
+    <link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+        as="style">
+    <!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
+    <script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" name="description" content="">
+    <meta property="og:image" content="http://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=788">
+    <meta property="og:image:secure_url"
+        content="https://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=788">
+    <meta property="og:description" name="description" content="">
+    <meta property="og:url" content="https://baya.vn/">
+    <meta property="og:site_name" content="Baya">
+
+    <!-- SEO META DESCRIPTION -->
+    <meta name="description" content="Baya - Siêu thị nội thất &amp; trang trí Baya">
+    <!-- END SEO META DESCRIPTION -->
+    <style>
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body ng-controller="IndexController">
+<body class="mainBody-theme template-index scroll-body-up" itemscope="" itemtype="http://schema.org/Website">
+    <div class="mainBody-theme-container mainBody-modalshow     layoutProduct_scroll ">
 
-    <div data-th-insert="~{include/navbar.html}"></div>
+        <body ng-controller="IndexController" class="mainBody-theme template-index scroll-body-up" itemscope=""
+            itemtype="http://schema.org/Website">
+            <div class="mainBody-theme-container mainBody-modalshow     layoutProduct_scroll ">
+
+                <div data-th-insert="~{include/navbar.html}"></div>
+
+                <main class="wrapperMain_content">
 
 
-<div class="container-fluid kimi-container less-padding">
-    <div class="homepage-slider owl-carousel owl-theme">
-        <div class="item">
-            <div class="scrim"></div>
-            <h2 class="heading-large">Good Food is All the Sweeter When Shared with Good Friends</h2>
-            <p>By : Kimi Editorial</p>
-            <div class="row-buttons">
-                <a href="channelDetail.html" class="btn button-outline text-white">Visit Store</a>
-                <a href="articleDetails.html" class="btn button-outline text-white">See Article</a>
-                <a href="#" class="btn button-outline text-white">Collect</a>
-            </div>
-            <img src="images/slider1.jpg" width="100%">
-        </div>
-        <div class="item">
-            <div class="scrim"></div>
-            <h2 class="heading-large">Refresh Your Day, Refresh Your Mood, Refresh with this Delicious Meal</h2>
-            <p>By : Kimi Editorial</p>
-            <div class="row-buttons">
-                <a href="channelDetail.html" class="btn button-outline text-white">Visit Store</a>
-                <a href="articleDetails.html.html" class="btn button-outline text-white">See Article</a>
-                <a href="#" class="btn button-outline text-white">Collect</a>
-            </div>
-            <img src="images/slider2.jpg" width="100%">
-        </div>
-        <div class="item">
-            <div class="scrim"></div>
-            <h2 class="heading-large">Refresh Your Day, Refresh Your Mood, Refresh with this Delicious Meal</h2>
-            <p>By : Kimi Editorial</p>
-            <div class="row-buttons">
-                <a href="channelDetail.html" class="btn button-outline text-white">Visit Store</a>
-                <a href="articleDetails.html" class="btn button-outline text-white">See Article</a>
-                <a href="#" class="btn button-outline text-white">Collect</a>
-            </div>
-            <img src="images/slider3.jpg" width="100%">
-        </div>
-    </div>
-</div>
+                    <section class="home-category">
+                        <div class="container">
+                            <div class="list-item">
 
-<div class="container-fluid less-padding">
-    <h2 class="default-userProductList-InfoBar-title text-center"><i class="fa fa-heart-o" aria-hidden="true"></i> Editor's Pick</h2>
-    <div class="small-slider owl-carousel owl-theme">
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">5 Products</span>
-            <p>Rice</p>
-            <img src="images/tag_nasi.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">15 Products</span>
-            <p>Doughnut</p>
-            <img src="images/tag_doughnut.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">52 Products</span>
-            <p>Breads</p>
-            <img src="images/tag_bread.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">100 Products</span>
-            <p>Cakes</p>
-            <img src="images/tag_cake.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">10 Products</span>
-            <p>Coffee</p>
-            <img src="images/tag_coffee.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">10 Products</span>
-            <p>Fast Food</p>
-            <img src="images/tag_fastfood.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">10 Products</span>
-            <p>healthy Food</p>
-            <img src="images/tag_healthy.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">5 Products</span>
-            <p>Juice</p>
-            <img src="images/tag_juice.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">20 Products</span>
-            <p>Korean Food</p>
-            <img src="images/tag_korean.jpg" width="100%">
-        </a>
-        <a href="products.html" class="item">
-            <div class="scrim"></div>
-            <span class="small-text-overlay">10 Products</span>
-            <p>Noodles</p>
-            <img src="images/tag_noodle.jpg" width="100%">
-        </a>
-    </div>
-</div>
+                                <div class="category-item col-lg-3 col-md-6 col-6">
+                                    <div class="category-block">
+                                        <div class="category-block--image">
+                                            <a href="/collections/noi-that-phong-khach/" aria-label="Phòng khách"
+                                                previewlistener="true">
+                                                <img class=" ls-is-cached lazyloaded"
+                                                    data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_1_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_1_img.jpg?v=788"
+                                                    alt="Phòng khách">
+                                            </a>
+                                        </div>
+                                        <div class="category-block--content">
+                                            <h3 class="htitle"><a href="/collections/noi-that-phong-khach/"
+                                                    previewlistener="true">Phòng khách</a></h3>
+                                            <a class="hbtn" href="/collections/noi-that-phong-khach/"
+                                                previewlistener="true">Xem
+                                                ngay</a>
+                                        </div>
+                                    </div>
+                                </div>
 
-<div class="clearfix maya-tiny-padding"></div>
-<div class="container">
-    <div class="">
-        <div class="clearfix"></div>
 
-        <div class="row">
-            <h2 class="default-userProductList-InfoBar-title text-center"><i class="fa fa-heart-o" aria-hidden="true"></i> This Week Favoourites</h2>
-            <!--<div class="col-sm-6 col-md-4" data-behavior="sample_code">-->
-                <!--<a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">-->
-                    <!--<img src="https://res.cloudinary.com/kimithemes/image/upload/c_thumb,h_480,w_480/v1506329237/seafood_rd0j5y.jpg" alt="Seafood">-->
-                <!--</a>-->
-                <!--<div class="caption box">-->
-                    <!--<h3>Seafood</h3>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-sm-8 col-xs-6">-->
-                            <!--<p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>-->
-                            <!--<span class="min-order">10 pcs min order</span>-->
-                        <!--</div>-->
 
-                        <!--<div class="col-sm-4 col-xs-6">-->
-                            <!--<button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
 
-            <div class="col-sm-6 col-md-4" data-behavior="sample_code" ng-repeat="product in products">
-                <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="{{product.productimages[0].image}}" alt="risotto lemon">
-                </a>
-                <div class="caption box">
-                    <h3>{{product.productname}}</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">{{product.pricexuat}}</p>
-                            <span class="min-order">10 pcs min order</span>
+                                <div class="category-item col-lg-3 col-md-6 col-6">
+                                    <div class="category-block">
+                                        <div class="category-block--image">
+                                            <a href="/collections/noi-that-phong-ngu" aria-label="Phòng ngủ"
+                                                previewlistener="true">
+                                                <img class=" ls-is-cached lazyloaded"
+                                                    data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_2_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_2_img.jpg?v=788"
+                                                    alt="Phòng ngủ">
+                                            </a>
+                                        </div>
+                                        <div class="category-block--content">
+                                            <h3 class="htitle"><a href="/collections/noi-that-phong-ngu"
+                                                    previewlistener="true">Phòng ngủ</a></h3>
+                                            <a class="hbtn" href="/collections/noi-that-phong-ngu"
+                                                previewlistener="true">Xem
+                                                ngay</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="category-item col-lg-3 col-md-6 col-6">
+                                    <div class="category-block">
+                                        <div class="category-block--image">
+                                            <a href="/collections/phu-kien-nha-bep/" aria-label="Phòng ăn &amp; Bếp"
+                                                previewlistener="true">
+                                                <img class=" ls-is-cached lazyloaded"
+                                                    data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_3_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_3_img.jpg?v=788"
+                                                    alt="Phòng ăn &amp; Bếp">
+                                            </a>
+                                        </div>
+                                        <div class="category-block--content">
+                                            <h3 class="htitle"><a href="/collections/phu-kien-nha-bep/"
+                                                    previewlistener="true">Phòng ăn &amp; Bếp</a></h3>
+                                            <a class="hbtn" href="/collections/phu-kien-nha-bep/"
+                                                previewlistener="true">Xem
+                                                ngay</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="category-item col-lg-3 col-md-6 col-6">
+                                    <div class="category-block">
+                                        <div class="category-block--image">
+                                            <a href="/collections/phong-lam-viec/" aria-label="Phòng làm việc"
+                                                previewlistener="true">
+                                                <img class=" ls-is-cached lazyloaded"
+                                                    data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_4_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_4_img.jpg?v=788"
+                                                    alt="Phòng làm việc">
+                                            </a>
+                                        </div>
+                                        <div class="category-block--content">
+                                            <h3 class="htitle"><a href="/collections/phong-lam-viec/"
+                                                    previewlistener="true">Phòng làm việc</a></h3>
+                                            <a class="hbtn" href="/collections/phong-lam-viec/"
+                                                previewlistener="true">Xem
+                                                ngay</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="home-coupon coupon-initial  coupon-second ">
+                        <div class="container">
+                            <div class="title-coupon">
+                                <h2>Khuyến mãi dành cho bạn</h2>
+                            </div>
+                            <div class="listCoupon">
+
+
+
+                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
+                                    <div class="coupon-item__inner">
+                                        <div class="coupon-item__left">
+                                            <div class="cp-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <img class="lazyload"
+                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_1_img.png?v=788"
+                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_1_img.png?v=788"
+                                                        alt="Giảm 500.000đ">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-item__right">
+                                            <button type="button" class="cp-icon" data-toggle="popover"
+                                                data-container="body" data-placement="bottom"
+                                                data-popover-content="#cp-tooltip-1" data-class="coupon-popover"
+                                                title="" data-original-title="Giảm 500.000đ ">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                                    viewBox="0 0 20 20">
+                                                    <defs>
+                                                        <path id="4gg7gqe5ua"
+                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
+                                                        </path>
+                                                    </defs>
+                                                    <g>
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <g>
+                                                                        <g
+                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
+                                                                            <use xlink:href="#4gg7gqe5ua"></use>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+
+                                            <div class="cp-top">
+                                                <h3>Giảm 500.000đ</h3>
+                                                <p>Đơn hàng từ 10 triệu</p>
+                                            </div>
+                                            <div class="cp-bottom">
+                                                <div class="cp-bottom-detail">
+                                                    <p>Mã: <strong>BAYA500K</strong></p>
+                                                    <p>HSD: 31/01/2024</p>
+                                                </div>
+                                                <div class="cp-bottom-btn">
+                                                    <button class="cp-btn button" data-coupon="BAYA500K">Sao chép
+                                                        mã</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
+                                    <div class="coupon-item__inner">
+                                        <div class="coupon-item__left">
+                                            <div class="cp-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <img class="lazyload"
+                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_2_img.png?v=788"
+                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_2_img.png?v=788"
+                                                        alt="Giảm 300.000đ">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-item__right">
+                                            <button type="button" class="cp-icon" data-toggle="popover"
+                                                data-container="body" data-placement="bottom"
+                                                data-popover-content="#cp-tooltip-2" data-class="coupon-popover"
+                                                title="" data-original-title="Giảm 300.000đ ">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                                    viewBox="0 0 20 20">
+                                                    <defs>
+                                                        <path id="4gg7gqe5ua"
+                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
+                                                        </path>
+                                                    </defs>
+                                                    <g>
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <g>
+                                                                        <g
+                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
+                                                                            <use xlink:href="#4gg7gqe5ua"></use>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+
+                                            <div class="cp-top">
+                                                <h3>Giảm 300.000đ</h3>
+                                                <p>Đơn hàng từ 7 triệu đồng</p>
+                                            </div>
+                                            <div class="cp-bottom">
+                                                <div class="cp-bottom-detail">
+                                                    <p>Mã: <strong>BAYA300K</strong></p>
+                                                    <p>HSD: 31/01/2024</p>
+                                                </div>
+                                                <div class="cp-bottom-btn">
+                                                    <button class="cp-btn button" data-coupon="BAYA300K">Sao chép
+                                                        mã</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
+                                    <div class="coupon-item__inner">
+                                        <div class="coupon-item__left">
+                                            <div class="cp-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <img class="lazyload"
+                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_3_img.png?v=788"
+                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_3_img.png?v=788"
+                                                        alt="Giảm 200.000đ">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-item__right">
+                                            <button type="button" class="cp-icon" data-toggle="popover"
+                                                data-container="body" data-placement="bottom"
+                                                data-popover-content="#cp-tooltip-3" data-class="coupon-popover"
+                                                title="" data-original-title="Giảm 200.000đ ">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                                    viewBox="0 0 20 20">
+                                                    <defs>
+                                                        <path id="4gg7gqe5ua"
+                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
+                                                        </path>
+                                                    </defs>
+                                                    <g>
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <g>
+                                                                        <g
+                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
+                                                                            <use xlink:href="#4gg7gqe5ua"></use>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+
+                                            <div class="cp-top">
+                                                <h3>Giảm 200.000đ</h3>
+                                                <p>Đơn hàng từ 5 triệu đồng</p>
+                                            </div>
+                                            <div class="cp-bottom">
+                                                <div class="cp-bottom-detail">
+                                                    <p>Mã: <strong>BAYA200K</strong></p>
+                                                    <p>HSD: 31/01/2024</p>
+                                                </div>
+                                                <div class="cp-bottom-btn">
+                                                    <button class="cp-btn button" data-coupon="BAYA200K">Sao chép
+                                                        mã</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
+                                    <div class="coupon-item__inner">
+                                        <div class="coupon-item__left">
+                                            <div class="cp-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <img class="lazyload"
+                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_4_img.png?v=788"
+                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_4_img.png?v=788"
+                                                        alt="Giảm 100.000đ">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-item__right">
+                                            <button type="button" class="cp-icon" data-toggle="popover"
+                                                data-container="body" data-placement="bottom"
+                                                data-popover-content="#cp-tooltip-4" data-class="coupon-popover"
+                                                title="" data-original-title="Giảm 100.000đ ">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                                    viewBox="0 0 20 20">
+                                                    <defs>
+                                                        <path id="4gg7gqe5ua"
+                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
+                                                        </path>
+                                                    </defs>
+                                                    <g>
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <g>
+                                                                        <g
+                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
+                                                                            <use xlink:href="#4gg7gqe5ua"></use>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+
+                                            <div class="cp-top">
+                                                <h3>Giảm 100.000đ</h3>
+                                                <p>Đơn hàng từ 3 triệu đồng</p>
+                                            </div>
+                                            <div class="cp-bottom">
+                                                <div class="cp-bottom-detail">
+                                                    <p>Mã: <strong>BAYA100K</strong></p>
+                                                    <p>HSD: 31/01/2024</p>
+                                                </div>
+                                                <div class="cp-bottom-btn">
+                                                    <button class="cp-btn button" data-coupon="BAYA100K">Sao chép
+                                                        mã</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="home-collection-1">
+                        <div class="container container-pd-parent">
+                            <div class="wrapper-content row-mg-parent">
+                                <div class="section-heading">
+                                    <div class="box-header">
+                                        <h2 class="hTitle"><a href="/collections/ceramic" previewlistener="true">Tiệc
+                                                Trà Đoàn
+                                                Viên- Giảm 20% bộ trà sứ cao cấp</a></h2>
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="listProduct-row owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
+                                    <div class="owl-stage-outer">
+                                        <div class="owl-stage"
+                                            style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2325px; padding-left: 15px; padding-right: 15px;">
+                                            <div class="owl-item active" style="width: 255px;">
+                                                <div class="product-loop" data-id="1114458402">
+                                                    <div class="product-inner" data-proid="1050909488"
+                                                        id="section_1_loop_1">
+                                                        <div class="proloop-image">
+                                                            <div class="pro-sale"><span>-20%</span></div>
+
+
+
+                                                            <div class="product--image">
+
+                                                                <div class="lazy-img first-image">
+                                                                    <picture>
+                                                                        <source media="(max-width: 480px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_medium.jpg">
+                                                                        <source media="(min-width: 481px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_small.jpg"
+                                                                            alt=" Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá ">
+                                                                    </picture>
+                                                                </div>
+                                                                <div
+                                                                    class="lazy-img second-image hovered-img d-none d-lg-block">
+                                                                    <picture>
+                                                                        <source
+                                                                            media="(min-width: 481px) and (max-width:767px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_medium.jpg">
+                                                                        <source media="(min-width:768px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_small.jpg"
+                                                                            alt=" Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá ">
+                                                                    </picture>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="quickview-product">
+                                                                <a class="icon-quickview" href="javascript:void(0)"
+                                                                    data-handle="/products/bo-am-tra-floral-2001257"
+                                                                    title="Xem nhanh"><i class="fa fa-eye"
+                                                                        aria-hidden="true"></i></a>
+                                                            </div>
+                                                            <a href="/products/bo-am-tra-floral-2001257"
+                                                                class="proloop-link quickview-product"
+                                                                data-handle="/products/bo-am-tra-floral-2001257"
+                                                                title="Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá"
+                                                                previewlistener="true"></a>
+                                                            <div class="sticker_frame"><a
+                                                                    href="/products/bo-am-tra-floral-2001257"
+                                                                    previewlistener="true"><img
+                                                                        class=" ls-is-cached lazyloaded"
+                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="proloop-detail">
+                                                            <p class="proloop--vendor"><a title="Show vendor"
+                                                                    href="/collections/vendors?q=floral"
+                                                                    previewlistener="true">FLORAL</a></p>
+                                                            <h3><a href="/products/bo-am-tra-floral-2001257"
+                                                                    class="quickview-product"
+                                                                    data-handle="/products/bo-am-tra-floral-2001257"
+                                                                    previewlistener="true">Bộ Ấm Trà Bằng Sứ FLORAL Hoa
+                                                                    Văn Hoa
+                                                                    Lá</a></h3>
+                                                            <p class="proloop--price on-sale">
+                                                                <span class="price">1,032,000₫</span>
+
+                                                                <span class="price-del">1,290,000₫</span>
+                                                                <span class="pro-percent">-20%</span>
+                                                            </p>
+
+                                                            <div class="proloop-actions" data-vrid="1114458402">
+                                                                <div class="proloop-actions__inner">
+                                                                    <div class="actions-primary">
+                                                                        <button type="submit"
+                                                                            class="btn-proloop-cart add-to-cart  "
+                                                                            onclick="HRT.All.addCartProdItem('1114458402')">
+                                                                            <span class="btnadd"> Thêm vào giỏ </span>
+                                                                            <span class="btnico" title="Thêm vào giỏ">
+                                                                                <svg version="1.0" viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+
+                                                                    </div>
+                                                                    <div class="actions-boxqty d-flex">
+                                                                        <div class="actions-wrapqty d-flex">
+                                                                            <button class="qty-btn proloop-minus"
+                                                                                onclick="HRT.All.minusQtyProdItem('1114458402')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect height="1" width="18" y="9"
+                                                                                        x="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                            <input class="proloop-value" type="text"
+                                                                                readonly="" name="proloop-quantity"
+                                                                                value="">
+                                                                            <button class="qty-btn proloop-plus"
+                                                                                onclick="HRT.All.plusQtyProdItem('1114458402')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect x="9" y="1" width="1"
+                                                                                        height="17">
+                                                                                    </rect>
+                                                                                    <rect x="1" y="9" width="17"
+                                                                                        height="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="actions-icon">
+                                                                            <span class="btnico"
+                                                                                onclick="HRT.All.addCartProdItem('1114458402')"
+                                                                                title="Thêm vào giỏ">
+                                                                                <svg version="1.0" viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-nav disabled"><button type="button" role="presentation"
+                                            class="owl-prev disabled"><span
+                                                aria-label="Previous">‹</span></button><button type="button"
+                                            role="presentation" class="owl-next"><span
+                                                aria-label="Next">›</span></button></div>
+                                    <div class="owl-dots disabled"></div>
+                                </div>
+                                <div class="box-link">
+                                    <a href="/collections/ceramic" class="button" previewlistener="true">
+                                        Xem tất cả
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;"
+                                            xml:space="preserve">
+                                            <circle class="st0" cx="16" cy="16" r="13"></circle>
+                                            <polyline class="st0" points="14,11.8 18.2,16 14,20.2 "></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+                    <section class="home-collection-2">
+                        <div class="container container-pd-parent">
+                            <div class="section-heading">
+                                <div class="box-header">
+                                    <h2 class="hTitle"><a href="/collections/best-seller" previewlistener="true">Best
+                                            Seller</a>
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="listProduct-row">
+                                <div class="owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
+
+                                    <div class="owl-stage-outer">
+                                        <div class="owl-stage"
+                                            style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2070px; padding-left: 15px; padding-right: 15px;">
+
+
+
+
+
+
+                                            <div class="owl-item" ng-repeat="productsbestseller in productsbestsellers"
+                                                style="width: 255px;">
+
+                                                <div class="product-loop" data-id="1114458437">
+                                                    <div class="product-inner" data-proid="1050909506"
+                                                        id="section_2_loop_1">
+                                                        <div class="proloop-image">
+
+
+
+
+                                                            <div class="product--image">
+
+                                                                <div class="lazy-img first-image">
+                                                                    <picture>
+                                                                        <source media="(max-width: 480px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg">
+                                                                        <source media="(min-width: 481px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
+                                                                            alt=" Sofa NORMANDY ">
+                                                                    </picture>
+                                                                </div>
+                                                                <div
+                                                                    class="lazy-img second-image hovered-img d-none d-lg-block">
+                                                                    <picture>
+                                                                        <source
+                                                                            media="(min-width: 481px) and (max-width:767px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg">
+                                                                        <source media="(min-width:768px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
+                                                                            alt=" Sofa NORMANDY ">
+                                                                    </picture>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="quickview-product">
+                                                                <a class="icon-quickview" href="javascript:void(0)"
+                                                                    data-handle="/products/sofa-normandy"
+                                                                    title="Xem nhanh"><i class="fa fa-eye"
+                                                                        aria-hidden="true"></i></a>
+                                                            </div>
+                                                            <a href="/products/sofa-normandy"
+                                                                class="proloop-link quickview-product"
+                                                                data-handle="/products/sofa-normandy"
+                                                                title="Sofa NORMANDY" previewlistener="true"></a>
+                                                        </div>
+                                                        <div class="proloop-detail">
+                                                            <p class="proloop--vendor"><a title="Show vendor"
+                                                                    href="/collections/vendors?q=normandy"
+                                                                    previewlistener="true">NORMANDY</a></p>
+                                                            <h3><a href="/products/sofa-normandy"
+                                                                    class="quickview-product"
+                                                                    data-handle="/products/sofa-normandy"
+                                                                    previewlistener="true">Sofa NORMANDY</a></h3>
+                                                            <p class="proloop--price ">
+                                                                <span
+                                                                    class="price">{{productsbestseller.pricexuat}}₫</span>
+                                                            </p>
+
+                                                            <div class="proloop-actions" data-vrid="1114458437">
+                                                                <div class="proloop-actions__inner">
+                                                                    <div class="actions-primary">
+                                                                        <button type="submit"
+                                                                            class="btn-proloop-cart add-to-cart  btn-addcart-view "
+                                                                            onclick="HRT.All.addCartProdItem('1114458437')">
+                                                                            <span class="btnadd"> Thêm vào giỏ </span>
+                                                                            <span class="btnico" title="Thêm vào giỏ">
+                                                                                <svg version="1.0" viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+
+                                                                    </div>
+                                                                    <div class="actions-boxqty d-flex">
+                                                                        <div class="actions-wrapqty d-flex">
+                                                                            <button class="qty-btn proloop-minus"
+                                                                                onclick="HRT.All.minusQtyProdItem('1114458437')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect height="1" width="18" y="9"
+                                                                                        x="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                            <input class="proloop-value" type="text"
+                                                                                readonly="" name="proloop-quantity"
+                                                                                value="">
+                                                                            <button class="qty-btn proloop-plus"
+                                                                                onclick="HRT.All.plusQtyProdItem('1114458437')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect x="9" y="1" width="1"
+                                                                                        height="17">
+                                                                                    </rect>
+                                                                                    <rect x="1" y="9" width="17"
+                                                                                        height="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="actions-icon">
+                                                                            <span class="btnico"
+                                                                                onclick="HRT.All.addCartProdItem('1114458437')"
+                                                                                title="Thêm vào giỏ">
+                                                                                <svg version="1.0" viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="owl-nav"><button type="button" role="presentation"
+                                            class="owl-prev disabled"><span
+                                                aria-label="Previous">‹</span></button><button type="button"
+                                            role="presentation" class="owl-next"><span
+                                                aria-label="Next">›</span></button></div>
+                                    <div class="owl-dots disabled"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="home-categorize">
+                        <div class="container container-pd0">
+                            <div class="wrapbox row">
+                                <div class="wrapbox-left col-lg-2 col-md-12 col-12">
+                                    <div class="wrapbox--content">
+                                        <p class="title-box">Xu hướng tìm kiếm</p><a href="/collections/all"
+                                            class="btn-box button" previewlistener="true">Xem ngay</a>
+                                    </div>
+                                </div>
+                                <div class="wrapbox-right col-lg-10 col-md-12 col-12">
+                                    <div class="listCategorize row">
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/sofa" aria-label="Sofa"
+                                                        previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
+                                                            alt="Sofa" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/sofa" previewlistener="true">Sofa </a></h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/ban" aria-label="Bàn" previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
+                                                            alt="Bàn" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/ban" previewlistener="true">Bàn </a></h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/ghe" aria-label="Ghế" previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
+                                                            alt="Ghế" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/ghe" previewlistener="true">Ghế </a></h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/giuong" aria-label="Giường"
+                                                        previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
+                                                            alt="Giường" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/giuong" previewlistener="true">Giường </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/nem" aria-label="Nệm" previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
+                                                            alt="Nệm" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/nem" previewlistener="true">Nệm </a></h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/den" aria-label="Đèn" previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
+                                                            alt="Đèn" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/den" previewlistener="true">Đèn </a></h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/lo-hoa" aria-label="Lọ hoa"
+                                                        previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
+                                                            alt="Lọ hoa" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/lo-hoa" previewlistener="true">Lọ hoa </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="item-icon col-xl">
+                                            <div class="item-img boxlazy-img">
+                                                <span class="boxlazy-img__insert">
+                                                    <a href="/collections/khung-anh" aria-label="Khung ảnh"
+                                                        previewlistener="true">
+                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
+                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
+                                                            alt="Khung ảnh" class=" ls-is-cached lazyloaded">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="item-title">
+                                                <h3><a href="/collections/khung-anh" previewlistener="true">Khung ảnh
+                                                    </a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <section class="home-collection-navtabs-1">
+                        <div class="container container-pd-parent">
+                            <div class="section-heading">
+                                <div class="box-header">
+                                    <h2 class="hTitle">Sản phẩm nổi bật</h2>
+                                </div>
+                                <div class="box-tablist">
+
+
+                                    <ul class="nav collection-navtabs-title pills-tab" data-limit="10">
+
+
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-handle="/collections/noi-that-phong-ngu"
+                                                data-toggle="tab" href="#collection-tabs-1" data-count="63">
+
+                                                Nội Thất Phòng Ngủ
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " data-handle="/collections/sale-up-to-80"
+                                                data-toggle="tab" href="#collection-tabs-2" data-count="167">
+
+                                                Sale Up To 80%
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " data-handle="/collections/lucas" data-toggle="tab"
+                                                href="#collection-tabs-3" data-count="7">
+
+                                                Bộ sưu tập Lucas
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " data-handle="/collections/dominik" data-toggle="tab"
+                                                href="#collection-tabs-4" data-count="7">
+
+                                                Bộ sưu tập Dominik
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="wrapbox row-mg-parent">
+                                <div class="wrapbox--left">
+                                    <div class="wrapbox-img">
+                                        <a href="https://baya.vn/collections/noi-that-phong-ngu"
+                                            aria-label="Sản phẩm nổi bật" previewlistener="true">
+                                            <img class=" ls-is-cached lazyloaded"
+                                                data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
+                                                src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
+                                                alt="banner">
+                                        </a>
+                                    </div>
+                                    <div class="wrapbox-detail text-center">
+
+
+
+                                    </div>
+                                </div>
+                                <div class="wrapbox--right">
+                                    <div class="tab-content" id="collection-tabs-ajax">
+                                        <div class="tab-pane fade  active show" id="collection-tabs-1" role="tabpanel"
+                                            data-get="true">
+
+                                            <div class="row listProduct-row">
+                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop"
+                                                    data-id="1114835408">
+                                                    <div class="product-inner" data-proid="1051064662"
+                                                        id="navTab_1_loop_1">
+                                                        <div class="proloop-image">
+                                                            <div class="pro-sale"><span>-66%</span></div>
+
+
+
+                                                            <div class="product--image">
+
+                                                                <div class="lazy-img first-image">
+                                                                    <picture>
+                                                                        <source media="(max-width: 480px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg">
+                                                                        <source media="(min-width: 481px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
+                                                                            alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
+                                                                    </picture>
+                                                                </div>
+                                                                <div
+                                                                    class="lazy-img second-image hovered-img d-none d-lg-block">
+                                                                    <picture>
+                                                                        <source
+                                                                            media="(min-width: 481px) and (max-width:767px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg">
+                                                                        <source media="(min-width:768px)"
+                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg"
+                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg">
+                                                                        <img class="img-loop ls-is-cached lazyloaded"
+                                                                            data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
+                                                                            src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
+                                                                            alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
+                                                                    </picture>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="quickview-product">
+                                                                <a class="icon-quickview" href="javascript:void(0)"
+                                                                    data-handle="/products/vo-goi-tua-phantom"
+                                                                    title="Xem nhanh"><i class="fa fa-eye"
+                                                                        aria-hidden="true"></i></a>
+                                                            </div>
+                                                            <a href="/products/vo-goi-tua-phantom"
+                                                                class="proloop-link quickview-product"
+                                                                data-handle="/products/vo-goi-tua-phantom"
+                                                                title="Vỏ Gối Tựa Vải Cotton PHANTOM"
+                                                                previewlistener="true"></a>
+                                                            <div class="sticker_frame"><a
+                                                                    href="/products/vo-goi-tua-phantom"
+                                                                    previewlistener="true"><img
+                                                                        class=" ls-is-cached lazyloaded"
+                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="proloop-detail">
+                                                            <p class="proloop--vendor"><a title="Show vendor"
+                                                                    href="/collections/vendors?q=phantom"
+                                                                    previewlistener="true">PHANTOM</a></p>
+                                                            <h3><a href="/products/vo-goi-tua-phantom"
+                                                                    class="quickview-product"
+                                                                    data-handle="/products/vo-goi-tua-phantom"
+                                                                    previewlistener="true">Vỏ Gối Tựa Vải Cotton
+                                                                    PHANTOM</a>
+                                                            </h3>
+                                                            <p class="proloop--price on-sale">
+                                                                <span class="price">50,000₫</span>
+
+                                                                <span class="price-del">149,000₫</span>
+                                                                <span class="pro-percent">-66%</span>
+                                                            </p>
+
+                                                            <div class="proloop-actions" data-vrid="1114835408">
+                                                                <div class="proloop-actions__inner">
+                                                                    <div class="actions-primary">
+                                                                        <button type="submit"
+                                                                            class="btn-proloop-cart add-to-cart  btn-addcart-view "
+                                                                            onclick="HRT.All.addCartProdItem('1114835408')">
+                                                                            <span class="btnadd"> Thêm vào giỏ </span>
+                                                                            <span class="btnico" title="Thêm vào giỏ">
+                                                                                <svg class="btnico-first" version="1.0"
+                                                                                    viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
+
+                                                                    </div>
+                                                                    <div class="actions-boxqty d-flex">
+                                                                        <div class="actions-wrapqty d-flex">
+                                                                            <button class="qty-btn proloop-minus"
+                                                                                onclick="HRT.All.minusQtyProdItem('1114835408')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect height="1" width="18" y="9"
+                                                                                        x="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                            <input class="proloop-value" type="text"
+                                                                                readonly="" name="proloop-quantity"
+                                                                                value="">
+                                                                            <button class="qty-btn proloop-plus"
+                                                                                onclick="HRT.All.plusQtyProdItem('1114835408')">
+                                                                                <svg width="18" height="18"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect x="9" y="1" width="1"
+                                                                                        height="17">
+                                                                                    </rect>
+                                                                                    <rect x="1" y="9" width="17"
+                                                                                        height="1">
+                                                                                    </rect>
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="actions-icon">
+                                                                            <span class="btnico"
+                                                                                onclick="HRT.All.addCartProdItem('1114835408')"
+                                                                                title="Thêm vào giỏ">
+                                                                                <svg version="1.0" viewBox="0 0 512 512"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g
+                                                                                        transform="translate(0 512) scale(.1 -.1)">
+                                                                                        <path
+                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                        </path>
+                                                                                        <path
+                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="collection-tabs-2" role="tabpanel"
+                                            data-get="false">
+                                            <div class="row listProduct-row">
+
+
+
+                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                                    <div class="product-inner loading-mask">
+                                                        <div class="proloop-image loading-mask__image">
+                                                            <div class="mask-line lazy-img"></div>
+                                                        </div>
+                                                        <div class="proloop-detail loading-mask__detail">
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="collection-tabs-3" role="tabpanel"
+                                            data-get="false">
+                                            <div class="row listProduct-row">
+
+
+
+                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                                    <div class="product-inner loading-mask">
+                                                        <div class="proloop-image loading-mask__image">
+                                                            <div class="mask-line lazy-img"></div>
+                                                        </div>
+                                                        <div class="proloop-detail loading-mask__detail">
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="collection-tabs-4" role="tabpanel"
+                                            data-get="false">
+                                            <div class="row listProduct-row">
+
+
+
+                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                                    <div class="product-inner loading-mask">
+                                                        <div class="proloop-image loading-mask__image">
+                                                            <div class="mask-line lazy-img"></div>
+                                                        </div>
+                                                        <div class="proloop-detail loading-mask__detail">
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                            <div class="mask-line"> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="wrapbox--btn ">
+                                    <a href="/collections/noi-that-phong-ngu" class="button btn-loadmore"
+                                        previewlistener="true">Xem tất cả <strong>Nội Thất Phòng Ngủ</strong></a>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="col-sm-4 col-xs-6">
-                            <button ng-click="addToCart(product)" class="btn default-userProductList-CardList-button pull-right" role="button">Thêm vào giỏ</button>
+                        <div class="modal-coupon--backdrop"></div>
+
+                        <div id="body" ng-controller="openAiCtrl">
+
+                            <div class="icon-container" id="chat-circle">
+                                <i class="bi bi-robot"></i>
+                                <div class="color-container"></div>
+                                <!-- <div class="btn btn-raised">
+                                    <div id="chat-overlay"></div>
+                                </div> -->
+                            </div>
+
+                            <div class="chat-box">
+                                <div class="chat-box-header">
+                                    <span>ChatBot</span> <br>
+                                    <span>(Tư vấn sản phẩm tự động)</span>
+                                    <span class="chat-box-toggle">Đóng</span>
+                                </div>
+                                <div class="chat-box-body">
+                                    <div class="chat-box-overlay">
+                                    </div>
+                                    <div class="chat-logs">
+                                        <div>
+                                            <h3>Phản hồi:</h3>
+                                            <!-- <pre>{{ feedbackData.data[0].content[0].text.value }}</pre> -->
+                                        </div>
+                                    </div><!--chat-log -->
+
+                                    <span ng-if="responseStatus === 'in_progress'" style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
+                                    <span ng-if="responseStatus === 'completed'" style="font-weight: bolder; margin-left: 13px;">Thành công</span>
+                                </div>
+                                <div class="chat-input">
+                                    <form>
+                                        <input ng-model="userMessage" type="text" id="chat-input"
+                                            placeholder="Nhập vào câu hỏi..." />
+                                        <button ng-click="sendMessage()" type="submit" class="chat-submit"
+                                            id="chat-submit"><span class="material-icons">Gửi</span></button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
+                </main>
+
+                <div data-th-insert="~{include/footer.html}"></div>
+
+                <div id="sitenav-overlay" class="sitenav-overlay"></div>
+                <div class="addThis_listSharing">
+                    <div class="listSharing_action">
+                        <button type="button" class="addThis_close" data-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                                    <g transform="translate(-1341.000000, -90.000000)">
+                                        <g transform="translate(1341.000000, 90.000000)">
+                                            <polygon
+                                                points="19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12">
+                                            </polygon>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                        <ul class="addThis_listing">
+                            <li class="addThis_item addThis_item__fbchat">
+                                <a class="addThis_item--icon" href="//m.me/297692681125169" target="_blank"
+                                    rel="noreferrer" aria-label="messenger" previewlistener="true">
+                                    <svg width="60px" height="60px" viewBox="0 0 60 60" cursor="pointer"><svg x="0"
+                                            y="0" width="60px" height="60px">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g>
+                                                    <circle fill="#0A7CFF" cx="30" cy="30" r="30"></circle><svg x="10"
+                                                        y="10">
+                                                        <g transform="translate(0.000000, -10.000000)" fill="#FFFFFF">
+                                                            <g id="logo" transform="translate(0.000000, 10.000000)">
+                                                                <path
+                                                                    d="M20,0 C31.2666,0 40,8.2528 40,19.4 C40,30.5472 31.2666,38.8 20,38.8 C17.9763,38.8 16.0348,38.5327 14.2106,38.0311 C13.856,37.9335 13.4789,37.9612 13.1424,38.1098 L9.1727,39.8621 C8.1343,40.3205 6.9621,39.5819 6.9273,38.4474 L6.8184,34.8894 C6.805,34.4513 6.6078,34.0414 6.2811,33.7492 C2.3896,30.2691 0,25.2307 0,19.4 C0,8.2528 8.7334,0 20,0 Z M7.99009,25.07344 C7.42629,25.96794 8.52579,26.97594 9.36809,26.33674 L15.67879,21.54734 C16.10569,21.22334 16.69559,21.22164 17.12429,21.54314 L21.79709,25.04774 C23.19919,26.09944 25.20039,25.73014 26.13499,24.24744 L32.00999,14.92654 C32.57369,14.03204 31.47419,13.02404 30.63189,13.66324 L24.32119,18.45264 C23.89429,18.77664 23.30439,18.77834 22.87569,18.45674 L18.20299,14.95224 C16.80079,13.90064 14.79959,14.26984 13.86509,15.75264 L7.99009,25.07344 Z">
+                                                                </path>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </g>
+                                            </g>
+                                        </svg></svg>
+                                    <span class="tooltip-text">Chat với nhân viên Baya</span>
+                                </a>
+                            </li>
+                            <li class="addThis_item">
+                                <a class="addThis_item--icon" href="tel:1900636476" rel="nofollow" aria-label="phone">
+                                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="22" cy="22" r="22" fill="url(#paint2_linear)"></circle>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14.0087 9.35552C14.1581 9.40663 14.3885 9.52591 14.5208 9.61114C15.3315 10.148 17.5888 13.0324 18.3271 14.4726C18.7495 15.2949 18.8903 15.9041 18.758 16.3558C18.6214 16.8415 18.3953 17.0971 17.384 17.9109C16.9786 18.239 16.5988 18.5756 16.5391 18.6651C16.3855 18.8866 16.2617 19.3212 16.2617 19.628C16.266 20.3395 16.7269 21.6305 17.3328 22.6232C17.8021 23.3944 18.6428 24.3828 19.4749 25.1413C20.452 26.0361 21.314 26.6453 22.2869 27.1268C23.5372 27.7488 24.301 27.9064 24.86 27.6466C25.0008 27.5826 25.1501 27.4974 25.1971 27.4591C25.2397 27.4208 25.5683 27.0202 25.9268 26.5772C26.618 25.7079 26.7759 25.5674 27.2496 25.4055C27.8513 25.201 28.4657 25.2563 29.0844 25.5716C29.5538 25.8145 30.5779 26.4493 31.2393 26.9095C32.1098 27.5187 33.9703 29.0355 34.2221 29.3381C34.6658 29.8834 34.7427 30.5821 34.4439 31.3534C34.1281 32.1671 32.8992 33.6925 32.0415 34.3444C31.2649 34.9323 30.7145 35.1581 29.9891 35.1922C29.3917 35.222 29.1442 35.1709 28.3804 34.8556C22.3893 32.3887 17.6059 28.7075 13.8081 23.65C11.8239 21.0084 10.3134 18.2688 9.28067 15.427C8.67905 13.7696 8.64921 13.0495 9.14413 12.2017C9.35753 11.8438 10.2664 10.9575 10.9278 10.4633C12.0288 9.64524 12.5365 9.34273 12.9419 9.25754C13.2193 9.19787 13.7014 9.24473 14.0087 9.35552Z"
+                                            fill="white"></path>
+                                        <defs>
+                                            <linearGradient id="paint2_linear" x1="22" y1="-7.26346e-09" x2="22.1219"
+                                                y2="40.5458" gradientUnits="userSpaceOnUse">
+                                                <stop offset="50%" stop-color="#e8434c"></stop>
+                                                <stop offset="100%" stop-color="#d61114"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <span class="tooltip-text">Gọi ngay cho chúng tôi</span>
+                                </a>
+                            </li>
+                            <li class="addThis_item">
+                                <a class="addThis_item--icon" href="https://zalo.me/3964696389059494952" target="_blank"
+                                    rel="nofollow noreferrer" aria-label="zalo" previewlistener="true">
+                                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="22" cy="22" r="22" fill="url(#paint4_linear)"></circle>
+                                        <g clip-path="url(#clip0)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.274 34.0907C15.7773 34.0856 16.2805 34.0804 16.783 34.0804C16.7806 34.0636 16.7769 34.0479 16.7722 34.0333C16.777 34.0477 16.7808 34.0632 16.7832 34.0798C16.8978 34.0798 17.0124 34.0854 17.127 34.0965H25.4058C26.0934 34.0965 26.7809 34.0977 27.4684 34.0989C28.8434 34.1014 30.2185 34.1039 31.5935 34.0965H31.6222C33.5357 34.0798 35.0712 32.5722 35.0597 30.7209V27.4784C35.0597 27.4582 35.0612 27.4333 35.0628 27.4071C35.0676 27.3257 35.0731 27.2325 35.0368 27.2345C34.9337 27.2401 34.7711 27.2757 34.7138 27.3311C34.2744 27.6145 33.8483 27.924 33.4222 28.2335C32.57 28.8525 31.7179 29.4715 30.7592 29.8817C27.0284 31.0993 23.7287 31.157 20.2265 30.3385C20.0349 30.271 19.9436 30.2786 19.7816 30.292C19.6773 30.3007 19.5436 30.3118 19.3347 30.3068C19.3093 30.3077 19.2829 30.3085 19.2554 30.3093C18.9099 30.3197 18.4083 30.3348 17.8088 30.6877C16.4051 31.1034 14.5013 31.157 13.5175 31.0147C13.522 31.0245 13.5247 31.0329 13.5269 31.0407C13.5236 31.0341 13.5204 31.0275 13.5173 31.0208C13.5036 31.0059 13.4864 30.9927 13.4696 30.98C13.4163 30.9393 13.3684 30.9028 13.46 30.8268C13.4867 30.8102 13.5135 30.7929 13.5402 30.7757C13.5937 30.7412 13.6472 30.7067 13.7006 30.6771C14.4512 30.206 15.1559 29.6905 15.6199 28.9311C16.2508 28.1911 15.9584 27.9025 15.4009 27.3524L15.3799 27.3317C12.6639 24.6504 11.8647 21.8054 12.148 17.9785C12.486 15.8778 13.4829 14.0708 14.921 12.4967C15.7918 11.5433 16.8288 10.7729 17.9632 10.1299C17.9796 10.1198 17.9987 10.1116 18.0182 10.1032C18.0736 10.0793 18.1324 10.0541 18.1408 9.98023C18.1475 9.92191 18.0507 9.90264 18.0163 9.90264C17.3698 9.90264 16.7316 9.89705 16.0964 9.89148C14.8346 9.88043 13.5845 9.86947 12.3041 9.90265C10.465 9.95254 8.78889 11.1779 8.81925 13.3614C8.82689 17.2194 8.82435 21.0749 8.8218 24.9296C8.82053 26.8567 8.81925 28.7835 8.81925 30.7104C8.81925 32.5007 10.2344 34.0028 12.085 34.0749C13.1465 34.1125 14.2107 34.1016 15.274 34.0907ZM13.5888 31.1403C13.5935 31.1467 13.5983 31.153 13.6032 31.1594C13.7036 31.2455 13.8031 31.3325 13.9021 31.4202C13.8063 31.3312 13.7072 31.2423 13.6035 31.1533C13.5982 31.1487 13.5933 31.1444 13.5888 31.1403ZM16.5336 33.8108C16.4979 33.7885 16.4634 33.7649 16.4337 33.7362C16.4311 33.7358 16.4283 33.7352 16.4254 33.7345C16.4281 33.7371 16.4308 33.7397 16.4335 33.7423C16.4632 33.7683 16.4978 33.79 16.5336 33.8108Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M17.6768 21.6754C18.5419 21.6754 19.3555 21.6698 20.1633 21.6754C20.6159 21.6809 20.8623 21.8638 20.9081 22.213C20.9597 22.6509 20.6961 22.9447 20.2034 22.9502C19.2753 22.9613 18.3528 22.9558 17.4247 22.9558C17.1554 22.9558 16.8919 22.9669 16.6226 22.9502C16.2903 22.9336 15.9637 22.8671 15.8033 22.5345C15.6429 22.2019 15.7575 21.9026 15.9752 21.631C16.8575 20.5447 17.7455 19.4527 18.6336 18.3663C18.6851 18.2998 18.7367 18.2333 18.7883 18.1723C18.731 18.0781 18.6508 18.1224 18.582 18.1169C17.9633 18.1114 17.3388 18.1169 16.72 18.1114C16.5768 18.1114 16.4335 18.0947 16.296 18.067C15.9695 17.995 15.7689 17.679 15.8434 17.3686C15.895 17.158 16.0669 16.9862 16.2846 16.9363C16.4221 16.903 16.5653 16.8864 16.7085 16.8864C17.7284 16.8809 18.7539 16.8809 19.7737 16.8864C19.9571 16.8809 20.1347 16.903 20.3123 16.9474C20.7019 17.0749 20.868 17.4241 20.7133 17.7899C20.5758 18.1058 20.3581 18.3774 20.1404 18.649C19.3899 19.5747 18.6393 20.4948 17.8888 21.4093C17.8258 21.4814 17.7685 21.5534 17.6768 21.6754Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M24.3229 18.7604C24.4604 18.5886 24.6036 18.4279 24.8385 18.3835C25.2911 18.2948 25.7151 18.5775 25.7208 19.021C25.738 20.1295 25.7323 21.2381 25.7208 22.3467C25.7208 22.6349 25.526 22.8899 25.2453 22.973C24.9588 23.0783 24.6322 22.9952 24.4432 22.7568C24.3458 22.6404 24.3057 22.6183 24.1682 22.7236C23.6468 23.1338 23.0567 23.2058 22.4207 23.0063C21.4009 22.6848 20.9827 21.9143 20.8681 20.9776C20.7478 19.9632 21.0973 19.0986 22.0369 18.5664C22.816 18.1175 23.6067 18.1563 24.3229 18.7604ZM22.2947 20.7836C22.3061 21.0275 22.3863 21.2603 22.5353 21.4543C22.8447 21.8534 23.4348 21.9365 23.8531 21.6372C23.9218 21.5873 23.9848 21.5263 24.0421 21.4543C24.363 21.033 24.363 20.3402 24.0421 19.9189C23.8817 19.7027 23.6296 19.5752 23.3603 19.5697C22.7301 19.5309 22.289 20.002 22.2947 20.7836ZM28.2933 20.8168C28.2474 19.3923 29.2157 18.3281 30.5907 18.2893C32.0517 18.245 33.1174 19.1928 33.1632 20.5785C33.209 21.9808 32.321 22.973 30.9517 23.106C29.4563 23.2502 28.2704 22.2026 28.2933 20.8168ZM29.7313 20.6838C29.7199 20.961 29.8058 21.2326 29.9777 21.4598C30.2928 21.8589 30.8829 21.9365 31.2955 21.6261C31.3585 21.5818 31.41 21.5263 31.4616 21.4709C31.7939 21.0496 31.7939 20.3402 31.4673 19.9189C31.3069 19.7083 31.0548 19.5752 30.7855 19.5697C30.1668 19.5364 29.7313 19.991 29.7313 20.6838ZM27.7891 19.7138C27.7891 20.573 27.7948 21.4321 27.7891 22.2912C27.7948 22.6848 27.474 23.0118 27.0672 23.0229C26.9985 23.0229 26.924 23.0174 26.8552 23.0007C26.5688 22.9287 26.351 22.6349 26.351 22.2857V17.8791C26.351 17.6186 26.3453 17.3636 26.351 17.1031C26.3568 16.6763 26.6375 16.3992 27.0615 16.3992C27.4969 16.3936 27.7891 16.6708 27.7891 17.1142C27.7948 17.9789 27.7891 18.8491 27.7891 19.7138Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M22.2947 20.7828C22.289 20.0013 22.7302 19.5302 23.3547 19.5634C23.6239 19.5745 23.876 19.702 24.0364 19.9181C24.3573 20.3339 24.3573 21.0322 24.0364 21.4535C23.7271 21.8526 23.1369 21.9357 22.7187 21.6364C22.65 21.5865 22.5869 21.5255 22.5296 21.4535C22.3864 21.2595 22.3062 21.0267 22.2947 20.7828ZM29.7314 20.683C29.7314 19.9957 30.1668 19.5357 30.7856 19.569C31.0549 19.5745 31.307 19.7075 31.4674 19.9181C31.794 20.3394 31.794 21.0544 31.4617 21.4701C31.1408 21.8636 30.545 21.9302 30.1382 21.6198C30.0752 21.5754 30.0236 21.52 29.9778 21.459C29.8059 21.2318 29.7257 20.9602 29.7314 20.683Z"
+                                                fill="#0068FF"></path>
+                                        </g>
+                                        <defs>
+                                            <linearGradient id="paint4_linear" x1="22" y1="0" x2="22" y2="44"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="50%" stop-color="#3985f7"></stop>
+                                                <stop offset="100%" stop-color="#1272e8"></stop>
+                                            </linearGradient>
+                                            <clipPath id="clip0">
+                                                <rect width="26.3641" height="24.2" fill="white"
+                                                    transform="translate(8.78906 9.90234)"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <span class="tooltip-text">Chat Zalo với Baya</span>
+                                </a>
+                            </li>
+                            <li class="addThis_item">
+                                <a class="addThis_item--icon" data-toggle="modal" href="#addthis-modalContact"
+                                    aria-label="email">
+                                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="22" cy="22" r="22" fill="url(#paint1_linear)"></circle>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M11.4589 11.6667H32.5414C33.1621 11.6667 33.6993 11.8861 34.153 12.3245C34.6062 12.7634 34.8332 13.2904 34.8332 13.9064C34.8332 14.6435 34.599 15.3481 34.1319 16.0197C33.6639 16.6914 33.0816 17.2655 32.3846 17.7413C30.0672 19.3131 28.3185 20.4998 27.1311 21.3061C26.4785 21.7489 25.9931 22.0787 25.6817 22.2905C25.6355 22.3222 25.5634 22.3723 25.4675 22.4396C25.3643 22.5117 25.2337 22.6037 25.0729 22.7174C24.7625 22.9368 24.5048 23.114 24.2994 23.2495C24.0938 23.3846 23.8457 23.5363 23.5545 23.7043C23.2631 23.8724 22.9887 23.9983 22.7309 24.0823C22.4731 24.1661 22.2344 24.2082 22.0148 24.2082H22.0006H21.9863C21.7667 24.2082 21.5281 24.1661 21.2702 24.0823C21.0125 23.9983 20.7378 23.8721 20.4466 23.7043C20.1552 23.5363 19.9068 23.385 19.7017 23.2495C19.4964 23.114 19.2386 22.9368 18.9284 22.7174C18.7672 22.6037 18.6366 22.5118 18.5334 22.4393L18.5233 22.4323C18.4325 22.3688 18.3638 22.3208 18.3195 22.2905C17.9197 22.0157 17.4354 21.6846 16.8739 21.3022C16.2152 20.8532 15.4486 20.3329 14.5671 19.7359C12.9342 18.6303 11.9554 17.9654 11.6308 17.7413C11.0388 17.3494 10.4802 16.8107 9.95513 16.1248C9.43011 15.4387 9.16748 14.8018 9.16748 14.214C9.16748 13.4864 9.36539 12.8796 9.76184 12.3944C10.158 11.9095 10.7234 11.6667 11.4589 11.6667ZM33.4002 19.2392C31.4494 20.5296 29.7913 21.6405 28.4258 22.5725L34.8324 28.8337V18.0213C34.4217 18.4695 33.9443 18.8752 33.4002 19.2392ZM9.1665 18.0214C9.58659 18.4788 10.0691 18.8848 10.6132 19.2393C12.6414 20.5863 14.2935 21.6952 15.5757 22.5701L9.1665 28.8335V18.0214ZM34.0421 30.8208C33.6172 31.1883 33.1173 31.3745 32.5403 31.3745H11.4578C10.8809 31.3745 10.3807 31.1883 9.95575 30.8208L17.2287 23.7122C17.4107 23.8399 17.5789 23.9592 17.7306 24.0679C18.2751 24.4597 18.7165 24.7654 19.0556 24.9845C19.3944 25.2041 19.8455 25.4279 20.4091 25.6564C20.9726 25.8853 21.4976 25.9993 21.9847 25.9993H21.9989H22.0132C22.5002 25.9993 23.0253 25.8852 23.5888 25.6564C24.152 25.4279 24.6032 25.2041 24.9423 24.9845C25.2814 24.7654 25.7231 24.4597 26.2672 24.0679C26.427 23.955 26.5961 23.8362 26.7705 23.7141L34.0421 30.8208Z"
+                                            fill="white"></path>
+                                        <defs>
+                                            <linearGradient id="paint1_linear" x1="22" y1="0" x2="22" y2="44"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="50%" stop-color="#70f3ff"></stop>
+                                                <stop offset="100%" stop-color="#00dcf0"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <span class="tooltip-text">Đăng kí thông tin và để lại lời nhắn</span>
+                                </a>
+                            </li>
+                            <li class="addThis_item">
+                                <a class="addThis_item--icon" href="/pages/lien-he" aria-label="Liên hệ"
+                                    previewlistener="true">
+                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="22" cy="22" r="22" fill="url(#paint5_linear)"></circle>
+                                        <path
+                                            d="M22 10C17.0374 10 13 13.7367 13 18.3297C13 24.0297 21.0541 32.3978 21.397 32.7512C21.7191 33.0832 22.2815 33.0826 22.603 32.7512C22.9459 32.3978 31 24.0297 31 18.3297C30.9999 13.7367 26.9626 10 22 10ZM22 22.5206C19.5032 22.5206 17.4719 20.6406 17.4719 18.3297C17.4719 16.0188 19.5032 14.1388 22 14.1388C24.4968 14.1388 26.528 16.0189 26.528 18.3297C26.528 20.6406 24.4968 22.5206 22 22.5206Z"
+                                            fill="white"></path>
+                                        <defs>
+                                            <linearGradient id="paint5_linear" x1="22" y1="0" x2="22" y2="44"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="50%" stop-color="#fecf72"></stop>
+                                                <stop offset="100%" stop-color="#ef9f00"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <span class="tooltip-text">Xem địa chỉ doanh nghiệp</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="listSharing_overlay"></div>
+                </div>
+
+            </div>
+
+            <div class="siteCart-mobile">
+                <div class="siteCart-mobile__header">
+                    <div class="boxinfo p-count">0 sản phẩm </div>
+                    <div class="boxinfo p-price">0₫</div>
+                    <div class="boxinfo">Xem chi tiết</div>
+                </div>
+                <div class="siteCart-mobile__dialog">
+                    <div class="siteCart-mobile__header">
+                        <div class="boxinfo p-count">0 sản phẩm </div>
+                        <div class="boxinfo p-price">0₫</div>
+                        <div class="boxinfo">Đóng</div>
+                    </div>
+                    <div class="siteCart-mobile__body">
+
+
+                        <div class="sitenav-content sitenav-cart">
+                            <p class="boxtitle">Giỏ hàng</p>
+                            <div class="cart-view clearfix">
+                                <div class="cart-view-scroll">
+                                    <table id="clone-item-cart" class="table-clone-cart">
+                                        <tbody>
+                                            <tr class="mini-cart__item d-none">
+                                                <td class="mini-cart__left"><a class="mnc-link" href="#" title=""><img
+                                                            src="" alt=""></a></td>
+                                                <td class="mini-cart__right">
+                                                    <p class="mini-cart__title">
+                                                        <a class="mnc-title mnc-link" href="#" title=""></a>
+                                                        <span class="mnc-variant"> </span>
+                                                    </p>
+                                                    <div class="mini-cart__quantity">
+                                                        <button class="qty-btn mnc-minus">
+                                                            <svg width="18" height="18" viewBox="0 0 20 20"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <rect height="1" width="18" y="9" x="1"></rect>
+                                                            </svg>
+                                                        </button>
+                                                        <input class="qty-value" type="text" readonly=""
+                                                            name="mnc-quantity" value="">
+                                                        <button class="qty-btn mnc-plus">
+                                                            <svg width="18" height="18" viewBox="0 0 20 20"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <rect x="9" y="1" width="1" height="17"></rect>
+                                                                <rect x="1" y="9" width="17" height="1"></rect>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <div class="mini-cart__price">
+                                                        <span class="mnc-price">0₫</span>
+                                                        <del class="mnc-ori-price"></del>
+                                                    </div>
+                                                    <div class="mini-cart__remove"></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table id="cart-view">
+
+                                        <tbody>
+                                            <tr class="mini-cart__empty">
+                                                <td>
+                                                    <div class="svgico-mini-cart">
+                                                        <svg width="81" height="70" viewBox="0 0 81 70">
+                                                            <g transform="translate(0 2)" stroke-width="4" fill="none"
+                                                                fill-rule="evenodd">
+                                                                <circle stroke-linecap="square" cx="34" cy="60" r="6">
+                                                                </circle>
+                                                                <circle stroke-linecap="square" cx="67" cy="60" r="6">
+                                                                </circle>
+                                                                <path
+                                                                    d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    Hiện chưa có sản phẩm
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="cart-view-line"></div>
+                                <div class="cart-view-total">
+                                    <table class="table-total">
+                                        <tbody>
+                                            <tr>
+                                                <td class="mnc-total text-left">TỔNG TIỀN:</td>
+                                                <td class="mnc-total text-right" id="total-view-cart">0₫</td>
+                                            </tr>
+                                            <tr class="mini-cart__button">
+                                                <td colspan="2"><a href="/cart" class="linktocart button "
+                                                        previewlistener="true">Xem giỏ hàng</a></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="siteCart-mobile__overlay"></div>
+            </div>
+            <div id="quick-view-modal" class="modal fade modal-product-quickview">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content wrapper-quickview">
+
                     </div>
                 </div>
             </div>
+            <div class="quickviewOverlay"></div>
 
-            <!--<div class="col-sm-6 col-md-4" data-behavior="sample_code">-->
-                <!--<a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">-->
-                    <!--<img src="https://res.cloudinary.com/kimithemes/image/upload/c_thumb,h_480,w_480/v1506329233/seafood_2_vcuolq.jpg" alt="Seafood">-->
-                <!--</a>-->
-                <!--<div class="caption box">-->
-                    <!--<h3>Seafood</h3>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-sm-8 col-xs-6">-->
-                            <!--<p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>-->
-                            <!--<span class="min-order">5 pcs min order</span>-->
-                        <!--</div>-->
+            <!-- SCRIPT THEME -->
+            <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+            <!-- <script type="text/javascript" src="taiNguyenCuaThang/js/chatOpenAi.js"></script> -->
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> -->
+            <!-- <script src="taiNguyenCuaThang/js/navbargiohang.js"></script> -->
+            <!-- <script type="text/javascript" src="taiNguyenCuaDung/js/index.js" defer=""></script> -->
 
-                        <!--<div class="col-sm-4 col-xs-6">-->
-                            <!--<button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <!-- SCRIPT THEME -->
+            <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+            <script src="/js/user/index.js"></script>
 
-            <!-- <div class="col-sm-6 col-md-4">
-                <a href="/productdetails" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="images/oats.jpg" alt="Oats Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Oats Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 4.50 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="col-sm-6 col-md-4">
-                <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="images/mango.jpg" alt="Mango Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Mango Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
-                            <span class="min-order">5 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="images/cake_square.jpg" alt="Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
-                            <span class="min-order">5 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="images/seafood_square.jpg" alt="cake">
-                </a>
-                <div class="caption box">
-                    <h3>Party Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            
-
-
-        </div>
+        </body>
     </div>
 
-    <div class="row">
-        <div class="product-detail-tag-container col-md-12 text-center">
-            <button class="btn outline-white-button text-center">Load More</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/pilih_menu.svg" width="120" />
-                <h5 class="text-roboto text-center">Pilih Menu yang Anda Inginkan</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/atur_jadwal.svg" width="120" />
-                <h5 class="text-roboto text-center">Atur Jadwal dan Alamat Pengantaran</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/approval.svg" width="120" />
-                <h5 class="text-roboto text-center">Dapatkan Approval dari Chef</h5>  
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/pay.svg" width="120" />
-                <h5 class="text-roboto text-center">Lakukan Pembayaran</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/nikmati.svg" width="120" />
-                <h5 class="text-roboto text-center">Nikmati Order Anda Sesuai Jalan</h5>    
-            </p>
-        </div>
-    </div>
-
-</div><!-- /.container -->
-
-<div class="clearfix maya-tiny-padding"></div>
-<div class="container mobile-full-width-slider">
-    <h2 class="default-userProductList-InfoBar-title text-center"><i class="fa fa-heart-o" aria-hidden="true"></i> Featured Merchant</h2>
-    <div class="featured-merchant-slider owl-carousel owl-theme">
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>Sucicakes</p>-->
-            <img src="images/sucicakes_logo.png" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>Nasi Bakar 58</p>-->
-            <img src="images/nasi_bakar_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="images/llball_logo.JPG" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="images/deliciozo_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="images/bakmi_48_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="images/llball_logo.JPG" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="images/fans_logo.png" class="img-rounded" width="100%">
-        </div>
-
-    </div>
-</div>
-<div class="clearfix maya-small-padding"></div>
-
-
-
-
-<!--include footer-->
-<div class="include-footer"></div>
-
-
-<script src="./js/jquery.min.js"></script>
-
-<!-- owl carousel -->
-<script src="js/owl_carousel/owl.carousel.js"></script>
-
-<!--boostrap js-->
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
-
-<!--tipuesearch-->
-<script src="js/tipusearch/tipuesearch_content.js"></script>
-<script src="js/tipusearch/tipuesearch_set.js"></script>
-<script src="js/tipusearch/tipuesearch.js"></script>
-
-<script src="js/prism/prism.js"></script>
-
-<!--kimi basic js-->
-<script src="js/kimi.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
-<script src="/js/user/index.js"></script>
-
-</body>
 </html>

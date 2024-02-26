@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,12 +24,10 @@ import poly.edu.entity.Sale;
 @RestController
 public class RestProductController {
 
-     @Autowired
+    @Autowired
     private ProductService productService;
-     @Autowired
-     private SaleService saleService;
-
-
+    @Autowired
+    private SaleService saleService;
 
     @GetMapping("/rest/product")
     public ResponseEntity<Page<Product>> getAllProducts(
@@ -41,19 +40,30 @@ public class RestProductController {
         return ResponseEntity.ok(productPage);
     }
 
+    @GetMapping("/rest/product/sales")
+    public ResponseEntity<Page<Product>> getAllProductsSale(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductSale(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
     @GetMapping("/rest/product/{productId}")
     public ResponseEntity<Product> getProductDetails(@PathVariable Integer productId) {
         Optional<Product> productOptional = productService.findById(productId);
         Product product = productOptional.get();
         return ResponseEntity.ok(product);
-    
+
     }
 
     @GetMapping("/rest/product/category")
     public ResponseEntity<Page<Product>> getProductByCategory(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(name = "categoryId") Integer categoryId) {
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Product> productPage = productService.findByCategory(pageRequest, categoryId);
@@ -62,7 +72,21 @@ public class RestProductController {
     }
 
     @GetMapping("/rest/product/sale")
-    public ResponseEntity<List<Sale>> getProductByCategory(){
+    public ResponseEntity<List<Sale>> getProductByCategory() {
         return ResponseEntity.ok(saleService.findAllOnSale());
+    }
+
+
+    @GetMapping("/rest/product/bestseller")
+    public ResponseEntity<Optional<List<Product>>> getProductBestSeller() {
+        Integer[] idproduct = productService.findTop5ProductBestSeller();
+        System.out.println(idproduct[4]);
+        List<Product> productbestseller = new ArrayList();
+        for (int i = 0; i <= idproduct.length - 1; i++) {
+            Optional<Product> product = productService.findById(idproduct[i]);
+            productbestseller.add(product.get());
+        }
+        Optional<List<Product>> optionalProductList = Optional.ofNullable(productbestseller);
+        return ResponseEntity.ok(optionalProductList);
     }
 }
