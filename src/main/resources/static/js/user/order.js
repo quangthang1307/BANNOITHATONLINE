@@ -1,5 +1,5 @@
 const app = angular.module("bannoithatonline", []);
-const host = "http://localhost:8080";
+const host = "";
 
 app.controller("OrderController", function ($scope, $http, $rootScope) {
   $scope.customer = {};
@@ -94,7 +94,7 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
 
   $scope.thanhToan = function (order) {
     $http
-      .get("http://localhost:8080/rest/payment/again?orderId=" + order.orderID)
+      .get("/rest/payment/again?orderId=" + order.orderID)
       .then((response) => {
         window.localStorage.setItem(
           "listPayment",
@@ -110,7 +110,7 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   var product = [];
 
 order.products.forEach((resp) => {
-  product.push(resp.name + ' - ' + resp.price)
+  product.push(resp.name + ' - ' + resp.price + ' VND')
   console.log(product);
 })
 var productString = product.join(', '); 
@@ -123,6 +123,55 @@ var productString = product.join(', ');
         showCancelButton: true,
         confirmButtonText: "Hủy đặt hàng",
         cancelButtonText: "Đóng",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var urlDelete = `${host}/rest/deleteOrder`;
+          $http.get("/rest/sendEmailHuyDon", {
+            params: {
+              to: $scope.customer.account.email,
+              subject: "Hủy đơn đặt hàng",
+              content: "<html>"
+              + "<head>"
+              + "<style>"
+              + "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
+              + ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg');}"
+              + "h2 { text-align: center; }"
+              + "</style>"
+              + "</head>"
+              + "<body>"
+              + "<div class='container'>"
+              + "<h2>Thông Báo Hủy Đơn Hàng</h2>"
+              + "<p>"
+              + "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" + order.orderID + "</strong><br>"
+              + "Gồm các sản phẩm: " + productString + "<br>"
+              + "Tổng giá trị đơn hàng là: <strong>" + order.sumpayment + " VND</strong>"
+              + "<br><strong>Bạn chỉ nhận lại được 80% tổng tiền của đơn hàng, hãy liên hệ với cửa hàng để được hỗ trợ</strong><br>"
+              + "Liên hệ: xxx"
+              + "</p>"
+              + "</div>"
+              + "</body>"
+              + "</html>",
+            },
+          });
+
+          $http.delete(urlDelete, {
+            params: {
+              orderId: order.orderID,
+            },
+          });
+          const index = $scope.orders.findIndex(
+            (o) => o.orderID === order.orderID
+          );
+          if (index !== -1) {
+            $scope.orders.splice(index, 1);
+          }
+          Swal.fire({
+            title: "Hủy thành công !",
+            text: "Bạn đã hủy thành công đơn đặt hàng !",
+            icon: "success",
+            timer: 850,
+          });
+        }
       });
     } else {
       Swal.fire({
@@ -142,8 +191,8 @@ var productString = product.join(', ');
               content: "<html>"
               + "<head>"
               + "<style>"
-              + "body { font-family: Arial, sans-serif; }"
-              + ".container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }"
+              + "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
+              + ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
               + "h2 { text-align: center; }"
               + "</style>"
               + "</head>"

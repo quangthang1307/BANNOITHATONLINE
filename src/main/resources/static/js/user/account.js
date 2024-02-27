@@ -1,5 +1,5 @@
 // Viết bằng js thuần
-// var postRegister = 'http://localhost:8080/user/sigup'
+// var postRegister = '/user/sigup'
 
 // function start() {
 //     handleCreateForm();
@@ -52,7 +52,7 @@ app.controller('registerController', function ($scope, $http, $location) {
             phone: $scope.phone
         };
 
-        $http.post('http://localhost:8080/rest/user/sigup', data)
+        $http.post('/rest/user/sigup', data)
         .then(function (response) {
             // Đăng ký thành công
             Swal.fire(
@@ -61,7 +61,7 @@ app.controller('registerController', function ($scope, $http, $location) {
                 'success'
             ).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = 'http://localhost:8080/login';
+                    window.location.href = '/login';
                 }
             });
         })
