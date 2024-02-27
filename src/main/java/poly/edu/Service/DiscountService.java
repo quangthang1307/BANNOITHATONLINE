@@ -23,7 +23,7 @@ public interface DiscountService {
 	public void delete(Integer id) ;
 	public Discount findByCode(String code);
 	
-	
+
 	Optional<Discount> findById(int id);
 	void save(Discount discount);
 	void delete(int id);

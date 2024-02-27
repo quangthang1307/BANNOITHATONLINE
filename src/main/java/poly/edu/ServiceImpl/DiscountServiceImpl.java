@@ -24,7 +24,6 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override
 	public Page<Discount> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
 		return discountRepository.findAll(pageable);
 	}
 
@@ -35,7 +34,6 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override
 	public Discount update(Discount discount) {
-		// TODO Auto-generated method stub
 		return discountRepository.save(discount);
 	}
 
@@ -47,7 +45,6 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override
 	public List<Discount> findAll() {
-		// TODO Auto-generated method stub
 		return discountRepository.findAll();
 	}
 

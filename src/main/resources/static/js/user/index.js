@@ -8,11 +8,13 @@ const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 const hostProductSale = "http://localhost:8080/rest/product/sale";
+const hostDiscount = "http://localhost:8080/rest/discount";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
   $scope.productSale = [];
+  $scope.discounts = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -44,29 +46,62 @@ app.controller("IndexController", function ($scope, $http, $window) {
         console.error("Error fetching products:", error);
       });
 
-      $http.get(hostProductSale)
+    $http.get(hostProductSale)
       .then(function (response) {
 
-          $scope.productSale = response.data
-          console.log($scope.productSale);
+        $scope.productSale = response.data
+        console.log($scope.productSale);
 
       })
       .catch(function (error) {
-          console.error('Error fetching productSale:', error);
+        console.error('Error fetching productSale:', error);
+      }
+      );
+
+    $http.get(hostDiscount)
+      .then(function (response) {
+
+        $scope.discounts = response.data
+        console.log($scope.discounts);
+
+      })
+      .catch(function (error) {
+        console.error('Error fetching productSale:', error);
       }
       );
   }
 
-    //Kiểm tra sản phẩm sale để thay đổi giá
-    $scope.isProductInSale = function (productId) {
-      return $scope.productSale.some(item => item.productID === productId);
+  //Kiểm tra sản phẩm sale để thay đổi giá
+  $scope.isProductInSale = function (productId) {
+    return $scope.productSale.some(item => item.productID === productId);
   };
 
   $scope.getPercentSaleForProduct = function (productId) {
-      var foundItem = $scope.productSale.find(item => item.productID === productId);
-      return foundItem ? foundItem.percent : null;
+    var foundItem = $scope.productSale.find(item => item.productID === productId);
+    return foundItem ? foundItem.percent : null;
   };
   //
+
+  $scope.copyContent = function (elementId) {
+    // Lấy nội dung cần sao chép bằng id được truyền vào
+    var content = document.getElementById(elementId).innerText;
+
+    // Tạo một thẻ textarea tạm thời để sao chép nội dung vào clipboard
+    var tempTextArea = document.createElement("textarea");
+    tempTextArea.value = content;
+    document.body.appendChild(tempTextArea);
+
+    // Chọn toàn bộ nội dung trong textarea và sao chép vào clipboard
+    tempTextArea.select();
+    document.execCommand("copy");
+
+    // Xóa thẻ textarea tạm thời
+    document.body.removeChild(tempTextArea);
+
+    // Thay đổi nội dung của nút thành "Copied!"
+    document.getElementById(elementId + "_button").innerText = "Đã sao chép";
+
+  };
 
 
   $scope.addToCart = function (product) {
@@ -237,7 +272,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
 
       if (response.data && response.data.status === "in_progress") {
         $scope.responseStatus = "in_progress";
-      }if (response.data && response.data.status === "completed") {
+      } if (response.data && response.data.status === "completed") {
         $scope.responseStatus = "completed";
         $scope.showFeedback();
       } else {
