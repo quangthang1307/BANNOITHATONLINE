@@ -19,14 +19,56 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     // CategoryID = ?", nativeQuery = true)
     // Page<Product> findProductByCategory(Pageable pageable, Integer categoryID);
 
+    @Query(value = "SELECT TOP 5 * FROM Product WHERE Productactivate = 1 AND CategoryID = ?", nativeQuery = true)
+    List<Product> findTop5ProductByCategory(@Param("CategoryID") Integer categoryID);
+
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs", nativeQuery = true)
     Page<Product> findProductByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
 
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs", nativeQuery = true)
+    Page<Product> findProductSaleByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs ORDER BY Product.PriceXuat DESC;", nativeQuery = true)
+    Page<Product> findProductSaleByCategoryAndDESC(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs ORDER BY Product.PriceXuat ASC;", nativeQuery = true)
+    Page<Product> findProductSaleByCategoryAndASC(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs ORDER BY Product.Productname ASC;", nativeQuery = true)
+    Page<Product> findProductSaleByCategoryAndAZ(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs ORDER BY Product.Productname DESC;", nativeQuery = true)
+    Page<Product> findProductSaleByCategoryAndZA(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+   
     @Query(value = "SELECT TOP 5 p.ProductID FROM Product p JOIN Orderdetails od ON p.ProductID = od.ProductID WHERE p.Productactivate = 1 GROUP BY p.ProductID ORDER BY SUM(od.Productquantity) DESC;", nativeQuery = true)
     Integer[] findProductBestSeller();
 
-    @Query(value = "SELECT Product.* FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale", nativeQuery = true)
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale", nativeQuery = true)
     Page<Product> findProductOnSale(Pageable pageable);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale ORDER BY Product.PriceXuat DESC", nativeQuery = true)
+    Page<Product> findProductOnSaleDESC(Pageable pageable);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale ORDER BY Product.PriceXuat ASC", nativeQuery = true)
+    Page<Product> findProductOnSaleASC(Pageable pageable);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale ORDER BY Product.Productname ASC", nativeQuery = true)
+    Page<Product> findProductOnSaleAZ(Pageable pageable);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale ORDER BY Product.Productname DESC", nativeQuery = true)
+    Page<Product> findProductOnSaleZA(Pageable pageable);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY PriceXuat DESC;", nativeQuery = true)
+    Page<Product> findProductDESC(Pageable pageable);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY PriceXuat ASC;", nativeQuery = true)
+    Page<Product> findProductASC(Pageable pageable);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY Productname ASC;;", nativeQuery = true)
+    Page<Product> findProductAZ(Pageable pageable);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY Productname DESC;;", nativeQuery = true)
+    Page<Product> findProductZA(Pageable pageable);
 
 
 

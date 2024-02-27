@@ -43,6 +43,76 @@ public class ProductServiceImpl implements ProductService {
         return productResponsitory.findProductOnSale(pageable);
     }
 
+    @Override
+    public Page<Product> findProductDESC(Pageable pageable) {
+        return productResponsitory.findProductDESC(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductASC(Pageable pageable) {
+        return productResponsitory.findProductASC(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductAZ(Pageable pageable) {
+        return productResponsitory.findProductAZ(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductZA(Pageable pageable) {
+        return productResponsitory.findProductZA(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductSaleDESC(Pageable pageable) {
+       return productResponsitory.findProductOnSaleDESC(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductSaleASC(Pageable pageable) {
+        return productResponsitory.findProductOnSaleASC(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductSaleAZ(Pageable pageable) {
+        return productResponsitory.findProductOnSaleAZ(pageable);
+    }
+
+    @Override
+    public Page<Product> findProductSaleZA(Pageable pageable) {
+        return productResponsitory.findProductOnSaleZA(pageable);
+    }
+
+    @Override
+    public Page<Product> findSaleByCategory(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductSaleByCategory(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findSaleByCategoryAndDESC(Pageable pageable, List<Integer> category) {
+       return productResponsitory.findProductSaleByCategoryAndDESC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findSaleByCategoryAndASC(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductSaleByCategoryAndASC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findSaleByCategoryAndAZ(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductSaleByCategoryAndAZ(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findSaleByCategoryAndZA(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductSaleByCategoryAndZA(pageable, category);
+    }
+
+    @Override
+    public List<Product> findTop5ByCategory(Integer category) {
+       return productResponsitory.findTop5ProductByCategory(category);
+    }
+
 
 
 

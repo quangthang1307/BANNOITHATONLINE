@@ -7,10 +7,12 @@ const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
 const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
+const hostProductSale = "http://localhost:8080/rest/product/sale";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
+  $scope.productSale = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -41,8 +43,30 @@ app.controller("IndexController", function ($scope, $http, $window) {
       .catch(function (error) {
         console.error("Error fetching products:", error);
       });
+
+      $http.get(hostProductSale)
+      .then(function (response) {
+
+          $scope.productSale = response.data
+          console.log($scope.productSale);
+
+      })
+      .catch(function (error) {
+          console.error('Error fetching productSale:', error);
+      }
+      );
   }
 
+    //Kiểm tra sản phẩm sale để thay đổi giá
+    $scope.isProductInSale = function (productId) {
+      return $scope.productSale.some(item => item.productID === productId);
+  };
+
+  $scope.getPercentSaleForProduct = function (productId) {
+      var foundItem = $scope.productSale.find(item => item.productID === productId);
+      return foundItem ? foundItem.percent : null;
+  };
+  //
 
 
   $scope.addToCart = function (product) {
