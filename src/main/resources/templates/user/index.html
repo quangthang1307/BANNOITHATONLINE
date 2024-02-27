@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
 
 
+
+
     <link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
         crossorigin="">
     <link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
@@ -61,8 +63,7 @@
 
     <link rel="stylesheet" href="taiNguyenCuaThang/css/chat.css">
 
-    <link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
-        as="style">
+    <link rel="stylesheet" href="/taiNguyenCuaDung/css/themes.scss.css">
     <!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
     <script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
@@ -687,66 +688,71 @@
                                                     <div class="product-inner" data-proid="1050909506"
                                                         id="section_2_loop_1">
                                                         <div class="proloop-image">
-
-
-
-
+                                                            <div class="pro-sale" ng-if="isProductInSale(productsbestseller.productid)">
+                                                                <span>-{{getPercentSaleForProduct(productsbestseller.productid)}}%</span>
+                                                            </div>
+        
                                                             <div class="product--image">
-
+        
                                                                 <div class="lazy-img first-image">
                                                                     <picture>
-                                                                        <source media="(max-width: 480px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg">
-                                                                        <source media="(min-width: 481px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
-                                                                            alt=" Sofa NORMANDY ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                            src="/{{productsbestseller.productimages[0].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
                                                                 <div
                                                                     class="lazy-img second-image hovered-img d-none d-lg-block">
                                                                     <picture>
-                                                                        <source
-                                                                            media="(min-width: 481px) and (max-width:767px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg">
-                                                                        <source media="(min-width:768px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
-                                                                            alt=" Sofa NORMANDY ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                            src="/{{productsbestseller.productimages[1].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
-
+        
                                                             </div>
                                                             <div class="quickview-product">
                                                                 <a class="icon-quickview" href="javascript:void(0)"
-                                                                    data-handle="/products/sofa-normandy"
+                                                                    data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
                                                                     title="Xem nhanh"><i class="fa fa-eye"
                                                                         aria-hidden="true"></i></a>
                                                             </div>
-                                                            <a href="/products/sofa-normandy"
+                                                            <a ng-click="clickById(productsbestseller.productid)"
                                                                 class="proloop-link quickview-product"
-                                                                data-handle="/products/sofa-normandy"
-                                                                title="Sofa NORMANDY" previewlistener="true"></a>
+                                                                data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
+                                                                title="Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair)"
+                                                                previewlistener="true"></a>
+                                                            <div ng-if="isProductInSale(productsbestseller.productid)"
+                                                                class="sticker_frame"><a
+                                                                    href="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
+                                                                    previewlistener="true"><img class=" ls-is-cached lazyloaded"
+                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                            </div>
                                                         </div>
                                                         <div class="proloop-detail">
                                                             <p class="proloop--vendor"><a title="Show vendor"
                                                                     href="/collections/vendors?q=normandy"
-                                                                    previewlistener="true">NORMANDY</a></p>
+                                                                    previewlistener="true">{{productsbestseller.brand.brandname}}</a></p>
                                                             <h3><a href="/products/sofa-normandy"
                                                                     class="quickview-product"
                                                                     data-handle="/products/sofa-normandy"
-                                                                    previewlistener="true">Sofa NORMANDY</a></h3>
-                                                            <p class="proloop--price ">
-                                                                <span
-                                                                    class="price">{{productsbestseller.pricexuat}}₫</span>
+                                                                    previewlistener="true">{{productsbestseller.productname}}</a></h3>
+                                                            <p class="proloop--price on-sale"
+                                                                ng-if="isProductInSale(productsbestseller.productid)">
+                                                                <span class="price">{{productsbestseller.pricexuat -
+                                                                    (productsbestseller.pricexuat *
+                                                                    getPercentSaleForProduct(productsbestseller.productid) /
+                                                                    100) | number
+                                                                    }}₫</span>
+
+                                                                <span class="price-del">{{productsbestseller.pricexuat |
+                                                                    number }}₫</span>
+
+                                                            </p>
+                                                            <p class="proloop--price "
+                                                                ng-if="!isProductInSale(productsbestseller.productid)">
+                                                                <span class="price">{{productsbestseller.pricexuat | number
+                                                                    }}₫</span>
                                                             </p>
 
                                                             <div class="proloop-actions" data-vrid="1114458437">
@@ -754,7 +760,7 @@
                                                                     <div class="actions-primary">
                                                                         <button type="submit"
                                                                             class="btn-proloop-cart add-to-cart  btn-addcart-view "
-                                                                            onclick="HRT.All.addCartProdItem('1114458437')">
+                                                                            ng-click="addToCart(productsbestseller)">
                                                                             <span class="btnadd"> Thêm vào giỏ </span>
                                                                             <span class="btnico" title="Thêm vào giỏ">
                                                                                 <svg version="1.0" viewBox="0 0 512 512"
@@ -1311,8 +1317,10 @@
                                         </div>
                                     </div><!--chat-log -->
 
-                                    <span ng-if="responseStatus === 'in_progress'" style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
-                                    <span ng-if="responseStatus === 'completed'" style="font-weight: bolder; margin-left: 13px;">Thành công</span>
+                                    <span ng-if="responseStatus === 'in_progress'"
+                                        style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
+                                    <span ng-if="responseStatus === 'completed'"
+                                        style="font-weight: bolder; margin-left: 13px;">Thành công</span>
                                 </div>
                                 <div class="chat-input">
                                     <form>

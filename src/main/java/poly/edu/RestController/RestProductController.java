@@ -40,6 +40,13 @@ public class RestProductController {
         return ResponseEntity.ok(productPage);
     }
 
+    @GetMapping("/rest/product/relate")
+    public ResponseEntity<List<Product>> getTop5ProductByCategory(
+        @RequestParam(name = "categoryId") Integer categoryId
+    ) {
+        return ResponseEntity.ok(productService.findTop5ByCategory(categoryId));
+    }
+
     @GetMapping("/rest/product/sales")
     public ResponseEntity<Page<Product>> getAllProductsSale(
             @RequestParam(defaultValue = "0") int page,
@@ -47,6 +54,94 @@ public class RestProductController {
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Product> productPage = productService.findProductSale(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/desc")
+    public ResponseEntity<Page<Product>> getAllProductsSaleDESC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductSaleDESC(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/asc")
+    public ResponseEntity<Page<Product>> getAllProductsSaleASC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductSaleASC(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/az")
+    public ResponseEntity<Page<Product>> getAllProductsSaleAZ(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductSaleAZ(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/za")
+    public ResponseEntity<Page<Product>> getAllProductsSaleZA(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductSaleZA(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/desc")
+    public ResponseEntity<Page<Product>> getProductsDESC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductDESC(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/az")
+    public ResponseEntity<Page<Product>> getProductsAZ(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductAZ(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/za")
+    public ResponseEntity<Page<Product>> getProductsZA(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductZA(pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/asc")
+    public ResponseEntity<Page<Product>> getProductsASC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findProductASC(pageRequest);
 
         return ResponseEntity.ok(productPage);
     }
@@ -67,6 +162,66 @@ public class RestProductController {
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Product> productPage = productService.findByCategory(pageRequest, categoryId);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/category")
+    public ResponseEntity<Page<Product>> getProductSaleByCategory(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findSaleByCategory(pageRequest, categoryId);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/category/desc")
+    public ResponseEntity<Page<Product>> getProductSaleByCategoryAndDESC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findSaleByCategoryAndDESC(pageRequest, categoryId);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/category/asc")
+    public ResponseEntity<Page<Product>> getProductSaleByCategoryAndASC(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findSaleByCategoryAndASC(pageRequest, categoryId);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/category/az")
+    public ResponseEntity<Page<Product>> getProductSaleByCategoryAndAZ(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findSaleByCategoryAndAZ(pageRequest, categoryId);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/sales/category/za")
+    public ResponseEntity<Page<Product>> getProductSaleByCategoryAndZA(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Product> productPage = productService.findSaleByCategoryAndZA(pageRequest, categoryId);
 
         return ResponseEntity.ok(productPage);
     }
