@@ -235,13 +235,19 @@ public class RestProductController {
     @GetMapping("/rest/product/bestseller")
     public ResponseEntity<Optional<List<Product>>> getProductBestSeller() {
         Integer[] idproduct = productService.findTop5ProductBestSeller();
-        System.out.println(idproduct[4]);
-        List<Product> productbestseller = new ArrayList();
-        for (int i = 0; i <= idproduct.length - 1; i++) {
-            Optional<Product> product = productService.findById(idproduct[i]);
-            productbestseller.add(product.get());
+
+        if (idproduct != null && idproduct.length > 0) {
+            List<Product> productbestseller = new ArrayList();
+
+            for (int i = 0; i <= idproduct.length - 1; i++) {
+                Optional<Product> product = productService.findById(idproduct[i]);
+                productbestseller.add(product.get());
+            }
+
+            Optional<List<Product>> optionalProductList = Optional.ofNullable(productbestseller);
+            return ResponseEntity.ok(optionalProductList);
+        } else {
+            return ResponseEntity.noContent().build();
         }
-        Optional<List<Product>> optionalProductList = Optional.ofNullable(productbestseller);
-        return ResponseEntity.ok(optionalProductList);
     }
 }
