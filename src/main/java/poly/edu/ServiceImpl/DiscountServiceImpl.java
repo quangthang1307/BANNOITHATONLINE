@@ -68,4 +68,9 @@ public class DiscountServiceImpl implements DiscountService {
 		return discountRepository.findName(code);
 	}
 
+	@Override
+	public List<Discount> findTop4Discount() {
+		return discountRepository.findTop4Discount();
+	}
+
 }

@@ -470,8 +470,7 @@
 
                                                                     <li class="">
                                                                         <span></span>
-                                                                        <a class="" 
-                                                                            ng-click="clickCategory(0, 1)"
+                                                                        <a class="" ng-click="clickCategory(0, 1)"
                                                                             title="Sản phẩm khuyến mãi" target="_self"
                                                                             previewlistener="true">
                                                                             Sản phẩm khuyến mãi
@@ -652,13 +651,13 @@
                                                                     ng-click="clickFilter(1)">Giá: Tăng
                                                                     dần</span></li>
                                                             <li><span data-value="price-descending"
-                                                                ng-click="clickFilter(2)">Giá: Giảm
+                                                                    ng-click="clickFilter(2)">Giá: Giảm
                                                                     dần</span></li>
                                                             <li><span data-value="title-ascending"
-                                                                ng-click="clickFilter(3)">Tên:
+                                                                    ng-click="clickFilter(3)">Tên:
                                                                     A-Z</span></li>
                                                             <li><span data-value="title-descending"
-                                                                ng-click="clickFilter(4)">Tên:
+                                                                    ng-click="clickFilter(4)">Tên:
                                                                     Z-A</span></li>
                                                             <li><span data-value="created-ascending"
                                                                     data-filter="(updated_at:product=asc)">Cũ
@@ -689,13 +688,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="collection-filter-tags" >
+                                        <div class="collection-filter-tags">
                                             <div class="layered_filter_tags">
                                                 <div class="filter_tags"></div>
                                                 <div class="filter_tags"></div>
 
-                                                <div   ng-class="{'opened' : filterByCategory}" class="filter_tags ">
-                                                    Nhà cung cấp: <b ng-repeat="category in CheckboxCategory" ng-if="category.isChecked">{{category.name}},</b>
+                                                <div ng-class="{'opened' : filterByCategory}" class="filter_tags ">
+                                                    Nhà cung cấp: <b ng-repeat="category in CheckboxCategory"
+                                                        ng-if="category.isChecked">{{category.name}},</b>
                                                     <!-- <span class="filter_tags_remove">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
@@ -835,8 +835,8 @@
 
                                     <div class="col-md-12 hidden-xs text-center">
                                         <!--pagination-->
-                                        
-                                        <nav aria-label="Page navigation">
+
+                                        <!-- <nav aria-label="Page navigation">
                                             <ul class="pagination">
                                                 <li ng-class="{'disabled' : currentPage === 1} ">
                                                     <a ng-click="back()">
@@ -850,7 +850,28 @@
                                                     <a ng-click="next()">></a>
                                                 </li>
                                             </ul>
-                                        </nav>
+                                        </nav> -->
+
+                                        <div class="pagination-shop text-center">
+                                            <div id="pagination">
+                                                <ul class="pagination">
+                                                    <li ng-if="currentPage !== 1">
+                                                        <a   ng-click="back()">
+                                                            <<
+                                                        </a>
+                                                    </li>
+                                                    <li ng-repeat="page in numberArray()" ng-if="page !== undefined"
+                                                    >
+                                                        <a ng-class="{'current' : currentPage === page}" ng-click="goToPage(page)">{{ page }}</a>
+                                                    </li>
+                                                    <li ng-if="totalPages !== currentPage">
+                                                        <a  ng-click="next()">
+                                                            >>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                         <!--pagination ends-->
                                     </div>
 

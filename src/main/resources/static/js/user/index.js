@@ -8,7 +8,7 @@ const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
 const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 const hostProductSale = "http://localhost:8080/rest/product/sale";
-const hostDiscount = "http://localhost:8080/rest/discount";
+const hostDiscount = "http://localhost:8080/rest/discounttop4";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
@@ -81,6 +81,33 @@ app.controller("IndexController", function ($scope, $http, $window) {
     return foundItem ? foundItem.percent : null;
   };
   //
+
+  // Hàm xử lý khi nhấp vào tên sản phẩm
+  $scope.clickById = function (productId) {
+    var url = `${host}/${productId}`;
+
+    $http.get(url)
+      .then(resp => {
+        $scope.productbyid = resp.data;
+        // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
+        if ($scope.isProductInSale(resp.data.productid)) {
+          var percent = $scope.getPercentSaleForProduct(resp.data.productid);
+          resp.data.percent = percent;
+        } else {
+          resp.data.percent = 0;
+        }
+        localStorage.setItem('productById', JSON.stringify(resp.data));
+
+        // Chuyển hướng đến trang chi tiết sản phẩm
+        window.location.href = `/productdetail/${productId}`;
+        //  console.log("Success", resp);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+  //
+
 
   $scope.copyContent = function (elementId) {
     // Lấy nội dung cần sao chép bằng id được truyền vào
