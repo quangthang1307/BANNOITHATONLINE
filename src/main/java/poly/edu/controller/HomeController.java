@@ -12,30 +12,40 @@ public class HomeController {
 	public String index() {
 		return "user/index";
 	}
+	
+	@RequestMapping("/admin")
+	public String Adminindex() {
+		return "redirect:/admin/index";
+	}
 
 	@RequestMapping("/admin/index")
 	public String showAdminindex() {
 		return "admin/index";
 	}
 
-	@RequestMapping("/admin")
-	public String Adminindex() {
-		return "redirect:/admin/index";
+	@RequestMapping("/user")
+	public String userIndex() {
+		return "redirect:/user/index";
+	}
+
+	@RequestMapping("/user/index")
+	public String showUserIndex() {
+		return "user/index";
 	}
 
 	@RequestMapping("/login")
 	public String showLogin() {
 		return "login";
 	}
+	
+	@RequestMapping("/logout")
+	public String showLogout() {
+		return "login";
+	}
 
 	@RequestMapping("/product")
 	public String showProduct() {
 		return "user/testproduct";
-	}
-
-	@RequestMapping("/logout")
-	public String showLogout() {
-		return "login";
 	}
 
 	@RequestMapping("/productdetail/{productid}")

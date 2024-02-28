@@ -35,6 +35,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 .anyMatch(r -> r.getAuthority().equals("ADMIN"));
         boolean isEmployee = authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("EMPLOYEE"));
+        boolean isUser = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("USER"));
 
         HttpSession session = request.getSession();
         session.setAttribute("username", authentication.getName());
@@ -43,6 +45,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             redirectStrategy.sendRedirect(request, response, "/admin");
         } else if (isEmployee) {
             redirectStrategy.sendRedirect(request, response, "/employee");
+        } else if (isUser) {
+            redirectStrategy.sendRedirect(request, response, "/user");
         } else {
             redirectStrategy.sendRedirect(request, response, "/index");
         }
