@@ -1,12 +1,12 @@
 var app = angular.module("bannoithatonline", [])
-const host = "http://localhost:8080/rest/product";
-const hostCustomerId = "http://localhost:8080/rest/customer";
-const hostListCart = "http://localhost:8080/rest/showCart";
-const hostUpQuantityProduct = "http://localhost:8080/rest/cart/up";
-const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
-const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
-const hostProductImage = "http://localhost:8080/rest/products";
-const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
+const host = "/rest/product";
+const hostCustomerId = "/rest/customer";
+const hostListCart = "/rest/showCart";
+const hostUpQuantityProduct = "/rest/cart/up";
+const hostDownQuantityProduct = "/rest/cart/down";
+const hostDeleteProduct = "/rest/removeFromCart";
+const hostProductImage = "/rest/products";
+const hostDeleteAllProductInCart = "/rest/removeAllCarts";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
@@ -68,7 +68,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
     }
 
     var urlCheckCart =
-      "http://localhost:8080/rest/cart/" +
+      "/rest/cart/" +
       $scope.customer.customerId +
       "/" +
       product.productid;
@@ -78,7 +78,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
         if (response.data) {
 
           var url =
-            "http://localhost:8080/rest/cart/up/" +
+            "/rest/cart/up/" +
             $scope.customer.customerId +
             "/" +
             product.productid;
@@ -95,7 +95,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
         }
       })
       .catch(function (error) {
-        var url = "http://localhost:8080/rest/addToCart";
+        var url = "/rest/addToCart";
         var dataPost = {
           customer: {
             customerId: $scope.customer.customerId,
@@ -164,7 +164,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   $scope.responseStatus = '';
 
   $scope.callAPI = function () {
-    $http.post('http://localhost:8080/createThread', {})
+    $http.post('/createThread', {})
       .then(function (response) {
         console.log(response);
         $scope.threadId = response.data;
@@ -188,7 +188,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
       file_ids: "file-PQeqheySy2be7PYRIuVVgQNQ"
     };
 
-    $http.post('http://localhost:8080/sendMessageApi', jsonBody)
+    $http.post('/sendMessageApi', jsonBody)
       .then(function (response) {
         console.log(response);
         $scope.responseMessage = "Server Response: " + response.data;
@@ -200,7 +200,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   };
 
   $scope.runThread = function () {
-    $http.post('http://localhost:8080/runThread').then(function (response) {
+    $http.post('/runThread').then(function (response) {
       console.log(response);
       $scope.runThreadId = response.data.runThreadId;
       $scope.checkRunThreadId();
@@ -208,7 +208,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   };
 
   $scope.checkRunThreadId = function () {
-    $http.get('http://localhost:8080/checkRunThreadId').then(function (response) {
+    $http.get('/checkRunThreadId').then(function (response) {
       $scope.runThreadStatus = response.data;
 
       if (response.data && response.data.status === "in_progress") {
@@ -256,7 +256,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
     });
 
     $scope.showFeedback = function () {
-      $http.get('http://localhost:8080/showFeedback').then(function (response) {
+      $http.get('/showFeedback').then(function (response) {
         $scope.feedbackData = response.data;
 
 

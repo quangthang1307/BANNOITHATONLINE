@@ -1,7 +1,7 @@
 const app = angular.module("bannoithatonline", ["ui.bootstrap"]);
-const hostListDiscount = "http://localhost:8080/rest/discount";
-const hostSubmitOder = "http://localhost:8080/rest/vnpay";
-const host = "http://localhost:8080";
+const hostListDiscount = "/rest/discount";
+const hostSubmitOder = "/rest/vnpay";
+const host = "";
 app.controller("checkoutController", [
   "$scope",
   "$http",
@@ -207,7 +207,7 @@ app.controller("checkoutController", [
 
           // Xóa sản phẩm thanh toán khỏi giỏ hàng
           var urlDelete =
-            "http://localhost:8080/rest/deleteProductInCartByCustomerId";
+            "/rest/deleteProductInCartByCustomerId";
           for (var i = 0; i < $scope.products.length; i++) {
             var productGroup = $scope.products[i].Product;
 

@@ -1,13 +1,13 @@
 const app = angular.module("bannoithatonline", []);
-const host = "http://localhost:8080";
+
 
 app.controller("chiTietDonHangController", function ($scope, $http){
 
     if(window.localStorage.getItem('orderId') != null){
         var orderID = JSON.parse(window.localStorage.getItem('orderId'));
         if(vnp_TransactionStatus == '00'){
-            var urlCreateTransaction = `${host}/rest/createTransaction`;
-            $http.post(urlCreateTransaction, null, {params : { 
+    
+            $http.post('/rest/createTransaction', null, {params : { 
                 orderID : orderID,
                 Amount: vnp_Amount/100,
                 Status : 0,
@@ -17,8 +17,8 @@ app.controller("chiTietDonHangController", function ($scope, $http){
             }} ).then((resp) => { console.log(resp);})
         } else {
             var orderID = JSON.parse(window.localStorage.getItem('orderId'));
-            var urlCreateTransaction = `${host}/rest/createTransaction`;
-            $http.post(urlCreateTransaction, null, {params : { 
+          
+            $http.post('/rest/createTransaction', null, {params : { 
                 orderID : orderID,
                 Amount: vnp_Amount/100,
                 Status : 1,
