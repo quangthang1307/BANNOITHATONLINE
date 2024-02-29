@@ -9,6 +9,7 @@ const hostProductImage = "http://localhost:8080/rest/products";
 const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 const hostProductSale = "http://localhost:8080/rest/product/sale";
 const hostDiscount = "http://localhost:8080/rest/discounttop4";
+const hostProductByRoom = "http://localhost:8080/rest/product/category/room";
 
 app.controller("IndexController", function ($scope, $http, $window) {
   $scope.listCart = [];
@@ -107,6 +108,18 @@ app.controller("IndexController", function ($scope, $http, $window) {
       });
   }
   //
+
+  $scope.clickByRoom = function (id) {
+    var title = "";
+    if(id == 1) title = "Phòng khách";
+    if(id == 2) title = "Phòng Ngủ";
+    if(id == 3) title = "Phòng Ăn";
+    if(id == 4) title = "Phòng làm việc";
+   
+    localStorage.setItem('idproductByroom', JSON.stringify(id));
+    localStorage.setItem('titleCategory', JSON.stringify(title));
+    window.location.href = "/product/room";
+  }
 
 
   $scope.copyContent = function (elementId) {

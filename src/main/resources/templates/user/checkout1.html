@@ -195,9 +195,10 @@
                                         <div class="form-check" ng-repeat="addr in address" style="margin-bottom: 1%;">
                                             <input class="form-check-input"  type="radio" id="{{addr.addressID}}" ng-model="selectedAddress" value="{{addr.addressID}}" ng-checked="selectedAddressID === addr.addressID"
                                                 name="addressGroup" ng-change="onAddressSelected(addr)" ng-click="isSelectedAddress(addr)"  />
-                                            Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}
+                                            <span class="form-check-label" style="margin: 17px;"> Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}</span>
                                         </div>
                                     </div>
+                                    
                                     
                                     <span>Bạn muốn thay đổi địa chỉ khác ?</span>
                                     <a class="" ng-click="showSelectedInfoModal()">Thay đổi</a>

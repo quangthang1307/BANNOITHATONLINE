@@ -16,7 +16,25 @@ public interface ProductService {
 
     Optional<Product> findById(int id);
 
+    Page<Product> findByRoom(Pageable pageable, Integer category);
+
+    Page<Product> findByRoomDESC(Pageable pageable, Integer category);
+
+    Page<Product> findByRoomASC(Pageable pageable, Integer category);
+
+    Page<Product> findByRoomAZ(Pageable pageable, Integer category);
+
+    Page<Product> findByRoomZA(Pageable pageable, Integer category);
+
     Page<Product> findByCategory(Pageable pageable, List<Integer> category);
+
+    Page<Product> findByCategoryDESC(Pageable pageable, List<Integer> category);
+
+    Page<Product> findByCategoryASC(Pageable pageable, List<Integer> category);
+
+    Page<Product> findByCategoryAZ(Pageable pageable, List<Integer> category);
+
+    Page<Product> findByCategoryZA(Pageable pageable, List<Integer> category);
 
     List<Product> findTop5ByCategory(Integer category);
     

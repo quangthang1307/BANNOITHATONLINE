@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
         return productResponsitory.findProductByCategory(pageable, category);
     }
 
+
     @Override
     public Integer[] findTop5ProductBestSeller() {
         return productResponsitory.findProductBestSeller();
@@ -111,6 +112,51 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findTop5ByCategory(Integer category) {
        return productResponsitory.findTop5ProductByCategory(category);
+    }
+
+    @Override
+    public Page<Product> findByRoom(Pageable pageable, Integer category) {
+       return productResponsitory.findProductByRoom(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByCategoryDESC(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductByCategoryDESC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByCategoryASC(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductByCategoryASC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByCategoryAZ(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductByCategoryAZ(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByCategoryZA(Pageable pageable, List<Integer> category) {
+        return productResponsitory.findProductByCategoryZA(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByRoomDESC(Pageable pageable, Integer category) {
+        return productResponsitory.findProductByRoomDESC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByRoomASC(Pageable pageable, Integer category) {
+        return productResponsitory.findProductByRoomASC(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByRoomAZ(Pageable pageable, Integer category) {
+        return productResponsitory.findProductByRoomAZ(pageable, category);
+    }
+
+    @Override
+    public Page<Product> findByRoomZA(Pageable pageable, Integer category) {
+        return productResponsitory.findProductByRoomZA(pageable, category);
     }
 
 

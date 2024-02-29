@@ -53,6 +53,11 @@ public class HomeController {
 		return "user/testproductdetail";
 	}
 
+	@RequestMapping("/product/room")
+	public String showProductByRoom() {
+		return "user/productbyroom";
+	}
+
 	// @RequestMapping("/productdetail")
 	// public String showProductDetail() {
 	// return "user/productDetail";

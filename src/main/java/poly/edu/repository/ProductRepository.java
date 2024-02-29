@@ -19,11 +19,38 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     // CategoryID = ?", nativeQuery = true)
     // Page<Product> findProductByCategory(Pageable pageable, Integer categoryID);
 
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND categoryid IN (SELECT ID FROM Categoryproduct WHERE IDcapcha = ?)", nativeQuery = true)
+    Page<Product> findProductByRoom(Pageable pageable, @Param("IDcapcha") Integer categoryID);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND categoryid IN (SELECT ID FROM Categoryproduct WHERE IDcapcha = ?) ORDER BY PriceXuat DESC", nativeQuery = true)
+    Page<Product> findProductByRoomDESC(Pageable pageable, @Param("IDcapcha") Integer categoryID);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND categoryid IN (SELECT ID FROM Categoryproduct WHERE IDcapcha = ?) ORDER BY PriceXuat ASC", nativeQuery = true)
+    Page<Product> findProductByRoomASC(Pageable pageable, @Param("IDcapcha") Integer categoryID);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND categoryid IN (SELECT ID FROM Categoryproduct WHERE IDcapcha = ?) ORDER BY Productname ASC", nativeQuery = true)
+    Page<Product> findProductByRoomAZ(Pageable pageable, @Param("IDcapcha") Integer categoryID);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND categoryid IN (SELECT ID FROM Categoryproduct WHERE IDcapcha = ?) ORDER BY Productname DESC", nativeQuery = true)
+    Page<Product> findProductByRoomZA(Pageable pageable, @Param("IDcapcha") Integer categoryID);
+
     @Query(value = "SELECT TOP 5 * FROM Product WHERE Productactivate = 1 AND CategoryID = ?", nativeQuery = true)
     List<Product> findTop5ProductByCategory(@Param("CategoryID") Integer categoryID);
 
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs", nativeQuery = true)
     Page<Product> findProductByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+    
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs ORDER BY PriceXuat DESC", nativeQuery = true)
+    Page<Product> findProductByCategoryDESC(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs ORDER BY PriceXuat ASC", nativeQuery = true)
+    Page<Product> findProductByCategoryASC(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs ORDER BY Productname ASC", nativeQuery = true)
+    Page<Product> findProductByCategoryAZ(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs ORDER BY Productname DESC", nativeQuery = true)
+    Page<Product> findProductByCategoryZA(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
 
     @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs", nativeQuery = true)
     Page<Product> findProductSaleByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
