@@ -19,6 +19,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "AccountID")
     private Integer accountId;
 
@@ -37,8 +38,6 @@ public class Account {
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<AccountRole> accountroles;
-
-   
 
     public Account() {
     }
@@ -100,5 +99,5 @@ public class Account {
     public void setAccountroles(Set<AccountRole> accountroles) {
         this.accountroles = accountroles;
     }
-    
+
 }
