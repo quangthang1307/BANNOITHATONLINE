@@ -69,27 +69,36 @@
                           >
                         </li>
                         <li class="last">
-                          <a href="/account/logout">Đăng xuất</a>
+                          <a href="/logout">Đăng xuất</a>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-9 col-md-12 col-12">
                 <div class="row wrap_content_account">
                   <div class="col-12 wrap_inforAccount" id="customer_sidebar">
                     <p class="title-detail">Thông tin tài khoản</p>
-
-                    <h2 class="name_account">Tạ Bảo</h2>
-
-                    <p class="email">baoyeu1246@gmail.com</p>
+                    <p>
+                      <strong>Tên đăng nhập:</strong
+                      ><span> {{ customer.account.username }}</span>
+                    </p>
+                    <p>
+                      <strong>Họ và tên:</strong
+                      ><span> {{ customer.name }}</span>
+                    </p>
+                    <!-- <h2 class="name_account">Tạ Bảo</h2> -->
+                    <p>
+                      <strong>Email:</strong
+                      ><span> {{ customer.account.email }}</span>
+                    </p>
+                    <p>
+                      <strong>Số điện thoại:</strong
+                      ><span> {{ customer.phone }}</span>
+                    </p>
                     <div class="address">
-                      <p></p>
-                      <p></p>
-                      <p>Vietnam</p>
-                      <p></p>
-
                       <a id="view_address" href="/user/profile/pageaddress"
                         >Xem địa chỉ</a
                       >
