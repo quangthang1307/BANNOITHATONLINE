@@ -355,6 +355,5 @@ public class RestProductController {
         } else {
             return ResponseEntity.noContent().build();
         }
-
     }
 }

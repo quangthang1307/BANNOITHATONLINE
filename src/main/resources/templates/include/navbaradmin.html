@@ -244,6 +244,23 @@
               class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/statistics}" aria-expanded="false"><i
+              class="bi bi-clipboard-data-fill"></i><span class="hide-menu">Thống kê</span></a>
+        </li>
+<!-- tài khoản -->
+        <li class="sidebar-item">
+          <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+              class="mdi mdi-receipt"></i><span class="hide-menu">Công Cụ</span></a>
+          <ul aria-expanded="false" class="collapse first-level">
+            <li class="sidebar-item">
+              <a th:href="@{/admin/taikhoan}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span
+                  class="hide-menu"> Tài Khoản </span></a>
+            </li>
+           
+          </ul>
+        </li>
+<!-- quản lý -->
+        <li class="sidebar-item">
           <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
               class="mdi mdi-receipt"></i><span class="hide-menu">Quản Lý </span></a>
           <ul aria-expanded="false" class="collapse first-level">
@@ -255,11 +272,7 @@
           </ul>
         </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/statistics}" aria-expanded="false"><i
-              class="bi bi-clipboard-data-fill"></i><span class="hide-menu">Thống kê</span></a>
-        </li>
-
+       
      
       </ul>
     </nav>
