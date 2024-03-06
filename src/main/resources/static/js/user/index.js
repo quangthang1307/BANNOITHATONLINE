@@ -10,8 +10,12 @@ const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
 const hostProductSale = "http://localhost:8080/rest/product/sale";
 const hostDiscount = "http://localhost:8080/rest/discounttop4";
 const hostProductByRoom = "http://localhost:8080/rest/product/category/room";
+const hostFlashSaleHourStart = "/rest/flashsaledelay/start";
+const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
+const hostFlashSale = "/rest/flashsale";
+const hostFlashSaleUpdate = "/rest/flashsale/update"
 
-app.controller("IndexController", function ($scope, $http, $window) {
+app.controller("IndexController", function ($scope, $http, $window, $timeout) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
   $scope.productSale = [];
@@ -111,11 +115,11 @@ app.controller("IndexController", function ($scope, $http, $window) {
 
   $scope.clickByRoom = function (id) {
     var title = "";
-    if(id == 1) title = "Phòng khách";
-    if(id == 2) title = "Phòng Ngủ";
-    if(id == 3) title = "Phòng Ăn";
-    if(id == 4) title = "Phòng làm việc";
-   
+    if (id == 1) title = "Phòng khách";
+    if (id == 2) title = "Phòng Ngủ";
+    if (id == 3) title = "Phòng Ăn";
+    if (id == 4) title = "Phòng làm việc";
+
     localStorage.setItem('idproductByroom', JSON.stringify(id));
     localStorage.setItem('titleCategory', JSON.stringify(title));
     window.location.href = "/product/room";
@@ -143,6 +147,186 @@ app.controller("IndexController", function ($scope, $http, $window) {
 
   };
 
+
+  //FLASH SALE
+  $scope.FlashSaleHours = [];
+  $scope.FlashSaleProducts = [];
+  // $scope.getDataFlashSaleHour = function () {
+  //   $http.get(hostFlashSaleHour)
+  //     .then(resp => {
+  //       $scope.FlashSaleHours = resp.data;
+  //       console.log($scope.FlashSaleHours);
+  //       $scope.scheduleFlashSaleAtFixedHours();
+
+  //     })
+  //     .catch(error => {
+  //       console.log("Error", error);
+  //     });
+  // }
+
+  // Hàm lập lịch flash sale
+  // $scope.scheduleFlashSaleAtFixedHours = function () {
+  //   angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
+  //     $scope.scheduleFlashSaleTask(FlashSaleHour);
+  //     // console.log(FlashSaleHour);
+  //   });
+  // };
+
+  // Hàm lập lịch task cho flash sale
+  $scope.scheduleFlashSaleTask = function () {
+    angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
+      var delay = FlashSaleHour.delay;
+      console.log(delay);
+      $timeout(function () {
+        console.log("Flash sale is starting now at ");
+        $scope.getFlashSale();
+        // Thực hiện công việc khi bắt đầu flash sale
+        // $scope.getFlashSale();
+        // Lập lịch cho công việc khi kết thúc flash sale
+        $scope.scheduleSaleOffTask();
+      }, delay);
+
+    });
+
+  };
+
+  // Hàm lập lịch task cho việc kết thúc flash sale
+  $scope.flashsaleoff = null;
+  $scope.scheduleSaleOffTask = function () {
+
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        console.log(resp.data);
+        var delay = resp.data.delay
+        $scope.flashsaleoff = resp.data.flashsalehour
+        $timeout(function () {
+          console.log("Sale off at " + new Date());
+          $scope.FlashSaleProducts = [];
+          $scope.UpdateFlashSale($scope.flashsaleoff);
+          // Thực hiện công việc khi kết thúc flash sale
+
+        }, delay);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+
+
+
+
+
+  };
+
+  // Hàm tính thời gian chờ đợi cho việc bắt đầu flash sale
+  // $scope.getStartTimeToNextOccurrence = function (flashSaleHour) {
+  //   var now = new Date();
+  //   var hour = now.getHours();
+  //   var minutes = now.getMinutes()
+  //   var seconds = now.getSeconds();
+  //   var nowtime = hour + ':' + minutes + ':' + seconds;
+
+  //   var currentDateTime = now;
+
+  //   // Tạo LocalDateTime từ ngày hiện tại và thời gian mốc
+  //   var hourstars = flashSaleHour.hourStart;
+  //   var targetDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hourstars.split(':')[0], hourstars.split(':')[1], hourstars.split(':')[2]);
+
+  //   var datestarsString = flashSaleHour.dateStart //2024-03-04;
+  //   var datestars = new Date(datestarsString.split('-')[0], datestarsString.split('-')[1] - 1, datestarsString.split('-')[2], now.getHours(), now.getMinutes(), now.getSeconds());
+
+  //   console.log(now.getFullYear() + "và" + datestars.getFullYear());
+  //   console.log(now.getMonth() + "và" + datestars.getMonth());
+  //   console.log(now.getDate() + "và" + datestars.getDate());
+
+  //   // So sánh ngày hiện tại với ngày bắt đầu
+  //   if (now < datestars) {
+  //     console.log("Ngày hiện tại là trước ngày bắt đầu");
+  //     targetDateTime = new Date(datestars.getFullYear(), datestars.getMonth(), datestars.getDate(), targetDateTime.getHours(), targetDateTime.getMinutes(), targetDateTime.getSeconds());
+  //   }
+  //   if (now> datestars) {
+  //     console.log("Ngày hiện tại là sau ngày bắt đầu");
+  //   }
+  //   if (now.getFullYear() === datestars.getFullYear() &&
+  //   now.getMonth() === datestars.getMonth() &&
+  //   now.getDate() === datestars.getDate()) {
+  //     console.log("Ngày hiện tại là ngày bắt đầu" + nowtime + "và" + hourstars);
+
+  //     // Nếu thời gian hiện tại đã qua thời gian bắt đầu và thời gian kết thúc
+  //     // So sánh giờ bắt đầu và giờ hiện tại dưới dạng chuỗi
+  //     if (nowtime > hourstars && nowtime > flashSaleHour.hourEnd) {
+  //       console.log("Đã qua giờ bắt đầu và kết thúc");
+  //     }
+  //     if (nowtime > hourstars && nowtime < flashSaleHour.hourEnd) {
+  //       console.log("đã qua giờ bắt đầu nhưng chưa qua giờ kết thúc");
+  //       return 0;
+  //     }
+  //   }
+
+  //   console.log("wait for day" + targetDateTime);
+  //   // Tính toán khoảng thời gian giữa thời gian hiện tại và mốc thời gian
+  //   // Tính khoảng thời gian bằng cách lấy hiệu của hai thời điểm
+  //   var timeDifference = targetDateTime - now;
+
+
+
+
+
+  //   return timeDifference;
+  //   // Định nghĩa logic tính toán thời gian chờ đợi
+  // };
+
+
+  $scope.getFlashSaleDelayStart = function () {
+    $http.get(hostFlashSaleHourStart)
+      .then(resp => {
+        $scope.FlashSaleHours = resp.data;
+        // console.log($scope.FlashSaleHours);
+        $scope.scheduleFlashSaleTask();
+
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSaleDelayEnd = function () {
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        console.log(resp.data);
+        return resp.data;
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSale = function () {
+    $http.get(hostFlashSale)
+      .then(resp => {
+        console.log(resp.data);
+        $scope.FlashSaleProducts = resp.data;
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.UpdateFlashSale = function (dataflashsale) {
+    $http.put(hostFlashSaleUpdate, dataflashsale)
+      .then(function (response) {
+        // Xử lý kết quả thành công
+        console.log('Dữ liệu đã được gửi thành công:', response.data);
+      })
+      .catch(function (error) {
+        // Xử lý lỗi
+        console.error('Đã xảy ra lỗi:', error);
+      });
+  }
+
+
+  //
+
+  $scope.getFlashSaleDelayStart();
 
   $scope.addToCart = function (product) {
     if ($scope.customer == null) {

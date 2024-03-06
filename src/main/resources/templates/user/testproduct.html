@@ -864,7 +864,7 @@
                                                     >
                                                         <a ng-class="{'current' : currentPage === page}" ng-click="goToPage(page)">{{ page }}</a>
                                                     </li>
-                                                    <li ng-if="totalPages !== currentPage">
+                                                    <li ng-if="totalPages !== currentPage && totalItems !== 0">
                                                         <a  ng-click="next()">
                                                             >>
                                                         </a>
