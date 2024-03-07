@@ -71,14 +71,24 @@
         <figure class="highcharts-figure mt-2">
           <div id="container"></div>
           <p class="highcharts-description">
-           
+
           </p>
         </figure>
+        
+        <figure class="highcharts-figure">
+          <div id="container1"></div>
+          <p class="highcharts-description">
+          </p>
+        </figure>
+
         <script th:inline="javascript">
           var hienThiNam = [[${ selectedYear }]]
           var sumpayment = [[${ message }]];
           //  var sumpaymentWithVNPay = [[${ message2 }]];
+          var chartData = [[${ chartData }]];
         </script>
+
+        
 
         <!-- End Charts -->
         <!-- ============================================================== -->
