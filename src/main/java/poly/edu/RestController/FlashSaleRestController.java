@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,9 +79,22 @@ public class FlashSaleRestController {
     }
 
     @GetMapping("/rest/flashsale")
-    public ResponseEntity<List<Flashsale>> getFlashSale() {
+    public ResponseEntity<Page<Flashsale>> getFlashSale( 
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "10") int size) {
+    PageRequest pageRequest = PageRequest.of(page, size);
+    Page<Flashsale> flashPage = flashSaleService.getFlashsalesNow(pageRequest);
+        return ResponseEntity.ok(flashPage); //);
+    }
 
-        return ResponseEntity.ok(flashSaleService.getFlashsalesNow()); //);
+    @GetMapping("/rest/flashsale/category")
+    public ResponseEntity<Page<Flashsale>> getFlashSaleByCategory( 
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "10") int size,
+                    @RequestParam(name = "categoryId") List<Integer> categoryId) {
+    PageRequest pageRequest = PageRequest.of(page, size);
+    Page<Flashsale> flashPage = flashSaleService.getFlashsalesNowByCategory(pageRequest, categoryId);
+        return ResponseEntity.ok(flashPage); //);
     }
 
     @PutMapping("/rest/flashsale/update")

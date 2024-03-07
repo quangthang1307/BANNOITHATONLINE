@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import poly.edu.Service.FlashSaleService;
@@ -25,8 +27,14 @@ public class FlashSaleServiceImpl implements FlashSaleService{
 
 
     @Override
-    public List<Flashsale> getFlashsalesNow() {
-        return flashSaleRepository.getFlashSalesNow();
+    public Page<Flashsale> getFlashsalesNow(Pageable pageable) {
+        return flashSaleRepository.getFlashSalesNow(pageable);
+    }
+
+
+    @Override
+    public Page<Flashsale> getFlashsalesNowByCategory(Pageable pageable, List<Integer> categoryIDs) {
+        return flashSaleRepository.getFlashSalesNowByCategory(pageable, categoryIDs);
     }
     
 }

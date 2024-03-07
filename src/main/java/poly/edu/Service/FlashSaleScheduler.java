@@ -31,62 +31,60 @@ public class FlashSaleScheduler {
     @Autowired
     private FlashSaleService flashSaleService;
 
-    List<Flashsale> list = new ArrayList<>();
 
 
-    public void scheduleFlashSaleAtFixedHours(List<FlashSaleHour> flashSaleHour) {
+    // public void scheduleFlashSaleAtFixedHours(List<FlashSaleHour> flashSaleHour) {
 
      
-        for (int i = 0; i < flashSaleHour.size(); i++) {
-            scheduleFlashSaleTask(flashSaleHour.get(i));
+    //     for (int i = 0; i < flashSaleHour.size(); i++) {
+    //         scheduleFlashSaleTask(flashSaleHour.get(i));
 
-        }
-    }
+    //     }
+    // }
 
-    private void scheduleFlashSaleTask(FlashSaleHour flashSaleHour) {
-        long delay = getStartTimeToNextOccurrence(flashSaleHour);
-        scheduler.schedule(() -> {
-            System.out.println("Flash sale is starting now at " + LocalDateTime.now());
-            // Thực hiện công việc khi bắt đầu flash sale
-            list = flashSaleService.getFlashsales(flashSaleHour.getHourStart());
-            System.out.println(list.get(0).getFlashSaleHourID());
-            // Lập lịch cho công việc khi kết thúc flash sale
-            scheduleSaleOffTask(flashSaleHour);
+    // private void scheduleFlashSaleTask(FlashSaleHour flashSaleHour) {
+    //     long delay = getStartTimeToNextOccurrence(flashSaleHour);
+    //     scheduler.schedule(() -> {
+    //         System.out.println("Flash sale is starting now at " + LocalDateTime.now());
+    //         // Thực hiện công việc khi bắt đầu flash sale
+
+    //         // Lập lịch cho công việc khi kết thúc flash sale
+    //         scheduleSaleOffTask(flashSaleHour);
 
             
-        }, delay, TimeUnit.MILLISECONDS);
+    //     }, delay, TimeUnit.MILLISECONDS);
 
 
         
-    }
+    // }
 
-    private void scheduleSaleOffTask(FlashSaleHour flashSaleHour) {
-        long delay = getEndTimeToNextOccurrence(flashSaleHour.getHourEnd()); // Truyền endTime vào cả hai tham số để
-                                                                             // tính toán chính xác
-        scheduler.schedule(() -> {
-            System.out.println("Sale off at " + LocalDateTime.now());
-            // Thực hiện công việc khi kết thúc flash sale
-            LocalDateTime targetDateTime = LocalDateTime.now();
+    // private void scheduleSaleOffTask(FlashSaleHour flashSaleHour) {
+    //     long delay = getEndTimeToNextOccurrence(flashSaleHour.getHourEnd()); // Truyền endTime vào cả hai tham số để
+    //                                                                          // tính toán chính xác
+    //     scheduler.schedule(() -> {
+    //         System.out.println("Sale off at " + LocalDateTime.now());
+    //         // Thực hiện công việc khi kết thúc flash sale
+    //         LocalDateTime targetDateTime = LocalDateTime.now();
 
-            if (flashSaleHour.getFrequencyFor().trim().equals("DAY")) {
-                targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusDays(flashSaleHour.getFrequency()),
-                        flashSaleHour.getHourStart());
-            }
+    //         if (flashSaleHour.getFrequencyFor().trim().equals("DAY")) {
+    //             targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusDays(flashSaleHour.getFrequency()),
+    //                     flashSaleHour.getHourStart());
+    //         }
 
-            if (flashSaleHour.getFrequencyFor().trim().equals("WEEK")) {
-                targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusWeeks(flashSaleHour.getFrequency()),
-                        flashSaleHour.getHourStart());
-            }
+    //         if (flashSaleHour.getFrequencyFor().trim().equals("WEEK")) {
+    //             targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusWeeks(flashSaleHour.getFrequency()),
+    //                     flashSaleHour.getHourStart());
+    //         }
 
-            if (flashSaleHour.getFrequencyFor().trim().equals("MONTH")) {
-                targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusMonths(flashSaleHour.getFrequency()),
-                        flashSaleHour.getHourStart());
-            }
+    //         if (flashSaleHour.getFrequencyFor().trim().equals("MONTH")) {
+    //             targetDateTime = LocalDateTime.of(flashSaleHour.getDateStart().plusMonths(flashSaleHour.getFrequency()),
+    //                     flashSaleHour.getHourStart());
+    //         }
 
-            flashSaleHour.setDateStart(targetDateTime.toLocalDate());
-            flashSaleHourService.update(flashSaleHour);
-        }, delay, TimeUnit.MILLISECONDS);
-    }
+    //         flashSaleHour.setDateStart(targetDateTime.toLocalDate());
+    //         flashSaleHourService.update(flashSaleHour);
+    //     }, delay, TimeUnit.MILLISECONDS);
+    // }
 
     public long getStartTimeToNextOccurrence(FlashSaleHour flashSaleHour) {
         LocalTime now = LocalTime.now();
