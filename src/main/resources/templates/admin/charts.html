@@ -6,7 +6,7 @@
 
   <!-- Thêm css để dùng chart -->
   <!-- <script src="../css/chart.css"></script> -->
-  <title>Charts</title>
+  <title>Thống kê</title>
 </head>
 
 <body>
@@ -68,7 +68,6 @@
           <button class="btn btn-primary" type="submit">Xem Thống kê</button>
         </form>
 
-
         <figure class="highcharts-figure mt-2">
           <div id="container"></div>
           <p class="highcharts-description">
@@ -80,32 +79,6 @@
           var sumpayment = [[${ message }]];
           //  var sumpaymentWithVNPay = [[${ message2 }]];
         </script>
-
-        <!-- <canvas id="myChart" width="400" height="400"></canvas>
-        <script th:inline="javascript">
-          var sumpayment = [[${ message }]]; // Dữ liệu từ server
-          var ctx = document.getElementById('myChart').getContext('2d');
-          var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['Tháng 1'],
-              datasets: [{
-                label: 'Tổng tiền thanh toán',
-                data: [sumpayment], // Dữ liệu từ server
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        </script> -->
 
         <!-- End Charts -->
         <!-- ============================================================== -->
