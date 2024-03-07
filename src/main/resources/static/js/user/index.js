@@ -15,7 +15,7 @@ const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
 const hostFlashSale = "/rest/flashsale";
 const hostFlashSaleUpdate = "/rest/flashsale/update"
 
-app.controller("IndexController", function ($scope, $http, $window, $timeout) {
+app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
   $scope.productSale = [];
@@ -151,26 +151,12 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout) {
   //FLASH SALE
   $scope.FlashSaleHours = [];
   $scope.FlashSaleProducts = [];
-  // $scope.getDataFlashSaleHour = function () {
-  //   $http.get(hostFlashSaleHour)
-  //     .then(resp => {
-  //       $scope.FlashSaleHours = resp.data;
-  //       console.log($scope.FlashSaleHours);
-  //       $scope.scheduleFlashSaleAtFixedHours();
+  $scope.itemsPerPage = 15;
+  $scope.currentPage = 1;
+  $scope.totalItems = 0;
+  $scope.totalPages = 0;
 
-  //     })
-  //     .catch(error => {
-  //       console.log("Error", error);
-  //     });
-  // }
-
-  // Hàm lập lịch flash sale
-  // $scope.scheduleFlashSaleAtFixedHours = function () {
-  //   angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
-  //     $scope.scheduleFlashSaleTask(FlashSaleHour);
-  //     // console.log(FlashSaleHour);
-  //   });
-  // };
+  $scope.timetodelay = 0;
 
   // Hàm lập lịch task cho flash sale
   $scope.scheduleFlashSaleTask = function () {
@@ -196,9 +182,10 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout) {
 
     $http.get(hostFlashSaleHourEnd)
       .then(resp => {
-        console.log(resp.data);
         var delay = resp.data.delay
+        $scope.timetodelay = resp.data.delay;
         $scope.flashsaleoff = resp.data.flashsalehour
+        $scope.startCountdown();
         $timeout(function () {
           console.log("Sale off at " + new Date());
           $scope.FlashSaleProducts = [];
@@ -211,76 +198,15 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout) {
         console.log("Error", error);
       });
 
-
-
-
-
   };
-
-  // Hàm tính thời gian chờ đợi cho việc bắt đầu flash sale
-  // $scope.getStartTimeToNextOccurrence = function (flashSaleHour) {
-  //   var now = new Date();
-  //   var hour = now.getHours();
-  //   var minutes = now.getMinutes()
-  //   var seconds = now.getSeconds();
-  //   var nowtime = hour + ':' + minutes + ':' + seconds;
-
-  //   var currentDateTime = now;
-
-  //   // Tạo LocalDateTime từ ngày hiện tại và thời gian mốc
-  //   var hourstars = flashSaleHour.hourStart;
-  //   var targetDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hourstars.split(':')[0], hourstars.split(':')[1], hourstars.split(':')[2]);
-
-  //   var datestarsString = flashSaleHour.dateStart //2024-03-04;
-  //   var datestars = new Date(datestarsString.split('-')[0], datestarsString.split('-')[1] - 1, datestarsString.split('-')[2], now.getHours(), now.getMinutes(), now.getSeconds());
-
-  //   console.log(now.getFullYear() + "và" + datestars.getFullYear());
-  //   console.log(now.getMonth() + "và" + datestars.getMonth());
-  //   console.log(now.getDate() + "và" + datestars.getDate());
-
-  //   // So sánh ngày hiện tại với ngày bắt đầu
-  //   if (now < datestars) {
-  //     console.log("Ngày hiện tại là trước ngày bắt đầu");
-  //     targetDateTime = new Date(datestars.getFullYear(), datestars.getMonth(), datestars.getDate(), targetDateTime.getHours(), targetDateTime.getMinutes(), targetDateTime.getSeconds());
-  //   }
-  //   if (now> datestars) {
-  //     console.log("Ngày hiện tại là sau ngày bắt đầu");
-  //   }
-  //   if (now.getFullYear() === datestars.getFullYear() &&
-  //   now.getMonth() === datestars.getMonth() &&
-  //   now.getDate() === datestars.getDate()) {
-  //     console.log("Ngày hiện tại là ngày bắt đầu" + nowtime + "và" + hourstars);
-
-  //     // Nếu thời gian hiện tại đã qua thời gian bắt đầu và thời gian kết thúc
-  //     // So sánh giờ bắt đầu và giờ hiện tại dưới dạng chuỗi
-  //     if (nowtime > hourstars && nowtime > flashSaleHour.hourEnd) {
-  //       console.log("Đã qua giờ bắt đầu và kết thúc");
-  //     }
-  //     if (nowtime > hourstars && nowtime < flashSaleHour.hourEnd) {
-  //       console.log("đã qua giờ bắt đầu nhưng chưa qua giờ kết thúc");
-  //       return 0;
-  //     }
-  //   }
-
-  //   console.log("wait for day" + targetDateTime);
-  //   // Tính toán khoảng thời gian giữa thời gian hiện tại và mốc thời gian
-  //   // Tính khoảng thời gian bằng cách lấy hiệu của hai thời điểm
-  //   var timeDifference = targetDateTime - now;
-
-
-
-
-
-  //   return timeDifference;
-  //   // Định nghĩa logic tính toán thời gian chờ đợi
-  // };
-
 
   $scope.getFlashSaleDelayStart = function () {
     $http.get(hostFlashSaleHourStart)
       .then(resp => {
         $scope.FlashSaleHours = resp.data;
-        // console.log($scope.FlashSaleHours);
+        console.log($scope.FlashSaleHours);
+
+
         $scope.scheduleFlashSaleTask();
 
       })
@@ -301,10 +227,17 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout) {
   }
 
   $scope.getFlashSale = function () {
-    $http.get(hostFlashSale)
+    var api = hostFlashSale + "?page=" + ($scope.currentPage - 1) + "&size" + $scope.itemsPerPage;
+    $http.get(api)
       .then(resp => {
         console.log(resp.data);
-        $scope.FlashSaleProducts = resp.data;
+        $scope.FlashSaleProducts = resp.data.content;
+
+        $scope.totalItems = resp.data.totalElements;
+        console.log($scope.totalItems);
+
+        $scope.totalPages = parseInt(resp.data.totalPages, 10);
+        console.log($scope.totalPages);
       })
       .catch(error => {
         console.log("Error", error);
@@ -325,6 +258,59 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout) {
 
 
   //
+
+  $scope.numberArray = function () {
+    var result = [];
+    for (var i = 1; i <= $scope.totalPages; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+
+  var timer; // Biến lưu trữ interval
+  // var timetoend = $scope.timetodelay;
+  $scope.startCountdown = function() {
+      // Dừng interval trước khi bắt đầu một lần mới
+      if (angular.isDefined(timer)) {
+          $interval.cancel(timer);
+      }
+      // Bắt đầu đếm ngược
+      timer = $interval($scope.countdown, 1000);
+  }
+
+  $scope.countdown = function () {
+    // Kiểm tra xem thời gian còn lại có hợp lệ không
+    
+    if ($scope.timetodelay <= 0) {
+      console.log("Thời gian đã kết thúc.");
+      return;
+    }
+
+
+
+    // Chuyển đổi thời gian còn lại thành giờ, phút, giây
+    $scope.days = Math.floor($scope.timetodelay / (1000 * 60 * 60 * 24));
+    $scope.hours = Math.floor($scope.timetodelay / (1000 * 60 * 60));
+    $scope.minutes = Math.floor(($scope.timetodelay % (1000 * 60 * 60)) / (1000 * 60));
+    $scope.seconds = Math.floor(($scope.timetodelay % (1000 * 60)) / 1000);
+
+    if ($scope.timetodelay <= 1000) {
+      console.log("đã dừng");
+      $interval.cancel(timer); 
+      $scope.days = $scope.hours = $scope.minutes = $scope.seconds = 0;
+    }else{
+      $scope.timetodelay -= 1000;
+       $scope.startCountdown();
+    }
+
+   
+
+  }
+
+
+
+
 
   $scope.getFlashSaleDelayStart();
 
