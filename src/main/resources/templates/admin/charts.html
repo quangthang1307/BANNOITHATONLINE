@@ -68,18 +68,27 @@
           <button class="btn btn-primary" type="submit">Xem Thống kê</button>
         </form>
 
-        <figure class="highcharts-figure mt-2">
-          <div id="container"></div>
-          <p class="highcharts-description">
+        <div class="row mt-2">
+          
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="container"></div>
+              <p class="highcharts-description">
 
-          </p>
-        </figure>
-        
-        <figure class="highcharts-figure">
-          <div id="container1"></div>
-          <p class="highcharts-description">
-          </p>
-        </figure>
+              </p>
+            </figure>
+          </div>
+
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="container1"></div>
+              <p class="highcharts-description">
+              </p>
+            </figure>
+          </div>
+
+        </div>
+
 
         <script th:inline="javascript">
           var hienThiNam = [[${ selectedYear }]]
@@ -88,7 +97,7 @@
           var chartData = [[${ chartData }]];
         </script>
 
-        
+
 
         <!-- End Charts -->
         <!-- ============================================================== -->
