@@ -14,6 +14,8 @@ public interface ProductService {
     // List<Product> findAll();
     Page<Product> findAll(Pageable pageable);
 
+    List<Product> findAllNoActive();
+
     Optional<Product> findById(int id);
 
     Page<Product> findByRoom(Pageable pageable, Integer category);
