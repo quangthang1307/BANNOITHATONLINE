@@ -31,7 +31,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         final String jwt = jwtUtil.generateToken(userDetails);
 
         Cookie cookie = new Cookie("jwtToken", jwt);
-        cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+        cookie.setMaxAge(50); // 7 days
         response.addCookie(cookie);
 
         response.addHeader("Authorization", "Bearer " + jwt);
