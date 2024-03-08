@@ -71,4 +71,9 @@ public class HomeController {
 	public String showChat() {
 		return "user/chat";
 	}
+
+	@GetMapping("/stream")
+	public String stream(){
+		return "stream.html";
+	}
 }
