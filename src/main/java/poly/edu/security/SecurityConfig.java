@@ -29,6 +29,9 @@ public class SecurityConfig {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    @Autowired
+    private JwtExpirationFilter jwtExpirationFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -55,7 +58,8 @@ public class SecurityConfig {
                     .and()
                     .successHandler(new CustomAuthenticationSuccessHandler()))
             .logout((logout) -> logout.permitAll())
-            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtExpirationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling().accessDeniedPage("/denied-page");
         return http.build();
