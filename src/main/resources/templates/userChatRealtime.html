@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <div id="chat">
+        <input type="text" id="messageInput" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <ul id="messageArea"></ul> <!-- Đảm bảo rằng bạn có một phần tử với id 'messageArea' -->
+    <script>
+        var socket = new SockJS('/chatRealtime');
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                var message = messageOutput.body;
+                var messageArea = document.getElementById('messageArea');
+                if (messageArea) { // Kiểm tra xem messageArea có tồn tại không
+                    var messageElement = document.createElement('li');
+                    messageElement.textContent = message;
+                    messageArea.appendChild(messageElement);
+                }
+            });
+        });
+        function sendMessage() {
+            var messageInput = document.getElementById('messageInput');
+            if (messageInput && stompClient && stompClient.connected) {
+                var message = messageInput.value;
+                stompClient.send("/app/user/message", {}, message);
+            }
+        }
+    </script>
+</body>
+</html>
