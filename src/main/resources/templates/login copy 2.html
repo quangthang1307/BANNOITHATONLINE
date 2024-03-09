@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+
+<head>
+	<title>Title</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+	<link rel="stylesheet" href="taiNguyenCuaThang/css/login.css">
+
+	<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
+	<script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+
+	<!--+++++++++++++ LIBARY THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<meta http-equiv="origin-trial"
+		content="Az520Inasey3TAyqLyojQa8MnmCALSEU29yQFW8dePZ7xQTvSt73pHazLFTK5f7SyLUJSo2uKLesEtEa9aUYcgMAAACPeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta name="revisit-after" content="1 day">
+	<meta name="HandheldFriendly" content="true">
+
+	<meta name="google-site-verification" content="mHatT3Z1rAVgHFQvMAiWWja2irFLxApxy0odN9PPts8">
+	<title>
+		Baya - Siêu thị nội thất &amp; trang trí Baya
+	</title>
+	<link rel="canonical" href="https://baya.vn/">
+	<link rel="alternate" href="https://baya.vn/" hreflang="vi-vn">
+	<meta name="keywords" content="Baya">
+
+	<meta name="robots" content="index,follow,noodp">
+
+	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<link rel="dns-prefetch" href="https://baya.vn">
+	<link rel="dns-prefetch" href="//hstatic.net">
+	<link rel="dns-prefetch" href="//theme.hstatic.net/">
+	<link rel="dns-prefetch" href="//product.hstatic.net/">
+	<link rel="dns-prefetch" href="//file.hstatic.net/">
+	<link rel="dns-prefetch" href="//www.google-analytics.com/">
+	<link rel="dns-prefetch" href="//www.googletagmanager.com/">
+	<link rel="dns-prefetch" href="//www.google.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//www.facebook.com">
+	<link rel="dns-prefetch" href="//connect.facebook.net">
+	<link rel="dns-prefetch" href="//static.ak.facebook.com">
+	<link rel="dns-prefetch" href="//static.ak.fbcdn.net">
+	<link rel="dns-prefetch" href="//s-static.ak.facebook.com">
+
+
+	<link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+		crossorigin="">
+	<link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+		as="style">
+	<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+		type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+		type="font/woff2" crossorigin="anonymous">
+
+	<link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+		as="style">
+
+	<meta property="og:type" content="website">
+	<meta property="og:title" name="description" content="">
+	<meta property="og:image" content="http://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=788">
+	<meta property="og:image:secure_url"
+		content="https://theme.hstatic.net/200000796751/1001150659/14/share_fb_home.png?v=788">
+	<meta property="og:description" name="description" content="">
+	<meta property="og:url" content="https://baya.vn/">
+	<meta property="og:site_name" content="Baya">
+
+	<!-- SEO META DESCRIPTION -->
+	<meta name="description" content="Baya - Siêu thị nội thất &amp; trang trí Baya">
+	<!-- END SEO META DESCRIPTION -->
+	<style>
+		.grecaptcha-badge {
+			visibility: hidden;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div data-th-insert="~{include/navbar.html}"></div>
+	<div class="container active-form" id="container">
+
+		<div class="form-container sign-up-container" ng-controller="registerController">
+			<form ng-submit="registerUser()">
+				<h1>Tạo tài khoản</h1>
+				<div class="social-container">
+					<a th:href="@{/oauth2/authorization/facebook}" class="social"><i class="bi bi-facebook"></i></a>
+
+					<a th:href="@{/oauth2/authorization/google}" class="social"><i class="bi bi-google"></i></a>
+				</div>
+				<span>hoặc sử dụng email của bạn để đăng ký
+				</span>
+				<div class="text-danger" id="notification" style="text-align: center;"></div>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="username"
+							>
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="text" class="form-control" placeholder="Email" ng-model="email">
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="password" class="form-control" placeholder="Mật khẩu" ng-model="password">
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="text" class="form-control" placeholder="Tên người dùng" ng-model="name">
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="text" class="form-control" placeholder="Nhập số điện thoại" ng-model="phone"
+							id="myInput" onkeypress="return onlyNumberKey(event)">
+					</div>
+				</div>
+
+				<button type="submit">Đăng ký</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form th:action="@{/login}" method="post" onsubmit="return validateForm()">
+				<h1>Đăng nhập</h1>
+				<div class="social-container">
+					<a th:href="@{/oauth2/authorization/facebook}" class="social"><i class="bi bi-facebook"></i></a>
+
+					<a th:href="@{/oauth2/authorization/google}" class="social"><i class="bi bi-google"></i></a>
+				</div>
+				<span>Hoặc đăng nhập với tài khoản</span>
+
+				<div class="row justify-content-center">
+					<div class="col-7 mb-2">
+						<input type="text" placeholder="Tên đăng nhập" name="username" class="form-control">
+						<span id="username-error" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-7">
+						<input type="password" placeholder="Mật khẩu" name="password" class="form-control">
+						<span id="password-error" class="text-danger"></span>
+					</div>
+				</div>
+
+				<a th:href="@{/user/forgotpassword}">Quên mật khẩu?</a>
+
+				<div class="row">
+					<div class="col mt-3">
+						<label>
+							<div class="row"><input type="checkbox"><span>Ghi nhớ đăng nhập</span></div>
+						</label>
+					</div>
+				</div>
+
+				<div th:if="${param.error}" class="alert alert-danger" role="alert">
+					Tên đăng nhập hoặc mật khẩu sai.
+				</div>
+
+				<button type="submit">Đăng nhập</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1 style="color: white;">Chào mừng trở lại!</h1>
+					<p>Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
+					<button class="ghost" id="signIn">Đăng nhập</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1 style="color: white;">Chào bạn!</h1>
+					<p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
+					<button class="ghost" id="signUp">Đăng ký</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/user/account.js"></script>
+	<script src="taiNguyenCuaThang/js/login.js"></script>
+	<script src="taiNguyenCuaThang/js/navbargiohang.js"></script>
+	<!-- SCRIPT THEME -->
+	<script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		function validateForm() {
+			var username = document.getElementsByName('username')[0].value;
+			var password = document.getElementsByName('password')[0].value;
+			var usernameError = document.getElementById('username-error');
+			var passwordError = document.getElementById('password-error');
+
+			// Reset errors
+			usernameError.innerHTML = '';
+			passwordError.innerHTML = '';
+
+			// Validate username
+			if (username.trim() === '') {
+				usernameError.innerHTML = 'Vui lòng nhập tên đăng nhập.';
+				return false;
+			}
+
+			// Validate password
+			if (password.trim() === '') {
+				passwordError.innerHTML = 'Vui lòng nhập mật khẩu.';
+				return false;
+			}
+
+			// Continue with form submission if no errors
+			return true;
+		}
+	</script>
+
+	<script>
+		function onlyNumberKey(evt) {
+			var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+			if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+				return false;
+			return true;
+		} 
+	</script>
+
+	<!--+++++++++++++ LIBARY THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
