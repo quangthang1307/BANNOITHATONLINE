@@ -45,5 +45,10 @@ public class BrandServiceImpl implements BrandService {
         // TODO Auto-generated method stub
         return brandRepository.findById(brandsId).get();
     }
+    
+    @Override
+	public boolean existsByNameIgnoreCase(String brandname) {
+	    return brandRepository.existsByNameIgnoreCase(brandname) > 0;
+	}
 
 }

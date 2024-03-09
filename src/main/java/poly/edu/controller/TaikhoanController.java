@@ -36,22 +36,44 @@ public class TaikhoanController {
     }
 
     @PostMapping("/saveAccount")
-    public String saveAccount(@Validated @ModelAttribute("taikhoan") Account account,
+    public String saveAccount(@Validated @RequestParam("accountId") Account account,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
+    	try {
+    	    if (bindingResult.hasErrors()) {
+                model.addAttribute("allAccount", accountService.findAll());
 
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("allAccount", accountService.findAll());
+                return "/admin/taikhoan";
+            }
 
-            return "/admin/taikhoan";
+            accountService.create(account);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
+
+            return "redirect:/admin/taikhoan"; // Chuyển hướng đến trang danh sách accounts
+           
+        } catch (Exception e) {
+            // Đặt thông báo lỗi vào redirectAttributes nếu có lỗi
+            redirectAttributes.addFlashAttribute("saveerrorMessage", "Xóa thất bại: " + e.getMessage());
         }
-
-        accountService.create(account);
-
-        redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
-
-        return "redirect:/admin/taikhoan"; // Chuyển hướng đến trang danh sách accounts
+    	return "redirect:/admin/taikhoan"; 
     }
+    
+    @GetMapping("/deleteTaiKhoan/{accountId}")
+    public String deleteTaiKhoan(@PathVariable("accountId") Integer accountId, RedirectAttributes redirectAttributes) {
+        try {
+            Account account = accountService.findById(accountId);
+            accountService.delete(accountId);
+            // Đặt thông báo thành công vào redirectAttributes
+            redirectAttributes.addFlashAttribute("deletesuccessMessage", "Xóa thành công!");
+        } catch (Exception e) {
+            // Đặt thông báo lỗi vào redirectAttributes nếu có lỗi
+            redirectAttributes.addFlashAttribute("deleteerrorMessage", "Xóa thất bại: " + e.getMessage());
+        }
+        // Chuyển hướng người dùng đến trang hiển thị danh sách tài khoản
+        return "redirect:/admin/taikhoan";
+    }
+
 
     // edit product
     @GetMapping("editAccount/{accountId}")
