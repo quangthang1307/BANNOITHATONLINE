@@ -59,4 +59,11 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findById(accountId).get();
     }
 
+	@Override
+	public void delete(Integer accountId) {
+		// TODO Auto-generated method stub
+		accountRepository.deleteById(accountId);
+		
+	}
+	  
 }

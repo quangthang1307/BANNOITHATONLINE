@@ -15,7 +15,8 @@ public interface AccountService {
     public List<Account> findAll();
 
     public Account create(Account account);
-
+    
+    public void delete(Integer accountId);
     /**
      * Cập nhật thông tin của một nhà sản xuất.
      */
