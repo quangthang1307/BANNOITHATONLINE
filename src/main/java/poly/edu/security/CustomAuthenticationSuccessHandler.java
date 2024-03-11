@@ -15,6 +15,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import poly.edu.Service.CustomerService;
+import poly.edu.entity.Customer;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -22,12 +24,18 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private CustomerService customerService;
+
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
+
         final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        final CustomAccountDetails customAccountDetails = (CustomAccountDetails) authentication.getPrincipal();
+        Customer customer = customAccountDetails.getCustomer();
         final String jwt = jwtUtil.generateToken(userDetails);
 
         Cookie cookie = new Cookie("jwtToken", jwt);
@@ -44,7 +52,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 .anyMatch(r -> r.getAuthority().equals("USER"));
 
         HttpSession session = request.getSession();
-        session.setAttribute("username", authentication.getName());
+        session.setAttribute("username", customAccountDetails.getUsername());
+        session.setAttribute("customerName", customer.getName());
 
         if (isAdmin) {
             redirectStrategy.sendRedirect(request, response, "/admin");
