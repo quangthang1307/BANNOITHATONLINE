@@ -106,14 +106,14 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
   };
 
   $scope.huyDon = function (order) {
-  console.log(order);
-  var product = [];
+    console.log(order);
+    var product = [];
 
-order.products.forEach((resp) => {
-  product.push(resp.name + ' - ' + resp.price + ' VND')
-  console.log(product);
-})
-var productString = product.join(', '); 
+    order.products.forEach((resp) => {
+      product.push(resp.name + " - " + resp.price + " VND");
+      console.log(product);
+    });
+    var productString = product.join(", ");
 
     if (order.statusPayment.status == "0") {
       Swal.fire({
@@ -125,36 +125,42 @@ var productString = product.join(', ');
         cancelButtonText: "Đóng",
       }).then((result) => {
         if (result.isConfirmed) {
-          var urlDelete = `${host}/rest/deleteOrder`;
           $http.get("/rest/sendEmailHuyDon", {
             params: {
               to: $scope.customer.account.email,
               subject: "Hủy đơn đặt hàng",
-              content: "<html>"
-              + "<head>"
-              + "<style>"
-              + "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
-              + ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg');}"
-              + "h2 { text-align: center; }"
-              + "</style>"
-              + "</head>"
-              + "<body>"
-              + "<div class='container'>"
-              + "<h2>Thông Báo Hủy Đơn Hàng</h2>"
-              + "<p>"
-              + "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" + order.orderID + "</strong><br>"
-              + "Gồm các sản phẩm: " + productString + "<br>"
-              + "Tổng giá trị đơn hàng là: <strong>" + order.sumpayment + " VND</strong>"
-              + "<br><strong>Bạn chỉ nhận lại được 80% tổng tiền của đơn hàng, hãy liên hệ với cửa hàng để được hỗ trợ</strong><br>"
-              + "Liên hệ: xxx"
-              + "</p>"
-              + "</div>"
-              + "</body>"
-              + "</html>",
+              content:
+                "<html>" +
+                "<head>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
+                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg');}" +
+                "h2 { text-align: center; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div class='container'>" +
+                "<h2>Thông Báo Hủy Đơn Hàng</h2>" +
+                "<p>" +
+                "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" +
+                order.orderID +
+                "</strong><br>" +
+                "Gồm các sản phẩm: " +
+                productString +
+                "<br>" +
+                "Tổng giá trị đơn hàng là: <strong>" +
+                order.sumpayment +
+                " VND</strong>" +
+                "<br><strong>Bạn chỉ nhận lại được 80% tổng tiền của đơn hàng, hãy liên hệ với cửa hàng để được hỗ trợ</strong><br>" +
+                "Liên hệ: xxx" +
+                "</p>" +
+                "</div>" +
+                "</body>" +
+                "</html>",
             },
           });
 
-          $http.delete(urlDelete, {
+          $http.put("/rest/order/huydon", null, {
             params: {
               orderId: order.orderID,
             },
@@ -163,7 +169,7 @@ var productString = product.join(', ');
             (o) => o.orderID === order.orderID
           );
           if (index !== -1) {
-            $scope.orders.splice(index, 1);
+            $scope.orders[index].orderstatus.orderstatusname = "Đã hủy";
           }
           Swal.fire({
             title: "Hủy thành công !",
@@ -183,34 +189,40 @@ var productString = product.join(', ');
         cancelButtonText: "Đóng",
       }).then((result) => {
         if (result.isConfirmed) {
-          var urlDelete = `${host}/rest/deleteOrder`;
           $http.get("/rest/sendEmailHuyDon", {
             params: {
               to: $scope.customer.account.email,
               subject: "Hủy đơn đặt hàng",
-              content: "<html>"
-              + "<head>"
-              + "<style>"
-              + "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
-              + ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }"
-              + "h2 { text-align: center; }"
-              + "</style>"
-              + "</head>"
-              + "<body>"
-              + "<div class='container'>"
-              + "<h2>Thông Báo Hủy Đơn Hàng</h2>"
-              + "<p>"
-              + "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" + order.orderID + "</strong><br>"
-              + "Gồm các sản phẩm: " + productString + "<br>"
-              + "Tổng giá trị đơn hàng là: <strong>" + order.sumpayment + " VND</strong>"
-              + "</p>"
-              + "</div>"
-              + "</body>"
-              + "</html>",
+              content:
+                "<html>" +
+                "<head>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
+                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
+                "h2 { text-align: center; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div class='container'>" +
+                "<h2>Thông Báo Hủy Đơn Hàng</h2>" +
+                "<p>" +
+                "Bạn vừa hủy đơn đặt hàng có mã đơn hàng: <strong>" +
+                order.orderID +
+                "</strong><br>" +
+                "Gồm các sản phẩm: " +
+                productString +
+                "<br>" +
+                "Tổng giá trị đơn hàng là: <strong>" +
+                order.sumpayment +
+                " VND</strong>" +
+                "</p>" +
+                "</div>" +
+                "</body>" +
+                "</html>",
             },
           });
 
-          $http.delete(urlDelete, {
+          $http.put("/rest/order/huydon", null, {
             params: {
               orderId: order.orderID,
             },
@@ -219,7 +231,7 @@ var productString = product.join(', ');
             (o) => o.orderID === order.orderID
           );
           if (index !== -1) {
-            $scope.orders.splice(index, 1);
+            $scope.orders[index].orderstatus.orderstatusname = "Đã hủy";
           }
           Swal.fire({
             title: "Hủy thành công !",

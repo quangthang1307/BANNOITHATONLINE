@@ -115,12 +115,6 @@
 			<version>2.15.2</version>
 		</dependency>
 
-<<<<<<< HEAD
-
-	
-
-		
-=======
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -143,7 +137,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
->>>>>>> main
 	</dependencies>
 
 	<build>
