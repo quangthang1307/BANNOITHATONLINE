@@ -1,4 +1,4 @@
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline" >
 <merlin-component id="merlin-text-summarizer" class="merlin text-summarizer"></merlin-component><merlin-component
     id="merlin-preview-link" class="merlin merlin-preview-link"></merlin-component><merlin-component
     id="merlin-context-btn" class="merlin context-btn"></merlin-component><merlin-component id="merlin-chat"
@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
 
 
+
+
     <link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
         crossorigin="">
     <link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
@@ -59,13 +61,12 @@
 
     <link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
 
-    <link rel="stylesheet" href="taiNguyenCuaThang/css/chat.css">
+    <link rel="stylesheet" href="/taiNguyenCuaThang/css/chat.css">
 
-    <link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
-        as="style">
+    <link rel="stylesheet" href="../taiNguyenCuaDung/css/themes.scss.css">
     <!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
-    <script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+    <script type="text/javascript" src="/taiNguyenCuaDung/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/taiNguyenCuaDung/js/theme.js"></script>
 
     <meta property="og:type" content="website">
     <meta property="og:title" name="description" content="">
@@ -109,7 +110,7 @@
                                 <div class="category-item col-lg-3 col-md-6 col-6">
                                     <div class="category-block">
                                         <div class="category-block--image">
-                                            <a href="/collections/noi-that-phong-khach/" aria-label="Phòng khách"
+                                            <a ng-click="clickByRoom(1)" aria-label="Phòng khách"
                                                 previewlistener="true">
                                                 <img class=" ls-is-cached lazyloaded"
                                                     data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_1_img.jpg?v=788"
@@ -118,9 +119,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a href="/collections/noi-that-phong-khach/"
+                                            <h3 class="htitle"><a ng-click="clickByRoom(1)"
                                                     previewlistener="true">Phòng khách</a></h3>
-                                            <a class="hbtn" href="/collections/noi-that-phong-khach/"
+                                            <a class="hbtn" ng-click="clickByRoom(1)"
                                                 previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
@@ -133,7 +134,7 @@
                                 <div class="category-item col-lg-3 col-md-6 col-6">
                                     <div class="category-block">
                                         <div class="category-block--image">
-                                            <a href="/collections/noi-that-phong-ngu" aria-label="Phòng ngủ"
+                                            <a ng-click="clickByRoom(2)" aria-label="Phòng ngủ"
                                                 previewlistener="true">
                                                 <img class=" ls-is-cached lazyloaded"
                                                     data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_2_img.jpg?v=788"
@@ -142,9 +143,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a href="/collections/noi-that-phong-ngu"
+                                            <h3 class="htitle"><a ng-click="clickByRoom(2)"
                                                     previewlistener="true">Phòng ngủ</a></h3>
-                                            <a class="hbtn" href="/collections/noi-that-phong-ngu"
+                                            <a class="hbtn" ng-click="clickByRoom(2)"
                                                 previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
@@ -157,7 +158,7 @@
                                 <div class="category-item col-lg-3 col-md-6 col-6">
                                     <div class="category-block">
                                         <div class="category-block--image">
-                                            <a href="/collections/phu-kien-nha-bep/" aria-label="Phòng ăn &amp; Bếp"
+                                            <a ng-click="clickByRoom(6)" aria-label="Phòng ăn &amp; Bếp"
                                                 previewlistener="true">
                                                 <img class=" ls-is-cached lazyloaded"
                                                     data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_3_img.jpg?v=788"
@@ -166,9 +167,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a href="/collections/phu-kien-nha-bep/"
+                                            <h3 class="htitle"><a ng-click="clickByRoom(6)"
                                                     previewlistener="true">Phòng ăn &amp; Bếp</a></h3>
-                                            <a class="hbtn" href="/collections/phu-kien-nha-bep/"
+                                            <a class="hbtn" ng-click="clickByRoom(6)"
                                                 previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
@@ -181,7 +182,7 @@
                                 <div class="category-item col-lg-3 col-md-6 col-6">
                                     <div class="category-block">
                                         <div class="category-block--image">
-                                            <a href="/collections/phong-lam-viec/" aria-label="Phòng làm việc"
+                                            <a ng-click="clickByRoom(7)" aria-label="Phòng làm việc"
                                                 previewlistener="true">
                                                 <img class=" ls-is-cached lazyloaded"
                                                     data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_4_img.jpg?v=788"
@@ -190,9 +191,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a href="/collections/phong-lam-viec/"
+                                            <h3 class="htitle"><a ng-click="clickByRoom(7)"
                                                     previewlistener="true">Phòng làm việc</a></h3>
-                                            <a class="hbtn" href="/collections/phong-lam-viec/"
+                                            <a class="hbtn" ng-click="clickByRoom(7)"
                                                 previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
@@ -211,7 +212,7 @@
 
 
 
-                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
+                                <div ng-repeat="discount in discounts" class="col-12 col-md-6 col-xl-3 coupon-item">
                                     <div class="coupon-item__inner">
                                         <div class="coupon-item__left">
                                             <div class="cp-img boxlazy-img">
@@ -254,232 +255,51 @@
                                             </button>
 
                                             <div class="cp-top">
-                                                <h3>Giảm 500.000đ</h3>
+                                                <h3>Giảm {{discount.percent}}%</h3>
                                                 <p>Đơn hàng từ 10 triệu</p>
                                             </div>
                                             <div class="cp-bottom">
                                                 <div class="cp-bottom-detail">
-                                                    <p>Mã: <strong>BAYA500K</strong></p>
-                                                    <p>HSD: 31/01/2024</p>
+                                                    <p>Mã: <strong id="{{discount.code}}">{{discount.code}}</strong></p>
+                                                    <p>HSD: {{discount.endDate | date:'dd-MM-yyyy'}}</p>
                                                 </div>
                                                 <div class="cp-bottom-btn">
-                                                    <button class="cp-btn button" data-coupon="BAYA500K">Sao chép
+                                                    <button class="cp-btn button" id="{{discount.code}}_button"
+                                                        ng-click="copyContent(discount.code)">Sao chép
                                                         mã</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
 
-                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
-                                    <div class="coupon-item__inner">
-                                        <div class="coupon-item__left">
-                                            <div class="cp-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <img class="lazyload"
-                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_2_img.png?v=788"
-                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_2_img.png?v=788"
-                                                        alt="Giảm 300.000đ">
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="coupon-item__right">
-                                            <button type="button" class="cp-icon" data-toggle="popover"
-                                                data-container="body" data-placement="bottom"
-                                                data-popover-content="#cp-tooltip-2" data-class="coupon-popover"
-                                                title="" data-original-title="Giảm 300.000đ ">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
-                                                    viewBox="0 0 20 20">
-                                                    <defs>
-                                                        <path id="4gg7gqe5ua"
-                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
-                                                        </path>
-                                                    </defs>
-                                                    <g>
-                                                        <g>
-                                                            <g>
-                                                                <g>
-                                                                    <g>
-                                                                        <g
-                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
-                                                                            <use xlink:href="#4gg7gqe5ua"></use>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </button>
 
-                                            <div class="cp-top">
-                                                <h3>Giảm 300.000đ</h3>
-                                                <p>Đơn hàng từ 7 triệu đồng</p>
-                                            </div>
-                                            <div class="cp-bottom">
-                                                <div class="cp-bottom-detail">
-                                                    <p>Mã: <strong>BAYA300K</strong></p>
-                                                    <p>HSD: 31/01/2024</p>
-                                                </div>
-                                                <div class="cp-bottom-btn">
-                                                    <button class="cp-btn button" data-coupon="BAYA300K">Sao chép
-                                                        mã</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
-                                    <div class="coupon-item__inner">
-                                        <div class="coupon-item__left">
-                                            <div class="cp-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <img class="lazyload"
-                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_3_img.png?v=788"
-                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_3_img.png?v=788"
-                                                        alt="Giảm 200.000đ">
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="coupon-item__right">
-                                            <button type="button" class="cp-icon" data-toggle="popover"
-                                                data-container="body" data-placement="bottom"
-                                                data-popover-content="#cp-tooltip-3" data-class="coupon-popover"
-                                                title="" data-original-title="Giảm 200.000đ ">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
-                                                    viewBox="0 0 20 20">
-                                                    <defs>
-                                                        <path id="4gg7gqe5ua"
-                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
-                                                        </path>
-                                                    </defs>
-                                                    <g>
-                                                        <g>
-                                                            <g>
-                                                                <g>
-                                                                    <g>
-                                                                        <g
-                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
-                                                                            <use xlink:href="#4gg7gqe5ua"></use>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </button>
-
-                                            <div class="cp-top">
-                                                <h3>Giảm 200.000đ</h3>
-                                                <p>Đơn hàng từ 5 triệu đồng</p>
-                                            </div>
-                                            <div class="cp-bottom">
-                                                <div class="cp-bottom-detail">
-                                                    <p>Mã: <strong>BAYA200K</strong></p>
-                                                    <p>HSD: 31/01/2024</p>
-                                                </div>
-                                                <div class="cp-bottom-btn">
-                                                    <button class="cp-btn button" data-coupon="BAYA200K">Sao chép
-                                                        mã</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-12 col-md-6 col-xl-3 coupon-item">
-                                    <div class="coupon-item__inner">
-                                        <div class="coupon-item__left">
-                                            <div class="cp-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <img class="lazyload"
-                                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_4_img.png?v=788"
-                                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coupon_4_img.png?v=788"
-                                                        alt="Giảm 100.000đ">
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="coupon-item__right">
-                                            <button type="button" class="cp-icon" data-toggle="popover"
-                                                data-container="body" data-placement="bottom"
-                                                data-popover-content="#cp-tooltip-4" data-class="coupon-popover"
-                                                title="" data-original-title="Giảm 100.000đ ">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
-                                                    viewBox="0 0 20 20">
-                                                    <defs>
-                                                        <path id="4gg7gqe5ua"
-                                                            d="M8.333 0C3.738 0 0 3.738 0 8.333c0 4.595 3.738 8.334 8.333 8.334 4.595 0 8.334-3.739 8.334-8.334S12.928 0 8.333 0zm0 1.026c4.03 0 7.308 3.278 7.308 7.307 0 4.03-3.278 7.308-7.308 7.308-4.03 0-7.307-3.278-7.307-7.308 0-4.03 3.278-7.307 7.307-7.307zm.096 6.241c-.283 0-.512.23-.512.513v4.359c0 .283.23.513.512.513.284 0 .513-.23.513-.513V7.78c0-.283-.23-.513-.513-.513zm.037-3.114c-.474 0-.858.384-.858.858 0 .473.384.857.858.857s.858-.384.858-.857c0-.474-.384-.858-.858-.858z">
-                                                        </path>
-                                                    </defs>
-                                                    <g>
-                                                        <g>
-                                                            <g>
-                                                                <g>
-                                                                    <g>
-                                                                        <g
-                                                                            transform="translate(-2808 -4528) translate(2708 80) translate(52 4304) translate(48 144) translate(1.667 1.667)">
-                                                                            <use xlink:href="#4gg7gqe5ua"></use>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </button>
-
-                                            <div class="cp-top">
-                                                <h3>Giảm 100.000đ</h3>
-                                                <p>Đơn hàng từ 3 triệu đồng</p>
-                                            </div>
-                                            <div class="cp-bottom">
-                                                <div class="cp-bottom-detail">
-                                                    <p>Mã: <strong>BAYA100K</strong></p>
-                                                    <p>HSD: 31/01/2024</p>
-                                                </div>
-                                                <div class="cp-bottom-btn">
-                                                    <button class="cp-btn button" data-coupon="BAYA100K">Sao chép
-                                                        mã</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </section>
 
-                    <section class="home-collection-1">
+                    <section class="home-collection-1" ng-if="FlashSaleProducts.length > 0">
                         <div class="container container-pd-parent">
                             <div class="wrapper-content row-mg-parent">
                                 <div class="section-heading">
                                     <div class="box-header">
-                                        <h2 class="hTitle"><a href="/collections/ceramic" previewlistener="true">Tiệc
-                                                Trà Đoàn
-                                                Viên- Giảm 20% bộ trà sứ cao cấp</a></h2>
+                                        <h2 class="hTitle"><a href="/collections/ceramic" previewlistener="true" style="color: rgb(166, 27, 27);">FlashSale</a></div></h2><span style="font-weight: bold;">Kết thúc trong: </span><span style="font-weight: bold; color: red;" >{{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s</span> 
                                     </div>
 
-                                </div>
 
-                                <div
+                                    <div
                                     class="listProduct-row owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
                                     <div class="owl-stage-outer">
                                         <div class="owl-stage"
                                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2325px; padding-left: 15px; padding-right: 15px;">
-                                            <div class="owl-item active" style="width: 255px;">
+                                            <div class="owl-item" ng-repeat="FlashSaleProduct in FlashSaleProducts" ng-if="$index < 5" style="width: 255px;">
                                                 <div class="product-loop" data-id="1114458402">
                                                     <div class="product-inner" data-proid="1050909488"
                                                         id="section_1_loop_1">
                                                         <div class="proloop-image">
-                                                            <div class="pro-sale"><span>-20%</span></div>
+                                                            <div class="pro-sale"><span>-{{FlashSaleProduct.percent}}%</span></div>
 
 
 
@@ -487,32 +307,17 @@
 
                                                                 <div class="lazy-img first-image">
                                                                     <picture>
-                                                                        <source media="(max-width: 480px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_medium.jpg">
-                                                                        <source media="(min-width: 481px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/bo-am-tra-floral_4f6dff058099462da445f10ed8dc10fa_small.jpg"
-                                                                            alt=" Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                            src="/{{FlashSaleProduct.product.productimages[0].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
                                                                 <div
                                                                     class="lazy-img second-image hovered-img d-none d-lg-block">
                                                                     <picture>
-                                                                        <source
-                                                                            media="(min-width: 481px) and (max-width:767px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_medium.jpg">
-                                                                        <source media="(min-width:768px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/kdp_4286-compressed_9aee3c48b59843e9bbd21300eef6278b_small.jpg"
-                                                                            alt=" Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                        src="/{{FlashSaleProduct.product.productimages[1].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
 
@@ -538,19 +343,23 @@
                                                         <div class="proloop-detail">
                                                             <p class="proloop--vendor"><a title="Show vendor"
                                                                     href="/collections/vendors?q=floral"
-                                                                    previewlistener="true">FLORAL</a></p>
+                                                                    previewlistener="true">{{FlashSaleProduct.product.brand.brandname}}</a></p>
                                                             <h3><a href="/products/bo-am-tra-floral-2001257"
                                                                     class="quickview-product"
                                                                     data-handle="/products/bo-am-tra-floral-2001257"
-                                                                    previewlistener="true">Bộ Ấm Trà Bằng Sứ FLORAL Hoa
-                                                                    Văn Hoa
-                                                                    Lá</a></h3>
-                                                            <p class="proloop--price on-sale">
-                                                                <span class="price">1,032,000₫</span>
-
-                                                                <span class="price-del">1,290,000₫</span>
-                                                                <span class="pro-percent">-20%</span>
-                                                            </p>
+                                                                    previewlistener="true">{{FlashSaleProduct.product.productname}}</a></h3>
+                                                                <p class="proloop--price on-sale">
+                                                                    <span class="price">{{FlashSaleProduct.product.pricexuat -
+                                                                        (FlashSaleProduct.product.pricexuat *
+                                                                        FlashSaleProduct.percent
+                                                                        /
+                                                                        100) | number
+                                                                        }}₫</span>
+    
+                                                                    <span class="price-del">{{FlashSaleProduct.product.pricexuat |
+                                                                        number }}₫</span>
+    
+                                                                </p>
 
                                                             <div class="proloop-actions" data-vrid="1114458402">
                                                                 <div class="proloop-actions__inner">
@@ -641,7 +450,7 @@
                                     <div class="owl-dots disabled"></div>
                                 </div>
                                 <div class="box-link">
-                                    <a href="/collections/ceramic" class="button" previewlistener="true">
+                                    <a href="/product/flashsale" class="button" previewlistener="true">
                                         Xem tất cả
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -652,8 +461,12 @@
                                         </svg>
                                     </a>
                                 </div>
+                                </div>
+
+                                
                             </div>
                         </div>
+                        
                     </section>
 
 
@@ -687,66 +500,77 @@
                                                     <div class="product-inner" data-proid="1050909506"
                                                         id="section_2_loop_1">
                                                         <div class="proloop-image">
-
-
-
+                                                            <div class="pro-sale"
+                                                                ng-if="isProductInSale(productsbestseller.productid)">
+                                                                <span>-{{getPercentSaleForProduct(productsbestseller.productid)}}%</span>
+                                                            </div>
 
                                                             <div class="product--image">
 
                                                                 <div class="lazy-img first-image">
                                                                     <picture>
-                                                                        <source media="(max-width: 480px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_medium.jpg">
-                                                                        <source media="(min-width: 481px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_copy_3b71edf7e17d4b3bae825d41954c9c2e_small.jpg"
-                                                                            alt=" Sofa NORMANDY ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                            src="/{{productsbestseller.productimages[0].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
                                                                 <div
                                                                     class="lazy-img second-image hovered-img d-none d-lg-block">
                                                                     <picture>
-                                                                        <source
-                                                                            media="(min-width: 481px) and (max-width:767px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_medium.jpg">
-                                                                        <source media="(min-width:768px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/normandy_sofa_baya_2002158_inspire_e20aba93f9864e5da6c743c3418990ca_small.jpg"
-                                                                            alt=" Sofa NORMANDY ">
+                                                                        <img class="img-loop lazyloaded"
+                                                                            src="/{{productsbestseller.productimages[1].image}}"
+                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
 
                                                             </div>
                                                             <div class="quickview-product">
                                                                 <a class="icon-quickview" href="javascript:void(0)"
-                                                                    data-handle="/products/sofa-normandy"
+                                                                    data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
                                                                     title="Xem nhanh"><i class="fa fa-eye"
                                                                         aria-hidden="true"></i></a>
                                                             </div>
-                                                            <a href="/products/sofa-normandy"
+                                                            <a ng-click="clickById(productsbestseller.productid)"
                                                                 class="proloop-link quickview-product"
-                                                                data-handle="/products/sofa-normandy"
-                                                                title="Sofa NORMANDY" previewlistener="true"></a>
+                                                                data-handle="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
+                                                                title="Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair)"
+                                                                previewlistener="true"></a>
+                                                            <div ng-if="isProductInSale(productsbestseller.productid)"
+                                                                class="sticker_frame"><a
+                                                                    href="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
+                                                                    previewlistener="true"><img
+                                                                        class=" ls-is-cached lazyloaded"
+                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                            </div>
                                                         </div>
                                                         <div class="proloop-detail">
                                                             <p class="proloop--vendor"><a title="Show vendor"
                                                                     href="/collections/vendors?q=normandy"
-                                                                    previewlistener="true">NORMANDY</a></p>
+                                                                    previewlistener="true">{{productsbestseller.brand.brandname}}</a>
+                                                            </p>
                                                             <h3><a href="/products/sofa-normandy"
                                                                     class="quickview-product"
                                                                     data-handle="/products/sofa-normandy"
-                                                                    previewlistener="true">Sofa NORMANDY</a></h3>
-                                                            <p class="proloop--price ">
-                                                                <span
-                                                                    class="price">{{productsbestseller.pricexuat}}₫</span>
+                                                                    previewlistener="true">{{productsbestseller.productname}}</a>
+                                                            </h3>
+                                                            <p class="proloop--price on-sale"
+                                                                ng-if="isProductInSale(productsbestseller.productid)">
+                                                                <span class="price">{{productsbestseller.pricexuat -
+                                                                    (productsbestseller.pricexuat *
+                                                                    getPercentSaleForProduct(productsbestseller.productid)
+                                                                    /
+                                                                    100) | number
+                                                                    }}₫</span>
+
+                                                                <span class="price-del">{{productsbestseller.pricexuat |
+                                                                    number }}₫</span>
+
+                                                            </p>
+                                                            <p class="proloop--price "
+                                                                ng-if="!isProductInSale(productsbestseller.productid)">
+                                                                <span class="price">{{productsbestseller.pricexuat |
+                                                                    number
+                                                                    }}₫</span>
                                                             </p>
 
                                                             <div class="proloop-actions" data-vrid="1114458437">
@@ -754,7 +578,7 @@
                                                                     <div class="actions-primary">
                                                                         <button type="submit"
                                                                             class="btn-proloop-cart add-to-cart  btn-addcart-view "
-                                                                            onclick="HRT.All.addCartProdItem('1114458437')">
+                                                                            ng-click="addToCart(productsbestseller)">
                                                                             <span class="btnadd"> Thêm vào giỏ </span>
                                                                             <span class="btnico" title="Thêm vào giỏ">
                                                                                 <svg version="1.0" viewBox="0 0 512 512"
@@ -849,7 +673,7 @@
                             <div class="wrapbox row">
                                 <div class="wrapbox-left col-lg-2 col-md-12 col-12">
                                     <div class="wrapbox--content">
-                                        <p class="title-box">Xu hướng tìm kiếm</p><a href="/collections/all"
+                                        <p class="title-box">Xu hướng tìm kiếm</p><a href="/product"
                                             class="btn-box button" previewlistener="true">Xem ngay</a>
                                     </div>
                                 </div>
@@ -1311,8 +1135,10 @@
                                         </div>
                                     </div><!--chat-log -->
 
-                                    <span ng-if="responseStatus === 'in_progress'" style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
-                                    <span ng-if="responseStatus === 'completed'" style="font-weight: bolder; margin-left: 13px;">Thành công</span>
+                                    <span ng-if="responseStatus === 'in_progress'"
+                                        style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
+                                    <span ng-if="responseStatus === 'completed'"
+                                        style="font-weight: bolder; margin-left: 13px;">Thành công</span>
                                 </div>
                                 <div class="chat-input">
                                     <form>
@@ -1581,14 +1407,13 @@
             <div class="quickviewOverlay"></div>
 
             <!-- SCRIPT THEME -->
-            <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+            <script type="text/javascript" src="/taiNguyenCuaDung/js/scripts.js" defer=""></script>
             <!-- <script type="text/javascript" src="taiNguyenCuaThang/js/chatOpenAi.js"></script> -->
             <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> -->
             <!-- <script src="taiNguyenCuaThang/js/navbargiohang.js"></script> -->
             <!-- <script type="text/javascript" src="taiNguyenCuaDung/js/index.js" defer=""></script> -->
 
             <!-- SCRIPT THEME -->
-            <script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
             <script src="/js/user/index.js"></script>
 
         </body>

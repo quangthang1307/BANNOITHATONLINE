@@ -23,6 +23,11 @@ public class DiscountRestController {
 		return ResponseEntity.ok(discountService.findAll());
 	}
 
+	@GetMapping("/rest/discounttop4")
+	public ResponseEntity<List<Discount>> getTop4Discount() {
+		return ResponseEntity.ok(discountService.findTop4Discount());
+	}
+
 	@GetMapping("/rest/discount/{code}")
 	public ResponseEntity<Discount> getDiscount(@PathVariable String code) {
 		return ResponseEntity.ok(discountService.findByCode(code));

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <div data-th-insert="~{include/styleadmin.html}"></div>
+
+  <title>Tables</title>
+</head>
+
+<body>
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div data-th-insert="~{include/navbaradmin.html}"></div>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Tài Khoản</h4>
+            <div class="ms-auto text-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Library
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+          <div class="col-12">
+
+            <div class="row">
+              <div class="col-md-11" >
+                <div class="card" style="margin-left: 10%;">
+                  <form class="form-horizontal">
+                    <div class="card-body">
+                      <h4 class="card-title">Cập Nhật Tài Khoản</h4>
+                      <div class="form-group row">
+                        <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="fname" placeholder="Name Here" />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-end control-label col-form-label">Password</label>
+                        <div class="col-sm-9">
+                          <input type="password" class="form-control" id="lname" placeholder="Password Here" />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="trangthai" class="col-sm-3 text-end control-label col-form-label">Trạng Thái</label>
+                        <div class="col-sm-9">
+                          <select class="select2 form-select shadow-none" style="width: 100%; height: 40px">
+                              <option value="AK">Hoạt Động</option>
+                              <option value="HI">Vô Hiệu Hóa</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="email1" class="col-sm-3 text-end control-label col-form-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="email1" placeholder="Email Here" />
+                        </div>
+                      </div>
+                      
+                    </div>
+
+                </div>
+                <div class="border-top" style="margin-left: 80%; height: 40px;">
+                  <div class="card-body">
+                    <button type="button" class="btn btn-primary">
+                      Lưu
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                      Làm Mới
+                    </button>
+                  </div>
+                </div>
+                </form>
+              </div>
+
+
+            </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+          <!-- ============================================================== -->
+          <!-- Right sidebar -->
+          <!-- ============================================================== -->
+          <!-- .right-sidebar -->
+          <!-- ============================================================== -->
+          <!-- End Right sidebar -->
+          <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+          All Rights Reserved by Matrix-admin. Designed and Developed by
+          <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Page wrapper  -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script>
+      function confirmDelete(brandsId) {
+        if (confirm("Bạn có chắc muốn xóa không?")) {
+          window.location.href = '/admin/deleteBrands/' + brandsId;
+        }
+        return false;
+      }
+    </script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+      /****************************************
+       *       Basic Table                   *
+       ****************************************/
+      $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

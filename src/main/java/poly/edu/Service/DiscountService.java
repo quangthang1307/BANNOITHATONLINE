@@ -12,6 +12,7 @@ import poly.edu.entity.Discount;
 public interface DiscountService {
 	
 	public List<Discount> findAll();
+	public List<Discount> findTop4Discount();
 	public Optional<Discount> findById(Integer id) ;	
 	
 	public Page<Discount> findAll(Pageable pageable) ;
@@ -23,7 +24,7 @@ public interface DiscountService {
 	public void delete(Integer id) ;
 	public Discount findByCode(String code);
 	
-	
+
 	Optional<Discount> findById(int id);
 	void save(Discount discount);
 	void delete(int id);

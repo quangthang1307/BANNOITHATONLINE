@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Viết bằng js thuần
 // var postRegister = '/user/sigup'
 
@@ -39,6 +40,8 @@
 //     }
 // }
 
+=======
+>>>>>>> main
 //Viết bằng angular js
 var app = angular.module('bannoithatonline', []);
 app.controller('registerController', function ($scope, $http, $location) {

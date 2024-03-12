@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Sản Phẩm</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Sản Phẩm
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Danh Sách Sản Phẩm</h5>
+                            <div class="table-responsive">
+
+                                <table id="zero_config" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên Sản Phẩm</th>
+                                            <th>Mô Tả</th>
+                                            <th>Giá Nhập</th>
+                                            <th>Giá Bán</th>
+                                            <th>Thương Hiệu</th>
+                                            <th>Danh Mục</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Hình Ảnh</th>
+                                            <th>Tồn Kho</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Lượt Xem</th>
+                                            <th><button class="btn btn-info" data-bs-toggle="modal"
+                                                    data-bs-target="#modaladdproduct"> <i
+                                                        class="bi bi-plus-lg"></i></button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="product : ${products}">
+                                            <td th:text="${product.productid}"></td>
+                                            <td th:text="${product.productname}"></td>
+                                            <td th:text="${#strings.substring(product.description,0 ,10)} + ..."></td>
+                                            <td
+                                                th:text="${#numbers.formatDecimal(product.pricenhap, 0, 'COMMA', 0, 'POINT')}">
+                                            </td>
+                                            <td
+                                                th:text="${#numbers.formatDecimal(product.pricexuat, 0, 'COMMA', 0, 'POINT')}">
+                                            </td>
+                                            <td th:text="${product.brand.brandname}"></td>
+                                            <td th:text="${product.category}"></td>
+                                            <td th:if="${product.productactivate}">Đang hoạt động</td>
+                                            <td th:if="${!product.productactivate}">Ngưng hoạt động</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td
+                                                th:text="${#temporals.format(product.createddate, 'dd-MM-yyyy HH:mm:ss')}">
+                                            </td>
+                                            <td th:text="${product.viewcount}"></td>
+                                            <td><button type="button" class="btn btn-danger">
+                                                    <i class="bi bi-trash"
+                                                        th:onclick="'return confirmDelete(\'' + ${product.productid} + '\')'"></i>
+
+                                                </button>
+
+                                                <a class="bi bi-pencil-square btn btn-info"
+                                                    th:href="@{/admin/editBrands/{brandsId}(brandsId=${product.productid})}"></a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                                <!-- Modal Form Thêm-->
+                                <div class=" modal fade" id="modaladdproduct"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm sản phẩm</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Tên sản phẩm</label>
+                                                                <input type="text" class="form-control" name="" id=""
+                                                                    aria-describedby="helpId" placeholder="" />
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Mô tả</label>
+                                                                <textarea class="form-control"></textarea>
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Giá nhập</label>
+                                                                <input type="number" class="form-control" name="" id=""
+                                                                    aria-describedby="helpId" placeholder="" />
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Giá bán</label>
+                                                                <input type="number" class="form-control" name="" id=""
+                                                                    aria-describedby="helpId" placeholder="" />
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Thương hiệu</label>
+                                                                <select class="form-select">
+                                                                    <option th:each="brand : ${brands}"
+                                                                        th:text="${brand.brandname}"></option>
+                                                                </select>
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Danh mục</label>
+                                                                <select class="form-select">
+                                                                    <option th:each="category : ${categorys}"
+                                                                        th:text="${category.productname}"></option>
+                                                                </select>
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Trạng thái hoạt
+                                                                    động</label>
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input rounded-pill"
+                                                                        type="checkbox" role="switch"
+                                                                        id="flexSwitchCheckDefault">
+                                                                </div>
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <div class="row">
+                                                                    <label for="" class="form-label">Hình ảnh</label>
+                                                                    <div class="col-9">
+                                                                        <input type="file" class="form-control" name=""
+                                                                            id="" aria-describedby="helpId"
+                                                                            placeholder="" />
+
+                                                                        <small id="helpId"
+                                                                            class="form-text text-muted">Help
+                                                                            text</small>
+                                                                    </div>
+                                                                    <div class="col-3"> <button
+                                                                            class="btn btn-primary" data-bs-toggle="modal"
+                                                                            data-bs-target="#modalImage">Xem</button></div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Tồn kho</label>
+                                                                <input type="text" class="form-control" name="" id=""
+                                                                    aria-describedby="helpId" placeholder="" />
+                                                                <small id="helpId" class="form-text text-muted">Help
+                                                                    text</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-primary">Thêm</button>
+                                                <button
+                                                                            class="btn btn-primary" data-bs-toggle="modal"
+                                                                            data-bs-target="#exampleModalToggle2">Xem</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Image-->
+                                <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Hide this modal and show the first with the button below.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by Matrix-admin. Designed and Developed by
+            <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script>
+        function confirmDelete(brandsId) {
+            if (confirm("Bạn có chắc muốn xóa không?")) {
+                window.location.href = '/admin/deleteBrands/' + brandsId;
+            }
+            return false;
+        }
+    </script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

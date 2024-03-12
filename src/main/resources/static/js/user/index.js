@@ -1,4 +1,5 @@
 var app = angular.module("bannoithatonline", [])
+
 const host = "/rest/product";
 const hostCustomerId = "/rest/customer";
 const hostListCart = "/rest/showCart";
@@ -7,10 +8,19 @@ const hostDownQuantityProduct = "/rest/cart/down";
 const hostDeleteProduct = "/rest/removeFromCart";
 const hostProductImage = "/rest/products";
 const hostDeleteAllProductInCart = "/rest/removeAllCarts";
+const hostProductSale = "/rest/product/sale";
+const hostDiscount = "/rest/discounttop4";
+const hostProductByRoom = "/rest/product/category/room";
+const hostFlashSaleHourStart = "/rest/flashsaledelay/start";
+const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
+const hostFlashSale = "/rest/flashsale";
+const hostFlashSaleUpdate = "/rest/flashsale/update"
 
-app.controller("IndexController", function ($scope, $http, $window) {
+app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
+  $scope.productSale = [];
+  $scope.discounts = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -41,9 +51,269 @@ app.controller("IndexController", function ($scope, $http, $window) {
       .catch(function (error) {
         console.error("Error fetching products:", error);
       });
+
+    $http.get(hostProductSale)
+      .then(function (response) {
+
+        $scope.productSale = response.data
+        console.log($scope.productSale);
+
+      })
+      .catch(function (error) {
+        console.error('Error fetching productSale:', error);
+      }
+      );
+
+    $http.get(hostDiscount)
+      .then(function (response) {
+
+        $scope.discounts = response.data
+        console.log($scope.discounts);
+
+      })
+      .catch(function (error) {
+        console.error('Error fetching productSale:', error);
+      }
+      );
+  }
+
+  //Kiểm tra sản phẩm sale để thay đổi giá
+  $scope.isProductInSale = function (productId) {
+    return $scope.productSale.some(item => item.productID === productId);
+  };
+
+  $scope.getPercentSaleForProduct = function (productId) {
+    var foundItem = $scope.productSale.find(item => item.productID === productId);
+    return foundItem ? foundItem.percent : null;
+  };
+  //
+
+  // Hàm xử lý khi nhấp vào tên sản phẩm
+  $scope.clickById = function (productId) {
+    var url = `${host}/${productId}`;
+
+    $http.get(url)
+      .then(resp => {
+        $scope.productbyid = resp.data;
+        // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
+        if ($scope.isProductInSale(resp.data.productid)) {
+          var percent = $scope.getPercentSaleForProduct(resp.data.productid);
+          resp.data.percent = percent;
+        } else {
+          resp.data.percent = 0;
+        }
+        localStorage.setItem('productById', JSON.stringify(resp.data));
+
+        // Chuyển hướng đến trang chi tiết sản phẩm
+        window.location.href = `/productdetail/${productId}`;
+        //  console.log("Success", resp);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+  //
+
+  $scope.clickByRoom = function (id) {
+    var title = "";
+    if (id == 1) title = "Phòng khách";
+    if (id == 2) title = "Phòng Ngủ";
+    if (id == 3) title = "Phòng Ăn";
+    if (id == 4) title = "Phòng làm việc";
+
+    localStorage.setItem('idproductByroom', JSON.stringify(id));
+    localStorage.setItem('titleCategory', JSON.stringify(title));
+    window.location.href = "/product/room";
   }
 
 
+  $scope.copyContent = function (elementId) {
+    // Lấy nội dung cần sao chép bằng id được truyền vào
+    var content = document.getElementById(elementId).innerText;
+
+    // Tạo một thẻ textarea tạm thời để sao chép nội dung vào clipboard
+    var tempTextArea = document.createElement("textarea");
+    tempTextArea.value = content;
+    document.body.appendChild(tempTextArea);
+
+    // Chọn toàn bộ nội dung trong textarea và sao chép vào clipboard
+    tempTextArea.select();
+    document.execCommand("copy");
+
+    // Xóa thẻ textarea tạm thời
+    document.body.removeChild(tempTextArea);
+
+    // Thay đổi nội dung của nút thành "Copied!"
+    document.getElementById(elementId + "_button").innerText = "Đã sao chép";
+
+  };
+
+
+  //FLASH SALE
+  $scope.FlashSaleHours = [];
+  $scope.FlashSaleProducts = [];
+  $scope.itemsPerPage = 15;
+  $scope.currentPage = 1;
+  $scope.totalItems = 0;
+  $scope.totalPages = 0;
+
+  $scope.timetodelay = 0;
+
+  // Hàm lập lịch task cho flash sale
+  $scope.scheduleFlashSaleTask = function () {
+    angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
+      var delay = FlashSaleHour.delay;
+      console.log(delay);
+      $timeout(function () {
+        console.log("Flash sale is starting now at ");
+        $scope.getFlashSale();
+        // Thực hiện công việc khi bắt đầu flash sale
+        // $scope.getFlashSale();
+        // Lập lịch cho công việc khi kết thúc flash sale
+        $scope.scheduleSaleOffTask();
+      }, delay);
+
+    });
+
+  };
+
+  // Hàm lập lịch task cho việc kết thúc flash sale
+  $scope.flashsaleoff = null;
+  $scope.scheduleSaleOffTask = function () {
+
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        var delay = resp.data.delay
+        $scope.timetodelay = resp.data.delay;
+        $scope.flashsaleoff = resp.data.flashsalehour
+        $scope.startCountdown();
+        $timeout(function () {
+          console.log("Sale off at " + new Date());
+          $scope.FlashSaleProducts = [];
+          $scope.UpdateFlashSale($scope.flashsaleoff);
+          // Thực hiện công việc khi kết thúc flash sale
+
+        }, delay);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+
+  };
+
+  $scope.getFlashSaleDelayStart = function () {
+    $http.get(hostFlashSaleHourStart)
+      .then(resp => {
+        $scope.FlashSaleHours = resp.data;
+        console.log($scope.FlashSaleHours);
+
+
+        $scope.scheduleFlashSaleTask();
+
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSaleDelayEnd = function () {
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        console.log(resp.data);
+        return resp.data;
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSale = function () {
+    var api = hostFlashSale + "?page=" + ($scope.currentPage - 1) + "&size" + $scope.itemsPerPage;
+    $http.get(api)
+      .then(resp => {
+        console.log(resp.data);
+        $scope.FlashSaleProducts = resp.data.content;
+
+        $scope.totalItems = resp.data.totalElements;
+        console.log($scope.totalItems);
+
+        $scope.totalPages = parseInt(resp.data.totalPages, 10);
+        console.log($scope.totalPages);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.UpdateFlashSale = function (dataflashsale) {
+    $http.put(hostFlashSaleUpdate, dataflashsale)
+      .then(function (response) {
+        // Xử lý kết quả thành công
+        console.log('Dữ liệu đã được gửi thành công:', response.data);
+      })
+      .catch(function (error) {
+        // Xử lý lỗi
+        console.error('Đã xảy ra lỗi:', error);
+      });
+  }
+
+
+  //
+
+  $scope.numberArray = function () {
+    var result = [];
+    for (var i = 1; i <= $scope.totalPages; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+
+  var timer; // Biến lưu trữ interval
+  // var timetoend = $scope.timetodelay;
+  $scope.startCountdown = function() {
+      // Dừng interval trước khi bắt đầu một lần mới
+      if (angular.isDefined(timer)) {
+          $interval.cancel(timer);
+      }
+      // Bắt đầu đếm ngược
+      timer = $interval($scope.countdown, 1000);
+  }
+
+  $scope.countdown = function () {
+    // Kiểm tra xem thời gian còn lại có hợp lệ không
+    
+    if ($scope.timetodelay <= 0) {
+      console.log("Thời gian đã kết thúc.");
+      return;
+    }
+
+
+
+    // Chuyển đổi thời gian còn lại thành giờ, phút, giây
+    $scope.days = Math.floor($scope.timetodelay / (1000 * 60 * 60 * 24));
+    $scope.hours = Math.floor($scope.timetodelay / (1000 * 60 * 60));
+    $scope.minutes = Math.floor(($scope.timetodelay % (1000 * 60 * 60)) / (1000 * 60));
+    $scope.seconds = Math.floor(($scope.timetodelay % (1000 * 60)) / 1000);
+
+    if ($scope.timetodelay <= 1000) {
+      console.log("đã dừng");
+      $interval.cancel(timer); 
+      $scope.days = $scope.hours = $scope.minutes = $scope.seconds = 0;
+    }else{
+      $scope.timetodelay -= 1000;
+       $scope.startCountdown();
+    }
+
+   
+
+  }
+
+
+
+
+
+  $scope.getFlashSaleDelayStart();
 
   $scope.addToCart = function (product) {
     if ($scope.customer == null) {
@@ -213,7 +483,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
 
       if (response.data && response.data.status === "in_progress") {
         $scope.responseStatus = "in_progress";
-      }if (response.data && response.data.status === "completed") {
+      } if (response.data && response.data.status === "completed") {
         $scope.responseStatus = "completed";
         $scope.showFeedback();
       } else {

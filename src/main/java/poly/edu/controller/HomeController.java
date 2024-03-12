@@ -8,9 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+	@RequestMapping("")
+	public String showindex() {
+		return "user/index";
+	}
+
 	@RequestMapping("/index")
 	public String index() {
 		return "user/index";
+	}
+	
+	@RequestMapping("/admin")
+	public String Adminindex() {
+		return "redirect:/admin/index";
 	}
 
 	@RequestMapping("/admin/index")
@@ -18,13 +28,23 @@ public class HomeController {
 		return "admin/index";
 	}
 
-	@RequestMapping("/admin")
-	public String Adminindex() {
-		return "redirect:/admin/index";
+	@RequestMapping("/user")
+	public String userIndex() {
+		return "redirect:/user/index";
+	}
+
+	@RequestMapping("/user/index")
+	public String showUserIndex() {
+		return "user/index";
 	}
 
 	@RequestMapping("/login")
 	public String showLogin() {
+		return "login";
+	}
+	
+	@RequestMapping("/logout")
+	public String showLogout() {
 		return "login";
 	}
 
@@ -33,14 +53,19 @@ public class HomeController {
 		return "user/testproduct";
 	}
 
-	@RequestMapping("/logout")
-	public String showLogout() {
-		return "login";
-	}
-
 	@RequestMapping("/productdetail/{productid}")
 	public String showProductDetail(@PathVariable Integer productid) {
 		return "user/testproductdetail";
+	}
+
+	@RequestMapping("/product/room")
+	public String showProductByRoom() {
+		return "user/productbyroom";
+	}
+
+	@RequestMapping("/product/flashsale")
+	public String showProductFlashsale() {
+		return "user/productflashsale";
 	}
 
 	// @RequestMapping("/productdetail")

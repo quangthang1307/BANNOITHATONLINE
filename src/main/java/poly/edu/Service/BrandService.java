@@ -33,4 +33,8 @@ public interface BrandService {
      */
     public void delete(Integer brandsId);
 
+    
+    public boolean existsByNameIgnoreCase(String Brandname);
+    
+
 }

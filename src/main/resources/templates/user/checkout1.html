@@ -6,6 +6,29 @@
 
     <title>Checkout 1</title>
 
+    	<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
+	<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+
+    	<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
+	<script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+
+    <link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+		crossorigin="">
+	<link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+		as="style">
+	<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+		type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+		type="font/woff2" crossorigin="anonymous">
+
+	<link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+		as="style">
+
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="css/kimi.css" rel="stylesheet">
@@ -197,9 +220,10 @@
                                         <div class="form-check" ng-repeat="addr in address" style="margin-bottom: 1%;">
                                             <input class="form-check-input"  type="radio" id="{{addr.addressID}}" ng-model="selectedAddress" value="{{addr.addressID}}" ng-checked="selectedAddressID === addr.addressID"
                                                 name="addressGroup" ng-change="onAddressSelected(addr)" ng-click="isSelectedAddress(addr)"  />
-                                            Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}
+                                            <span class="form-check-label" style="margin: 17px;"> Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}</span>
                                         </div>
                                     </div>
+                                    
                                     
                                     <span>Bạn muốn thay đổi địa chỉ khác ?</span>
                                     <a class="" ng-click="showSelectedInfoModal()">Thay đổi</a>
@@ -334,6 +358,12 @@
    
     <script src="js/user/checkout.js"></script>
 
+    
+
+    <!-- SCRIPT THEME -->
+	<script type="text/javascript" src="taiNguyenCuaDung/js/scripts.js" defer=""></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

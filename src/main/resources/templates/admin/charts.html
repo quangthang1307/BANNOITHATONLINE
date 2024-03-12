@@ -3,23 +3,10 @@
 
 <head>
   <div data-th-insert="~{include/styleadmin.html}"></div>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Thêm css để dùng chart -->
   <!-- <script src="../css/chart.css"></script> -->
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-
-  <title>Charts</title>
+  <title>Thống kê</title>
 </head>
 
 <body>
@@ -81,44 +68,36 @@
           <button class="btn btn-primary" type="submit">Xem Thống kê</button>
         </form>
 
+        <div class="row mt-2">
+          
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="container"></div>
+              <p class="highcharts-description">
 
-        <figure class="highcharts-figure mt-2">
-          <div id="container"></div>
-          <p class="highcharts-description">
-           
-          </p>
-        </figure>
+              </p>
+            </figure>
+          </div>
+
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="container1"></div>
+              <p class="highcharts-description">
+              </p>
+            </figure>
+          </div>
+
+        </div>
+
+
         <script th:inline="javascript">
           var hienThiNam = [[${ selectedYear }]]
           var sumpayment = [[${ message }]];
           //  var sumpaymentWithVNPay = [[${ message2 }]];
+          var chartData = [[${ chartData }]];
         </script>
 
-        <!-- <canvas id="myChart" width="400" height="400"></canvas>
-        <script th:inline="javascript">
-          var sumpayment = [[${ message }]]; // Dữ liệu từ server
-          var ctx = document.getElementById('myChart').getContext('2d');
-          var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['Tháng 1'],
-              datasets: [{
-                label: 'Tổng tiền thanh toán',
-                data: [sumpayment], // Dữ liệu từ server
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        </script> -->
+
 
         <!-- End Charts -->
         <!-- ============================================================== -->
