@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <html >
 <head>
     <title>Admin Chat</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
-    <div id="chat">
-        <input type="text" id="messageInput" placeholder="Type your message here...">
-        <button onclick="sendMessage()">Send</button>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var customerName = /*[[${session.customerName}]]*/ null;
+            var isAdmin = /*[[${session.isAdmin}]]*/ false; // Giả sử mặc định là false nếu không có giá trị trong session
+        /*]]>*/
+    </script>
+    <div id="adminChat">
+        <input type="text" id="adminMessageInput" placeholder="Type your message here...">
+        <button onclick="sendAdminMessage()">Send</button>
     </div>
-    <ul id="messageArea"></ul> <!-- Đảm bảo rằng bạn có một phần tử với id 'messageArea' -->
+    <ul id="adminMessageArea"></ul>
+    
     <script>
         var socket = new SockJS('/chatRealtime');
         var stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
             stompClient.subscribe('/topic/messages', function(messageOutput) {
-                var message = messageOutput.body;
-                var messageArea = document.getElementById('messageArea');
-                if (messageArea) { // Kiểm tra xem messageArea có tồn tại không
+                var messageData = JSON.parse(messageOutput.body);
+                var message = messageData.message;
+                var sender = messageData.sender;
+                var messageArea = document.getElementById('adminMessageArea');
+                if (messageArea) {
                     var messageElement = document.createElement('li');
-                    messageElement.textContent = message;
+                    messageElement.textContent = sender + ': ' + message;
                     messageArea.appendChild(messageElement);
                 }
             });
         });
-        function sendMessage() {
-            var messageInput = document.getElementById('messageInput');
+    
+        function sendAdminMessage() {
+            var messageInput = document.getElementById('adminMessageInput');
             if (messageInput && stompClient && stompClient.connected) {
                 var message = messageInput.value;
-                stompClient.send("/app/admin/message", {}, message);
+                stompClient.send("/app/admin/message", {}, JSON.stringify({ sender: 'admin', message: message }));
             }
         }
-    </script>
+    </script>    
 </body>
 </html>
