@@ -8,6 +8,10 @@ public class BannoithatonlineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BannoithatonlineApplication.class, args);
+
+		
 	}
+
+	
 
 }

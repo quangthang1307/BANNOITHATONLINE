@@ -1,19 +1,19 @@
 const app = angular.module("bannoithatonline", []);
 
-const hostListCart = "http://localhost:8080/rest/showCart";
-const hostUpQuantityProduct = "http://localhost:8080/rest/cart/up";
-const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
-const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
-const hostProductImage = "http://localhost:8080/rest/products";
-const hostCustomerId = "http://localhost:8080/rest/customer";
-const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
+const hostListCart = "/rest/showCart";
+const hostUpQuantityProduct = "/rest/cart/up";
+const hostDownQuantityProduct = "/rest/cart/down";
+const hostDeleteProduct = "/rest/removeFromCart";
+const hostProductImage = "/rest/products";
+const hostCustomerId = "/rest/customer";
+const hostDeleteAllProductInCart = "/rest/removeAllCarts";
 
 app.controller("CartController", function ($scope, $http, $window) {
   $scope.listCart = [];
   $scope.listCartId = [];
 
   //Gọi customerId khi login thành công
-  // const hostCustomerId = "http://localhost:8080/rest/customer";
+  // const hostCustomerId = "/rest/customer";
 
   //Lấy thông tin khách hàng
   var getCustomer = localStorage.getItem("customerId");
