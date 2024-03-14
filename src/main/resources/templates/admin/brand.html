@@ -8,6 +8,51 @@
 </head>
 
 <body>
+
+
+//lưu hiện thông báo
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Lưu sản phẩm thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+//xóa hiện thông báo
+<script>
+    function confirmDelete(brandsId) {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/deleteBrands/' + brandsId;
+            }
+        });
+
+        // Trả về false để ngăn chặn hành động mặc định của liên kết
+        return false;
+    }
+</script>
+<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Xóa sản phẩm thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+
   <!-- ============================================================== -->
   <!-- Preloader - style you can find in spinners.css -->
   <!-- ============================================================== -->
@@ -66,7 +111,7 @@
         <div class="row">
           <div class="col-12">
 
-            <div class="card">
+            <div class="card col-12">
               <form class="form-horizontal" th:object="${brand}" method="post">
                 <div class="card-body">
                   <h4 class="card-title">Thương Hiệu</h4>
@@ -94,9 +139,9 @@
                     </button>
 
                        <a href="/admin/brand" class="btn btn-info" style="color: white;">Làm mới</a>
-                    <div th:if="${successMessage}" class="success-message" style="margin-left: 120px; margin-top: -35px;">
+                   <!--  <div th:if="${successMessage}" class="success-message" style="margin-left: 150px; margin-top: -25px;">
                       <p th:text="${successMessage}" style="color: green; font-weight: bold;"></p>
-                    </div>
+                    </div> -->
                   </div>
 
                 </div>
@@ -120,18 +165,20 @@
 
                     <tr th:each="brand : ${allbrands}">
                       <td th:text="${brand.brandsId}"></td>
-                      <td th:text="${brand.brandname}"></td>
-                      <td><button type="button" class="btn btn-danger">
-                          <i class="bi bi-trash" th:onclick="'return confirmDelete(\'' + ${brand.brandsId} + '\')'"></i>
-
-                        </button>
-
-                        <a class="bi bi-pencil-square btn btn-info"
-                          th:href="@{/admin/editBrands/{brandsId}(brandsId=${brand.brandsId})}"></a>
-
-                      </td>
-
+                    <td th:text="${brand.brandname}"></td>
+                      <td>
+                    <a th:onclick="'return confirmDelete(\'' + *{brand.brandsId} + '\');'" href="#">
+                    <button class="btn btn-danger" type="submit" style="width:40px; max-width: 100%;  border-radius: 5px; ">   
+                    <svg style="margin-left:-1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>         
+                    </button> 
+                    </a>
+                    <a class="bi bi-pencil-square btn btn-info" th:href="@{'/admin/editBrands/' + ${brand.brandsId}}"></a>
+                    </td>
                     </tr>
+
 
                   </tbody>
 
@@ -176,14 +223,14 @@
   <!-- ============================================================== -->
   <!-- All Jquery -->
   <!-- ============================================================== -->
-  <script>
+  <!-- <script>
     function confirmDelete(brandsId) {
       if (confirm("Bạn có chắc muốn xóa không?")) {
         window.location.href = '/admin/deleteBrands/' + brandsId;
       }
       return false;
     }
-  </script>
+  </script> -->
   <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
   <!-- Bootstrap tether Core JavaScript -->
   <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>

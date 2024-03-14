@@ -8,6 +8,49 @@
 </head>
 
 <body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+//HIển thị thông báo
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Chuyển đổi trạng thái thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+//xóa hiện thông báo
+<script>
+    function confirmDelete(accountId) {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/deleteTaiKhoan/' + accountId;
+            }
+        });
+
+        // Trả về false để ngăn chặn hành động mặc định của liên kết
+        return false;
+    }
+</script>
+<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Xóa tài khoản thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
@@ -87,30 +130,41 @@
 											<tr th:each="account : ${allAccount}">
 												<td th:text="${account.accountId}"></td>
 												<td th:text="${account.username}"></td>
-
 												<td>
 													<div class="col-auto">
-														<label class="visually-hidden" for="autoSizingSelect">Trạng
-															thái</label> <select class="form-select" id="autoSizingSelect"
-															onchange="updateStatus(this, ${accounts.accountId})">
-															<option th:value="${account.active ? 'true' : 'false'}"
-																th:text="${account.active ? 'Hoạt Động' : 'Không Hoạt Động'}"></option>
-															<option th:value="${!account.active ? 'true' : 'false'}"
-																th:text="${!account.active ? 'Hoạt Động' : 'Không Hoạt Động'}"></option>
-														</select>
+														<form th:object="${account}" method="post"
+															th:action="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}">
+															<label class="visually-hidden" for="autoSizingSelect">Trạng
+																thái</label> <select class="form-select" id="autoSizingSelect"
+																name="active"
+																onchange="updateStatus(this, ${account.accountId})">
+																<option th:value="true" th:text="${'Hoạt Động'}"
+																	th:selected="${account.active == true}"></option>
+																<option th:value="false" th:text="${'Không Hoạt Động'}"
+																	th:selected="${account.active == false}"></option>
+
+															</select>
+															
+														
 													</div>
 												</td>
 
 												<td th:text="${account.email}"></td>
 												<td>
-													<button type="button" class="btn btn-danger"
-														onclick="confirmDelete('${account.accountId}')">
-														<i class="bi bi-trash"></i>
-													</button> <a class="bi bi-floppy btn btn-info"
-													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a>
-												  
+													<a th:onclick="'return confirmDelete(\'' + *{account.accountId} + '\');'" href="#">
+                    <button class="btn btn-danger" type="submit" style="width:40px; max-width: 100%;  border-radius: 5px; ">   
+                    <svg style="margin-left:-1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>         
+                    </button> 
+                    </a>
+														
+														<button type="submit" class="bi bi-floppy btn btn-info"></button>
+														<!-- </button> <a class="bi bi-floppy btn btn-info"
+													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a> -->
 												</td>
-
+</form>
 											</tr>
 
 
@@ -159,14 +213,80 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<script>
+	<!-- <script>
 		function confirmDelete(accountId) {
 			if (confirm("Bạn có chắc muốn xóa không?")) {
 				window.location.href = '/admin/deleteTaiKhoan/' + accountId;
 			}
 			return false;
 		}
-	</script>
+	</script> -->
+
+	<!-- chuyển trang thái	 -->
+	<!-- 
+	<script th:inline="javascript">
+    /*<![CDATA[*/
+    function changeOrderStatus(selectElement, accountId) {
+        let previousValue = selectElement.getAttribute('data-previous-value');
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn đổi trạng thái?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let newStatus = selectElement.value;
+
+            // Sử dụng Ajax để gửi yêu cầu đổi trạng thái và xử lý kết quả
+            $.ajax({
+                type: "POST",
+                url: "/admin/updateOrderStatus",
+                data: {
+                	accountId: accountId,
+                    newStatus: newStatus
+                },
+                success: function (response) {
+                    Swal.fire({
+                title: 'Thành công!',
+                text: response,
+                icon: 'success',
+                showConfirmButton: false, // Không hiển thị nút "OK"
+                timer: 1500 // Hiển thị thông báo trong 1.5 giây
+            });
+
+            // Đợi 1.5 giây rồi mới reload trang
+            setTimeout(function() {
+                location.reload();
+            }, 1500);
+        },
+                error: function (xhr, status, error) {
+                    let errorMessage = xhr.responseText || 'Đã xảy ra lỗi';
+                    Swal.fire('Lỗi!', errorMessage, 'error');
+                }
+            });
+        } else {
+            // Nếu hủy, đặt giá trị select option về giá trị gốc
+            // selectElement.value = selectElement.getAttribute('data-previous-value');
+            // selectElement.value = previousValue;
+            location.reload();
+        }
+    });
+}
+
+    function updateOrderStatus(accountId, newStatus) {
+        // Gửi yêu cầu AJAX để cập nhật trạng thái đơn hàng
+        // Ở đây, bạn có thể sử dụng fetch hoặc các phương thức khác để thực hiện yêu cầu
+        // Sau khi cập nhật thành công, hiển thị thông báo thành công
+        reloadData();
+        Swal.fire('Đổi trạng thái thành công!', '', 'success');
+    }
+    /*]]>*/
+   
+</script> -->
+
+
+
 	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
 	<!-- Bootstrap tether Core JavaScript -->
 	<script
