@@ -96,8 +96,8 @@ public class TelegramRestController {
             
                 DecimalFormat decimalFormat = new DecimalFormat("#,### VND");                
                 tongtien = decimalFormat.format(Double.parseDouble(order.get().getSumpayment().toString()));
-                String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-                link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
+                // String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
+                // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
         }
 
         String message = "Đơn hàng mới!\n"
