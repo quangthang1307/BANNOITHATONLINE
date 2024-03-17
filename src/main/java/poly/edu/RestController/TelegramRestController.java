@@ -35,27 +35,34 @@ public class TelegramRestController {
     OrderDetailRepository orderDetailRepository;
     @Autowired
     OrderRepository orderRepository;
-    @Autowired OrderStatusRepository orderStatusRepository;
+    @Autowired
+    OrderStatusRepository orderStatusRepository;
 
     @Autowired
     HttpServletRequest request;
 
     @GetMapping("/rest/telegram/approve")
-    public boolean approve(@RequestParam Integer orderID){
+    public String approve(@RequestParam Integer orderID) {
         Optional<Order> order = orderRepository.findById(orderID);
-        if(order.isPresent()){
-            Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
-            order.get().setOrderstatus(orderstatus);;
-            orderRepository.save(order.get());
-            return true;
-        } else{
-            return false;
+        if (order.isPresent()) {
+            if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
+                Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
+                order.get().setOrderstatus(orderstatus);
+                ;
+                orderRepository.save(order.get());
+                return "Duyệt thành công!";
+            }else{
+                return "Trạng thái đơn hàng: " + order.get().getOrderstatus().getOrderstatusname() ;
+            }
+
+        } else {
+            return "Duyệt thất bại";
         }
     }
 
     @PostMapping("/rest/telegram/notification")
     public boolean notification(@RequestBody Map<String, Object> data) throws JsonProcessingException {
-        String username = null;        
+        String username = null;
         String sanpham = null;
         String phone = null;
         String tongtien = null;
@@ -78,37 +85,39 @@ public class TelegramRestController {
         // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
         String finalNames = concatenatedNames.toString().replaceAll(", $", "");
         sanpham = finalNames;
-        
 
-        if(order.isPresent()){
-            if(order.get().getCustomer().getAccount().getUsername() != null || !order.get().getCustomer().getAccount().getUsername().isEmpty()){
+        if (order.isPresent()) {
+            if (order.get().getCustomer().getAccount().getUsername() != null
+                    || !order.get().getCustomer().getAccount().getUsername().isEmpty()) {
                 username = order.get().getCustomer().getAccount().getUsername();
             }
-            if(order.get().getCustomer().getPhone() != null || !order.get().getCustomer().getPhone().isEmpty()){
+            if (order.get().getCustomer().getPhone() != null || !order.get().getCustomer().getPhone().isEmpty()) {
                 phone = order.get().getCustomer().getPhone();
             }
-            if(order.get().getTime() != null){
+            if (order.get().getTime() != null) {
                 time = order.get().getTime().toString().substring(0, 10);
             }
-            if(order.get().getCustomer().getName() != null || !order.get().getCustomer().getName().isEmpty()){
+            if (order.get().getCustomer().getName() != null || !order.get().getCustomer().getName().isEmpty()) {
                 name = order.get().getCustomer().getName();
             }
-            
-                DecimalFormat decimalFormat = new DecimalFormat("#,### VND");                
-                tongtien = decimalFormat.format(Double.parseDouble(order.get().getSumpayment().toString()));
-                // String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-                // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
+
+            DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
+            tongtien = decimalFormat.format(Double.parseDouble(order.get().getSumpayment().toString()));
+            // String baseUrl =
+            // request.getRequestURL().toString().replace(request.getRequestURI(),
+            // request.getContextPath());
+            // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
         }
 
         String message = "Đơn hàng mới!\n"
-        + "*Họ và tên:* " + name + "\n"
-        + "*Username:* " + username + "\n"
-        + "*Số điện thoại:* " + phone + "\n"
-        + "*Ngày đặt hàng:* " + time + "\n"
-        + "*Sản phẩm:* " + sanpham + "\n"
-        + "*Tổng tiền:* " + tongtien + "\n"
-        + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www.localhost/rest/telegram/approve?orderID="+ String.valueOf(orderID) +")";
-
+                + "*Họ và tên:* " + name + "\n"
+                + "*Username:* " + username + "\n"
+                + "*Số điện thoại:* " + phone + "\n"
+                + "*Ngày đặt hàng:* " + time + "\n"
+                + "*Sản phẩm:* " + sanpham + "\n"
+                + "*Tổng tiền:* " + tongtien + "\n"
+                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www.localhost/rest/telegram/approve?orderID="
+                + String.valueOf(orderID) + ")";
 
         try {
             TelegramBot bot = new TelegramBot("6853009990:AAHzyQYieOgmEUBr6cAI8-OXGQD_t_GHVW4");
