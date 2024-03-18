@@ -5,6 +5,7 @@ Chào mừng bạn đến với trang web mua bán nội thất của chúng tô
 
 
 ![Logo](./imagespreview/logo.jpg)
+
 Hiện tại web đang trong giai đoạn phát triển, nếu muốn trải nghiệm hãy tải sản phẩm về.
 
 ## Người đóng góp
