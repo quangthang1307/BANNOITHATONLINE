@@ -5,7 +5,7 @@ Chào mừng bạn đến với trang web mua bán nội thất của chúng tô
 
 
 ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
-Hiện tại web đang trong giai đoạn phát triển, nễu muốn trải nghiệm hãy tải sản phẩm về.
+Hiện tại web đang trong giai đoạn phát triển, nếu muốn trải nghiệm hãy tải sản phẩm về.
 
 ## Người đóng góp
 | Họ và tên             | Vai trò                                                                |
