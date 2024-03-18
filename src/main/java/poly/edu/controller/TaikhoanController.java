@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import poly.edu.Service.AccountService;
 import poly.edu.entity.Account;
+
 import poly.edu.entity.Brands;
 
 @Controller
@@ -34,24 +36,102 @@ public class TaikhoanController {
         // mới cho form
         return "admin/taikhoan";
     }
+    
+//    @PostMapping("/updateOrderStatus")
+//    public ResponseEntity<String> updateOrderStatus(@RequestParam Integer accountId, @RequestParam AccountStatus newStatus) {
+//        return accountService.updateOrderStatus(accountId, newStatus);
+//    }
+//
+//    @PostMapping("/saveAccount")
+//    public String saveAccount(@Validated @RequestParam("accountId") Account account,
+//            BindingResult bindingResult,
+//            RedirectAttributes redirectAttributes, Model model) {
+//    	try {
+//    	    if (bindingResult.hasErrors()) {
+//                model.addAttribute("allAccount", accountService.findAll());
+//
+//                return "/admin/taikhoan";
+//            }
+//
+//            accountService.create(account);
+//
+//            redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
+//
+//           
+//        } catch (Exception e) {
+//            // Đặt thông báo lỗi vào redirectAttributes nếu có lỗi
+//            redirectAttributes.addFlashAttribute("saveerrorMessage", "Xóa thất bại: " + e.getMessage());
+//        }
+//    	return "redirect:/admin/taikhoan"; 
+//    }
+//    @PostMapping("/saveAccount")
+//    public String saveAccount(@RequestParam("accountId") Integer accountId,
+//                              @RequestParam("active") boolean active,
+//                              RedirectAttributes redirectAttributes) {
+//        try {
+//            // Tìm tài khoản dựa trên accountId
+//            Account account = accountService.findById(accountId);
+//            
+//            if (account == null) {
+//                // Trả về trang lỗi nếu không tìm thấy tài khoản
+//                return "redirect:/error";
+//            }
+//            
+//            // Cập nhật trạng thái của tài khoản
+//            account.setActive(active);
+//            
+//            // Lưu tài khoản
+//            accountService.saveAccount(account);
+//
+//            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái tài khoản thành công!");
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("saveerrorMessage", "Cập nhật trạng thái tài khoản thất bại: " + e.getMessage());
+//        }
+//        return "redirect:/admin/taikhoan"; 
+//    }
+    @PostMapping("/saveAccount/{accountId}")
+    public String saveAccount(@PathVariable("accountId") Integer accountId,
+                              @RequestParam("active") boolean active,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            // Tìm tài khoản dựa trên accountId
+            Account account = accountService.findById(accountId);
+            
+            if (account == null) {
+                // Trả về trang lỗi nếu không tìm thấy tài khoản
+                return "redirect:/error";
+            }
+            
+            // Cập nhật trạng thái của tài khoản
+            account.setActive(active);
+            
+            // Lưu tài khoản
+            accountService.saveAccount(account);
 
-    @PostMapping("/saveAccount")
-    public String saveAccount(@Validated @ModelAttribute("taikhoan") Account account,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("allAccount", accountService.findAll());
-
-            return "/admin/taikhoan";
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái tài khoản thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("saveerrorMessage", "Cập nhật trạng thái tài khoản thất bại: " + e.getMessage());
         }
-
-        accountService.create(account);
-
-        redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
-
-        return "redirect:/admin/taikhoan"; // Chuyển hướng đến trang danh sách accounts
+        return "redirect:/admin/taikhoan"; 
     }
+
+
+    
+    @GetMapping("/deleteTaiKhoan/{accountId}")
+    public String deleteTaiKhoan(@PathVariable("accountId") Integer accountId, RedirectAttributes redirectAttributes) {
+        try {
+            Account account = accountService.findById(accountId);
+            accountService.delete(accountId);
+            // Đặt thông báo thành công vào redirectAttributes
+            redirectAttributes.addFlashAttribute("deletesuccessMessage", "Xóa thành công!");
+        } catch (Exception e) {
+            // Đặt thông báo lỗi vào redirectAttributes nếu có lỗi
+            redirectAttributes.addFlashAttribute("deleteerrorMessage", "Xóa thất bại: " + e.getMessage());
+        }
+        // Chuyển hướng người dùng đến trang hiển thị danh sách tài khoản
+        return "redirect:/admin/taikhoan";
+    }
+
 
     // edit product
     @GetMapping("editAccount/{accountId}")

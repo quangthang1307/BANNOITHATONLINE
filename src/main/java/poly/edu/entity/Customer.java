@@ -30,6 +30,9 @@ public class Customer {
     @Column(name = "Phone")
     private String phone;
 
+    @Column(name = "Image")
+    private String Image;
+
     @ManyToOne
     @JoinColumn(name = "AccountID")
     private Account account;

@@ -1,5 +1,5 @@
 const app = angular.module("bannoithatonline", []);
-const host = "http://localhost:8080";
+const host = "";
 
 
 app.controller("OrderDetailController",function($scope, $http){

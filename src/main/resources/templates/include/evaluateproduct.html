@@ -1,0 +1,159 @@
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* CSS chung cho trang web */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Phần đánh giá sản phẩm */
+        .productDetail--navs {
+            background-color: #f0f0f0;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .product-ratings__header {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-rating-overview__score-wrapper {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .shopee-rating-stars__star-wrapper {
+            display: inline-block;
+        }
+
+        /* Định dạng cho mỗi ngôi sao */
+        .shopee-rating-stars__lit {
+            font-size: 24px; /* Kích thước của ngôi sao */
+            color: red; /* Màu sắc của ngôi sao */
+        }
+
+        /* Hiệu ứng khi di chuột qua và khi được chọn */
+        .shopee-rating-stars__lit:hover,
+        .shopee-rating-stars__lit.active {
+            filter: grayscale(0%); /* Loại bỏ hiệu ứng xám khi di chuột qua hoặc khi được chọn */
+        }
+
+        .product-rating-overview__filters {
+            margin-top: 20px;
+        }
+
+        .product-rating-overview__filter {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid black; /* Thêm viền màu đen */
+            padding: 5px 10px; /* Tạo khoảng cách giữa viền và nội dung */
+        }
+
+        .no-data {
+            margin-top: 20px;
+            text-align: center; /* Canh giữa nội dung */
+        }
+
+        .no-data__icon img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .no-data__text {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* CSS cho mỗi mục trong product-rating-overview */
+        .product-rating-item {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Phân trang */
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination-button {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: orange;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination-button:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination-button.active {
+            background-color: #0056b3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="productDetail--navs">
+    <div class="product-ratings__header">
+        <div class="product-ratings__header_score">ĐÁNH GIÁ SẢN PHẨM</div>
+    </div>
+    <div class="product-rating-overview">
+        <div class="product-rating-item">
+            <div class="product-rating-overview__briefing">
+                <div class="product-rating-overview__score-wrapper">
+                    <span class="product-rating-overview__rating-score">0</span>
+                    <span class="product-rating-overview__rating-score-out-of"> trên 5 </span>
+                </div>
+                <div class="shopee-rating-stars product-rating-overview__stars">
+                    <div class="shopee-rating-stars__stars">
+                        <div class="shopee-rating-stars__star-wrapper">
+                            <!-- Các ngôi sao -->
+                            <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
+                            <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
+                            <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
+                            <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
+                            <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-rating-overview__filters">
+                <div class="product-rating-overview__filter product-rating-overview__filter--active">tất cả</div>
+                <div class="product-rating-overview__filter">5 Sao (0)</div>
+                <div class="product-rating-overview__filter">4 Sao (0)</div>
+                <div class="product-rating-overview__filter">3 Sao (0)</div>
+                <div class="product-rating-overview__filter">2 Sao (0)</div>
+                <div class="product-rating-overview__filter">1 Sao (0)</div>
+                <div class="product-rating-overview__filter">Có Bình luận (0)</div>
+                <div class="product-rating-overview__filter">Có hình ảnh / video (0)</div>
+            </div>
+        </div>
+    </div>
+    <div class="no-data">
+        <div class="no-data__icon">
+            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/shoprating/7d900d4dc402db5304b2.png" alt="empty-icon">
+        </div>
+        <div class="no-data__text">Chưa có đánh giá</div>
+        <!-- Phân trang -->
+        <div class="pagination">
+            <button class="pagination-button">&laquo; Trang trước</button>
+            <button class="pagination-button active">1</button>
+            <button class="pagination-button">2</button>
+            <button class="pagination-button">3</button>
+            <button class="pagination-button">Trang sau &raquo;</button>
+        </div>
+    </div>
+</div>

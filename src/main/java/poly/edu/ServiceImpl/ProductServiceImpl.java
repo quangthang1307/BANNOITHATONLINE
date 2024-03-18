@@ -159,6 +159,11 @@ public class ProductServiceImpl implements ProductService {
         return productResponsitory.findProductByRoomZA(pageable, category);
     }
 
+    @Override
+    public List<Product> findAllNoActive() {
+        return productResponsitory.findAll();
+    }
+
 
 
 

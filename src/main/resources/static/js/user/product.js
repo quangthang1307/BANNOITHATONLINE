@@ -17,6 +17,8 @@ const hostDeleteProduct = "/rest/removeFromCart";
 const hostProductImage = "/rest/products";
 const hostDeleteAllProductInCart = "/rest/removeAllCarts";
 const hostProductSale = "/rest/product/sale";
+const hostProductDESC = "/rest/product/desc";
+const hostProductASC = "/rest/product/asc";
 const hostProductSales = "/rest/product/sales";
 const hostProductSaleDESC = "/rest/product/sales/desc";
 const hostProductSaleASC = "/rest/product/sales/asc";
@@ -27,8 +29,7 @@ const hostProductSaleByCategoryAndDESC = "/rest/product/sales/category/desc";
 const hostProductSaleByCategoryAndASC = "/rest/product/sales/category/asc";
 const hostProductSaleByCategoryAndAZ = "/rest/product/sales/category/az";
 const hostProductSaleByCategoryAndZA = "/rest/product/sales/category/za";
-const hostProductDESC = "/rest/product/desc";
-const hostProductASC = "/rest/product/asc";
+
 const hostProductAZ = "/rest/product/az";
 const hostProductZA = "/rest/product/za";
 

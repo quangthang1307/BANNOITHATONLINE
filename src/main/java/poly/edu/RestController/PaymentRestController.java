@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import net.minidev.json.JSONObject;
+import poly.edu.Service.ForgotPasswordService;
 import poly.edu.Service.PaymentService;
 import poly.edu.Service.VNPayService;
 import poly.edu.entity.Order;
@@ -43,6 +46,9 @@ public class PaymentRestController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    ForgotPasswordService forgotPasswordService;
 
     @PostMapping("/rest/vnpay")
     public ResponseEntity<PaymentResponse> submitOrder(@RequestBody Map<String, Object> requestBody,
@@ -129,6 +135,19 @@ public class PaymentRestController {
             }
         } else {
             return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @GetMapping("/rest/sendEmailHuyDon")
+    public ResponseEntity<?> sendEmailHuyDon(@RequestParam String to, @RequestParam String subject,
+            @RequestParam String content) throws UnsupportedEncodingException, MessagingException {
+
+        try {
+            forgotPasswordService.sendEmailHuyDon(to, subject, content);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
