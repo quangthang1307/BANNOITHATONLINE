@@ -31,11 +31,14 @@ Hiện tại web đang trong giai đoạn phát triển, nễu muốn trải ngh
 
 ## Một số giao diện
 
-![App Screenshot](./imagespreview/anh1.jpg)
+- Giao diện chính:
+![App Screenshot](./imagespreview/anh3.jpg)
 
+- Giao diện sản phẩm:
 ![App Screenshot](./imagespreview/anh2.jpg)
 
-![App Screenshot](./imagespreview/anh3.jpg)
+- Giao diện chi tiết sản phẩm: 
+![App Screenshot](./imagespreview/anh1.jpg)
 
 #### Back-end (SpringBoot)
 - Bảo vệ Đăng nhập bằng Spring Security, JWT Token.
