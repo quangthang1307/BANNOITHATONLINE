@@ -41,14 +41,13 @@ public class TelegramRestController {
     @Autowired
     HttpServletRequest request;
 
-    @GetMapping("/rest/telegram/approve")
+    @GetMapping("/api/telegram/approve")
     public String approve(@RequestParam Integer orderID) {
         Optional<Order> order = orderRepository.findById(orderID);
         if (order.isPresent()) {
             if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
                 Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
                 order.get().setOrderstatus(orderstatus);
-                ;
                 orderRepository.save(order.get());
                 return "Duyệt thành công!";
             }else{
@@ -110,6 +109,7 @@ public class TelegramRestController {
         }
 
         String message = "Đơn hàng mới!\n"
+                + "*Mã đơn hàng:* " + orderID + "\n"
                 + "*Họ và tên:* " + name + "\n"
                 + "*Username:* " + username + "\n"
                 + "*Số điện thoại:* " + phone + "\n"
