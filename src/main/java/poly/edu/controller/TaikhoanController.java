@@ -1,6 +1,7 @@
 package poly.edu.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,19 @@ import poly.edu.Service.AccountService;
 import poly.edu.entity.Account;
 
 import poly.edu.entity.Brands;
+import poly.edu.repository.CustomerRepository;
+import poly.edu.repository.EmployeeRepository;
 
 @Controller
 @RequestMapping("/admin")
 public class TaikhoanController {
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @GetMapping("/taikhoan")
     public String showList(@ModelAttribute("taikhoan") Account account, Model model) {
@@ -35,6 +43,12 @@ public class TaikhoanController {
         // model.addAttribute("newBrand", new Brands()); // Thêm một đối tượng Brands
         // mới cho form
         return "admin/taikhoan";
+    }
+
+    @GetMapping("/phanquyentaikhoan")
+    public String showAccountpermissions(Model model){
+
+        return "admin/phanQuyenTaiKhoan";
     }
     
 //    @PostMapping("/updateOrderStatus")
