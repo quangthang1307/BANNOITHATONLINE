@@ -9,4 +9,5 @@ import poly.edu.entity.Account;
 import poly.edu.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+    Employee findByAccount(Account account);
 }

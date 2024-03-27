@@ -74,13 +74,13 @@
 									<table id="zero_config" class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>ID</th>
 												<th>Tên tài khoản</th>
 												<th>Vai trò</th>
-												<th>Loại tài khoản</th>
+												<th>Thay đổi vai trò</th>
 											</tr>
 										</thead>
-										<tbody>
+
+										<body>
 
 											<!-- <tr th:each="account : ${allAccount}">
 												<td th:text="${account.accountId}"></td>
@@ -128,20 +128,26 @@
 											</tr> -->
 
 											<!-- Danh sách nhân viên -->
-											<tr th:each="account : ${customerAccounts}">
-												<td th:text="${account.accountId}"></td>
-												<td th:text="${account.username}"></td>
-												<td th:text="${account.accountroles.iterator()..next()}"></td>
-												<td>Customer</td>
-											</tr>											
-											<!-- <tr th:each="account : ${employeeAccounts}">
-												<td th:text="${account}"></td>
-												<td th:text="${account}"></td>
-												<td>Employee</td>
-											</tr> -->
-
-										</tbody>
-
+											<tr th:each="accountInfo : ${accountInfos}">
+												<td th:text="${accountInfo.account.username}"></td>
+												<td>
+													<ul>
+														<li th:each="role : ${accountInfo.roles}" th:text="${role.role.roleName}"></li>
+													</ul>
+												</td>
+												<td>
+													<form th:action="@{/admin/changeRole}" method="post">
+														<select name="roleId">
+															<option th:each="role : ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
+														</select>
+														<input type="hidden" name="accountId" th:value="${accountInfo.account.accountId}" />
+														<button type="submit">Lưu</button>
+													</form>
+												</td>
+											</tr>
+											
+										</body>
+										<span th:text="${message}"></span>
 									</table>
 								</div>
 							</div>
