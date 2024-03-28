@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam to Canvas</title>
+</head>
+<body>
+    <video id="webcam" autoplay></video>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const webcam = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        async function setupWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                webcam.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        function captureImage() {
+            context.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL(); // Convert canvas to base64 data URL
+
+            // Send imageData to server via RSocket
+            const rsocketRequester = getRSocketRequester(); // Assume you have a configured RSocketRequester
+            rsocketRequester.route('image.upload')
+                .data(imageData)
+                .send()
+                .subscribe({
+                    onComplete: () => console.log('Image sent successfully'),
+                    onError: error => console.error('Error sending image:', error)
+                });
+        }
+
+        setupWebcam();
+        // Capture image when needed (e.g., button click)
+        // Example: document.getElementById('captureButton').addEventListener('click', captureImage);
+    </script>
+</body>
+</html>

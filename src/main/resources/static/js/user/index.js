@@ -1,17 +1,22 @@
 var app = angular.module("bannoithatonline", [])
-const host = "http://localhost:8080/rest/product";
-const hostCustomerId = "http://localhost:8080/rest/customer";
-const hostListCart = "http://localhost:8080/rest/showCart";
-const hostUpQuantityProduct = "http://localhost:8080/rest/cart/up";
-const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
-const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
-const hostProductImage = "http://localhost:8080/rest/products";
-const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
-const hostProductSale = "http://localhost:8080/rest/product/sale";
-const hostDiscount = "http://localhost:8080/rest/discounttop4";
-const hostProductByRoom = "http://localhost:8080/rest/product/category/room";
 
-app.controller("IndexController", function ($scope, $http, $window) {
+const host = "/rest/product";
+const hostCustomerId = "/rest/customer";
+const hostListCart = "/rest/showCart";
+const hostUpQuantityProduct = "/rest/cart/up";
+const hostDownQuantityProduct = "/rest/cart/down";
+const hostDeleteProduct = "/rest/removeFromCart";
+const hostProductImage = "/rest/products";
+const hostDeleteAllProductInCart = "/rest/removeAllCarts";
+const hostProductSale = "/rest/product/sale";
+const hostDiscount = "/rest/discounttop4";
+const hostProductByRoom = "/rest/product/category/room";
+const hostFlashSaleHourStart = "/rest/flashsaledelay/start";
+const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
+const hostFlashSale = "/rest/flashsale";
+const hostFlashSaleUpdate = "/rest/flashsale/update"
+
+app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
   $scope.productSale = [];
@@ -111,11 +116,11 @@ app.controller("IndexController", function ($scope, $http, $window) {
 
   $scope.clickByRoom = function (id) {
     var title = "";
-    if(id == 1) title = "Phòng khách";
-    if(id == 2) title = "Phòng Ngủ";
-    if(id == 3) title = "Phòng Ăn";
-    if(id == 4) title = "Phòng làm việc";
-   
+    if (id == 1) title = "Phòng khách";
+    if (id == 2) title = "Phòng Ngủ";
+    if (id == 3) title = "Phòng Ăn";
+    if (id == 4) title = "Phòng làm việc";
+
     localStorage.setItem('idproductByroom', JSON.stringify(id));
     localStorage.setItem('titleCategory', JSON.stringify(title));
     window.location.href = "/product/room";
@@ -144,6 +149,172 @@ app.controller("IndexController", function ($scope, $http, $window) {
   };
 
 
+  //FLASH SALE
+  $scope.FlashSaleHours = [];
+  $scope.FlashSaleProducts = [];
+  $scope.itemsPerPage = 15;
+  $scope.currentPage = 1;
+  $scope.totalItems = 0;
+  $scope.totalPages = 0;
+
+  $scope.timetodelay = 0;
+
+  // Hàm lập lịch task cho flash sale
+  $scope.scheduleFlashSaleTask = function () {
+    angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
+      var delay = FlashSaleHour.delay;
+      console.log(delay);
+      $timeout(function () {
+        console.log("Flash sale is starting now at ");
+        $scope.getFlashSale();
+        // Thực hiện công việc khi bắt đầu flash sale
+        // $scope.getFlashSale();
+        // Lập lịch cho công việc khi kết thúc flash sale
+        $scope.scheduleSaleOffTask();
+      }, delay);
+
+    });
+
+  };
+
+  // Hàm lập lịch task cho việc kết thúc flash sale
+  $scope.flashsaleoff = null;
+  $scope.scheduleSaleOffTask = function () {
+
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        var delay = resp.data.delay
+        $scope.timetodelay = resp.data.delay;
+        $scope.flashsaleoff = resp.data.flashsalehour
+        $scope.startCountdown();
+        $timeout(function () {
+          console.log("Sale off at " + new Date());
+          $scope.FlashSaleProducts = [];
+          $scope.UpdateFlashSale($scope.flashsaleoff);
+          // Thực hiện công việc khi kết thúc flash sale
+
+        }, delay);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+
+  };
+
+  $scope.getFlashSaleDelayStart = function () {
+    $http.get(hostFlashSaleHourStart)
+      .then(resp => {
+        $scope.FlashSaleHours = resp.data;
+        console.log($scope.FlashSaleHours);
+
+
+        $scope.scheduleFlashSaleTask();
+
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSaleDelayEnd = function () {
+    $http.get(hostFlashSaleHourEnd)
+      .then(resp => {
+        console.log(resp.data);
+        return resp.data;
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.getFlashSale = function () {
+    var api = hostFlashSale + "?page=" + ($scope.currentPage - 1) + "&size" + $scope.itemsPerPage;
+    $http.get(api)
+      .then(resp => {
+        console.log(resp.data);
+        $scope.FlashSaleProducts = resp.data.content;
+
+        $scope.totalItems = resp.data.totalElements;
+        console.log($scope.totalItems);
+
+        $scope.totalPages = parseInt(resp.data.totalPages, 10);
+        console.log($scope.totalPages);
+      })
+      .catch(error => {
+        console.log("Error", error);
+      });
+  }
+
+  $scope.UpdateFlashSale = function (dataflashsale) {
+    $http.put(hostFlashSaleUpdate, dataflashsale)
+      .then(function (response) {
+        // Xử lý kết quả thành công
+        console.log('Dữ liệu đã được gửi thành công:', response.data);
+      })
+      .catch(function (error) {
+        // Xử lý lỗi
+        console.error('Đã xảy ra lỗi:', error);
+      });
+  }
+
+
+  //
+
+  $scope.numberArray = function () {
+    var result = [];
+    for (var i = 1; i <= $scope.totalPages; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+
+  var timer; // Biến lưu trữ interval
+  // var timetoend = $scope.timetodelay;
+  $scope.startCountdown = function() {
+      // Dừng interval trước khi bắt đầu một lần mới
+      if (angular.isDefined(timer)) {
+          $interval.cancel(timer);
+      }
+      // Bắt đầu đếm ngược
+      timer = $interval($scope.countdown, 1000);
+  }
+
+  $scope.countdown = function () {
+    // Kiểm tra xem thời gian còn lại có hợp lệ không
+    
+    if ($scope.timetodelay <= 0) {
+      console.log("Thời gian đã kết thúc.");
+      return;
+    }
+
+
+
+    // Chuyển đổi thời gian còn lại thành giờ, phút, giây
+    $scope.days = Math.floor($scope.timetodelay / (1000 * 60 * 60 * 24));
+    $scope.hours = Math.floor($scope.timetodelay / (1000 * 60 * 60));
+    $scope.minutes = Math.floor(($scope.timetodelay % (1000 * 60 * 60)) / (1000 * 60));
+    $scope.seconds = Math.floor(($scope.timetodelay % (1000 * 60)) / 1000);
+
+    if ($scope.timetodelay <= 1000) {
+      console.log("đã dừng");
+      $interval.cancel(timer); 
+      $scope.days = $scope.hours = $scope.minutes = $scope.seconds = 0;
+    }else{
+      $scope.timetodelay -= 1000;
+       $scope.startCountdown();
+    }
+
+   
+
+  }
+
+
+
+
+
+  $scope.getFlashSaleDelayStart();
+
   $scope.addToCart = function (product) {
     if ($scope.customer == null) {
       Swal.fire({
@@ -167,7 +338,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
     }
 
     var urlCheckCart =
-      "http://localhost:8080/rest/cart/" +
+      "/rest/cart/" +
       $scope.customer.customerId +
       "/" +
       product.productid;
@@ -177,7 +348,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
         if (response.data) {
 
           var url =
-            "http://localhost:8080/rest/cart/up/" +
+            "/rest/cart/up/" +
             $scope.customer.customerId +
             "/" +
             product.productid;
@@ -194,7 +365,7 @@ app.controller("IndexController", function ($scope, $http, $window) {
         }
       })
       .catch(function (error) {
-        var url = "http://localhost:8080/rest/addToCart";
+        var url = "/rest/addToCart";
         var dataPost = {
           customer: {
             customerId: $scope.customer.customerId,
@@ -263,7 +434,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   $scope.responseStatus = '';
 
   $scope.callAPI = function () {
-    $http.post('http://localhost:8080/createThread', {})
+    $http.post('/createThread', {})
       .then(function (response) {
         console.log(response);
         $scope.threadId = response.data;
@@ -287,7 +458,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
       file_ids: "file-PQeqheySy2be7PYRIuVVgQNQ"
     };
 
-    $http.post('http://localhost:8080/sendMessageApi', jsonBody)
+    $http.post('/sendMessageApi', jsonBody)
       .then(function (response) {
         console.log(response);
         $scope.responseMessage = "Server Response: " + response.data;
@@ -299,7 +470,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   };
 
   $scope.runThread = function () {
-    $http.post('http://localhost:8080/runThread').then(function (response) {
+    $http.post('/runThread').then(function (response) {
       console.log(response);
       $scope.runThreadId = response.data.runThreadId;
       $scope.checkRunThreadId();
@@ -307,7 +478,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
   };
 
   $scope.checkRunThreadId = function () {
-    $http.get('http://localhost:8080/checkRunThreadId').then(function (response) {
+    $http.get('/checkRunThreadId').then(function (response) {
       $scope.runThreadStatus = response.data;
 
       if (response.data && response.data.status === "in_progress") {
@@ -355,7 +526,7 @@ app.controller("openAiCtrl", function ($scope, $http) {
     });
 
     $scope.showFeedback = function () {
-      $http.get('http://localhost:8080/showFeedback').then(function (response) {
+      $http.get('/showFeedback').then(function (response) {
         $scope.feedbackData = response.data;
 
 

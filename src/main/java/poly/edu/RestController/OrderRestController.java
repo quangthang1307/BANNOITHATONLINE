@@ -169,22 +169,33 @@ public class OrderRestController {
 
     }
 
-    @DeleteMapping("/rest/deleteOrder")
-    public void deleteOrder(@RequestParam Integer orderId) {
-        List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+    @PutMapping("/rest/order/huydon")
+    public void edit(@RequestParam Integer orderId){
         Optional<Order> order = orderRepository.findById(orderId);
-
-        Transaction transaction = transactionRepository.findByOrder(order.get());
-        if (transaction != null) {
-            transactionRepository.delete(transaction);
-            orderDetailRepository.deleteAll(orderDetails);
-            orderRepository.deleteById(orderId);
-        } else {
-            orderDetailRepository.deleteAll(orderDetails);
-            orderRepository.deleteById(orderId);
+        if(order.isPresent()){
+            Orderstatus orderStatus = orderStatusRepository.findByOrderStatusName("Đã hủy");
+            order.get().setOrderstatus(orderStatus);
+            orderRepository.save(order.get());
         }
 
     }
+
+    // @DeleteMapping("/rest/deleteOrder")
+    // public void deleteOrder(@RequestParam Integer orderId) {
+    //     List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+    //     Optional<Order> order = orderRepository.findById(orderId);
+
+    //     Transaction transaction = transactionRepository.findByOrder(order.get());
+    //     if (transaction != null) {
+    //         transactionRepository.delete(transaction);
+    //         orderDetailRepository.deleteAll(orderDetails);
+    //         orderRepository.deleteById(orderId);
+    //     } else {
+    //         orderDetailRepository.deleteAll(orderDetails);
+    //         orderRepository.deleteById(orderId);
+    //     }
+
+    // }
 
     @GetMapping("/rest/options")
     public ResponseEntity<?> getOrder(@RequestParam String statusName, @RequestParam Integer customerId) {

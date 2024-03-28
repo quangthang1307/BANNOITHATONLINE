@@ -15,6 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1", nativeQuery = true)
     Page<Product> findAllProducts(Pageable pageable);
 
+    // @Query(value = "SELECT * FROM Product", nativeQuery = true)
+    // Page<Product> findAllProductsNoActive(Pageable pageable);
+
     // @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and
     // CategoryID = ?", nativeQuery = true)
     // Page<Product> findProductByCategory(Pageable pageable, Integer categoryID);

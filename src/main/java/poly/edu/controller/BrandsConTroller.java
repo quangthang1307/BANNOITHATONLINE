@@ -38,21 +38,38 @@ public class BrandsConTroller {
 
 	@PostMapping("/saveBrands")
 	public String saveAccount(@Validated @ModelAttribute("brand") Brands brands,
-			BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, Model model) {
+	        BindingResult bindingResult,
+	        RedirectAttributes redirectAttributes, Model model) {
+	    
+	    // Kiểm tra xem tên thương hiệu đã tồn tại trong danh sách hay chưa
+	    if (brandService.existsByNameIgnoreCase(brands.getBrandname())) { 
+	        bindingResult.rejectValue("brandname", "error.brand", "Tên thương hiệu đã tồn tại.");
+	    }
 
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("allbrands", brandService.findAll());
+	    // Kiểm tra xem có lỗi khi binding dữ liệu không
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("allbrands", brandService.findAll());
+	        return "/admin/brand"; // Trả về trang brand nếu có lỗi
+	    }
 
-			return "/admin/brand";
-		}
+	    // Kiểm tra độ dài tối đa của tên thương hiệu
+	    if (brands.getBrandname().length() > 50) {
+	        bindingResult.rejectValue("brandname", "error.brand", "Tên thương hiệu không được vượt quá 50 ký tự.");
+	        model.addAttribute("allbrands", brandService.findAll());
+	        return "/admin/brand"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
+	    }
 
-		brandService.create(brands);
+	    // Lưu thương hiệu vào cơ sở dữ liệu
+	    brandService.create(brands);
 
-		redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
+	    // Thêm thông báo thành công vào flash attribute để hiển thị
+	    redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
 
-		return "redirect:/admin/brand"; // Chuyển hướng đến trang danh sách accounts
+	    // Chuyển hướng đến trang danh sách brand
+	    return "redirect:/admin/brand"; 
 	}
+
+
 
 	@GetMapping("/deleteBrands/{brandsId}")
 	public String deleteBrands(@PathVariable("brandsId") Integer brandsId, RedirectAttributes redirectAttributes) {

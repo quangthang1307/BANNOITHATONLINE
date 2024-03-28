@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+	@RequestMapping("")
+	public String showindex() {
+		return "user/index";
+	}
+
 	@RequestMapping("/index")
 	public String index() {
 		return "user/index";
@@ -58,6 +63,11 @@ public class HomeController {
 		return "user/productbyroom";
 	}
 
+	@RequestMapping("/product/flashsale")
+	public String showProductFlashsale() {
+		return "user/productflashsale";
+	}
+
 	// @RequestMapping("/productdetail")
 	// public String showProductDetail() {
 	// return "user/productDetail";
@@ -85,5 +95,10 @@ public class HomeController {
 	@GetMapping("/chat")
 	public String showChat() {
 		return "user/chat";
+	}
+
+	@GetMapping("/stream")
+	public String stream(){
+		return "stream.html";
 	}
 }

@@ -1,30 +1,37 @@
 var app = angular.module("bannoithatonline", []);
-const host = "http://localhost:8080/rest/product";
-const hostCategory = "http://localhost:8080/rest/category";
-const hostProductByCategory = "http://localhost:8080/rest/product/category";
-const hostTop5ProductByCategory = "http://localhost:8080/rest/product/relate";
-const hostCustomerId = "http://localhost:8080/rest/customer";
-const hostListCart = "http://localhost:8080/rest/showCart";
-const hostUpQuantityProduct = "http://localhost:8080/rest/cart/up";
-const hostDownQuantityProduct = "http://localhost:8080/rest/cart/down";
-const hostDeleteProduct = "http://localhost:8080/rest/removeFromCart";
-const hostProductImage = "http://localhost:8080/rest/products";
-const hostDeleteAllProductInCart = "http://localhost:8080/rest/removeAllCarts";
-const hostProductSale = "http://localhost:8080/rest/product/sale";
-const hostProductSales = "http://localhost:8080/rest/product/sales";
-const hostProductSaleDESC = "http://localhost:8080/rest/product/sales/desc";
-const hostProductSaleASC = "http://localhost:8080/rest/product/sales/asc";
-const hostProductSaleAZ = "http://localhost:8080/rest/product/sales/az";
-const hostProductSaleZA = "http://localhost:8080/rest/product/sales/za";
-const hostProductSaleByCategory = "http://localhost:8080/rest/product/sales/category";
-const hostProductSaleByCategoryAndDESC = "http://localhost:8080/rest/product/sales/category/desc";
-const hostProductSaleByCategoryAndASC = "http://localhost:8080/rest/product/sales/category/asc";
-const hostProductSaleByCategoryAndAZ = "http://localhost:8080/rest/product/sales/category/az";
-const hostProductSaleByCategoryAndZA = "http://localhost:8080/rest/product/sales/category/za";
-const hostProductDESC = "http://localhost:8080/rest/product/desc";
-const hostProductASC = "http://localhost:8080/rest/product/asc";
-const hostProductAZ = "http://localhost:8080/rest/product/az";
-const hostProductZA = "http://localhost:8080/rest/product/za";
+const host = "/rest/product";
+const hostCategory = "/rest/category";
+const hostProductByCategory = "/rest/product/category";
+const hostProductByCategoryDESC = "/rest/product/category/desc";
+const hostProductByCategoryASC = "/rest/product/category/asc";
+const hostProductByCategoryAZ = "/rest/product/category/az";
+const hostProductByCategoryZA = "/rest/product/category/za";
+
+
+const hostTop5ProductByCategory = "/rest/product/relate";
+const hostCustomerId = "/rest/customer";
+const hostListCart = "/rest/showCart";
+const hostUpQuantityProduct = "/rest/cart/up";
+const hostDownQuantityProduct = "/rest/cart/down";
+const hostDeleteProduct = "/rest/removeFromCart";
+const hostProductImage = "/rest/products";
+const hostDeleteAllProductInCart = "/rest/removeAllCarts";
+const hostProductSale = "/rest/product/sale";
+const hostProductDESC = "/rest/product/desc";
+const hostProductASC = "/rest/product/asc";
+const hostProductSales = "/rest/product/sales";
+const hostProductSaleDESC = "/rest/product/sales/desc";
+const hostProductSaleASC = "/rest/product/sales/asc";
+const hostProductSaleAZ = "/rest/product/sales/az";
+const hostProductSaleZA = "/rest/product/sales/za";
+const hostProductSaleByCategory = "/rest/product/sales/category";
+const hostProductSaleByCategoryAndDESC = "/rest/product/sales/category/desc";
+const hostProductSaleByCategoryAndASC = "/rest/product/sales/category/asc";
+const hostProductSaleByCategoryAndAZ = "/rest/product/sales/category/az";
+const hostProductSaleByCategoryAndZA = "/rest/product/sales/category/za";
+
+const hostProductAZ = "/rest/product/az";
+const hostProductZA = "/rest/product/za";
 
 
 app.controller("productController", function ($scope, $http, $window) {
@@ -159,7 +166,15 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.goToPage = function (page) {
         $scope.currentPage = page;
         console.log($scope.currentPage);
-        if ($scope.filterByCategory === true) return $scope.getDataByCategory();
+        if ($scope.filterByCategory === true &&  $scope.filterByCategoryDESC == false &&  $scope.filterByCategoryASC == false &&  $scope.filterByCategoryAZ == false &&  $scope.filterByCategoryZA == false) return $scope.getDataByCategory();
+
+        if ($scope.filterByCategory === true &&  $scope.filterByCategoryDESC == true) return $scope.getDataByCategoryDESC();
+
+        if ($scope.filterByCategory === true &&  $scope.filterByCategoryASC == true) return $scope.getDataByCategoryASC();
+
+        if ($scope.filterByCategory === true &&  $scope.filterByCategoryAZ == true) return $scope.getDataByCategoryAZ();
+
+        if ($scope.filterByCategory === true &&  $scope.filterByCategoryZA == true) return $scope.getDataByCategoryZA();
 
         if ($scope.filterBySale === true && $scope.filterBySaleDESC === false && $scope.filterBySaleASC === false && $scope.filterBySaleAZ === false && $scope.filterBySaleZA === false) return $scope.getDataProductSale();
 
@@ -303,6 +318,90 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.getDataByCategory = function () {
 
         var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $http.get(apiUrl)
+            .then(function (response) {
+
+                $scope.products = response.data.content;
+
+                $scope.totalItems = response.data.totalElements;
+                console.log($scope.totalItems);
+
+                $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    $scope.getDataByCategoryDESC = function () {
+
+        var apiUrl = hostProductByCategoryDESC + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $http.get(apiUrl)
+            .then(function (response) {
+
+                $scope.products = response.data.content;
+
+                $scope.totalItems = response.data.totalElements;
+                console.log($scope.totalItems);
+
+                $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    $scope.getDataByCategoryASC = function () {
+
+        var apiUrl = hostProductByCategoryASC + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $http.get(apiUrl)
+            .then(function (response) {
+
+                $scope.products = response.data.content;
+
+                $scope.totalItems = response.data.totalElements;
+                console.log($scope.totalItems);
+
+                $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    $scope.getDataByCategoryAZ = function () {
+
+        var apiUrl = hostProductByCategoryAZ + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $http.get(apiUrl)
+            .then(function (response) {
+
+                $scope.products = response.data.content;
+
+                $scope.totalItems = response.data.totalElements;
+                console.log($scope.totalItems);
+
+                $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    $scope.getDataByCategoryZA = function () {
+
+        var apiUrl = hostProductByCategoryZA + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
         $http.get(apiUrl)
             .then(function (response) {
 
@@ -626,6 +725,11 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.filterSaleByCategoryASC = false;
     $scope.filterSaleByCategoryAZ = false;
     $scope.filterSaleByCategoryZA = false;
+
+    $scope.filterByCategoryDESC = false;
+    $scope.filterByCategoryASC = false;
+    $scope.filterByCategoryAZ = false;
+    $scope.filterByCategoryZA = false;
     $scope.clickFilter = function (key) {
         switch (key) {
             case 1:
@@ -649,6 +753,13 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryAZ = false;
                     $scope.filterSaleByCategoryZA = false;
                     $scope.getDataProductSaleByCategoryAndASC();
+                }else if (!$scope.filterBySale && $scope.filterByCategory) {
+                    $scope.filterByCategoryDESC = false;
+                    $scope.filterByCategoryASC = true;
+                    $scope.filterByCategoryAZ = false;
+                    $scope.filterByCategoryZA = false;
+                    
+                    $scope.getDataByCategoryASC();
                 }
                 else {
                     $scope.filterActiveASC = true;
@@ -679,6 +790,14 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryZA = false;
                     $scope.getDataProductSaleByCategoryAndDESC();
                 }
+                else if (!$scope.filterBySale && $scope.filterByCategory) {
+                    $scope.filterByCategoryDESC = true;
+                    $scope.filterByCategoryASC = false;
+                    $scope.filterByCategoryAZ = false;
+                    $scope.filterByCategoryZA = false;
+                    
+                    $scope.getDataByCategoryDESC();
+                }
                 else {
                     $scope.filterActiveDESC = true;
                     $scope.filterActiveASC = false;
@@ -708,6 +827,13 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryDESC = false;
                     $scope.filterSaleByCategoryZA = false;
                     $scope.getDataProductSaleByCategoryAndAZ();
+                }else if (!$scope.filterBySale && $scope.filterByCategory) {
+                    $scope.filterByCategoryDESC = false;
+                    $scope.filterByCategoryASC = false;
+                    $scope.filterByCategoryAZ = true;
+                    $scope.filterByCategoryZA = false;
+                    
+                    $scope.getDataByCategoryAZ();
                 }
                 else {
                     $scope.filterActiveDESC = false;
@@ -738,6 +864,13 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryAZ = false;
                     $scope.filterSaleByCategoryDESC = false;
                     $scope.getDataProductSaleByCategoryAndZA();
+                } else if (!$scope.filterBySale && $scope.filterByCategory) {
+                    $scope.filterByCategoryDESC = false;
+                    $scope.filterByCategoryASC = false;
+                    $scope.filterByCategoryAZ = false;
+                    $scope.filterByCategoryZA = true;
+                    
+                    $scope.getDataByCategoryZA();
                 }
                 else {
                     $scope.filterActiveDESC = false;
@@ -793,7 +926,7 @@ app.controller("productController", function ($scope, $http, $window) {
         }
 
         var urlCheckCart =
-            "http://localhost:8080/rest/cart/" +
+            "/rest/cart/" +
             $scope.customer.customerId +
             "/" +
             product.productid;
@@ -803,7 +936,7 @@ app.controller("productController", function ($scope, $http, $window) {
                 if (response.data) {
 
                     var url =
-                        "http://localhost:8080/rest/cart/up/" +
+                        "/rest/cart/up/" +
                         $scope.customer.customerId +
                         "/" +
                         product.productid;
@@ -820,7 +953,7 @@ app.controller("productController", function ($scope, $http, $window) {
                 }
             })
             .catch(function (error) {
-                var url = "http://localhost:8080/rest/addToCart";
+                var url = "/rest/addToCart";
                 var dataPost = {
                     customer: {
                         customerId: $scope.customer.customerId,
@@ -1026,7 +1159,7 @@ app.controller('productDetailController', function ($scope, $http) {
         }
 
         var urlCheckCart =
-            "http://localhost:8080/rest/cart/" +
+            "/rest/cart/" +
             $scope.customer.customerId +
             "/" +
             product.productid;
@@ -1036,7 +1169,7 @@ app.controller('productDetailController', function ($scope, $http) {
                 if (response.data) {
 
                     var url =
-                        "http://localhost:8080/rest/cart/up/" +
+                        "/rest/cart/up/" +
                         $scope.customer.customerId +
                         "/" +
                         product.productid;
@@ -1053,7 +1186,7 @@ app.controller('productDetailController', function ($scope, $http) {
                 }
             })
             .catch(function (error) {
-                var url = "http://localhost:8080/rest/addToCart";
+                var url = "/rest/addToCart";
                 var dataPost = {
                     customer: {
                         customerId: $scope.customer.customerId,
