@@ -1,5 +1,4 @@
-<title>Đánh giá sản phẩm</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         /* CSS chung cho trang web */
         body {
@@ -72,51 +71,10 @@
 
         /* CSS cho mỗi mục trong product-rating-overview */
         .product-rating-item {
-            display: none; /* Ẩn sản phẩm mặc định */
             margin-top: 20px;
             border: 1px solid #ddd;
             padding: 10px;
             border-radius: 5px;
-        }
-
-        .product-view {
-            margin-top: 20px;
-        }
-
-        .product-rating-item__avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .product-rating-item__info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .product-rating-item__username {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .product-rating-item__date {
-            color: #888;
-            font-size: 12px;
-        }
-
-        .product-rating-item__rating {
-            margin-bottom: 10px;
-        }
-
-        .product-rating-item__content {
-            margin-bottom: 10px;
-        }
-
-        .product-rating-item__image {
-            max-width: 100%;
-            margin-bottom: 10px;
         }
 
         /* Phân trang */
@@ -153,7 +111,6 @@
         <div class="product-ratings__header_score">ĐÁNH GIÁ SẢN PHẨM</div>
     </div>
     <div class="product-rating-overview">
-        <!-- Định dạng đánh giá tổng quan sản phẩm -->
         <div class="product-rating-item">
             <div class="product-rating-overview__briefing">
                 <div class="product-rating-overview__score-wrapper">
@@ -173,7 +130,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Bộ lọc đánh giá -->
             <div class="product-rating-overview__filters">
                 <div class="product-rating-overview__filter product-rating-overview__filter--active">tất cả</div>
                 <div class="product-rating-overview__filter">5 Sao (0)</div>
@@ -185,189 +141,7 @@
                 <div class="product-rating-overview__filter">Có hình ảnh / video (0)</div>
             </div>
         </div>
-        
-        <!-- Mục đánh giá -->
-        <div class="product-view">
-            <!-- Đánh giá mẫu -->
-            <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-             <div class="product-rating-item">
-                <div class="product-rating-item__info">
-                    <img src="avatar.jpg" alt="Avatar" class="product-rating-item__avatar">
-                    <div>
-                        <div class="product-rating-item__username">Username</div>
-                        <div class="product-rating-item__date">Ngày Tháng Năm</div>
-                    </div>
-                </div>
-                <div class="product-rating-item__rating">
-                    <!-- Số sao đánh giá -->
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                    <span class="shopee-rating-stars__lit bi bi-star-fill"></span>
-                </div>
-                <div class="product-rating-item__content">
-                    <!-- Nội dung đánh giá -->
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum efficitur libero, eget commodo neque viverra eu.
-                </div>
-                <div class="product-rating-item__image">
-                    <!-- Hình ảnh sản phẩm -->
-                    <img src="product_image.jpg" alt="Product Image">
-                </div>
-            </div>
-        </div>
     </div>
-    
-    <!-- Thông báo không có dữ liệu -->
     <div class="no-data">
         <div class="no-data__icon">
             <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/shoprating/7d900d4dc402db5304b2.png" alt="empty-icon">
@@ -379,50 +153,7 @@
             <button class="pagination-button active">1</button>
             <button class="pagination-button">2</button>
             <button class="pagination-button">3</button>
-            <button class="pagination-button">4</button>
-            <button class="pagination-button">5</button>
             <button class="pagination-button">Trang sau &raquo;</button>
         </div>
     </div>
 </div>
-
-<script>
-    // Lấy danh sách các sản phẩm và các nút phân trang
-    const products = document.querySelectorAll('.product-rating-item');
-    const paginationButtons = document.querySelectorAll('.pagination-button');
-
-    // Số lượng sản phẩm trên mỗi trang
-    const itemsPerPage = 5;
-
-    // Hàm ẩn tất cả sản phẩm
-    function hideAllProducts() {
-        products.forEach(product => {
-            product.style.display = 'none';
-        });
-    }
-
-    // Hàm hiển thị các sản phẩm trên trang hiện tại
-    function showCurrentPage(pageIndex) {
-        hideAllProducts();
-        const startIndex = (pageIndex - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        for (let i = startIndex; i < endIndex && i < products.length; i++) {
-            products[i].style.display = 'block';
-        }
-    }
-
-    // Mặc định hiển thị trang đầu tiên
-    showCurrentPage(1);
-
-    // Gắn sự kiện cho các nút phân trang
-    paginationButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            showCurrentPage(index + 1);
-            // Đánh dấu nút phân trang hiện tại là active
-            paginationButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-        });
-    });
-</script>

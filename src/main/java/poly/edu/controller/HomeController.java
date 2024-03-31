@@ -91,11 +91,6 @@ public class HomeController {
 	public String modalShow() {
 		return "myModalContent";
 	}
-	
-	@RequestMapping("/myModalEvaluate.html")
-	public String modal2Show() {
-		return "myModalEvaluate";
-	}
 
 	@GetMapping("/chat")
 	public String showChat() {

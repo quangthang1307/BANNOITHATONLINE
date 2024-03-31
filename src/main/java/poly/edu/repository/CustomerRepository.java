@@ -27,8 +27,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "select * from Customer where AccountID = ?", nativeQuery = true)
     Customer getCustomerID(Integer customerId);
 
-    @Query(value = "select * from Customer where Name = ?", nativeQuery = true)
-    Customer getCustomerName(String name);
-    
     Customer findByAccountUsername(String username);
 }

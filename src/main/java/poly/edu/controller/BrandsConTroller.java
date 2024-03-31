@@ -97,9 +97,6 @@ public class BrandsConTroller {
 
 		return "admin/brand";
 	}
-	
-
-
 	// @GetMapping("/editBrands/{brandsId}")
 	// public String showUpdateForm(@PathVariable("brandsId") Integer brandsId,
 	// Model model) {
