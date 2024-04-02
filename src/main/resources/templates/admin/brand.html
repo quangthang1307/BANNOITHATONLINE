@@ -10,7 +10,7 @@
 <body>
 
 
-//lưu hiện thông báo
+<!-- //lưu hiện thông báo -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
 <script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
     var successMessage = 'Lưu sản phẩm thành công';
@@ -22,7 +22,7 @@
         timer: 1500,
     });
 </script>
-//xóa hiện thông báo
+<!-- //xóa hiện thông báo -->
 <script>
     function confirmDelete(brandsId) {
         Swal.fire({
@@ -112,46 +112,18 @@
           <div class="col-12">
 
             <div class="card col-12">
-              <form class="form-horizontal" th:object="${brand}" method="post">
-                <div class="card-body">
-                  <h4 class="card-title">Thương Hiệu</h4>
-                  <div class="form-group row">
-                    <label for="fname" class="col-sm-3 text-end control-label col-form-label"></label>
-                    <div class="col-sm-9">
-                      <input type="hidden" th:field="*{brandsId}" class="form-control" id="fname"
-                        placeholder="First Name Here" />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="lname" class="col-sm-3 text-end control-label col-form-label">Tên Thương Hiệu: </label>
-                    <div class="col-sm-9">
-                      <input type="text" th:field="*{brandname}" class="form-control" id="lname"
-                        placeholder="Thương Hiệu" />
-                        <i th:if="${#fields.hasErrors('brandname')}" th:errors="*{brandname}" style="color: red;"></i>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="border-top">
-                  <div class="card-body">
-                    <button type="submit" formaction="/admin/saveBrands" class="btn btn-primary">
-                      Lưu
-                    </button>
-
-                       <a href="/admin/brand" class="btn btn-info" style="color: white;">Làm mới</a>
-                   <!--  <div th:if="${successMessage}" class="success-message" style="margin-left: 150px; margin-top: -25px;">
-                      <p th:text="${successMessage}" style="color: green; font-weight: bold;"></p>
-                    </div> -->
-                  </div>
-
-                </div>
-            </div>
+             
             </form>
           </div>
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Danh Sách Thương Hiệu</h5>
+            <a href="/admin/brands" class="btn btn-info" style="float: right; margin-left: -80px; height: 40px; width: 90px;">Thêm</a>
+            
+              <h5 class="card-title">Danh Sách Thương Hiệu
+               
+              </h5>
+             
               <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                   <thead>
@@ -167,7 +139,8 @@
                       <td th:text="${brand.brandsId}"></td>
                     <td th:text="${brand.brandname}"></td>
                       <td>
-                    <a th:onclick="'return confirmDelete(\'' + *{brand.brandsId} + '\');'" href="#">
+                      <a  class="bi bi-pencil-square btn btn-info" th:href="@{'/admin/editBrands/' + ${brand.brandsId}}"></a>
+                    <a th:onclick="'return confirmDelete(\'' + *{brand.brandsId} + '\');'" href="#" style="float: right;" >
                     <button class="btn btn-danger" type="submit" style="width:40px; max-width: 100%;  border-radius: 5px; ">   
                     <svg style="margin-left:-1px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -175,7 +148,7 @@
                     </svg>         
                     </button> 
                     </a>
-                    <a class="bi bi-pencil-square btn btn-info" th:href="@{'/admin/editBrands/' + ${brand.brandsId}}"></a>
+                    
                     </td>
                     </tr>
 

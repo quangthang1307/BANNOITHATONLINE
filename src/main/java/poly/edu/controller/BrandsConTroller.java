@@ -35,7 +35,14 @@ public class BrandsConTroller {
 		// mới cho form
 		return "admin/brand";
 	}
+	@GetMapping("/brands")
+	public String showLists(@ModelAttribute("brand") Brands brands, Model model) {
 
+		model.addAttribute("allbrands", brandService.findAll()); // Thêm danh sách thương hiệu vào model
+		// model.addAttribute("newBrand", new Brands()); // Thêm một đối tượng Brands
+		// mới cho form
+		return "admin/brands";
+	}
 	@PostMapping("/saveBrands")
 	public String saveAccount(@Validated @ModelAttribute("brand") Brands brands,
 	        BindingResult bindingResult,
@@ -49,14 +56,14 @@ public class BrandsConTroller {
 	    // Kiểm tra xem có lỗi khi binding dữ liệu không
 	    if (bindingResult.hasErrors()) {
 	        model.addAttribute("allbrands", brandService.findAll());
-	        return "/admin/brand"; // Trả về trang brand nếu có lỗi
+	        return "/admin/brands"; // Trả về trang brand nếu có lỗi
 	    }
 
 	    // Kiểm tra độ dài tối đa của tên thương hiệu
 	    if (brands.getBrandname().length() > 50) {
 	        bindingResult.rejectValue("brandname", "error.brand", "Tên thương hiệu không được vượt quá 50 ký tự.");
 	        model.addAttribute("allbrands", brandService.findAll());
-	        return "/admin/brand"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
+	        return "/admin/brands"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
 	    }
 
 	    // Lưu thương hiệu vào cơ sở dữ liệu
@@ -66,7 +73,7 @@ public class BrandsConTroller {
 	    redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
 
 	    // Chuyển hướng đến trang danh sách brand
-	    return "redirect:/admin/brand"; 
+	    return "redirect:/admin/brands"; 
 	}
 
 
@@ -95,7 +102,7 @@ public class BrandsConTroller {
 		model.addAttribute("brand", brands);
 		model.addAttribute("allbrands", brandService.findAll());
 
-		return "admin/brand";
+		return "admin/brands";
 	}
 	// @GetMapping("/editBrands/{brandsId}")
 	// public String showUpdateForm(@PathVariable("brandsId") Integer brandsId,
