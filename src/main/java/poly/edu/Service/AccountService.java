@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import poly.edu.dto.AccountInfo;
 import poly.edu.entity.Account;
 
 import poly.edu.entity.Brands;
@@ -28,4 +29,6 @@ public interface AccountService {
     public Account findById(Integer accountId);
     //tài khoản
 //    ResponseEntity<String> updateOrderStatus(Integer accountId, AccountStatus newStatus);
+
+    public List<AccountInfo> getAccountInfo();
 }

@@ -9,77 +9,7 @@
 
 <body>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
-<!-- //HIển thị thông báo -->
-<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
-    var successMessage = 'Chuyển đổi trạng thái thành công';
-    Swal.fire({
-        icon: 'success',
-        title: 'Thành  công!',
-        text: successMessage,
-        showConfirmButton: false,
-        timer: 1500,
-    });
-</script>
-<!-- //xóa hiện thông báo -->
-<script>
-    function confirmDelete(accountId) {
-        Swal.fire({
-            title: 'Bạn có chắc muốn xóa không?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Có',
-            cancelButtonText: 'Không',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
-                window.location.href = '/admin/deleteTaiKhoan/' + accountId;
-            }
-        });
-
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	//HIển thị thông báo
-	<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
-		var successMessage = 'Chuyển đổi trạng thái thành công';
-		Swal.fire({
-			icon: 'success',
-			title: 'Thành  công!',
-			text: successMessage,
-			showConfirmButton: false,
-			timer: 1500,
-		});
-	</script>
-	//xóa hiện thông báo
-	<script>
-		function confirmDelete(accountId) {
-			Swal.fire({
-				title: 'Bạn có chắc muốn xóa không?',
-				icon: 'question',
-				showCancelButton: true,
-				confirmButtonText: 'Có',
-				cancelButtonText: 'Không',
-			}).then((result) => {
-				if (result.isConfirmed) {
-					// Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
-					window.location.href = '/admin/deleteTaiKhoan/' + accountId;
-				}
-			});
-
-
-			// Trả về false để ngăn chặn hành động mặc định của liên kết
-			return false;
-		}
-	</script>
-	<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
-		var successMessage = 'Xóa tài khoản thành công';
-		Swal.fire({
-			icon: 'success',
-			title: 'Thành  công!',
-			text: successMessage,
-			showConfirmButton: false,
-			timer: 1500,
-		});
-	</script>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
@@ -115,9 +45,9 @@
 						<div class="ms-auto text-end">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
 									<li class="breadcrumb-item active" aria-current="page">
-										Library</li>
+										Phân quyền tài khoản</li>
 								</ol>
 							</nav>
 						</div>
@@ -144,17 +74,15 @@
 									<table id="zero_config" class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>ID</th>
-												<th>Name</th>
-												<th>Active</th>
-												<th>Email</th>
-												<th>Chức Năng</th>
-
+												<th>Tên tài khoản</th>
+												<th>Vai trò</th>
+												<th>Thay đổi vai trò</th>
 											</tr>
 										</thead>
-										<tbody>
 
-											<tr th:each="account : ${allAccount}">
+										<body>
+
+											<!-- <tr th:each="account : ${allAccount}">
 												<td th:text="${account.accountId}"></td>
 												<td th:text="${account.username}"></td>
 												<td>
@@ -195,17 +123,31 @@
 													</a>
 
 													<button type="submit" class="bi bi-floppy btn btn-info"></button>
-													<!-- </button> <a class="bi bi-floppy btn btn-info"
-													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a> -->
 												</td>
 												</form>
+											</tr> -->
+
+											<!-- Danh sách nhân viên -->
+											<tr th:each="accountInfo : ${accountInfos}">
+												<td th:text="${accountInfo.account.username}"></td>
+												<td>
+													<ul>
+														<li th:each="role : ${accountInfo.roles}" th:text="${role.role.roleName}"></li>
+													</ul>
+												</td>
+												<td>
+													<form th:action="@{/admin/changeRole}" method="post">
+														<select name="roleId">
+															<option th:each="role : ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
+														</select>
+														<input type="hidden" name="accountId" th:value="${accountInfo.account.accountId}" />
+														<button type="submit">Lưu</button>
+													</form>
+												</td>
 											</tr>
-
-
-											</tr>
-
-										</tbody>
-
+											
+										</body>
+										<span th:text="${message}"></span>
 									</table>
 								</div>
 							</div>
@@ -247,77 +189,7 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<!-- <script>
-		function confirmDelete(accountId) {
-			if (confirm("Bạn có chắc muốn xóa không?")) {
-				window.location.href = '/admin/deleteTaiKhoan/' + accountId;
-			}
-			return false;
-		}
-	</script> -->
 
-	<!-- chuyển trang thái	 -->
-	<!-- 
-	<script th:inline="javascript">
-    /*<![CDATA[*/
-    function changeOrderStatus(selectElement, accountId) {
-        let previousValue = selectElement.getAttribute('data-previous-value');
-    Swal.fire({
-        title: 'Bạn có chắc chắn muốn đổi trạng thái?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            let newStatus = selectElement.value;
-
-            // Sử dụng Ajax để gửi yêu cầu đổi trạng thái và xử lý kết quả
-            $.ajax({
-                type: "POST",
-                url: "/admin/updateOrderStatus",
-                data: {
-                	accountId: accountId,
-                    newStatus: newStatus
-                },
-                success: function (response) {
-                    Swal.fire({
-                title: 'Thành công!',
-                text: response,
-                icon: 'success',
-                showConfirmButton: false, // Không hiển thị nút "OK"
-                timer: 1500 // Hiển thị thông báo trong 1.5 giây
-            });
-
-            // Đợi 1.5 giây rồi mới reload trang
-            setTimeout(function() {
-                location.reload();
-            }, 1500);
-        },
-                error: function (xhr, status, error) {
-                    let errorMessage = xhr.responseText || 'Đã xảy ra lỗi';
-                    Swal.fire('Lỗi!', errorMessage, 'error');
-                }
-            });
-        } else {
-            // Nếu hủy, đặt giá trị select option về giá trị gốc
-            // selectElement.value = selectElement.getAttribute('data-previous-value');
-            // selectElement.value = previousValue;
-            location.reload();
-        }
-    });
-}
-
-    function updateOrderStatus(accountId, newStatus) {
-        // Gửi yêu cầu AJAX để cập nhật trạng thái đơn hàng
-        // Ở đây, bạn có thể sử dụng fetch hoặc các phương thức khác để thực hiện yêu cầu
-        // Sau khi cập nhật thành công, hiển thị thông báo thành công
-        reloadData();
-        Swal.fire('Đổi trạng thái thành công!', '', 'success');
-    }
-    /*]]>*/
-   
-</script> -->
 
 
 

@@ -17,7 +17,7 @@ public interface CustomerService {
 
     List<Customer> findAll();
 
-    Optional<Customer> findById(Integer customerId) ;
+    Optional<Customer> findById(Integer customerId);
     
     Customer create(Customer customer) ;
 
