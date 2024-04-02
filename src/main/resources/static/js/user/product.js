@@ -7,7 +7,7 @@ const hostProductByCategoryASC = "/rest/product/category/asc";
 const hostProductByCategoryAZ = "/rest/product/category/az";
 const hostProductByCategoryZA = "/rest/product/category/za";
 
-
+const hostGetEvaluateByProductID = "/rest/evaluate/";
 const hostTop5ProductByCategory = "/rest/product/relate";
 const hostCustomerId = "/rest/customer";
 const hostListCart = "/rest/showCart";
@@ -1070,6 +1070,21 @@ app.controller('productDetailController', function ($scope, $http) {
         console.log("ProductDetail", $scope.productdetail);
         console.log("productSale", $scope.productSale);
     };
+//get đánh giá
+    $scope.getEvaluate = function(productdetail){
+       console.log("productdetail", productdetail);
+       $http.get(hostGetEvaluateByProductID + productdetail.productid)
+       .then(function (response) {
+
+           $scope.productEvaluate = response.data;
+           console.log($scope.productEvaluate);
+
+       })
+       .catch(function (error) {
+           console.error('Error fetching products:', error);
+       }
+       );
+    }
 
     $scope.getTop5ProductRelate = function (categoryid) {
         var api = hostTop5ProductByCategory + '?categoryId=' + categoryid;
@@ -1251,4 +1266,6 @@ app.controller('productDetailController', function ($scope, $http) {
     // Load data for the first time
     $scope.getProductDetail();
     $scope.loadCart();
+    $scope.getEvaluate( $scope.productdetail);
+
 });

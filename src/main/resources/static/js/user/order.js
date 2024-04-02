@@ -1,7 +1,10 @@
-const app = angular.module("bannoithatonline", []);
+const app = angular.module("bannoithatonline", ['ui.bootstrap']);
 const host = "";
 
-app.controller("OrderController", function ($scope, $http, $rootScope) {
+app.controller("OrderController", [
+  "$scope",
+  "$http",
+  "$uibModal", function ($scope, $http, $uibModal) {
   $scope.customer = {};
   $scope.orders = [];
 
@@ -313,4 +316,30 @@ app.controller("OrderController", function ($scope, $http, $rootScope) {
         break;
     }
   };
-});
+  
+  $scope.showSelectedInfoModal = function () {
+      var modalInstance = $uibModal.open({
+        templateUrl: "myModalEvaluate.html", // Create a template for your modal content
+        controller: "OrderController", // Create a separate controller for the modal
+        resolve: {
+          selectedInfo: function () {
+            return $scope.ratings;
+          },
+        },
+      });
+
+      modalInstance.result.then(
+        function () {
+          // Handle modal closed (if needed)
+        },
+        function () {
+          // Handle modal dismissed (if needed)
+        }
+      );
+    };
+
+  
+  
+  
+  
+}]);
