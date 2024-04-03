@@ -49,7 +49,7 @@
 			timer: 1500,
 		});
 	</script>
-	//xóa hiện thông báo
+	<!-- //xóa hiện thông báo -->
 	<script>
 		function confirmDelete(accountId) {
 			Swal.fire({
@@ -178,6 +178,7 @@
 
 												<td th:text="${account.email}"></td>
 												<td>
+												<button type="submit" class="bi bi-floppy btn btn-info"></button>
 													<a th:onclick="'return confirmDelete(\'' + *{account.accountId} + '\');'"
 														href="#">
 														<button class="btn btn-danger" type="submit"
@@ -194,7 +195,7 @@
 														</button>
 													</a>
 
-													<button type="submit" class="bi bi-floppy btn btn-info"></button>
+													
 													<!-- </button> <a class="bi bi-floppy btn btn-info"
 													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a> -->
 												</td>
