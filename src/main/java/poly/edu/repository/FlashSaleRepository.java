@@ -19,6 +19,12 @@ public interface FlashSaleRepository extends  JpaRepository<Flashsale, Integer> 
     @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()))", nativeQuery = true)
     Page<Flashsale> getFlashSalesNow(Pageable pageable);
 
+    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()))", nativeQuery = true)
+    List<Flashsale> getFlashSalesNowAll();
+
     @Query(value =  "SELECT * FROM Flashsale WHERE ProductID IN(SELECT ProductID FROM Product WHERE CategoryID IN :categoryIDs AND FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE())))", nativeQuery = true)
     Page<Flashsale> getFlashSalesNowByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+
+    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID = ?", nativeQuery = true)
+    List<Flashsale> findByFlashSaleHourID(Integer flashSaleHourID);
 }

@@ -1,8 +1,5 @@
 package poly.edu.entity;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,23 +16,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Flashsale")
-public class Flashsale {
+@Table(name = "Employee") 
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private Integer ID;
+    @Column(name = "EmployeeID")
+    private Integer employeeId;
 
-    @Column(name = "FlashsalehourID")
-    private Integer FlashSaleHourID;
+    @Column(name = "Name")
+    private String name;
+
+     @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "Address")
+    private String address;
 
     @ManyToOne
-    @JoinColumn(name = "ProductID")
-    private Product product;
-
-    @Column(name = "Discountpercent")
-    private Integer Percent;
-
-    @Column(name = "Status")
-    private Boolean status;
+    @JoinColumn(name = "AccountID")
+    private Account account;
 }

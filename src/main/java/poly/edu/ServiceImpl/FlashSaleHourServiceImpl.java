@@ -2,6 +2,7 @@ package poly.edu.ServiceImpl;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,11 @@ public class FlashSaleHourServiceImpl implements FlashSaleHourService{
     @Override
     public FlashSaleHour findFlashSaleHourOnStart() {
         return flashSaleHourRepository.getFlashSalesHourOnStart();
+    }
+
+    @Override
+    public Optional<FlashSaleHour> findbyId(Integer id) {
+        return flashSaleHourRepository.findById(id);
     }
 
    

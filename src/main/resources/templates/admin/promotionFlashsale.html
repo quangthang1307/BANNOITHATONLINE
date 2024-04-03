@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+
+    <style>
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Sản Phẩm</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Sản Phẩm
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
+                                <h5 class="card-title fw-bold">Danh Sách Khuyến Mãi</h5>
+                                <a class="btn btn-sm btn-info rounded" href="/admin/formpromotionflashsale">Thêm khuyến mãi</a>
+                            </div>
+                            
+                            <div class="table-responsive">
+
+                                <table id="zero_config" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center fw-bold">ID</th>
+                                            <th class="text-center fw-bold">Khung giờ</th>
+                                            <th class="text-center fw-bold">Ngày</th>
+                                            <th class="text-center fw-bold">Sản phẩm áp dụng</th>
+                                            <th class="text-center fw-bold">Hiển thị</th>
+                                            <th class="text-center fw-bold">Lặp lại</th>          
+                                            <th class="text-center fw-bold">Thao tác</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr class="text-center" th:each="flashsale : ${flashsalehour}">
+                                            <td th:text="${flashsale.ID}"></td>
+                                            <td>
+                                            Từ:
+                                                <span class="fw-bold " th:text="${flashsale.hourStart}"></span>
+                                            - Đến: 
+                                                <span class="fw-bold" th:text="${flashsale.hourEnd}"></span>
+                                            </td>
+                                            <td th:text="${flashsale.dateStart}"></td>
+                                            <td><a href="">Xem</a></td>
+                                            <td th:if="${flashsale.status}">
+                                                <small style="border-radius: 5px;"
+                                                    class=" bg-success text-center text-white p-1">Đang hoạt
+                                                    động</small>
+                                            </td>
+                                            <td th:if="${!flashsale.status}">
+                                                <small style="border-radius: 5px;" class=" bg-danger text-center text-white p-1">Đang
+                                                    ngừng</small>
+                                            </td>
+                                            <td >
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'DAY'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' ngày'">Mỗi ngày</span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'WEEK'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tuần'">Mỗi tuần</span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'MONTH'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tháng'">Mỗi tháng</span>
+                                            </td>
+
+
+
+
+
+
+
+
+                                          
+
+
+
+
+                                            <td><button type="button" class="btn btn-danger"
+                                                >
+                                                <i class="bi bi-trash"
+                                                    ></i>
+
+                                            </button>
+
+                                            <a  class="btn btn-info"  th:href="@{/admin/formpromotionflashsale/{flashsalehourId}(flashsalehourId=${flashsale.ID})}"
+                                            >
+                                                <i class="bi bi-pencil-square "></i></a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by Matrix-admin. Designed and Developed by
+            <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+    <script>
+        function confirmDelete(saleId) {
+            if (confirm("Bạn có chắc muốn xóa không?")) {
+                window.location.href = '/admin/deletesale/' + saleId;
+            }
+            return false;
+        }
+    </script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

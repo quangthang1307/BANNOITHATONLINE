@@ -32,6 +32,8 @@ const hostProductASC = "/rest/product/asc";
 const hostProductAZ = "/rest/product/az";
 const hostProductZA = "/rest/product/za";
 
+const hostProductFlashsale = "/rest/product/flashsale";
+
 
 app.controller("productController", function ($scope, $http, $window) {
     $scope.titlePage = "Tất cả sản phẩm";
@@ -69,6 +71,7 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.products = [];
     $scope.listCart = [];
     $scope.productSale = [];
+    $scope.productFlashSale = [];
 
     $scope.getData = function () {
 
@@ -104,6 +107,19 @@ app.controller("productController", function ($scope, $http, $window) {
             }
             );
 
+            $http.get(hostProductFlashsale)
+            .then(function (response) {
+
+                $scope.productFlashSale = response.data
+                localStorage.setItem('productFlashSale', JSON.stringify($scope.productFlashSale));
+                console.log($scope.productFlashSale);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching productSale:', error);
+            }
+            );
+
     };
     //
 
@@ -118,6 +134,16 @@ app.controller("productController", function ($scope, $http, $window) {
         return foundItem ? foundItem.percent : null;
     };
     //
+    //Kiểm tra sản phẩm Flashsale để thay đổi giá
+    $scope.isProductInFlashSale = function (productId) {
+        return $scope.productFlashSale.some(item => item.product.productid === productId);
+    };
+
+    $scope.getPercentFlashSaleForProduct = function (productId) {
+        var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
+        return foundItem ? foundItem.percent : null;
+    };
+    //
 
     // Hàm xử lý khi nhấp vào tên sản phẩm
     $scope.clickById = function (productId) {
@@ -127,8 +153,14 @@ app.controller("productController", function ($scope, $http, $window) {
             .then(resp => {
                 $scope.productbyid = resp.data;
                 // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
-                if ($scope.isProductInSale(resp.data.productid)) {
+                if ($scope.isProductInSale(resp.data.productid) &&  !$scope.isProductInFlashSale(resp.data.productid)) {
                     var percent = $scope.getPercentSaleForProduct(resp.data.productid);
+                    resp.data.percent = percent;
+                }else if(!$scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                    var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
+                    resp.data.percent = percent;
+                }else if($scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                    var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
                     resp.data.percent = percent;
                 } else {
                     resp.data.percent = 0;

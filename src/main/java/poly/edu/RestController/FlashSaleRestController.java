@@ -43,6 +43,7 @@ public class FlashSaleRestController {
 
     @GetMapping("/rest/flashsaledelay/start")
     public ResponseEntity<List<FlashSaleDelay>> getFlashSaleDelayStart() {
+        System.out.println("Đã gọi api flashsale time start");
         List<FlashSaleHour> flashsalesHours = flashSaleHourService.findFlashSaleHours();
         List<FlashSaleDelay> delays = new ArrayList<>();
        
@@ -61,7 +62,7 @@ public class FlashSaleRestController {
            delays.add(fsd);
           
         }
-
+        
         return ResponseEntity.ok(delays); //);
     }
 
@@ -82,6 +83,7 @@ public class FlashSaleRestController {
     public ResponseEntity<Page<Flashsale>> getFlashSale( 
                     @RequestParam(defaultValue = "0") int page,
                     @RequestParam(defaultValue = "10") int size) {
+    System.out.println("Đã gọi api flashsale");
     PageRequest pageRequest = PageRequest.of(page, size);
     Page<Flashsale> flashPage = flashSaleService.getFlashsalesNow(pageRequest);
         return ResponseEntity.ok(flashPage); //);

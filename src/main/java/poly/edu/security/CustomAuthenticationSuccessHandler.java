@@ -15,12 +15,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import poly.edu.Service.EmployeeService;
+import poly.edu.entity.Employee;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -31,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         final String jwt = jwtUtil.generateToken(userDetails);
 
         Cookie cookie = new Cookie("jwtToken", jwt);
-        cookie.setMaxAge(50); // 7 days
+        cookie.setMaxAge(60 * 60); // 7 days
         response.addCookie(cookie);
 
         response.addHeader("Authorization", "Bearer " + jwt);
@@ -45,6 +50,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         HttpSession session = request.getSession();
         session.setAttribute("username", authentication.getName());
+        Employee employee = employeeService.findByUsername(authentication.getName());
+        session.setAttribute("employee", employee);
 
         if (isAdmin) {
             redirectStrategy.sendRedirect(request, response, "/admin");
