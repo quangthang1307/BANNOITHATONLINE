@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import poly.edu.Service.FlashSaleService;
 import poly.edu.Service.ProductService;
 import poly.edu.Service.SaleService;
+import poly.edu.entity.Flashsale;
 import poly.edu.entity.Product;
 import poly.edu.entity.Sale;
 
@@ -28,6 +30,8 @@ public class RestProductController {
     private ProductService productService;
     @Autowired
     private SaleService saleService;
+    @Autowired
+    private FlashSaleService flashSaleService;
 
     @GetMapping("/rest/product")
     public ResponseEntity<Page<Product>> getAllProducts(
@@ -336,6 +340,11 @@ public class RestProductController {
     @GetMapping("/rest/product/sale")
     public ResponseEntity<List<Sale>> getProductByCategory() {
         return ResponseEntity.ok(saleService.findAllOnSale());
+    }
+
+    @GetMapping("/rest/product/flashsale")
+    public ResponseEntity<List<Flashsale>> getProductFlashsale() {
+        return ResponseEntity.ok(flashSaleService.getFlashsalesNowAll());
     }
 
     @GetMapping("/rest/product/bestseller")

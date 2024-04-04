@@ -50,8 +50,13 @@ public class Product {
     @JoinColumn(name = "BrandID")
     private Brands brand;
 
-    @Column(name = "CategoryID")
-    private Integer category;
+    @ManyToOne
+    @JoinColumn(name = "CategoryID")
+    private Categoryproduct category;
+
+    @ManyToOne
+    @JoinColumn(name = "Createdby")
+    private Employee createdby;
 
     @Column(name = "Createddate")
     private LocalDateTime createddate;

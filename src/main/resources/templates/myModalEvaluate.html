@@ -1,0 +1,113 @@
+<!-- myModalEvaluate.html -->
+<style>
+    .rating-stars {
+        font-size: 36px; /* Kích thước lớn hơn cho ngôi sao */
+    }
+    .star {
+        cursor: pointer;
+        color: red; /* Màu đỏ ban đầu */
+    }
+    .star.filled {
+        color: gold; /* Màu vàng cho ngôi sao đã được chọn */
+    }
+    .image-preview {
+        max-width: 100%;
+        max-height: 200px;
+    }
+</style>
+
+<div class="modal-header">
+    <h3 class="modal-title">Đánh giá sản phẩm</h3>
+</div>
+<div class="modal-body">
+    <form ng-submit="submitReview()">
+        <div class="form-group">
+            <label>Đánh giá:</label>
+            <div class="rating-stars">
+                <span ng-repeat="star in [1, 2, 3, 4, 5]" class="star" ng-class="{'filled': star <= selectedRating}" ng-click="setRating(star)">&#9733;</span>
+            </div>
+            <input type="hidden" ng-model="selectedRating" />
+        </div>
+        <div class="form-group">
+            <label for="review">Nhận xét:</label>
+            <textarea class="form-control" rows="5" ng-model="reviewComment" placeholder="Nhập nhận xét của bạn"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="imageUpload">Thêm ảnh:</label>
+            <input type="file" id="imageUpload" accept="image/*" style="display: none" onchange="angular.element(this).scope().uploadFile(this.files)" />
+            <button class="btn btn-default btn-upload" onclick="document.getElementById('imageUpload').click()">Tải ảnh lên</button>
+            <div class="image-preview" ng-show="imagePreview">
+                <img ng-src="{{imagePreview}}" />
+            </div>
+        </div>
+    </form>  
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submitReview()">Gửi đánh giá</button>
+</div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#imagePreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- AngularJS và các thư viện -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script AngularJS -->
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.selectedRating = 0;
+        $scope.reviewComment = '';
+        $scope.imagePreview = '';
+
+        $scope.toggleRating = function(star) {
+            $scope.selectedRating = star;
+        };
+
+        $scope.uploadFile = function(files) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $scope.$apply(function() {
+                    $scope.imagePreview = e.target.result;
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        };
+
+        $scope.submitReview = function() {
+            // Thực hiện gửi đánh giá đến server (cần thêm logic xử lý ở đây)
+            console.log("Đánh giá: ", $scope.selectedRating);
+            console.log("Nhận xét: ", $scope.reviewComment);
+            console.log("Ảnh: ", $scope.imagePreview);
+            // Sau khi gửi, có thể thực hiện reset các trường để người dùng nhập đánh giá mới
+            // $scope.selectedRating = 0;
+            // $scope.reviewComment = '';
+            // $scope.imagePreview = '';
+        };
+    });
+</script>

@@ -7,7 +7,7 @@ const hostProductByCategoryASC = "/rest/product/category/asc";
 const hostProductByCategoryAZ = "/rest/product/category/az";
 const hostProductByCategoryZA = "/rest/product/category/za";
 
-
+const hostGetEvaluateByProductID = "/rest/evaluate/";
 const hostTop5ProductByCategory = "/rest/product/relate";
 const hostCustomerId = "/rest/customer";
 const hostListCart = "/rest/showCart";
@@ -32,6 +32,8 @@ const hostProductSaleByCategoryAndZA = "/rest/product/sales/category/za";
 
 const hostProductAZ = "/rest/product/az";
 const hostProductZA = "/rest/product/za";
+
+const hostProductFlashsale = "/rest/product/flashsale";
 
 
 app.controller("productController", function ($scope, $http, $window) {
@@ -70,6 +72,7 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.products = [];
     $scope.listCart = [];
     $scope.productSale = [];
+    $scope.productFlashSale = [];
 
     $scope.getData = function () {
 
@@ -105,6 +108,19 @@ app.controller("productController", function ($scope, $http, $window) {
             }
             );
 
+            $http.get(hostProductFlashsale)
+            .then(function (response) {
+
+                $scope.productFlashSale = response.data
+                localStorage.setItem('productFlashSale', JSON.stringify($scope.productFlashSale));
+                console.log($scope.productFlashSale);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching productSale:', error);
+            }
+            );
+
     };
     //
 
@@ -119,6 +135,16 @@ app.controller("productController", function ($scope, $http, $window) {
         return foundItem ? foundItem.percent : null;
     };
     //
+    //Kiểm tra sản phẩm Flashsale để thay đổi giá
+    $scope.isProductInFlashSale = function (productId) {
+        return $scope.productFlashSale.some(item => item.product.productid === productId);
+    };
+
+    $scope.getPercentFlashSaleForProduct = function (productId) {
+        var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
+        return foundItem ? foundItem.percent : null;
+    };
+    //
 
     // Hàm xử lý khi nhấp vào tên sản phẩm
     $scope.clickById = function (productId) {
@@ -128,8 +154,14 @@ app.controller("productController", function ($scope, $http, $window) {
             .then(resp => {
                 $scope.productbyid = resp.data;
                 // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
-                if ($scope.isProductInSale(resp.data.productid)) {
+                if ($scope.isProductInSale(resp.data.productid) &&  !$scope.isProductInFlashSale(resp.data.productid)) {
                     var percent = $scope.getPercentSaleForProduct(resp.data.productid);
+                    resp.data.percent = percent;
+                }else if(!$scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                    var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
+                    resp.data.percent = percent;
+                }else if($scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                    var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
                     resp.data.percent = percent;
                 } else {
                     resp.data.percent = 0;
@@ -1070,6 +1102,21 @@ app.controller('productDetailController', function ($scope, $http) {
         console.log("ProductDetail", $scope.productdetail);
         console.log("productSale", $scope.productSale);
     };
+//get đánh giá
+    $scope.getEvaluate = function(productdetail){
+       console.log("productdetail", productdetail);
+       $http.get(hostGetEvaluateByProductID + productdetail.productid)
+       .then(function (response) {
+
+           $scope.productEvaluate = response.data;
+           console.log($scope.productEvaluate);
+
+       })
+       .catch(function (error) {
+           console.error('Error fetching products:', error);
+       }
+       );
+    }
 
     $scope.getTop5ProductRelate = function (categoryid) {
         var api = hostTop5ProductByCategory + '?categoryId=' + categoryid;
@@ -1251,4 +1298,6 @@ app.controller('productDetailController', function ($scope, $http) {
     // Load data for the first time
     $scope.getProductDetail();
     $scope.loadCart();
+    $scope.getEvaluate( $scope.productdetail);
+
 });

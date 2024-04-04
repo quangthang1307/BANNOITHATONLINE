@@ -9,6 +9,34 @@
 
 <body>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+<!-- //HIển thị thông báo -->
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Chuyển đổi trạng thái thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+<!-- //xóa hiện thông báo -->
+<script>
+    function confirmDelete(accountId) {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/deleteTaiKhoan/' + accountId;
+            }
+        });
+
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	//HIển thị thông báo
 	<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
@@ -21,7 +49,7 @@
 			timer: 1500,
 		});
 	</script>
-	//xóa hiện thông báo
+	<!-- //xóa hiện thông báo -->
 	<script>
 		function confirmDelete(accountId) {
 			Swal.fire({
@@ -36,6 +64,7 @@
 					window.location.href = '/admin/deleteTaiKhoan/' + accountId;
 				}
 			});
+
 
 			// Trả về false để ngăn chặn hành động mặc định của liên kết
 			return false;
@@ -149,6 +178,7 @@
 
 												<td th:text="${account.email}"></td>
 												<td>
+												<button type="submit" class="bi bi-floppy btn btn-info"></button>
 													<a th:onclick="'return confirmDelete(\'' + *{account.accountId} + '\');'"
 														href="#">
 														<button class="btn btn-danger" type="submit"
@@ -165,7 +195,7 @@
 														</button>
 													</a>
 
-													<button type="submit" class="bi bi-floppy btn btn-info"></button>
+													
 													<!-- </button> <a class="bi bi-floppy btn btn-info"
 													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a> -->
 												</td>

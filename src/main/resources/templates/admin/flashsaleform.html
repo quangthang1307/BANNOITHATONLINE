@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+    <style>
+        .drop-container {
+
+            display: flex;
+            gap: 10px;
+
+            flex-direction: column;
+            justify-content: center;
+
+            height: 200px;
+            width: 200px;
+            margin-top: 43px;
+            border-radius: 10px;
+            border: 2px dashed #bebbbb;
+            color: #444;
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            background: #eee;
+            border-color: #111;
+        }
+
+        .drop-container:hover .drop-title {
+            color: #222;
+        }
+
+        .drop-title {
+            color: #969696;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+
+
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #cfcfcf;
+            border-radius: 10px;
+            margin-right: 20px;
+            padding: 10px;
+            margin-bottom: 30px;
+
+        }
+
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title fs-3">Tạo chương trình khuyến mãi</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/admin/products">Sản phẩm</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
+
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <form th:object="${flashhsales}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-3">
+
+                                    <div class="xacnhan bg-white p-2 mx-auto shadow-sm d-flex justify-content-end">
+
+
+                                        <a class="btn btn-light" href="/admin/promotionsale">Hủy</a>
+                                        <button th:formaction="@{/admin/savepromotionflashsale}"
+                                            class="btn btn-info mx-2 ">Tạo</button>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-8 col-xs-12 mb-3">
+                                    <div class="thontinchung  bg-white p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Chương trình khuyến mãi</h4>
+                                        <hr>
+
+
+
+                                        <div class="row">
+
+                                            <div class="mb-3">
+                                                <input th:field="${flashhsales.ID}" type="text" hidden="true"
+                                                    class="form-control" name="" id="productid"
+                                                    aria-describedby="helpId" placeholder="" />
+                                            </div>
+
+                                            <div class="col-12 d-none">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label fw-bold">Tên chương trình khuyến
+                                                        mãi</label>
+                                                    <input type="text" class="form-control" name="" id="productname"
+                                                        aria-describedby="helpId" placeholder="" />
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Loại khuyến mãi</label>
+                                                    <div class="mb-3">
+                                                        <select class="form-select form-select" name="" id="">
+                                                            <option selected>Giảm giá theo phần trăm</option>
+
+                                                        </select>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-xs-12">
+                                                <label for="" class="form-label">Sản phẩm được áp dụng: </label>
+                                                <span th:text="${sizeproduct}"></span>
+                                                <button class="btn btn-sm btn-info rounded float-end" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#modaladdproduct">Chọn
+                                                    sản
+                                                    phẩm</button>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" class="fw-bold">Sản phẩm</th>
+                                                                <th scope="col" class="fw-bold">Giá chưa giảm</th>
+                                                                <th scope="col" class="fw-bold">Phần trăm giảm</th>
+                                                                <th scope="col" class="fw-bold"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="" th:each="productselected : ${productselect}"
+                                                                th:if="${productselected != null}">
+                                                                <td scope="row"
+                                                                    th:text="${productselected.product.productname}">
+                                                                </td>
+                                                                <td th:text="${productselected.product.pricexuat}"></td>
+                                                                <td><input
+                                                                        th:name="percent + ${productselected.product.productid}"
+                                                                        placeholder="Nhập %" class="form-control"
+                                                                        th:value="${productselected.Percent}"
+                                                                        style="width: 90px;" type="number"></td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                                        th:onclick="'return confirmDelete(\'' + ${productselected.product.productid} + '\')'">
+                                                                        <i class="bi bi-trash"
+                                                                            th:onclick="'return confirmDelete(\'' + ${productselected.product.productid} + '\')'"></i>
+
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+
+                                                <!-- Modal Body-->
+                                                <div class="modal fade" id="modaladdproduct" tabindex="-1" role="dialog"
+                                                    aria-labelledby="modalTitleId" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalTitleId">
+                                                                    Chọn sản phẩm
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <input type="checkbox" id="checkAllproduct">Chọn
+                                                                        tất cả
+                                                                        <tbody>
+                                                                            <tr class=""
+                                                                                th:each="product : ${products}">
+                                                                                <td><input type="checkbox"
+                                                                                        th:value="${product.productid}"
+                                                                                        name="selectedProducts"
+                                                                                        class="checkboxproduct">
+                                                                                </td>
+                                                                                <td scope="row"
+                                                                                    th:text="${product.productname}">
+                                                                                </td>
+                                                                                <td th:text="${product.pricexuat}">
+                                                                                </td>
+                                                                                <td th:if="${product.productactivate}">
+                                                                                    <small style="border-radius: 5px;"
+                                                                                        class=" bg-success text-center text-white p-1">Đang
+                                                                                        bán</small>
+                                                                                </td>
+                                                                                <td th:if="${!product.productactivate}">
+                                                                                    <small style="border-radius: 5px;"
+                                                                                        class=" bg-danger text-center text-white p-1">Ngừng
+                                                                                        bán</small>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-sm btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    Hủy
+                                                                </button>
+                                                                <button th:formaction="@{/admin/selectproductflashsale}"
+                                                                    class="btn btn-sm btn-info">Chọn</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-4 col-xs-12">
+                                    <div class="trangthai bg-white p-4 mx-auto mb-3">
+                                        <h5 class="text-info">Hiển Thị</h5>
+                                        <hr>
+
+                                        <div class="">
+
+                                            <div class="mb-3">
+                                                <label for="" class="form-label fw-bold">Trạng thái</label>
+                                                <select th:field="${flashhsales.status}"
+                                                    class="form-select form-select">
+                                                    <option value="true">Đang hoạt động</option>
+                                                    <option value="false">Không hoạt động</option>
+
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Ngày bắt đầu</label>
+                                                <input th:field="${flashhsales.dateStart}" type="date"
+                                                    class="form-control" aria-describedby="helpId" />
+                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Giờ bắt đầu</label>
+                                                <input th:field="${flashhsales.hourStart}" type="time"
+                                                    class="form-control" aria-describedby="helpId" />
+                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="" class="form-label fw-bold">Giờ kết thúc</label>
+                                                <input th:field="${flashhsales.hourEnd}" type="time"
+                                                    class="form-control" aria-describedby="helpId" placeholder="" />
+                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                            </div>
+
+
+                                            <label for="" class="form-label fw-bold">Lặp lại định kỳ</label>
+                                            <div class="form-check mb-2 mt-1">
+                                                <input class="form-check-input" name="checkboxagain" type="checkbox" value="true" id="" />
+                                                <label class="form-check-label" for=""  value="true"> Không lặp lại</label>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                
+                                               
+      
+                                                
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        
+
+                                                        <div class="mb-3">
+                                                            <select th:field="${flashhsales.FrequencyFor}"
+                                                                class="form-select form-select" name="" id="select1"
+                                                                onchange="toggleSelect2(this)">
+
+                                                                <option value="DAY">Theo ngày</option>
+                                                                <option value="WEEK">Theo tuần</option>
+                                                                <option value="MONTH">Theo tháng</option>
+                                                            </select>
+                                                        </div>
+
+                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <div class="mb-3">
+                                                            <input th:field="${flashhsales.Frequency}"
+                                                                class="form-control" type="text" name="" id="" placeholder="Nhập ngày">
+                                                        </div>
+                                                    </div>
+
+                                                    <script>
+                                                        function toggleSelect2(selectedOption) {
+                                                            var select2 = document.getElementById("select2");
+                                                            if (selectedOption.selectedIndex === 0) {
+                                                                select2.className = "d-none";
+                                                            } else {
+                                                                select2.className = "form-select form-select";
+
+                                                            }
+                                                        }
+                                                    </script>
+
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                        </form>
+                        <!-- ============================================================== -->
+                        <!-- End PAge Content -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Right sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- .right-sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- End Right sidebar -->
+                        <!-- ============================================================== -->
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- footer -->
+                    <!-- ============================================================== -->
+                    <footer class="footer text-center">
+                        All Rights Reserved by Matrix-admin. Designed and Developed by
+                        <a href="https://www.wrappixel.com">WrapPixel</a>.
+                    </footer>
+                    <!-- ============================================================== -->
+                    <!-- End footer -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Page wrapper  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Wrapper -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- All Jquery -->
+            <!-- ============================================================== -->
+
+
+            <script>
+                document.getElementById("getValuesButton").addEventListener("click", function () {
+                    var checkedValues = [];
+                    var checkboxes = document.querySelectorAll('input[name="selectedProducts"]:checked');
+                    checkboxes.forEach(function (checkbox) {
+                        checkedValues.push(checkbox.value);
+                    });
+
+
+                    $.ajax({
+                        url: '/admin/selectproductflashsale',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ values: checkedValues }),
+                        success: function (response) {
+                            // Handle success response
+                            console.log(response);
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error response
+                            console.error("đã xảy ra lỗi" + xhr.responseText);
+                        }
+                    });
+                });
+            </script>
+
+            <script>
+                // Lấy ra các checkbox
+                var checkboxes = document.querySelectorAll('.checkboxproduct');
+                var checkAllCheckbox = document.getElementById('checkAllproduct');
+
+                // Thêm sự kiện cho nút "Check All"
+                checkAllCheckbox.addEventListener('change', function () {
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = checkAllCheckbox.checked;
+                    });
+                });
+
+                // Kiểm tra trạng thái của checkbox "Check All" khi có sự thay đổi trong các checkbox khác
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('change', function () {
+                        checkAllCheckbox.checked = [...checkboxes].every(function (checkbox) {
+                            return checkbox.checked;
+                        });
+                    });
+                });
+            </script>
+            <script>
+                function confirmDelete(brandsId) {
+                    if (confirm("Bạn có chắc muốn xóa không?")) {
+                        window.location.href = '/admin/deleteproductselected/' + brandsId;
+                    }
+                    return false;
+                }
+            </script>
+            <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+            <!-- Bootstrap tether Core JavaScript -->
+            <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+            <!-- slimscrollbar scrollbar JavaScript -->
+            <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+            <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+            <!--Wave Effects -->
+            <script th:src="@{/dist/js/waves.js}"></script>
+            <!--Menu sidebar -->
+            <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+            <!--Custom JavaScript -->
+            <script th:src="@{/dist/js/custom.min.js}"></script>
+            <!-- this page js -->
+            <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+            <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+            <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+            <script>
+                /****************************************
+                 *       Basic Table                   *
+                 ****************************************/
+                $("#zero_config").DataTable();
+            </script>
+</body>
+
+</html>

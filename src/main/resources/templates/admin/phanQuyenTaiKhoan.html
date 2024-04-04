@@ -141,7 +141,7 @@
 															<option th:each="role : ${allRoles}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
 														</select>
 														<input type="hidden" name="accountId" th:value="${accountInfo.account.accountId}" />
-														<button type="submit">Lưu</button>
+														<button type="submit" class="btn btn-primary">Lưu</button>
 													</form>
 												</td>
 											</tr>

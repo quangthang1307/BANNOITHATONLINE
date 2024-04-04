@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Flashsale")
 public class Flashsale {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Integer ID;
 

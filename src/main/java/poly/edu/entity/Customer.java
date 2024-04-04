@@ -31,7 +31,7 @@ public class Customer {
     private String phone;
 
     @Column(name = "Image")
-    private String Image;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "AccountID")

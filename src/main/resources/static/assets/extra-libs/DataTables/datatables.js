@@ -127,7 +127,7 @@
      *      oTable.$('tr:odd').css('backgroundColor', 'blue');
      *    } );
      *
-     *  @example
+     *  @examplef
      *    $(document).ready(function() {
      *      var oTable = $('#example').dataTable();
      *

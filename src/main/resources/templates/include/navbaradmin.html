@@ -1,4 +1,4 @@
-<header class="topbar" data-navbarbg="skin5">
+<header class="topbar"  data-navbarbg="skin5">
   <nav class="navbar top-navbar navbar-expand-md navbar-dark">
     <div class="navbar-header" data-logobg="skin5">
       <!-- ============================================================== -->
@@ -89,7 +89,7 @@
                   waves-effect waves-dark
                   pro-pic
                 " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-lines-fill"></i>
+            <i class="bi bi-person-lines-fill"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-person-gear"></i> Chỉnh sửa</a>
@@ -132,26 +132,55 @@
             <li class="sidebar-item">
               <a th:href="@{/admin/taikhoan}" class="sidebar-link"><i class="bi bi-person-circle"></i><span
                   class="hide-menu"> Tài Khoản </span></a>
+            </li>
 
-                  <a th:href="@{/admin/phanquyentaikhoan}" class="sidebar-link"><i class="bi bi-person-rolodex"></i><span
-                    class="hide-menu"> Phân quyền tài Khoản </span></a>
+            <li class="sidebar-item">
+              <a th:href="@{/admin/phanquyentaikhoan}" class="sidebar-link"><i class="bi bi-person-rolodex"></i><span
+                  class="hide-menu"> Phân quyền tài Khoản </span></a>
             </li>
 
           </ul>
         </li>
         <!-- quản lý -->
         <li class="sidebar-item">
-          <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="bi bi-kanban-fill"></i></i><span class="hide-menu">Quản Lý</span></a>
+          <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+              class="bi bi-kanban-fill"></i></i><span class="hide-menu">Quản Lý</span></a>
           <ul aria-expanded="false" class="collapse first-level">
             <li class="sidebar-item">
               <a th:href="@{/admin/brand}" class="sidebar-link"><i class="bi bi-alexa"></i><span
                   class="hide-menu">Thương Hiệu </span></a>
-              
+
             </li>
 
             <li class="sidebar-item">
               <a th:href="@{/admin/products}" class="sidebar-link"><i class="bi bi-alexa"></i><span
                   class="hide-menu">Sản Phẩm</span></a>
+
+            </li>
+            <li class="sidebar-item">
+              <a th:href="@{/admin/promotion}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+                  class="hide-menu">Mã Khuyến Mãi</span></a>
+              
+            </li>
+            <li class="sidebar-item">
+              <a th:href="@{/admin/promotionsale}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+                  class="hide-menu">Khuyến Mãi</span></a>
+              
+            </li>
+
+            <li class="sidebar-item">
+              <a th:href="@{/admin/promotion/flashsale}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+                  class="hide-menu">FlashSale</span></a>
+              
+            </li>
+            <li class="sidebar-item">
+              <a th:href="@{/admin/inventory}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+                  class="hide-menu">Kho Hàng</span></a>
+              
+            </li>
+            <li class="sidebar-item">
+              <a th:href="@{/admin/warehouse}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+                  class="hide-menu">Nhà Kho</span></a>
               
             </li>
 

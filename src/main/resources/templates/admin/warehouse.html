@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script th:if="${not #strings.isEmpty(addsuccessMessage)}">
+        var successMessage ='Thêm thành công!';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+    <script th:if="${not #strings.isEmpty(successMessage)}">
+        var successMessage ='Cập nhật thành công!';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+    //xóa hiện thông báo
+    <script>
+        function confirmDelete(warehouseId) {
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa không?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                    window.location.href = '/admin/deleteWarehouse/' + warehouseId;
+                }
+            });
+
+            // Trả về false để ngăn chặn hành động mặc định của liên kết
+            return false;
+        }
+    </script>
+    <script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+        var successMessage = 'Xóa thành công';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành  công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Kho Hàng</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Kho hàng
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Danh Sách Kho Hàng</h5>
+                            <div class="table-responsive">
+                                <table id="zero_config" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Nhà Kho</th>
+                                            <th>Tên Nhà Kho</th>
+                                            <th>Vị Trí</th>
+                                            <th>Dung tích kho</th>
+                                            <th><a class="btn btn-info" href="/admin/addWarehouse">
+                                                <i class="bi bi-plus-lg"></i>
+                                            </a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="warehouse : ${warehouses}">
+
+                                            <td th:text="${warehouse.warehouseID}"></td>
+                                            
+                                            <td
+                                                th:text="${warehouse.warehousename}">
+                                            </td>
+                                            <td
+                                                th:text="${warehouse.location}">
+                                            </td>
+                                            <td
+                                            th:text="${warehouse.capacity}"
+                                            >
+                                            </td>
+                                            <td>
+                                                <a th:onclick="'return confirmDelete(\'' + *{warehouse.warehouseID} + '\');'"
+                                                    href="#">
+                                                    <button class="btn btn-danger" type="submit"
+                                                        style="width:40px; max-width: 100%;  border-radius: 5px; ">
+                                                        <svg style="margin-left:-1px;"
+                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                            <path
+                                                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                                <a class="bi bi-pencil-square btn btn-info"
+                                                th:href="@{'/admin/editWarehouse/' + ${warehouse.warehouseID}}" ></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by admin. Designed and Developed by
+            <a href="#">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <!-- <script>
+    function confirmDelete(brandsId) {
+      if (confirm("Bạn có chắc muốn xóa không?")) {
+        window.location.href = '/admin/deleteBrands/' + brandsId;
+      }
+      return false;
+    }
+
+    
+  </script> -->
+
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>
