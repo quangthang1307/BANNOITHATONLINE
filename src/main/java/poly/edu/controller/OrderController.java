@@ -51,7 +51,6 @@ public class OrderController {
     @Autowired
     private CustomerRepository customerRepository;
 
-
     @RequestMapping("/admin/invoice")
     public String showAdminOrder(Model model) {
         model.addAttribute("orders", orderRepository.findAll());
@@ -102,29 +101,28 @@ public class OrderController {
     // return "admin/customer";
     // }
 
-    // @RequestMapping("/admin/showinvoicedetails/{orderId}")
-    // public String adminShowInvoiceDetails(Model model, @PathVariable("orderId")
-    // Integer orderId) {
-    // Order order = orderService.findById(orderId);
+    @RequestMapping("/admin/showinvoicedetails/{orderId}")
+    public String adminShowInvoiceDetails(Model model, @PathVariable("orderId") Integer orderId) {
+        Order order = orderService.findById(orderId);
 
-    // List<Orderdetails> orderDetails = order.getOrderDetails();
+        List<Orderdetails> orderDetails = order.getOrderDetails();
 
-    // List<Product> products = new ArrayList<>();
-    // for (Orderdetails orderDetail : orderDetails) {
-    // Product product = orderDetail.getProduct();
-    // products.add(product);
-    // }
-    // model.addAttribute("order", order);
-    // model.addAttribute("products", products);
+        List<Product> products = new ArrayList<>();
+        for (Orderdetails orderDetail : orderDetails) {
+            Product product = orderDetail.getProduct();
+            products.add(product);
+        }
+        model.addAttribute("order", order);
+        model.addAttribute("products", products);
 
-    // return "admin/admininvoicedetails";
-    // }
+        return "admin/admininvoicedetails";
+    }
 
     @RequestMapping("/admin/deleteoder/{orderId}")
     public String deleteOrder(@PathVariable Integer orderId) {
 
-    orderService.deleteOrder(orderId);
-    return "redirect:/admin/statusproduct";
+        orderService.deleteOrder(orderId);
+        return "redirect:/admin/statusproduct";
     }
 
     // @GetMapping("/user/order/showorder")
