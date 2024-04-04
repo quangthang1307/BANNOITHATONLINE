@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+    <style>
+        .drop-container {
+
+            display: flex;
+            gap: 10px;
+
+            flex-direction: column;
+            justify-content: center;
+
+            height: 200px;
+            width: 200px;
+            margin-top: 43px;
+            border-radius: 10px;
+            border: 2px dashed #bebbbb;
+            color: #444;
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            background: #eee;
+            border-color: #111;
+        }
+
+        .drop-container:hover .drop-title {
+            color: #222;
+        }
+
+        .drop-title {
+            color: #969696;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+
+
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #cfcfcf;
+            border-radius: 10px;
+            margin-right: 20px;
+            padding: 10px;
+            margin-bottom: 30px;
+
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title fs-3" th:text="${tiltePage}"></h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/admin/products">Sản phẩm</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
+                                        
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <form th:object="${product}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+
+
+
+
+                                <div class="col-lg-10 col-xs-12">
+                                    <div class="thontinchung mb-3 bg-white p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Thông Tin Chung</h4>
+                                        <hr>
+
+
+
+                                        <div class="row">
+
+                                            <div class="mb-3">
+                                                <input th:field="${product.productid}" type="text" hidden="true"
+                                                    class="form-control" name="" id="productid"
+                                                    aria-describedby="helpId" placeholder="" />
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label fw-bold">Tên sản phẩm</label>
+                                                    <input th:field="${product.productname}" type="text"
+                                                        class="form-control" name="" id="productname"
+                                                        aria-describedby="helpId" placeholder="" />
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label fw-bold">Thương hiệu</label>
+                                                    <select class="form-select" th:field="${product.brand.brandsId}"
+                                                        id="productbrand">
+                                                        <option th:each="brandt : ${brands}"
+                                                            th:text="${brandt.brandname}" th:value="${brandt.brandsId}">
+                                                        </option>
+                                                    </select>
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label fw-bold">Danh mục</label>
+                                                    <select class="form-select" id="productcategory"
+                                                        th:field="${product.category}">
+                                                        <option th:each="category : ${categorys}"
+                                                            th:value="${category.ID}" th:text="${category.productname}">
+                                                        </option>
+                                                    </select>
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label fw-bold">Mô tả</label>
+                                                    <textarea th:field="${product.description}" class="form-control"
+                                                        rows="10" id="productdescription"></textarea>
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+                                        </div>
+
+
+
+
+                                        <!-- <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button th:formaction="@{/admin/saveProduct}" id="buttonadd"
+                                                    class="btn btn-primary">Thêm</button>
+                                            </div> -->
+
+                                    </div>
+
+                                    <div class="hinhanh bg-white mb-3 p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Hình Ảnh</h4>
+                                        <hr>
+                                        <div class="col-lg-12 col-xs-12">
+                                            <div class="mb-3">
+
+
+
+                                                <div id="imageContainer">
+                                                    <div class="row">
+
+                                                        <div class="col-lg-3 col-xs-12 inputimage">
+                                                            <label th:if="${product.productid != null}" for="imageInput"
+                                                                class="drop-container" id="dropcontainer">
+
+                                                                <span class=" drop-title"><i
+                                                                        class="bi bi-card-image"></i>
+                                                                    Thêm
+                                                                    hình
+                                                                    ảnh</span>
+                                                                <input type="file" name="imageFile" id="imageInput"
+                                                                    accept="image/*" multiple hidden>
+
+                                                            </label>
+
+                                                            <label th:if="${product.productid == null}" for="imageInput"
+                                                                class="drop-container" id="dropcontainer">
+
+                                                                <span class=" drop-title"><i
+                                                                        class="bi bi-card-image"></i>
+                                                                    Thêm
+                                                                    hình
+                                                                    ảnh</span>
+                                                                <input type="file" name="imageFile" id="imageInput"
+                                                                    accept="image/*" multiple required hidden>
+
+                                                            </label>
+
+                                                            <input type="file" name="allimage" id="fileInput2" multiple hidden>
+                                                        </div>
+
+                                                        <div class="col-3 " th:id="'hinh' + ${images.ID}"
+                                                            th:if="${product.productimages != null}"
+                                                            th:each="images : ${product.productimages}">
+
+                                                            <button type="button"
+                                                                class="btn btn-lg float-end fw-bold bi bi-x-lg"
+                                                                onclick="addDataToController(this)"
+                                                                th:value="${images.ID}"></button>
+
+                                                            <img class="preview-image shadow"
+                                                                th:src="'/' + ${images.image}">
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gia bg-white mb-3 p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Giá</h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Giá nhập</label>
+                                                    <input type="number" th:field="${product.pricenhap}"
+                                                        class="form-control" name="" id="pricenhap"
+                                                        aria-describedby="helpId" placeholder="" />
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Giá bán</label>
+                                                    <input type="number" th:field="${product.pricexuat}"
+                                                        class="form-control" name="" id="pricexuat"
+                                                        aria-describedby="helpId" placeholder="" />
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tonkho bg-white mb-3 p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Quản Lý Tồn Kho</h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Tồn kho</label>
+                                                    <input type="text" class="form-control" name="" id=""
+                                                        aria-describedby="helpId" placeholder="" />
+                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-lg-2 col-xs-12">
+                                    <div class="trangthai bg-white p-4 mx-auto mb-3">
+                                        <h5 class="text-info">Hiển Thị</h5>
+                                        <hr>
+
+                                        <div class="">
+                                            
+                                            <div class="form-check form-switch mx-2">
+                                                
+                                                <input class="form-check-input rounded-pill"
+                                                    th:field="${product.productactivate}"
+                                                    th:checked="${product.productactivate}" value="true" type="checkbox"
+                                                    role="switch" id="productactive">
+
+
+                                            </div>
+                                            
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-10 col-xs-12">
+                                    <div class="xacnhan bg-white p-4 mx-auto shadow-sm d-flex justify-content-end">
+
+
+                                        <a class="btn btn-light" href="/admin/products">Hủy</a>
+                                        <button th:formaction="@{/admin/saveProduct}" class="btn btn-info mx-2 "
+                                            th:text="${tilteButton}"></button>
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </form>
+                        <!-- ============================================================== -->
+                        <!-- End PAge Content -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Right sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- .right-sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- End Right sidebar -->
+                        <!-- ============================================================== -->
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- footer -->
+                    <!-- ============================================================== -->
+                    <footer class="footer text-center">
+                        All Rights Reserved by Matrix-admin. Designed and Developed by
+                        <a href="https://www.wrappixel.com">WrapPixel</a>.
+                    </footer>
+                    <!-- ============================================================== -->
+                    <!-- End footer -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Page wrapper  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Wrapper -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- All Jquery -->
+            <!-- ============================================================== -->
+
+            <script>
+
+
+                // function addData(button) {
+                //     var value = button.getAttribute("value");
+                //     var col =   document.getElementById('hinh' + value);
+                //   //  button.hidden = true;
+                //   // col.classList.remove("col-3");
+                //     col.style.display = "none";
+                //     selectedData.push(value);
+                //     console.log("Đã thêm giá trị: " + value );
+                // }
+
+                function addDataToController(button) {
+                    var value = button.getAttribute("value");
+                    var col = document.getElementById('hinh' + value);
+                    //  button.hidden = true;
+                    // col.classList.remove("col-3");
+                    col.style.display = "none";
+
+                    console.log("Đã thêm giá trị: " + value);
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/admin/imagefordelete",
+                        data: JSON.stringify(value),
+                        success: function (response) {
+                            console.log("Dữ liệu đã được gửi thành công.");
+                            console.log("Phản hồi từ máy chủ: " + response);
+                            // Sau khi gửi dữ liệu, bạn có thể làm gì đó tiếp theo, ví dụ: làm mới trang hoặc hiển thị thông báo thành công.
+                        },
+                        error: function (error) {
+                            console.error("Lỗi khi gửi dữ liệu: " + error);
+                        }
+                    });
+                }
+            </script>
+
+            <!-- <script>
+                document.getElementById('imageInput').addEventListener('change', handleFileSelect);
+
+
+                    function handleFileSelect(event) {
+                        var files = event.target.files;
+                        var imageContainer = document.getElementById('imageContainer');
+                        
+                        // Lặp qua các file đã chọn
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+
+                            // Kiểm tra xem file có phải là ảnh hay không
+                            if (!file.type.startsWith('image/')) {
+                                continue;
+                            }
+
+                            var reader = new FileReader();
+
+                            reader.onload = function (event) {
+                                var img = document.createElement('img');
+                                var btn = document.createElement('button');
+                                img.classList.add('col-3', 'preview-image');
+                                btn.classList.add('btn', 'btn-lg', 'float-end', 'fw-bold', 'bi', 'bi-x-lg');
+                                btn.type = 'button';
+                                btn.addEventListener('click', function () {
+                                    removeFile(i); // Remove the file at index i
+                                });
+                                img.src = event.target.result;
+                                imageContainer.appendChild(btn);
+                                imageContainer.appendChild(img);
+
+                                var rowElement = imageContainer.querySelector('.row');
+                                var inputfile = imageContainer.querySelector('.row .inputimage');
+                                inputfile.classList.add('d-none');
+                                // Thêm phần tử <img> vào trong phần tử div với class 'row'
+                                var colElement = document.createElement('div');
+                                colElement.classList.add('col-3');
+                                colElement.appendChild(btn);
+                                colElement.appendChild(img);
+
+                                rowElement.appendChild(colElement);
+                            };
+
+                            reader.readAsDataURL(file);
+                        }
+                    }
+
+                
+
+                function removeFile(index) {
+                    const input = document.getElementById('imageInput');
+                    const files = Array.from(input.files);
+                    files.splice(index, 1); // Remove the file at the specified index
+                    const newFileList = new DataTransfer();
+                    for (const file of files) {
+                        newFileList.items.add(file);
+                    }
+                    input.files = newFileList.files;
+                    handleFileSelect({ target: input }); // Re-render the selected files
+                }
+            </script> -->
+
+            <script>
+                document.getElementById('imageInput').addEventListener('change', handleFileSelect);
+                const selectedFiless = [];
+                function handleFileSelect(event) {
+                    const selectedFiles = event.target.files;
+                    // Lặp qua mỗi file trong danh sách được chọn và thêm vào mảng selectedFiles
+                    for (let i = 0; i < selectedFiles.length; i++) {
+                        selectedFiless.push(selectedFiles[i]);
+                    }
+                    // Tạo một đối tượng DataTransfer
+                    const fileList = new DataTransfer();
+
+                    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
+                    for (let i = 0; i < selectedFiless.length; i++) {
+                        const file = selectedFiless[i];
+                        fileList.items.add(file);
+                    }
+
+                    // Gán đối tượng DataTransfer vào input thứ hai
+                    const newFileInput = document.getElementById('fileInput2');
+                    newFileInput.files = fileList.files;
+
+
+                   
+                    console.log(selectedFiles);
+                    console.log(selectedFiless);
+                    const selectedFilesDiv = document.getElementById('imageContainer');
+                    const rowElement = selectedFilesDiv.querySelector('.row');
+                    const onRow = rowElement.querySelectorAll('.newimage');
+                    // Lặp qua tất cả các phần tử trong NodeList
+                    onRow.forEach(function (row) {
+                        // Kiểm tra xem phần tử có class .newimage không
+                        if (row.classList.contains('newimage')) {
+                            row.remove(); // Xóa phần tử chứa class .new
+                        }
+                    });
+                    for (let i = 0; i < selectedFiless.length; i++) {
+                        const file = selectedFiless[i];
+
+                        const fileItem = document.createElement('div');
+                        fileItem.classList.add('col-3', 'newimage');
+
+
+
+                        // Append the image to the fileItem
+
+
+                        const removeButton = document.createElement('button');
+                        removeButton.type = 'button';
+                        removeButton.classList.add('btn', 'btn-lg', 'float-end', 'fw-bold', 'bi', 'bi-x-lg');
+                        removeButton.addEventListener('click', function () {
+                            removeFile(i); // Remove the file at index i
+                        });
+                        // var colElement = document.createElement('div');
+                        // colElement.classList.add('col-3');
+                        fileItem.appendChild(removeButton);
+                        // Create an image element  
+                        const image = document.createElement('img');
+                        image.classList.add('col-3', 'preview-image');
+                        console.log(URL.createObjectURL(file));
+                        image.src = URL.createObjectURL(file); // Set the image source to the file URL
+                        fileItem.appendChild(image);
+                        selectedFilesDiv.appendChild(fileItem);
+
+                        rowElement.appendChild(fileItem);
+                    }
+                }
+
+                function removeFile(index) {
+                    console.log(index);
+                    const input = document.getElementById('imageInput');
+                    selectedFiless.splice(index, 1); // Xóa phần tử tại chỉ mục được chỉ định
+                    // Gọi lại hàm handleFileSelect để render lại các file đã chọn
+                    input.value = '';
+                    handleFileSelect({ target: input });
+                }
+
+            </script>
+
+            <script>
+                function confirmDelete(brandsId) {
+                    if (confirm("Bạn có chắc muốn xóa không?")) {
+                        window.location.href = '/admin/deleteBrands/' + brandsId;
+                    }
+                    return false;
+                }
+            </script>
+            <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+            <!-- Bootstrap tether Core JavaScript -->
+            <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+            <!-- slimscrollbar scrollbar JavaScript -->
+            <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+            <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+            <!--Wave Effects -->
+            <script th:src="@{/dist/js/waves.js}"></script>
+            <!--Menu sidebar -->
+            <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+            <!--Custom JavaScript -->
+            <script th:src="@{/dist/js/custom.min.js}"></script>
+            <!-- this page js -->
+            <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+            <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+            <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+            <script>
+                /****************************************
+                 *       Basic Table                   *
+                 ****************************************/
+                $("#zero_config").DataTable();
+            </script>
+</body>
+
+</html>

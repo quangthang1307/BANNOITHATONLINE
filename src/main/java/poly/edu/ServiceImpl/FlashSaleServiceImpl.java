@@ -36,5 +36,23 @@ public class FlashSaleServiceImpl implements FlashSaleService{
     public Page<Flashsale> getFlashsalesNowByCategory(Pageable pageable, List<Integer> categoryIDs) {
         return flashSaleRepository.getFlashSalesNowByCategory(pageable, categoryIDs);
     }
+
+
+    @Override
+    public void SaveAndUpdate(Flashsale flash) {
+        flashSaleRepository.save(flash);
+    }
+
+
+    @Override
+    public List<Flashsale> findByFlashsaleHour(Integer flashsalehourID) {
+        return flashSaleRepository.findByFlashSaleHourID(flashsalehourID);
+    }
+
+
+    @Override
+    public List<Flashsale> getFlashsalesNowAll() {
+        return flashSaleRepository.getFlashSalesNowAll();
+    }
     
 }

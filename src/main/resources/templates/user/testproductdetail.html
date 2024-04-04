@@ -260,7 +260,7 @@
                             <div class="wrapbox-detail stickyProduct-detail">
 
                                 <div class="product-heading">
-                                    <h1>{{productdetail.productname}}</h1>
+                                    <h1 ng-bind="productdetail.productname"></h1>
 
                                     <span id="pro_sku">Mã sản phẩm: <strong>2001225</strong> </span>
 
@@ -276,12 +276,12 @@
                                 <div ng-if="productdetail.percent !== 0" class="product-price" id="price-preview"><span
                                         class="pro-title">Giá:
                                     </span><span class="pro-price">{{productdetail.pricexuat - (productdetail.pricexuat
-                                        * productdetail.percent / 100)}}₫</span><del>{{productdetail.pricexuat}}₫</del>
+                                        * productdetail.percent / 100) | number}}₫</span><del>{{productdetail.pricexuat | number}}₫</del>
                                     <span class="pro-percent">-{{productdetail.percent}}%</span>
                                 </div>
                                 <div ng-if="productdetail.percent === 0" class="product-price" id="price-preview">
                                     <span class="pro-title">Giá: </span><span
-                                        class="pro-price">{{productdetail.pricexuat}}₫</span>
+                                        class="pro-price">{{productdetail.pricexuat | number}}₫</span>
                                 </div>
                                 <div class="product-variants">
                                     <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
