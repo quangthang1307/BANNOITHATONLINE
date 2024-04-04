@@ -32,11 +32,6 @@ public class AccountController {
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
-    // Edit profile
-    @RequestMapping("/user/editprofile")
-    public String showEditProfile() {
-        return "user/editprofile";
-    }
 
     @RequestMapping("/user/profile")
     public String showUserProfile(Model model) {
