@@ -164,6 +164,21 @@ public class ProductServiceImpl implements ProductService {
         return productResponsitory.findAll();
     }
 
+    @Override
+    public void save(Product product) {
+        productResponsitory.save(product);
+    }
+
+    @Override
+    public void deleteById(int productid) {
+        productResponsitory.deleteById(productid);
+    }
+
+    @Override
+    public List<Product> findAllByAllId(List<Integer> productid) {
+       return productResponsitory.findProductByAllId(productid);
+    }
+
 
 
 

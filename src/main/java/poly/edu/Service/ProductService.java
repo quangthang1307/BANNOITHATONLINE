@@ -12,9 +12,15 @@ import poly.edu.entity.Product;
 @Service
 public interface ProductService {
     // List<Product> findAll();
+
+    void save(Product product);
+    void deleteById(int productid);
+
     Page<Product> findAll(Pageable pageable);
 
     List<Product> findAllNoActive();
+
+    List<Product> findAllByAllId(List<Integer> productid);
 
     Optional<Product> findById(int id);
 

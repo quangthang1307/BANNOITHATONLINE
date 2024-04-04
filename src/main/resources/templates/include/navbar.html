@@ -688,11 +688,12 @@
                                         </span>
 
                                         <span class="box-text" th:if="${session.username != null}">
-                                            <span style="color: white;" th:text="${session.username}"></span>
+                                            <span style="color: white;" th:text="${session.customerName != null ? session.customerName : session.username}"></span>
                                         </span>
                                         <span class="box-text" th:unless="${session.username != null}">
                                             <a href="/login" style="color: white;">Đăng nhập / Đăng ký</a>
                                         </span>
+                                        
                                         
                                     </a>
                                     <span class="box-triangle">

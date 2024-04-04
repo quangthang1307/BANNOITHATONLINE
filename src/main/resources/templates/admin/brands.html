@@ -1,116 +1,223 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-   <div data-th-insert="~{include/styleadmin.html}"></div>
+  <div data-th-insert="~{include/styleadmin.html}"></div>
 
-    <title>Brands</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/kimi.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+  <title>Tables</title>
 </head>
+
 <body>
-   <div data-th-insert="~{include/navbaradmin.html}"></div>
-
-<div class="container-fluid kimi-container">
-    <ol class="breadcrumb hidden-xs">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="channelDashboard.html">Channel Dashboard</a></li>
-        <li>Channel Edit</li>
-    </ol>
-</div>
-  <div class="container-fluid" style="padding-bottom: 50px; padding-top: 20px;">
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked nav-stacked-kimi">
-                <li role="presentation"><a href="/admin/statistical">Statistical</a></li>
-                <li role="presentation" ><a href="changePassword.html">Change Password</a></li>
-                <li role="presentation"><a href="resetPassword.html">Reset Password</a></li>
-                 <li role="presentation"><a href="/admin/brands">Brands</a></li>
-                <li role="presentation"><a href="plan.html">Subscription</a></li>
-                <!--<li role="presentation"><a href="questions.html">Frequently Asked Questions</a></li>-->
-            </ul>
-
-           <!--  <div style="background: #FCFCFC; border: 1px solid #E7EAEA; margin-top: 30px; padding: 15px;" class="hidden-xs">
-                <h2>Sucicakes</h2>
-                <h4>This week Sales:</h4>
-                <h2>Rp 40.000</h2>
-                <p>Anda belum berlangganan <a href="#" class="text-secondary">Premium Merchant</a> </p>
-                <p>Berminat jadi Premium Merchant?
-                    Coba gratis selama 1 bulan.
-                    <a href="#" class="text-secondary"> Klik disini</a></p>
-            </div> -->
-        </div>
-
-        <div class="col-md-6 edit-channel-form">
-
-            <form class="form-inline">
-                <div class="row">
-                    <div class="col-md-4 label-wrapper">
-                        <label for="current_password">Current Password</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="password" class="form-control" id="current_password" placeholder="Current Password">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 label-wrapper">
-                        <label for="new_password">New Password</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="password" class="form-control" id="new_password" placeholder="New Password">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 label-wrapper">
-                        <label for="confirm_password">Confirm Password</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <button class="btn button-green-free btn-lg">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
 
 
+<!-- //lưu hiện thông báo -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Lưu sản phẩm thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+<!-- //xóa hiện thông báo -->
+<script>
+    function confirmDelete(brandsId) {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/deleteBrands/' + brandsId;
+            }
+        });
 
-        <div class="col-md-3">
-            <div class="box-promo">
-                <h3>Let’s become Kimi Premium Merchant</h3>
-                <p>Premium Merchant menyediakan berbagai fitur istimewa untuk meningkatkan penjualan Anda.</p>
-                <ul>
-                    <li>Badge Premium Seller</li>
-                    <li>Full Statistik Business</li>
-                    <li>50% tambahan promosi di berbagai channel ads</li>
-                    <li>Premium Support</li>
-                </ul>
-                <div class="maya-small-padding"></div>
+        // Trả về false để ngăn chặn hành động mặc định của liên kết
+        return false;
+    }
+</script>
+<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Xóa sản phẩm thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
 
-                <button class="btn btn-block button button-outline">Join Premium Merchant</button>
-            </div>
-        </div>
-
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
     </div>
-</div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div data-th-insert="~{include/navbaradmin.html}"></div>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Thương Hiệu</h4>
+            <div class="ms-auto text-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Library
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+          <div class="col-12">
 
-<!--include footer-->
-<div class="include-footer"></div>
+            <div class="card col-12">
+              <form class="form-horizontal" th:object="${brand}" method="post">
+                <div class="card-body">
+                  <h4 class="card-title">Thương Hiệu</h4>
+                  <div class="form-group row">
+                    <label for="fname" class="col-sm-3 text-end control-label col-form-label"></label>
+                    <div class="col-sm-9">
+                      <input type="hidden" th:field="*{brandsId}" class="form-control" id="fname"
+                        placeholder="First Name Here" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lname" class="col-sm-3 text-end control-label col-form-label">Tên Thương Hiệu: </label>
+                    <div class="col-sm-9">
+                      <input type="text" th:field="*{brandname}" class="form-control" id="lname"
+                        placeholder="Thương Hiệu" />
+                        <i th:if="${#fields.hasErrors('brandname')}" th:errors="*{brandname}" style="color: red;"></i>
+                    </div>
+                  </div>
 
+                </div>
+                <div class="border-top">
+                  <div class="card-body">
+                    <button type="submit" formaction="/admin/saveBrands" class="btn btn-info" style="width: 80px;">
+                      Lưu
+                    </button>
 
-<script src="./js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
+                       <a href="/admin/brands" class="btn btn-success" style="color: white;">Làm mới</a>
+                   <!--  <div th:if="${successMessage}" class="success-message" style="margin-left: 150px; margin-top: -25px;">
+                      <p th:text="${successMessage}" style="color: green; font-weight: bold;"></p>
+                    </div> -->
+                    <a href="/admin/brand" class="btn btn-primary" style="color: white; float: right; ">Quay lại danh sách</a>
+                  </div>
 
-<!--kimi basic js-->
-<script src="js/kimi.js"></script>
+                </div>
+            </div>
+            </form>
+          </div>
+
+          
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End PAge Content -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Right sidebar -->
+      <!-- ============================================================== -->
+      <!-- .right-sidebar -->
+      <!-- ============================================================== -->
+      <!-- End Right sidebar -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer text-center">
+      All Rights Reserved by admin. Designed and Developed by
+      <a href="#">WrapPixel</a>.
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Page wrapper  -->
+  <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Wrapper -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- All Jquery -->
+  <!-- ============================================================== -->
+  <!-- <script>
+    function confirmDelete(brandsId) {
+      if (confirm("Bạn có chắc muốn xóa không?")) {
+        window.location.href = '/admin/deleteBrands/' + brandsId;
+      }
+      return false;
+    }
+  </script> -->
+  <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+  <!-- Bootstrap tether Core JavaScript -->
+  <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+  <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+  <!--Wave Effects -->
+  <script th:src="@{/dist/js/waves.js}"></script>
+  <!--Menu sidebar -->
+  <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+  <!--Custom JavaScript -->
+  <script th:src="@{/dist/js/custom.min.js}"></script>
+  <!-- this page js -->
+  <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+  <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+  <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+  <script>
+    /****************************************
+     *       Basic Table                   *
+     ****************************************/
+    $("#zero_config").DataTable();
+  </script>
 </body>
+
 </html>
