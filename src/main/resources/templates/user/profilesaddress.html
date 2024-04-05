@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="bannoithatonline" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,12 +18,53 @@
     <link href="../css/kimi.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
 
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png"
+    />
+    <link
+      href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Profile</title>
+
+    <!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <link rel="stylesheet" href="../../../taiNguyenCuaDung/css/theme1.css" />
+
+    <link rel="stylesheet" href="../../../taiNguyenCuaDung/css/theme2.css" />
+
+    <link rel="stylesheet" href="../../../taiNguyenCuaDung/css/theme3.css" />
+
+    <link rel="stylesheet" href="../../../taiNguyenCuaThang/css/chat.css" />
+
+    <link rel="stylesheet" href="../../../taiNguyenCuaDung/css/themes.scss.css" />
+    <!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <script
+      type="text/javascript"
+      src="../../../taiNguyenCuaDung/js/jquery.min.js"
+    ></script>
+    <script type="text/javascript" src="../../../taiNguyenCuaDung/js/theme.js"></script>
+
+    <link rel="stylesheet" href="../../../taiNguyenCuaBao/css/profilesaddress.css" />
 </head>
 
 <body ng-controller="ProfileController">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container-fluid" style="padding-bottom: 50px; padding-top: 20px;">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-3">
             <div data-th-insert="~{common/profile/menu.html}"></div>
         </div>
@@ -33,15 +74,15 @@
 
                 <div class="row">
                     <div class="box-bg-white col-md-12 col-xs-12">
-                        <!-- <div>
+                        <div>
                             <h1 class="" style="margin-left: 15px;">Địa chỉ của tôi</h1>
-                        </div> -->
+                        </div>
                             
-                        <!-- <div class="bio-row">
+                        <div class="bio-row">
                             <p>
                                 <span>Country</span>
                             </p>
-                        </div> -->
+                        </div>
 
                         <div id="updateAddressForm" style="display:none;">
                             <div class="row">
@@ -139,11 +180,206 @@
 
 
 
+    </div> -->
+    <div data-th-insert="~{include/navbar.html}"></div>
+    <main class="wrapperMain_content">	<div class="layout-account">
+        <div class="container">
+            <div class="wrapbox-content-account">
+                <div class="header-page clearfix">	<h1>Thông tin địa chỉ</h1></div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-12 col-12 sidebar-account">
+                        <div class="AccountSidebar">
+                          <h3 class="AccountTitle titleSidebar">Tài khoản</h3>
+                          <div class="AccountContent">
+                            <div class="AccountList">
+                              <ul class="list-unstyled">
+                                <li class="current">
+                                  <a href="/user/profile">Thông tin tài khoản</a>
+                                </li>
+                                <li>
+                                  <a href="/user/profile/pageaddress"
+                                    >Danh sách địa chỉ</a
+                                  >
+                                </li>
+                                <li class="last">
+                                  <a href="/logout">Đăng xuất</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-lg-9 col-md-12 col-12">	
+                        <!-- update địa chỉ mới -->
+                        <div class="row wrap_content_address" id="updateAddressForm" style="display:none;">
+                            <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
+                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Địa chỉ hiện tại</a>
+                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+  
+                                        <form>   
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>        
+                                                <input type="text" id="editTinhthanhpho" name="tinhthanhpho" class="input-textbox textbox" size="40" disabled>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Quận/Huyện:</b></div>             
+                                                <input type="text" id="editQuanhuyen" name="quanhuyen" class="input-textbox textbox" size="40" disabled>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Phường/Xã:</b></div>         
+                                                <input type="text" id="editPhuongxa" name="phuongxa" class="input-textbox textbox" size="40" disabled>
+                                            </div>
+                                            <div class="input-group"> 
+                                                <div class="lb-left"><b>Số nhà:</b></div>
+                                                <input type="text" id="editSonha" name="sonha" class="input-textbox textbox" size="40" disabled>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Đường:</b></div>
+                                                <input type="text" id="editduong" name="duong" class="input-textbox textbox" size="40" disabled>
+                                            </div>
+                                    </form> 
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
+                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Địa chỉ muốn cập nhật</a>
+                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+                                    <form>           
+                                        <div class="input-group">
+                                            <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>        
+                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="lb-left"><b>Quận/Huyện:</b></div>             
+                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="lb-left"><b>Phường/Xã:</b></div>         
+                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
+                                            </select>
+                                        </div>
+                                        <div class="input-group"> 
+                                            <div class="lb-left"><b>Số nhà:</b></div>
+                                            <input type="text" id="updateSonha" class="input-textbox textbox" name="address[address1]" size="40" value="">
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="lb-left"><b>Đường:</b></div>
+                                            <input type="text" id="updateduong" class="input-textbox textbox" name="address[address2]" size="40" value="">
+                                        </div>
+                                        <button type="submit" ng-click="updateAddress()" class="button">Cập nhật</button>
+                                </form> 
+                                </div>
+                            </div>
+                        </div>	
+                        <!-- Thêm địa chỉ mới -->
+                        <div class="row wrap_content_address">
+                            <div class="col-lg-6 col-md-12 col-12 wrap_editAddress">
+                                <div id="address_tables" ng-repeat="address in addresses"> 
+                                    <div class="row">
+                                        <div class="col-lg-12 col-xs-12 clearfix" >
+                                            <div class="address_title ">
+                                                <h3>
+                                                    <strong><div class="bio-chart">
+                                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100"
+                                                            height="20px"></canvas>
+                                                            <span class="knob" data-width="100"
+                                                            data-height="100" data-displayprevious="true" data-thickness=".2"
+                                                            value="" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8"
+                                                            style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-left: -110px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"><i class="bi bi-geo-alt-fill"></i></span>
+                                                    </div></strong>																
+                                                </h3>
+                                                <p class="address_actions text-right">
+                                                    <button class="button" ng-click="editAddress(address)">Chỉnh sửa</button>
+                                                    <button class="button" type="button" ng-click="deleteAddress(address.addressID)">Xóa</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="address_table">
+                                        <div id="view_address_10049254169" class="customer_address">
+                                            <div class="view_address row bio-desk">			
+                                                <div class="col-lg-12 col-md-12 large_view">
+                                                    <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>
+                                                    <div class="lb-right"><p>{{ address.tinhthanhpho }}</p> </div>
+                                                </div>			
+                                                <div class="col-lg-12 col-md-12 large_view">
+                                                    <div class="lb-left"><b>Quận/Huyện:</b></div>
+                                                    <div class="lb-right"><p>{{ address.quanhuyen }}</p> </div>
+                                                </div>										
+                                                <div class="col-lg-12 col-md-12 large_view">
+                                                    <div class="lb-left"><b>Phường/Xã:</b></div>
+                                                    <div class="lb-right"><p>{{ address.phuongxa }}</p> </div>
+                                                </div>									
+                                                <div class="col-lg-12 col-md-12 large_view">
+                                                    <div class="lb-left"><b>Số nhà:</b></div>
+                                                    <div class="lb-right"><p>{{ address.sonha }}</p> </div>
+                                                </div>	
+                                                <div class="col-lg-12 col-md-12 large_view">
+                                                    <div class="lb-left"><b>Đường:</b></div>
+                                                    <div class="lb-right"><p>{{ address.duong }}</p> </div>
+                                                </div>	
+                                            </div>
+                                        </div>    
+                                        
+                                    </div>   
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
+                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Thêm địa chỉ mới</a>
+                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+  
+                                        <form>
+                                            
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>        
+                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Quận/Huyện:</b></div>             
+                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Phường/Xã:</b></div>         
+                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
+                                                </select>
+                                            </div>
+                                            <div class="input-group"> 
+                                                <div class="lb-left"><b>Số nhà:</b></div>
+                                                <input type="text" id="address_address1_new" class="input-textbox textbox" name="address[address1]" size="40" value="" ng-model="newAddress.sonha">
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="lb-left"><b>Đường:</b></div>
+                                                <input type="text" id="address_address2_new" class="input-textbox textbox" name="address[address2]" size="40" value="" ng-model="newAddress.duong">
+                                            </div>
+                                            <button type="submit" ng-click="addAddress()" class="button">Thêm mới</button>
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>	 					
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener('DOMContentLoaded', function() {
+        // initialize observers on address selectors
+        new Haravan.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});  
+        
+        new Haravan.CountryProvinceSelector('address_country_10049254169', 'address_province_10049254169', {hideElement: 'address_province_container_10049254169'});
+        
+    });
+    </script> 
+            </main>
 </div>
 
 <!--include footer-->
-<div class="include-footer"></div>
+<div data-th-insert="~{include/footer.html}"></div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

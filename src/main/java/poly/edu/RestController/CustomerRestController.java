@@ -36,13 +36,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CustomerRestController {
     @Autowired
     CustomerRepository customerRepository;
-    //edit profile
+    // edit profile
     @Autowired
     CustomerService customerService;
-    //edit address
+    // edit address
     @Autowired
-	AddressRepository addressRepository;
-    
+    AddressRepository addressRepository;
+
     @Autowired
     AccountRepository accountRepository;
 
@@ -57,7 +57,7 @@ public class CustomerRestController {
                 OidcUser oidcUser = (OidcUser) oauthToken.getPrincipal();
                 String email = oidcUser.getAttribute("email");
                 Account Oauth2GoogleAccount = accountRepository.findByUsername(email);
-                if (Oauth2GoogleAccount != null) {                    
+                if (Oauth2GoogleAccount != null) {
                     Customer customer = customerRepository.getCustomerID(Oauth2GoogleAccount.getAccountId());
                     return ResponseEntity.ok(customer);
                 } else {
@@ -116,7 +116,6 @@ public class CustomerRestController {
         return ResponseEntity.notFound().build();
     }
 
-
     public static String generateRandomString() {
         String lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
         String uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -133,106 +132,122 @@ public class CustomerRestController {
         return randomString.toString();
     }
 
-    //Edit profile
+    // Edit profile
     @GetMapping("/rest/customers")
-	public List<Customer> getAllCustomers() {
-		return customerService.findAll();
-	}
+    public List<Customer> getAllCustomers() {
+        return customerService.findAll();
+    }
 
-	@GetMapping("/rest/customers/{id}")
-	public Customer getCustomerById(@PathVariable Integer id) {
-		Optional<Customer> customer = customerService.findById(id);
-		if (!customer.isPresent()) {
-			System.out.println("Customer not found");
-		}
-		return customer.get();
+    @GetMapping("/rest/customers/{id}")
+    public Customer getCustomerById(@PathVariable Integer id) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (!customer.isPresent()) {
+            System.out.println("Customer not found");
+        }
+        return customer.get();
 
-	}
-	
-	@DeleteMapping("/api/customers/{id}")
-	public ResponseEntity<?> deleteCustomer(@PathVariable Integer id) {
-		customerService.delete(id);
-		return ResponseEntity.ok().build();
-	}
-	
-	@GetMapping("/rest/profile/customers/{customerId}/addresses")
-	public ResponseEntity<List<Address>> getAddressesByCustomerId(@PathVariable Integer customerId) {
+    }
+
+    @PutMapping("/rest/customers/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerId,
+            @RequestBody Customer newCustomer) {
+        Optional<Customer> customer = customerService.findById(customerId);
+        if (!customer.isPresent()) {
+            System.out.println("Customer not found");
+        }
+        Customer currentCustomer = customer.get();
+        currentCustomer.setName(newCustomer.getName());
+        currentCustomer.setPhone(newCustomer.getPhone());
+        Customer updatedCustomer = customerRepository.save(currentCustomer);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/customers/{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable Integer id) {
+        customerService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/rest/profile/customers/{customerId}/addresses")
+    public ResponseEntity<List<Address>> getAddressesByCustomerId(@PathVariable Integer customerId) {
         List<Address> addresses = addressRepository.findAddressesByCustomerId(customerId);
         return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
-	
-	@PostMapping("/rest/profile/customers/{customerId}/addresses")
-	public ResponseEntity<Address> addAddress(@PathVariable Integer customerId, @RequestBody Address newAddress) {
-	    Optional<Customer> customer = customerService.findById(customerId);
-	    if (!customer.isPresent()) {
-	        System.out.println("Customer not found");
-	    }
-	    newAddress.setCustomer(customer.get());
-	    Address addedAddress = addressRepository.save(newAddress);
-	    return new ResponseEntity<>(addedAddress, HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/rest/profile/customer")
+
+    @PostMapping("/rest/profile/customers/{customerId}/addresses")
+    public ResponseEntity<Address> addAddress(@PathVariable Integer customerId, @RequestBody Address newAddress) {
+        Optional<Customer> customer = customerService.findById(customerId);
+        if (!customer.isPresent()) {
+            System.out.println("Customer not found");
+        }
+        newAddress.setCustomer(customer.get());
+        Address addedAddress = addressRepository.save(newAddress);
+        return new ResponseEntity<>(addedAddress, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/rest/profile/customer")
     public Customer getCurrentCustomer() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); 
+        String name = auth.getName();
         Customer customer = customerRepository.findByAccountUsername(name);
         return customer;
     }
-	
-	@PutMapping("/rest/profile/customers/{customerId}/addresses/{addressId}")
-	public ResponseEntity<Address> updateAddress(@PathVariable Integer customerId, @PathVariable Integer addressId, @RequestBody Address newAddress) {
-	    Optional<Customer> customer = customerService.findById(customerId);
-	    if (!customer.isPresent()) {
-	        System.out.println("Customer not found");
-	    }
-	    Optional<Address> address = addressRepository.findById(addressId);
-	    if (!address.isPresent()) {
-	        System.out.println("Address not found");
-	    }
-	    Address currentAddress = address.get();
-	    currentAddress.setTinhthanhpho(newAddress.getTinhthanhpho());
-	    currentAddress.setQuanhuyen(newAddress.getQuanhuyen());
-	    currentAddress.setPhuongxa(newAddress.getPhuongxa());
-	    currentAddress.setSonha(newAddress.getSonha());
-	    currentAddress.setDuong(newAddress.getDuong());
-	    Address updatedAddress = addressRepository.save(currentAddress);
-	    return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/rest/profile/customers/{customerId}/addresses/{addressId}")
-	public ResponseEntity<?> deleteAddress(@PathVariable Integer customerId, @PathVariable Integer addressId) {
-	    Optional<Customer> customer = customerService.findById(customerId);
-	    if (!customer.isPresent()) {
-	        System.out.println("Customer not found");
-	    }
-	    Optional<Address> address = addressRepository.findById(addressId);
-	    if (!address.isPresent()) {
-	        System.out.println("Address not found");
-	    }
-	    addressRepository.delete(address.get());
-	    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
 
-	// @PutMapping("/rest/profile/customers/{customerId}/password")
-	// public ResponseEntity<?> changePassword(@PathVariable Integer customerId, @RequestBody Map<String, String> passwords) {
-	//     Optional<Customer> customer = customerService.findById(customerId);
-	//     if (!customer.isPresent()) {
-	//         System.out.println("Customer not found");
-	//     }
-	//     Account account = customer.get().getAccount();
-	//     String currentPassword = passwords.get("currentPassword");
-	//     String newPassword = passwords.get("newPassword");
-	//     String confirmPassword = passwords.get("confirmPassword");
-	//     if (!account.getPassword().equals(currentPassword)) {
-    //         System.out.println("Current password is incorrect");
-	//     }
-	//     if (!newPassword.equals(confirmPassword)) {
-    //         System.out.println("New password and confirm password do not match");
-	//     }
-	//     account.setPassword(newPassword);
-	//     customerService.create(customer.get());
-	//     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// }
+    @PutMapping("/rest/profile/customers/{customerId}/addresses/{addressId}")
+    public ResponseEntity<Address> updateAddress(@PathVariable Integer customerId, @PathVariable Integer addressId,
+            @RequestBody Address newAddress) {
+        Optional<Customer> customer = customerService.findById(customerId);
+        if (!customer.isPresent()) {
+            System.out.println("Customer not found");
+        }
+        Optional<Address> address = addressRepository.findById(addressId);
+        if (!address.isPresent()) {
+            System.out.println("Address not found");
+        }
+        Address currentAddress = address.get();
+        currentAddress.setTinhthanhpho(newAddress.getTinhthanhpho());
+        currentAddress.setQuanhuyen(newAddress.getQuanhuyen());
+        currentAddress.setPhuongxa(newAddress.getPhuongxa());
+        currentAddress.setSonha(newAddress.getSonha());
+        currentAddress.setDuong(newAddress.getDuong());
+        Address updatedAddress = addressRepository.save(currentAddress);
+        return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/rest/profile/customers/{customerId}/addresses/{addressId}")
+    public ResponseEntity<?> deleteAddress(@PathVariable Integer customerId, @PathVariable Integer addressId) {
+        Optional<Customer> customer = customerService.findById(customerId);
+        if (!customer.isPresent()) {
+            System.out.println("Customer not found");
+        }
+        Optional<Address> address = addressRepository.findById(addressId);
+        if (!address.isPresent()) {
+            System.out.println("Address not found");
+        }
+        addressRepository.delete(address.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // @PutMapping("/rest/profile/customers/{customerId}/password")
+    // public ResponseEntity<?> changePassword(@PathVariable Integer customerId,
+    // @RequestBody Map<String, String> passwords) {
+    // Optional<Customer> customer = customerService.findById(customerId);
+    // if (!customer.isPresent()) {
+    // System.out.println("Customer not found");
+    // }
+    // Account account = customer.get().getAccount();
+    // String currentPassword = passwords.get("currentPassword");
+    // String newPassword = passwords.get("newPassword");
+    // String confirmPassword = passwords.get("confirmPassword");
+    // if (!account.getPassword().equals(currentPassword)) {
+    // System.out.println("Current password is incorrect");
+    // }
+    // if (!newPassword.equals(confirmPassword)) {
+    // System.out.println("New password and confirm password do not match");
+    // }
+    // account.setPassword(newPassword);
+    // customerService.create(customer.get());
+    // return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 
 }
