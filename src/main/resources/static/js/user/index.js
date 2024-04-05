@@ -15,12 +15,14 @@ const hostFlashSaleHourStart = "/rest/flashsaledelay/start";
 const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
 const hostFlashSale = "/rest/flashsale";
 const hostFlashSaleUpdate = "/rest/flashsale/update"
+const hostProductFlashsale = "/rest/product/flashsale";
 
 app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
   $scope.productsbestsellers = [];
   $scope.productSale = [];
   $scope.discounts = [];
+  $scope.productFlashSale = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -64,6 +66,19 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
       }
       );
 
+    $http.get(hostProductFlashsale)
+      .then(function (response) {
+
+        $scope.productFlashSale = response.data
+        localStorage.setItem('productFlashSale', JSON.stringify($scope.productFlashSale));
+        console.log($scope.productFlashSale);
+
+      })
+      .catch(function (error) {
+        console.error('Error fetching productSale:', error);
+      }
+      );
+
     $http.get(hostDiscount)
       .then(function (response) {
 
@@ -87,6 +102,16 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
     return foundItem ? foundItem.percent : null;
   };
   //
+   //Kiểm tra sản phẩm Flashsale để thay đổi giá
+   $scope.isProductInFlashSale = function (productId) {
+    return $scope.productFlashSale.some(item => item.product.productid === productId);
+};
+
+$scope.getPercentFlashSaleForProduct = function (productId) {
+    var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
+    return foundItem ? foundItem.percent : null;
+};
+//
 
   // Hàm xử lý khi nhấp vào tên sản phẩm
   $scope.clickById = function (productId) {
@@ -271,18 +296,18 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
 
   var timer; // Biến lưu trữ interval
   // var timetoend = $scope.timetodelay;
-  $scope.startCountdown = function() {
-      // Dừng interval trước khi bắt đầu một lần mới
-      if (angular.isDefined(timer)) {
-          $interval.cancel(timer);
-      }
-      // Bắt đầu đếm ngược
-      timer = $interval($scope.countdown, 1000);
+  $scope.startCountdown = function () {
+    // Dừng interval trước khi bắt đầu một lần mới
+    if (angular.isDefined(timer)) {
+      $interval.cancel(timer);
+    }
+    // Bắt đầu đếm ngược
+    timer = $interval($scope.countdown, 1000);
   }
 
   $scope.countdown = function () {
     // Kiểm tra xem thời gian còn lại có hợp lệ không
-    
+
     if ($scope.timetodelay <= 0) {
       console.log("Thời gian đã kết thúc.");
       return;
@@ -298,14 +323,14 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
 
     if ($scope.timetodelay <= 1000) {
       console.log("đã dừng");
-      $interval.cancel(timer); 
+      $interval.cancel(timer);
       $scope.days = $scope.hours = $scope.minutes = $scope.seconds = 0;
-    }else{
+    } else {
       $scope.timetodelay -= 1000;
-       $scope.startCountdown();
+      $scope.startCountdown();
     }
 
-   
+
 
   }
 

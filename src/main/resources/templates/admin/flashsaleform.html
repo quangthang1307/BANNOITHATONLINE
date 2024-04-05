@@ -138,9 +138,9 @@
                                     <div class="xacnhan bg-white p-2 mx-auto shadow-sm d-flex justify-content-end">
 
 
-                                        <a class="btn btn-light" href="/admin/promotionsale">Hủy</a>
+                                        <a class="btn btn-light" href="/admin/promotion/flashsale">Hủy</a>
                                         <button th:formaction="@{/admin/savepromotionflashsale}"
-                                            class="btn btn-info mx-2 ">Tạo</button>
+                                            class="btn btn-info mx-2 ">Lưu</button>
 
 
 
@@ -323,7 +323,7 @@
 
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Ngày bắt đầu</label>
-                                                <input th:field="${flashhsales.dateStart}" type="date"
+                                                <input th:value="${daystart}" type="date" name="daystart"
                                                     class="form-control" aria-describedby="helpId" />
                                                 <small id="helpId" class="form-text text-muted">Help text</small>
                                             </div>

@@ -16,6 +16,6 @@ public interface FlashSaleHourRepository extends JpaRepository<FlashSaleHour, In
     @Query(value =  "SELECT * FROM Flashsalehour WHERE Starthour = CAST(? AS time)", nativeQuery = true)
     FlashSaleHour getFlashSalesHourByTimeNow(LocalTime timenow);
 
-    @Query(value =  "SELECT * FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE())", nativeQuery = true)
-    FlashSaleHour getFlashSalesHourOnStart();
+    @Query(value =  "SELECT * FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()) AND CONVERT(DATE, Startdate) = CONVERT(DATE, GETDATE())", nativeQuery = true)
+    List<FlashSaleHour> getFlashSalesHourOnStart();
 }

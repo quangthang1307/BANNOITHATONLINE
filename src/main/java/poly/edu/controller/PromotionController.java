@@ -1,8 +1,15 @@
 package poly.edu.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +55,7 @@ public class PromotionController {
     List<Product> products = new ArrayList<>();
     List<Flashsale> productselectflashsale = new ArrayList<>();
 
+    // MÃ GIẢM GIÁ
     @GetMapping("promotion")
     public String showPromotion(Model model) {
         List<Discount> discounts = discountService.findAll();
@@ -55,6 +63,51 @@ public class PromotionController {
         return "admin/promotion";
     }
 
+    @GetMapping("promotion/form")
+    public String showPromotionForm(Model model) {
+        Discount discount = new Discount();
+
+        model.addAttribute("discount", discount);
+        return "admin/promotionform";
+    }
+
+    @GetMapping("promotion/form/{promotionid}")
+    public String showPromotionFormEdit(@PathVariable("promotionid") Integer promotionid, Model model) {
+        Optional<Discount> discount = discountService.findById(promotionid);
+
+        model.addAttribute("discount", discount);
+        model.addAttribute("daystart", discount.get().getStartDate());
+        model.addAttribute("dayend", discount.get().getEndDate());
+        return "admin/promotionform";
+    }
+
+    @PostMapping("promotion/savepromotion")
+    public String savePromotion(HttpServletRequest request, Model model, Discount discount) {
+        String dayStartValue = request.getParameter("daystart");
+        String dayEndValue = request.getParameter("dayend");
+        // Định dạng chuỗi ngày giờ
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        // Chuyển đổi chuỗi thành LocalDateTime
+        LocalDateTime dayStartDateTime = LocalDateTime.parse(dayStartValue, formatter);
+        LocalDateTime dayEndDateTime = LocalDateTime.parse(dayEndValue, formatter);
+       
+        discount.setStartDate(dayStartDateTime);
+        discount.setEndDate(dayEndDateTime);
+        discount.setQuantityUsed(0);
+        discountService.save(discount);
+        return "redirect:/admin/promotion";
+    }
+
+
+    @GetMapping("promotion/delete/{promotionId}")
+    public String deletePromotion(@PathVariable("promotionId") Integer promotionId) {
+
+       discountService.delete(promotionId);
+        return "redirect:/admin/promotion";
+    }
+    //
+
+    // GIẢM GIÁ THÔNG THƯỜNG
     @GetMapping("promotionsale")
     public String showPromotionSale(Model model) {
         productselect.removeAll(productselect);
@@ -102,7 +155,10 @@ public class PromotionController {
                 products.removeIf(p -> p.getProductid() == ps.getProductid());
             }
         }
-        model.addAttribute("sale", sale);
+
+        model.addAttribute("sale", sale.get());
+        model.addAttribute("daystart", sale.get().getDayStart());
+        model.addAttribute("dayend", sale.get().getDayEnd());
         model.addAttribute("products", products);
         model.addAttribute("productselect", productselect);
 
@@ -110,16 +166,23 @@ public class PromotionController {
     }
 
     @PostMapping("/savepromotion")
-    public String savePromotion(Model model, Sale sale) {
-
+    public String savePromotionSale(HttpServletRequest request, Model model, Sale sale) {
+        String dayStartValue = request.getParameter("daystart");
+        String dayEndValue = request.getParameter("dayend");
+        // Định dạng chuỗi ngày giờ
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        // Chuyển đổi chuỗi thành LocalDateTime
+        LocalDateTime dayStartDateTime = LocalDateTime.parse(dayStartValue, formatter);
+        LocalDateTime dayEndDateTime = LocalDateTime.parse(dayEndValue, formatter);
         for (Product ps : productselect) {
-            Sale s = new Sale();
-            s.setPercent(sale.getPercent());
-            s.setDayStart(sale.getDayStart());
-            s.setDayEnd(sale.getDayEnd());
-            s.setStatus(sale.getStatus());
-            s.setProductID(ps.getProductid());
-            saleService.save(s);
+        Sale s = new Sale();
+        s.setSaleID(sale.getSaleID());
+        s.setPercent(sale.getPercent());
+        s.setDayStart(dayStartDateTime);
+        s.setDayEnd(dayEndDateTime);
+        s.setStatus(sale.getStatus());
+        s.setProductID(ps.getProductid());
+        saleService.save(s);
         }
 
         return "redirect:/admin/promotionsale";
@@ -160,17 +223,16 @@ public class PromotionController {
         productselect.removeIf(p -> p.getProductid() == productId);
         return "redirect:/admin/formpromotionsale";
     }
+    //
 
     // FlashSale
 
     @GetMapping("promotion/flashsale")
     public String showPromotionFlashSale(Model model) {
         productselectflashsale.removeAll(productselectflashsale);
-        if (productselect.isEmpty()) {
-            System.out.println("product select is empty");
-        }
 
-        List<FlashSaleHour> flashSaleHour = flashSaleHourService.findFlashSaleHours();
+        List<FlashSaleHour> flashSaleHour = flashSaleHourService.findFlashSaleHoursAll();
+        
         model.addAttribute("flashsalehour", flashSaleHour);
         return "admin/promotionFlashsale";
     }
@@ -179,7 +241,7 @@ public class PromotionController {
     public String showPromotionFlashSaleForm(Model model) {
         products = productService.findAllNoActive();
         String sizeproduct = "chưa chọn sản phẩm nào";
-        if(productselectflashsale.size() > 0){
+        if (productselectflashsale.size() > 0) {
             sizeproduct = String.valueOf(productselectflashsale.size());
         }
 
@@ -201,7 +263,8 @@ public class PromotionController {
     }
 
     @GetMapping("formpromotionflashsale/{flashsalehourId}")
-    public String showPromotionFlashSaleFormEdit(@PathVariable("flashsalehourId") Integer flashsalehourId, Model model) {
+    public String showPromotionFlashSaleFormEdit(@PathVariable("flashsalehourId") Integer flashsalehourId,
+            Model model) {
         products = productService.findAllNoActive();
         Optional<FlashSaleHour> flashhsale = flashSaleHourService.findbyId(flashsalehourId);
         List<Flashsale> flashsales = flashSaleService.findByFlashsaleHour(flashsalehourId);
@@ -215,7 +278,7 @@ public class PromotionController {
                 products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
             }
         }
-       
+        model.addAttribute("daystart", flashhsale.get().getDateStart());
         model.addAttribute("flashhsales", flashhsale);
         model.addAttribute("products", products);
         model.addAttribute("productselect", productselectflashsale);
@@ -225,26 +288,27 @@ public class PromotionController {
 
     @PostMapping("/savepromotionflashsale")
     public String savePromotionFlashsale(HttpServletRequest request, Model model, FlashSaleHour flashSaleHour,
-    @RequestParam(value = "checkboxagain", required = false) String checkboxagain) {
+            @RequestParam(value = "checkboxagain", required = false) String checkboxagain) {
 
+        String sdaystart = request.getParameter("daystart");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(sdaystart, formatter);
         FlashSaleHour s = new FlashSaleHour();
-        s.setDateStart(flashSaleHour.getDateStart());
+        s.setID(flashSaleHour.getID());
+        s.setDateStart(date);
         s.setHourStart(flashSaleHour.getHourStart());
         s.setHourEnd(flashSaleHour.getHourEnd());
-       
-        
-        System.out.println("checkbox"+checkboxagain);
+
+        System.out.println("checkbox" + checkboxagain);
         if (checkboxagain == null) {
             s.setFrequencyFor(flashSaleHour.getFrequencyFor());
             s.setFrequency(flashSaleHour.getFrequency());
-        }else{     
+        } else {
 
-            s.setFrequencyFor("");
+            s.setFrequencyFor("none");
             s.setFrequency(0);
         }
-        
-        
-       
+
         s.setStatus(flashSaleHour.getStatus());
 
         flashSaleHourService.update(s);
@@ -258,7 +322,7 @@ public class PromotionController {
             flashSaleService.SaveAndUpdate(ps);
         }
 
-        return "redirect:/admin/promotionsale";
+        return "redirect:/admin/promotion/flashsale";
     }
 
     @PostMapping("/selectproductflashsale")
@@ -290,7 +354,5 @@ public class PromotionController {
         productselectflashsale.removeIf(p -> p.getProduct().getProductid() == productId);
         return "redirect:/admin/formpromotionflashsale";
     }
-
-    
 
 }

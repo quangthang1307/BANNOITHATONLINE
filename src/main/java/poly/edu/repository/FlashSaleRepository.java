@@ -16,10 +16,10 @@ public interface FlashSaleRepository extends  JpaRepository<Flashsale, Integer> 
     @Query(value =  "SELECT * FROM Flashsale WHERE [Status] = 1 AND FlashsalehourID IN (SELECT ID FROM Flashsalehour WHERE Starthour = CAST(? AS time))", nativeQuery = true)
     List<Flashsale> getFlashSales(LocalTime starthour);
 
-    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()))", nativeQuery = true)
+    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()) AND CONVERT(DATE, Startdate) = CONVERT(DATE, GETDATE())) ", nativeQuery = true)
     Page<Flashsale> getFlashSalesNow(Pageable pageable);
 
-    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()))", nativeQuery = true)
+    @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()) AND CONVERT(DATE, Startdate) = CONVERT(DATE, GETDATE())) ", nativeQuery = true)
     List<Flashsale> getFlashSalesNowAll();
 
     @Query(value =  "SELECT * FROM Flashsale WHERE ProductID IN(SELECT ProductID FROM Product WHERE CategoryID IN :categoryIDs AND FlashsalehourID IN (SELECT Id FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE())))", nativeQuery = true)
