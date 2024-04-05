@@ -43,7 +43,7 @@ public class OrderDetailRestController {
     public ResponseEntity<?> createOrderDetail(@RequestBody Orderdetails orderdetails){
         Inventory inventory = inventoryRepository.findByProduct(orderdetails.getProduct());
         if(inventory != null && inventory.getQuantityonhand() > 0){
-            inventory.setQuantityonhand(inventory.getQuantityonhand()-1);
+            inventory.setQuantityonhand(inventory.getQuantityonhand()- orderdetails.getProductquantity());
             inventory.setLastupdatedate(new Date());
             inventoryRepository.save(inventory);
             orderDetailRepository.save(orderdetails);
