@@ -37,7 +37,7 @@ public class Employee {
     @Column(name = "Address")
     private String address;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "AccountID")
     private Account account;
 }

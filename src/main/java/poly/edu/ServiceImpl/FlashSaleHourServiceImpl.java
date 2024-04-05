@@ -33,13 +33,18 @@ public class FlashSaleHourServiceImpl implements FlashSaleHourService{
     }
 
     @Override
-    public FlashSaleHour findFlashSaleHourOnStart() {
+    public List<FlashSaleHour> findFlashSaleHourOnStart() {
         return flashSaleHourRepository.getFlashSalesHourOnStart();
     }
 
     @Override
     public Optional<FlashSaleHour> findbyId(Integer id) {
         return flashSaleHourRepository.findById(id);
+    }
+
+    @Override
+    public List<FlashSaleHour> findFlashSaleHoursAll() {
+        return flashSaleHourRepository.findAll();
     }
 
    

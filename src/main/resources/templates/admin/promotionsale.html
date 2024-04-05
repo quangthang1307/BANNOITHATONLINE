@@ -94,9 +94,9 @@
                                             <th class="text-center fw-bold">ID</th>
                                             <th class="text-center fw-bold">Sản phẩm</th>
                                             <th class="text-center fw-bold">% Giảm</th>
-                                            <th class="text-center fw-bold">Hiển thị</th>
+                                            <th class="text-center fw-bold">Giảm giá sản phẩm</th>
                                             <th class="text-center fw-bold"> Trạng thái</th>
-                                            <th class="text-center fw-bold">Thời gian</th>
+                                            <th class="text-center fw-bold">TG bắt đầu/TG kết thúc</th>
                                             <th class="text-center fw-bold">Thao tác</th>
                                             
                                         </tr>
@@ -109,12 +109,11 @@
                                             <td th:text="${sale.Percent} + '%'"></td>
                                             <td th:if="${sale.status}">
                                                 <small style="border-radius: 5px;"
-                                                    class=" bg-success text-center text-white p-1">Đang hoạt
-                                                    động</small>
+                                                    class=" bg-success text-center text-white p-1">Đang bật</small>
                                             </td>
                                             <td th:if="${!sale.status}">
                                                 <small style="border-radius: 5px;" class=" bg-danger text-center text-white p-1">Đang
-                                                    ngừng</small>
+                                                    tắt</small>
                                             </td>
                                             <th:block
                                                 th:with="now=${#temporals.createNow()}, 
@@ -167,7 +166,7 @@
                                             </button>
 
                                             <a  class="btn btn-info"  
-                                            th:href="@{/admin/products/form/{saleId}(saleId=${sale.saleID})}">
+                                            th:href="@{/admin/formpromotionsale/{saleId}(saleId=${sale.saleID})}">
                                                 <i class="bi bi-pencil-square "></i></a>
 
                                             </td>

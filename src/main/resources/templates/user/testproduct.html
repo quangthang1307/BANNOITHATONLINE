@@ -539,8 +539,8 @@
                                                                         type="checkbox" id="data-brand-p1" value="CHUFA"
                                                                         name="brand-filter"
                                                                         data-vendor="(vendor:product contains CHUFA)">
-                                                                    <label
-                                                                        for="data-brand-p1" ng-bind="category.productname"></label>
+                                                                    <label for="data-brand-p1"
+                                                                        ng-bind="category.productname"></label>
                                                                 </li>
 
                                                             </ul>
@@ -725,17 +725,20 @@
                                             class="col-lg-cus5 col-md-6 col-6 product-loop" data-id="1117380330">
                                             <div class="product-inner" data-proid="1052192843" id="collection_loop_1">
                                                 <div class="proloop-image">
-                                                    <div class="pro-sale" ng-if="isProductInSale(product.productid) && !isProductInFlashSale(product.productid)">
+                                                    <div class="pro-sale"
+                                                        ng-if="isProductInSale(product.productid) && !isProductInFlashSale(product.productid)">
                                                         <span>-{{getPercentSaleForProduct(product.productid)}}%</span>
 
                                                     </div>
-                                                    <div class="pro-sale" ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
+                                                    <div class="pro-sale"
+                                                        ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
                                                         <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
-                                                        
+
                                                     </div>
-                                                    <div class="pro-sale" ng-if="!isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
+                                                    <div class="pro-sale"
+                                                        ng-if="!isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
                                                         <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
-                                                        
+
                                                     </div>
 
                                                     <div class="product--image">
@@ -795,21 +798,23 @@
                                                     <p class="proloop--price on-sale"
                                                         ng-if="!isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
                                                         <span class="price">{{product.pricexuat - (product.pricexuat *
-                                                            getPercentFlashSaleForProduct(product.productid) / 100) | number
+                                                            getPercentFlashSaleForProduct(product.productid) / 100) |
+                                                            number
                                                             }}₫</span>
 
                                                         <span class="price-del">{{product.pricexuat | number }}₫</span>
                                                         <!-- <span class="pro-percent">-33%</span> -->
                                                     </p>
                                                     <p class="proloop--price on-sale"
-                                                    ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
-                                                    <span class="price">{{product.pricexuat - (product.pricexuat *
-                                                        getPercentFlashSaleForProduct(product.productid) / 100) | number
-                                                        }}₫</span>
+                                                        ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
+                                                        <span class="price">{{product.pricexuat - (product.pricexuat *
+                                                            getPercentFlashSaleForProduct(product.productid) / 100) |
+                                                            number
+                                                            }}₫</span>
 
-                                                    <span class="price-del">{{product.pricexuat | number }}₫</span>
-                                                    <!-- <span class="pro-percent">-33%</span> -->
-                                                </p>
+                                                        <span class="price-del">{{product.pricexuat | number }}₫</span>
+                                                        <!-- <span class="pro-percent">-33%</span> -->
+                                                    </p>
                                                     <p class="proloop--price "
                                                         ng-if="!isProductInSale(product.productid) && !isProductInFlashSale(product.productid)">
                                                         <span class="price">{{product.pricexuat | number }}₫</span>
@@ -883,16 +888,15 @@
                                             <div id="pagination">
                                                 <ul class="pagination">
                                                     <li ng-if="currentPage !== 1">
-                                                        <a   ng-click="back()">
-                                                            <<
-                                                        </a>
+                                                        <a ng-click="back()">
+                                                            << </a>
                                                     </li>
-                                                    <li ng-repeat="page in numberArray()" ng-if="page !== undefined"
-                                                    >
-                                                        <a ng-class="{'current' : currentPage === page}" ng-click="goToPage(page)">{{ page }}</a>
+                                                    <li ng-repeat="page in numberArray()" ng-if="page !== undefined">
+                                                        <a ng-class="{'current' : currentPage === page}"
+                                                            ng-click="goToPage(page)">{{ page }}</a>
                                                     </li>
                                                     <li ng-if="totalPages !== currentPage && totalItems !== 0">
-                                                        <a  ng-click="next()">
+                                                        <a ng-click="next()">
                                                             >>
                                                         </a>
                                                     </li>
