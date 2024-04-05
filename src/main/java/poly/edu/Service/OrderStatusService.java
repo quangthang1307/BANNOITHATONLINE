@@ -1,5 +1,7 @@
 package poly.edu.Service;
 
-public interface OrderStatusService {
+import poly.edu.entity.Orderstatus;
 
+public interface OrderStatusService {
+    Orderstatus findByStatusName(String statusName);
 }

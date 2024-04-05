@@ -26,4 +26,29 @@ public class OrderServiceImpl implements OrderService {
        return orderRepository.orderList(customerId);
     }
 
+    @Override
+	public Order findById(Integer id) {
+		// TODO Auto-generated method stub
+		return orderRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Order save(Order order) {
+		// TODO Auto-generated method stub
+		return orderRepository.save(order);
+	}
+	
+	@Override
+	public List<Order> findByCustomerId(int id) {
+		return orderRepository.findByCustomerid(id);
+	}
+	
+	@Override
+	public void deleteOrder(Integer orderId) {
+		Order order = orderRepository.findById(orderId).orElse(null);
+		if (order != null) {
+			// Xóa đơn hàng
+			orderRepository.delete(order);
+		}
+	}
 }
