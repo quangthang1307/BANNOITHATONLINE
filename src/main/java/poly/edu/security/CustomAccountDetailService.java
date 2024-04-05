@@ -30,6 +30,10 @@ public class CustomAccountDetailService implements UserDetailsService {
         if (account == null) {
             throw new UsernameNotFoundException("Không tồn tại");
         }
+        // Thêm kiểm tra trạng thái hoạt động
+        if (!account.getActive()) {
+            throw new UsernameNotFoundException("Tài khoản đã ngưng hoạt động");
+        }
 
         Collection<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
         Set<AccountRole> roles = account.getAccountroles();
