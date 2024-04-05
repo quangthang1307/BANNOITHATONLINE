@@ -68,12 +68,12 @@ public class FlashSaleRestController {
 
     @GetMapping("/rest/flashsaledelay/end")
     public ResponseEntity<FlashSaleEndDelay> getFlashSaleDelayEnd() {
-        FlashSaleHour flashsalesHours = flashSaleHourService.findFlashSaleHourOnStart();
-        long delay = flashSaleScheduler.getEndTimeToNextOccurrence(flashsalesHours.getHourEnd());
+        List<FlashSaleHour> flashsalesHours = flashSaleHourService.findFlashSaleHourOnStart();
+        long delay = flashSaleScheduler.getEndTimeToNextOccurrence(flashsalesHours.get(0).getHourEnd());
 
         FlashSaleEndDelay fse = new FlashSaleEndDelay();
         fse.setDelay(delay);
-        fse.setFlashsalehour(flashsalesHours);
+        fse.setFlashsalehour(flashsalesHours.get(0));
         
 
         return ResponseEntity.ok(fse); //);

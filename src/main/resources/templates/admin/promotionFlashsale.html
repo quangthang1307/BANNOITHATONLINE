@@ -93,7 +93,7 @@
                                         <tr>
                                             <th class="text-center fw-bold">ID</th>
                                             <th class="text-center fw-bold">Khung giờ</th>
-                                            <th class="text-center fw-bold">Ngày</th>
+                                            <th class="text-center fw-bold">Ngày bắt đầu</th>
                                             <th class="text-center fw-bold">Sản phẩm áp dụng</th>
                                             <th class="text-center fw-bold">Hiển thị</th>
                                             <th class="text-center fw-bold">Lặp lại</th>          
@@ -112,7 +112,9 @@
                                                 <span class="fw-bold" th:text="${flashsale.hourEnd}"></span>
                                             </td>
                                             <td th:text="${flashsale.dateStart}"></td>
-                                            <td><a href="">Xem</a></td>
+                                            <td>
+                                                
+                                            </td>
                                             <td th:if="${flashsale.status}">
                                                 <small style="border-radius: 5px;"
                                                     class=" bg-success text-center text-white p-1">Đang hoạt
@@ -123,9 +125,10 @@
                                                     ngừng</small>
                                             </td>
                                             <td >
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'DAY'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' ngày'">Mỗi ngày</span>
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'WEEK'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tuần'">Mỗi tuần</span>
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'MONTH'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tháng'">Mỗi tháng</span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'NONE'}">Không lặp lại</span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'DAY'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' ngày'"></span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'WEEK'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tuần'"></span>
+                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'MONTH'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tháng'"></span>
                                             </td>
 
 

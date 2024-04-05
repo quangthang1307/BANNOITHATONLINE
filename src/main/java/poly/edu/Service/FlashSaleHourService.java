@@ -9,9 +9,11 @@ import poly.edu.entity.FlashSaleHour;
 public interface FlashSaleHourService {
     public List<FlashSaleHour> findFlashSaleHours();
 
+    public List<FlashSaleHour> findFlashSaleHoursAll();
+
     public FlashSaleHour findFlashSaleHoursByTimeNow(LocalTime timenow);
 
-    public FlashSaleHour findFlashSaleHourOnStart();
+    public List<FlashSaleHour> findFlashSaleHourOnStart();
 
     public FlashSaleHour update(FlashSaleHour flashSaleHour);
 
