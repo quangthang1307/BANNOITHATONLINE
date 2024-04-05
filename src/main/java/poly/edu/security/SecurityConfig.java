@@ -44,7 +44,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/*", "/rest/**").permitAll()
                     .requestMatchers("/user/**").hasAuthority("USER")
-                    .requestMatchers("/admin/**", "/employee/**").hasAuthority("ADMIN")
+                    .requestMatchers("/admin/**", "/employee/**", "/api/telegram/approve/**").hasAuthority("ADMIN")
                     .requestMatchers("/employee/**").hasAuthority("EMPLOYEE")
                     .anyRequest().authenticated())
             .formLogin(login -> login.loginPage("/login").loginProcessingUrl("/login")

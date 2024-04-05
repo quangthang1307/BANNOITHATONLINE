@@ -299,6 +299,7 @@ app.controller("checkoutController", [
                     console.log(dataPost);
                     $http.post(urlPost, dataPost);
                   });
+                  $http.post('/rest/telegram/notification', { data : response.data.orderID } );
                 });
               }
             });
@@ -355,8 +356,10 @@ app.controller("checkoutController", [
                     },
                   };
                   console.log(dataPost);
+                  
                   $http.post(urlPost, dataPost);
                 });
+                $http.post('/rest/telegram/notification', { data : response.data.orderID } );
               });
             }
           }
