@@ -732,13 +732,13 @@
                                                     </div>
                                                     <div class="pro-sale"
                                                         ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
-                                                        <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
+                                                        <span>Flashsale -{{getPercentFlashSaleForProduct(product.productid)}}%</span>
 
                                                     </div>
                                                     <div class="pro-sale"
                                                         ng-if="!isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
-                                                        <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
-
+                                                        <span>Flashsale -{{getPercentFlashSaleForProduct(product.productid)}}%</span>
+                                                        
                                                     </div>
 
                                                     <div class="product--image">

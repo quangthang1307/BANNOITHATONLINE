@@ -1,4 +1,4 @@
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline" >
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
 <merlin-component id="merlin-text-summarizer" class="merlin text-summarizer"></merlin-component><merlin-component
     id="merlin-preview-link" class="merlin merlin-preview-link"></merlin-component><merlin-component
     id="merlin-context-btn" class="merlin context-btn"></merlin-component><merlin-component id="merlin-chat"
@@ -119,10 +119,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a ng-click="clickByRoom(1)"
-                                                    previewlistener="true">Phòng khách</a></h3>
-                                            <a class="hbtn" ng-click="clickByRoom(1)"
-                                                previewlistener="true">Xem
+                                            <h3 class="htitle"><a ng-click="clickByRoom(1)" previewlistener="true">Phòng
+                                                    khách</a></h3>
+                                            <a class="hbtn" ng-click="clickByRoom(1)" previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
                                     </div>
@@ -134,8 +133,7 @@
                                 <div class="category-item col-lg-3 col-md-6 col-6">
                                     <div class="category-block">
                                         <div class="category-block--image">
-                                            <a ng-click="clickByRoom(2)" aria-label="Phòng ngủ"
-                                                previewlistener="true">
+                                            <a ng-click="clickByRoom(2)" aria-label="Phòng ngủ" previewlistener="true">
                                                 <img class=" ls-is-cached lazyloaded"
                                                     data-src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_2_img.jpg?v=788"
                                                     src="//theme.hstatic.net/200000796751/1001150659/14/categorybanner_2_img.jpg?v=788"
@@ -143,10 +141,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a ng-click="clickByRoom(2)"
-                                                    previewlistener="true">Phòng ngủ</a></h3>
-                                            <a class="hbtn" ng-click="clickByRoom(2)"
-                                                previewlistener="true">Xem
+                                            <h3 class="htitle"><a ng-click="clickByRoom(2)" previewlistener="true">Phòng
+                                                    ngủ</a></h3>
+                                            <a class="hbtn" ng-click="clickByRoom(2)" previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
                                     </div>
@@ -167,10 +164,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a ng-click="clickByRoom(6)"
-                                                    previewlistener="true">Phòng ăn &amp; Bếp</a></h3>
-                                            <a class="hbtn" ng-click="clickByRoom(6)"
-                                                previewlistener="true">Xem
+                                            <h3 class="htitle"><a ng-click="clickByRoom(6)" previewlistener="true">Phòng
+                                                    ăn &amp; Bếp</a></h3>
+                                            <a class="hbtn" ng-click="clickByRoom(6)" previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
                                     </div>
@@ -191,10 +187,9 @@
                                             </a>
                                         </div>
                                         <div class="category-block--content">
-                                            <h3 class="htitle"><a ng-click="clickByRoom(7)"
-                                                    previewlistener="true">Phòng làm việc</a></h3>
-                                            <a class="hbtn" ng-click="clickByRoom(7)"
-                                                previewlistener="true">Xem
+                                            <h3 class="htitle"><a ng-click="clickByRoom(7)" previewlistener="true">Phòng
+                                                    làm việc</a></h3>
+                                            <a class="hbtn" ng-click="clickByRoom(7)" previewlistener="true">Xem
                                                 ngay</a>
                                         </div>
                                     </div>
@@ -285,21 +280,28 @@
                             <div class="wrapper-content row-mg-parent">
                                 <div class="section-heading">
                                     <div class="box-header">
-                                        <h2 class="hTitle"><a href="/collections/ceramic" previewlistener="true" style="color: rgb(166, 27, 27);">FlashSale</a></div></h2><span style="font-weight: bold;">Kết thúc trong: </span><span style="font-weight: bold; color: red;" >{{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s</span> 
+                                        <h2 class="hTitle"><a href="/collections/ceramic" previewlistener="true"
+                                                style="color: rgb(166, 27, 27);">FlashSale</a>
                                     </div>
+                                    </h2><span style="font-weight: bold;">Kết thúc trong: </span><span
+                                        style="font-weight: bold; color: red;">{{ days }}d {{ hours }}h {{ minutes }}m
+                                        {{ seconds }}s</span>
+                                </div>
 
 
-                                    <div
+                                <div
                                     class="listProduct-row owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
                                     <div class="owl-stage-outer">
                                         <div class="owl-stage"
                                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2325px; padding-left: 15px; padding-right: 15px;">
-                                            <div class="owl-item" ng-repeat="FlashSaleProduct in FlashSaleProducts" ng-if="$index < 5" style="width: 255px;">
+                                            <div class="owl-item" ng-repeat="FlashSaleProduct in FlashSaleProducts"
+                                                ng-if="$index < 5" style="width: 255px;">
                                                 <div class="product-loop" data-id="1114458402">
                                                     <div class="product-inner" data-proid="1050909488"
                                                         id="section_1_loop_1">
                                                         <div class="proloop-image">
-                                                            <div class="pro-sale"><span>-{{FlashSaleProduct.percent}}%</span></div>
+                                                            <div class="pro-sale">
+                                                                <span>-{{FlashSaleProduct.percent}}%</span></div>
 
 
 
@@ -316,7 +318,7 @@
                                                                     class="lazy-img second-image hovered-img d-none d-lg-block">
                                                                     <picture>
                                                                         <img class="img-loop lazyloaded"
-                                                                        src="/{{FlashSaleProduct.product.productimages[1].image}}"
+                                                                            src="/{{FlashSaleProduct.product.productimages[1].image}}"
                                                                             alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
                                                                     </picture>
                                                                 </div>
@@ -343,23 +345,28 @@
                                                         <div class="proloop-detail">
                                                             <p class="proloop--vendor"><a title="Show vendor"
                                                                     href="/collections/vendors?q=floral"
-                                                                    previewlistener="true">{{FlashSaleProduct.product.brand.brandname}}</a></p>
+                                                                    previewlistener="true">{{FlashSaleProduct.product.brand.brandname}}</a>
+                                                            </p>
                                                             <h3><a href="/products/bo-am-tra-floral-2001257"
                                                                     class="quickview-product"
                                                                     data-handle="/products/bo-am-tra-floral-2001257"
-                                                                    previewlistener="true">{{FlashSaleProduct.product.productname}}</a></h3>
-                                                                <p class="proloop--price on-sale">
-                                                                    <span class="price">{{FlashSaleProduct.product.pricexuat -
-                                                                        (FlashSaleProduct.product.pricexuat *
-                                                                        FlashSaleProduct.percent
-                                                                        /
-                                                                        100) | number
-                                                                        }}₫</span>
-    
-                                                                    <span class="price-del">{{FlashSaleProduct.product.pricexuat |
-                                                                        number }}₫</span>
-    
-                                                                </p>
+                                                                    previewlistener="true">{{FlashSaleProduct.product.productname}}</a>
+                                                            </h3>
+                                                            <p class="proloop--price on-sale">
+                                                                <span class="price">{{FlashSaleProduct.product.pricexuat
+                                                                    -
+                                                                    (FlashSaleProduct.product.pricexuat *
+                                                                    FlashSaleProduct.percent
+                                                                    /
+                                                                    100) | number
+                                                                    }}₫</span>
+
+                                                                <span
+                                                                    class="price-del">{{FlashSaleProduct.product.pricexuat
+                                                                    |
+                                                                    number }}₫</span>
+
+                                                            </p>
 
                                                             <div class="proloop-actions" data-vrid="1114458402">
                                                                 <div class="proloop-actions__inner">
@@ -414,665 +421,654 @@
                                         </svg>
                                     </a>
                                 </div>
-                                </div>
+                            </div>
 
-                                
+
+                        </div>
+            </div>
+
+            </section>
+
+
+
+            <section class="home-collection-2">
+                <div class="container container-pd-parent">
+                    <div class="section-heading">
+                        <div class="box-header">
+                            <h2 class="hTitle"><a href="/collections/best-seller" previewlistener="true">Best
+                                    Seller</a>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="listProduct-row">
+                        <div class="owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
+
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage"
+                                    style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2070px; padding-left: 15px; padding-right: 15px;">
+
+
+
+
+
+
+                                    <div class="owl-item" ng-repeat="productsbestseller in productsbestsellers"
+                                        style="width: 255px;">
+
+                                        <div class="product-loop" data-id="1114458437">
+                                            <div class="product-inner" data-proid="1050909506" id="section_2_loop_1">
+                                                <div class="proloop-image">
+                                                    <div class="pro-sale"
+                                                        ng-if="isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
+                                                        <span>-{{getPercentSaleForProduct(productsbestseller.productid)}}%</span>
+
+                                                    </div>
+                                                    <div class="pro-sale"
+                                                        ng-if="isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
+                                                        <span>-{{getPercentFlashSaleForProduct(productsbestseller.productid)}}%</span>
+
+                                                    </div>
+                                                    <div class="pro-sale"
+                                                        ng-if="!isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
+                                                        <span>-{{getPercentFlashSaleForProduct(productsbestseller.productid)}}%</span>
+
+                                                    </div>
+
+                                                    <div class="product--image">
+
+                                                        <div class="lazy-img first-image">
+                                                            <picture>
+                                                                <img class="img-loop lazyloaded"
+                                                                    src="/{{productsbestseller.productimages[0].image}}"
+                                                                    alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
+                                                            </picture>
+                                                        </div>
+                                                        <div
+                                                            class="lazy-img second-image hovered-img d-none d-lg-block">
+                                                            <picture>
+                                                                <img class="img-loop lazyloaded"
+                                                                    src="/{{productsbestseller.productimages[1].image}}"
+                                                                    alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
+                                                            </picture>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="quickview-product">
+                                                        <a class="icon-quickview" href="javascript:void(0)"><i
+                                                                class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <a ng-click="clickById(productsbestseller.productid)"
+                                                        class="proloop-link quickview-product"
+                                                        previewlistener="true"></a>
+                                                    <div ng-if="isProductInSale(productsbestseller.productid)"
+                                                        class="sticker_frame"><a
+                                                            href="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
+                                                            previewlistener="true"><img class=" ls-is-cached lazyloaded"
+                                                                src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="proloop-detail">
+                                                    <p class="proloop--vendor"><a title="Show vendor"
+                                                            href="/collections/vendors?q=normandy"
+                                                            previewlistener="true">{{productsbestseller.brand.brandname}}</a>
+                                                    </p>
+                                                    <h3><a href="/products/sofa-normandy" class="quickview-product"
+                                                            previewlistener="true">{{productsbestseller.productname}}</a>
+                                                    </h3>
+                                                    <p class="proloop--price on-sale"
+                                                        ng-if="isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
+                                                        <span class="price">{{productsbestseller.pricexuat -
+                                                            (productsbestseller.pricexuat *
+                                                            getPercentSaleForProduct(productsbestseller.productid) /
+                                                            100) | number
+                                                            }}₫</span>
+
+                                                        <span class="price-del">{{productsbestseller.pricexuat | number
+                                                            }}₫</span>
+                                                        <!-- <span class="pro-percent">-33%</span> -->
+                                                    </p>
+                                                    <p class="proloop--price on-sale"
+                                                        ng-if="!isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
+                                                        <span class="price">{{productsbestseller.pricexuat -
+                                                            (productsbestseller.pricexuat *
+                                                            getPercentFlashSaleForProduct(productsbestseller.productid)
+                                                            / 100) |
+                                                            number
+                                                            }}₫</span>
+
+                                                        <span class="price-del">{{productsbestseller.pricexuat | number
+                                                            }}₫</span>
+                                                        <!-- <span class="pro-percent">-33%</span> -->
+                                                    </p>
+                                                    <p class="proloop--price on-sale"
+                                                        ng-if="isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
+                                                        <span class="price">{{productsbestseller.pricexuat -
+                                                            (productsbestseller.pricexuat *
+                                                            getPercentFlashSaleForProduct(productsbestseller.productid)
+                                                            / 100) |
+                                                            number
+                                                            }}₫</span>
+
+                                                        <span class="price-del">{{productsbestseller.pricexuat | number
+                                                            }}₫</span>
+                                                        <!-- <span class="pro-percent">-33%</span> -->
+                                                    </p>
+                                                    <p class="proloop--price "
+                                                        ng-if="!isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
+                                                        <span class="price">{{productsbestseller.pricexuat | number
+                                                            }}₫</span>
+                                                    </p>
+
+                                                    <div class="proloop-actions">
+                                                        <div class="proloop-actions__inner">
+                                                            <div class="actions-primary">
+                                                                <button type="submit"
+                                                                    class="btn-proloop-cart add-to-cart btn-addcart-view "
+                                                                    ng-click="addToCart(productsbestseller)">
+                                                                    <span class="btnadd"> Thêm vào giỏ </span>
+                                                                    <span class="btnico" title="Thêm vào giỏ">
+                                                                        <svg version="1.0" viewBox="0 0 512 512"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g
+                                                                                transform="translate(0 512) scale(.1 -.1)">
+                                                                                <path
+                                                                                    d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                </path>
+                                                                                <path
+                                                                                    d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                </path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div class="owl-nav"><button type="button" role="presentation"
+                                    class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button
+                                    type="button" role="presentation" class="owl-next"><span
+                                        aria-label="Next">›</span></button></div>
+                            <div class="owl-dots disabled"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="home-categorize">
+                <div class="container container-pd0">
+                    <div class="wrapbox row">
+                        <div class="wrapbox-left col-lg-2 col-md-12 col-12">
+                            <div class="wrapbox--content">
+                                <p class="title-box">Xu hướng tìm kiếm</p><a href="/product" class="btn-box button"
+                                    previewlistener="true">Xem ngay</a>
                             </div>
                         </div>
-                        
-                    </section>
-
-
-
-                    <section class="home-collection-2">
-                        <div class="container container-pd-parent">
-                            <div class="section-heading">
-                                <div class="box-header">
-                                    <h2 class="hTitle"><a href="/collections/best-seller" previewlistener="true">Best
-                                            Seller</a>
-                                    </h2>
-                                </div>
-                            </div>
-
-                            <div class="listProduct-row">
-                                <div class="owl-carousel owlCarousel-style owlCarousel-dfex owl-loaded owl-drag">
-
-                                    <div class="owl-stage-outer">
-                                        <div class="owl-stage"
-                                            style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2070px; padding-left: 15px; padding-right: 15px;">
-
-
-
-
-
-
-                                            <div class="owl-item" ng-repeat="productsbestseller in productsbestsellers"
-                                                style="width: 255px;">
-
-                                                <div class="product-loop" data-id="1114458437">
-                                                    <div class="product-inner" data-proid="1050909506"
-                                                        id="section_2_loop_1">
-                                                        <div class="proloop-image">
-                                                            <div class="pro-sale" ng-if="isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
-                                                                <span>-{{getPercentSaleForProduct(productsbestseller.productid)}}%</span>
-        
-                                                            </div>
-                                                            <div class="pro-sale" ng-if="isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
-                                                                <span>-{{getPercentFlashSaleForProduct(productsbestseller.productid)}}%</span>
-                                                                
-                                                            </div>
-                                                            <div class="pro-sale" ng-if="!isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
-                                                                <span>-{{getPercentFlashSaleForProduct(productsbestseller.productid)}}%</span>
-                                                                
-                                                            </div>
-
-                                                            <div class="product--image">
-
-                                                                <div class="lazy-img first-image">
-                                                                    <picture>
-                                                                        <img class="img-loop lazyloaded"
-                                                                            src="/{{productsbestseller.productimages[0].image}}"
-                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
-                                                                    </picture>
-                                                                </div>
-                                                                <div
-                                                                    class="lazy-img second-image hovered-img d-none d-lg-block">
-                                                                    <picture>
-                                                                        <img class="img-loop lazyloaded"
-                                                                            src="/{{productsbestseller.productimages[1].image}}"
-                                                                            alt=" Bộ Sofa Normandy (01 ghế sofa + 02 ghế armchair) ">
-                                                                    </picture>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="quickview-product">
-                                                                <a class="icon-quickview" href="javascript:void(0)"
-                                                                  ><i class="fa fa-eye"
-                                                                        aria-hidden="true"></i></a>
-                                                            </div>
-                                                            <a ng-click="clickById(productsbestseller.productid)"
-                                                                class="proloop-link quickview-product"
-                                                               
-                                                                previewlistener="true"></a>
-                                                            <div ng-if="isProductInSale(productsbestseller.productid)"
-                                                                class="sticker_frame"><a
-                                                                    href="/products/bo-sofa-normandy-01-ghe-sofa-02-ghe-armchair"
-                                                                    previewlistener="true"><img
-                                                                        class=" ls-is-cached lazyloaded"
-                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="proloop-detail">
-                                                            <p class="proloop--vendor"><a title="Show vendor"
-                                                                    href="/collections/vendors?q=normandy"
-                                                                    previewlistener="true">{{productsbestseller.brand.brandname}}</a>
-                                                            </p>
-                                                            <h3><a href="/products/sofa-normandy"
-                                                                    class="quickview-product"
-                                                                    previewlistener="true">{{productsbestseller.productname}}</a>
-                                                            </h3>
-                                                            <p class="proloop--price on-sale"
-                                                            ng-if="isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
-                                                            <span class="price">{{productsbestseller.pricexuat - (productsbestseller.pricexuat *
-                                                                getPercentSaleForProduct(productsbestseller.productid) / 100) | number
-                                                                }}₫</span>
-    
-                                                            <span class="price-del">{{productsbestseller.pricexuat | number }}₫</span>
-                                                            <!-- <span class="pro-percent">-33%</span> -->
-                                                        </p>
-                                                        <p class="proloop--price on-sale"
-                                                            ng-if="!isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
-                                                            <span class="price">{{productsbestseller.pricexuat - (productsbestseller.pricexuat *
-                                                                getPercentFlashSaleForProduct(productsbestseller.productid) / 100) |
-                                                                number
-                                                                }}₫</span>
-    
-                                                            <span class="price-del">{{productsbestseller.pricexuat | number }}₫</span>
-                                                            <!-- <span class="pro-percent">-33%</span> -->
-                                                        </p>
-                                                        <p class="proloop--price on-sale"
-                                                            ng-if="isProductInSale(productsbestseller.productid) && isProductInFlashSale(productsbestseller.productid)">
-                                                            <span class="price">{{productsbestseller.pricexuat - (productsbestseller.pricexuat *
-                                                                getPercentFlashSaleForProduct(productsbestseller.productid) / 100) |
-                                                                number
-                                                                }}₫</span>
-    
-                                                            <span class="price-del">{{productsbestseller.pricexuat | number }}₫</span>
-                                                            <!-- <span class="pro-percent">-33%</span> -->
-                                                        </p>
-                                                        <p class="proloop--price "
-                                                            ng-if="!isProductInSale(productsbestseller.productid) && !isProductInFlashSale(productsbestseller.productid)">
-                                                            <span class="price">{{productsbestseller.pricexuat | number }}₫</span>
-                                                        </p>
-
-                                                            <div class="proloop-actions" >
-                                                                <div class="proloop-actions__inner">
-                                                                    <div class="actions-primary">
-                                                                        <button type="submit"
-                                                                            class="btn-proloop-cart add-to-cart btn-addcart-view "
-                                                                            ng-click="addToCart(productsbestseller)">
-                                                                            <span class="btnadd"> Thêm vào giỏ </span>
-                                                                            <span class="btnico" title="Thêm vào giỏ">
-                                                                                <svg version="1.0" viewBox="0 0 512 512"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <g
-                                                                                        transform="translate(0 512) scale(.1 -.1)">
-                                                                                        <path
-                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
-                                                                                        </path>
-                                                                                        <path
-                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
+                        <div class="wrapbox-right col-lg-10 col-md-12 col-12">
+                            <div class="listCategorize row">
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/sofa" aria-label="Sofa" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
+                                                    alt="Sofa" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
                                     </div>
-                                    <div class="owl-nav"><button type="button" role="presentation"
-                                            class="owl-prev disabled"><span
-                                                aria-label="Previous">‹</span></button><button type="button"
-                                            role="presentation" class="owl-next"><span
-                                                aria-label="Next">›</span></button></div>
-                                    <div class="owl-dots disabled"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="home-categorize">
-                        <div class="container container-pd0">
-                            <div class="wrapbox row">
-                                <div class="wrapbox-left col-lg-2 col-md-12 col-12">
-                                    <div class="wrapbox--content">
-                                        <p class="title-box">Xu hướng tìm kiếm</p><a href="/product"
-                                            class="btn-box button" previewlistener="true">Xem ngay</a>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/sofa" previewlistener="true">Sofa </a></h3>
                                     </div>
                                 </div>
-                                <div class="wrapbox-right col-lg-10 col-md-12 col-12">
-                                    <div class="listCategorize row">
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/sofa" aria-label="Sofa"
-                                                        previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_1_img.jpg?v=788"
-                                                            alt="Sofa" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/sofa" previewlistener="true">Sofa </a></h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/ban" aria-label="Bàn" previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
-                                                            alt="Bàn" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/ban" previewlistener="true">Bàn </a></h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/ghe" aria-label="Ghế" previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
-                                                            alt="Ghế" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/ghe" previewlistener="true">Ghế </a></h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/giuong" aria-label="Giường"
-                                                        previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
-                                                            alt="Giường" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/giuong" previewlistener="true">Giường </a>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/nem" aria-label="Nệm" previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
-                                                            alt="Nệm" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/nem" previewlistener="true">Nệm </a></h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/den" aria-label="Đèn" previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
-                                                            alt="Đèn" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/den" previewlistener="true">Đèn </a></h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/lo-hoa" aria-label="Lọ hoa"
-                                                        previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
-                                                            alt="Lọ hoa" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/lo-hoa" previewlistener="true">Lọ hoa </a>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <div class="item-icon col-xl">
-                                            <div class="item-img boxlazy-img">
-                                                <span class="boxlazy-img__insert">
-                                                    <a href="/collections/khung-anh" aria-label="Khung ảnh"
-                                                        previewlistener="true">
-                                                        <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
-                                                            src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
-                                                            alt="Khung ảnh" class=" ls-is-cached lazyloaded">
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <div class="item-title">
-                                                <h3><a href="/collections/khung-anh" previewlistener="true">Khung ảnh
-                                                    </a></h3>
-                                            </div>
-                                        </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/ban" aria-label="Bàn" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_2_img.jpg?v=788"
+                                                    alt="Bàn" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/ban" previewlistener="true">Bàn </a></h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/ghe" aria-label="Ghế" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_3_img.jpg?v=788"
+                                                    alt="Ghế" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/ghe" previewlistener="true">Ghế </a></h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/giuong" aria-label="Giường" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_4_img.jpg?v=788"
+                                                    alt="Giường" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/giuong" previewlistener="true">Giường </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/nem" aria-label="Nệm" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_5_img.jpg?v=788"
+                                                    alt="Nệm" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/nem" previewlistener="true">Nệm </a></h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/den" aria-label="Đèn" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_6_img.jpg?v=788"
+                                                    alt="Đèn" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/den" previewlistener="true">Đèn </a></h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/lo-hoa" aria-label="Lọ hoa" previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_7_img.jpg?v=788"
+                                                    alt="Lọ hoa" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/lo-hoa" previewlistener="true">Lọ hoa </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="item-icon col-xl">
+                                    <div class="item-img boxlazy-img">
+                                        <span class="boxlazy-img__insert">
+                                            <a href="/collections/khung-anh" aria-label="Khung ảnh"
+                                                previewlistener="true">
+                                                <img data-src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
+                                                    src="//theme.hstatic.net/200000796751/1001150659/14/categorize_8_img.jpg?v=788"
+                                                    alt="Khung ảnh" class=" ls-is-cached lazyloaded">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3><a href="/collections/khung-anh" previewlistener="true">Khung ảnh
+                                            </a></h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </div>
+            </section>
 
 
-                    <section class="home-collection-navtabs-1">
-                        <div class="container container-pd-parent">
-                            <div class="section-heading">
-                                <div class="box-header">
-                                    <h2 class="hTitle">Sản phẩm nổi bật</h2>
-                                </div>
-                                <div class="box-tablist">
+            <section class="home-collection-navtabs-1">
+                <div class="container container-pd-parent">
+                    <div class="section-heading">
+                        <div class="box-header">
+                            <h2 class="hTitle">Sản phẩm nổi bật</h2>
+                        </div>
+                        <div class="box-tablist">
 
 
-                                    <ul class="nav collection-navtabs-title pills-tab" data-limit="10">
+                            <ul class="nav collection-navtabs-title pills-tab" data-limit="10">
 
 
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-handle="/collections/noi-that-phong-ngu"
-                                                data-toggle="tab" href="#collection-tabs-1" data-count="63">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-handle="/collections/noi-that-phong-ngu"
+                                        data-toggle="tab" href="#collection-tabs-1" data-count="63">
 
-                                                Nội Thất Phòng Ngủ
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " data-handle="/collections/sale-up-to-80"
-                                                data-toggle="tab" href="#collection-tabs-2" data-count="167">
+                                        Nội Thất Phòng Ngủ
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " data-handle="/collections/sale-up-to-80" data-toggle="tab"
+                                        href="#collection-tabs-2" data-count="167">
 
-                                                Sale Up To 80%
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " data-handle="/collections/lucas" data-toggle="tab"
-                                                href="#collection-tabs-3" data-count="7">
+                                        Sale Up To 80%
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " data-handle="/collections/lucas" data-toggle="tab"
+                                        href="#collection-tabs-3" data-count="7">
 
-                                                Bộ sưu tập Lucas
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " data-handle="/collections/dominik" data-toggle="tab"
-                                                href="#collection-tabs-4" data-count="7">
+                                        Bộ sưu tập Lucas
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " data-handle="/collections/dominik" data-toggle="tab"
+                                        href="#collection-tabs-4" data-count="7">
 
-                                                Bộ sưu tập Dominik
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                        Bộ sưu tập Dominik
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapbox row-mg-parent">
+                        <div class="wrapbox--left">
+                            <div class="wrapbox-img">
+                                <a href="https://baya.vn/collections/noi-that-phong-ngu" aria-label="Sản phẩm nổi bật"
+                                    previewlistener="true">
+                                    <img class=" ls-is-cached lazyloaded"
+                                        data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
+                                        src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
+                                        alt="banner">
+                                </a>
                             </div>
-                            <div class="wrapbox row-mg-parent">
-                                <div class="wrapbox--left">
-                                    <div class="wrapbox-img">
-                                        <a href="https://baya.vn/collections/noi-that-phong-ngu"
-                                            aria-label="Sản phẩm nổi bật" previewlistener="true">
-                                            <img class=" ls-is-cached lazyloaded"
-                                                data-src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
-                                                src="//theme.hstatic.net/200000796751/1001150659/14/home_coll_1_banner.jpg?v=788"
-                                                alt="banner">
-                                        </a>
-                                    </div>
-                                    <div class="wrapbox-detail text-center">
+                            <div class="wrapbox-detail text-center">
 
+
+
+                            </div>
+                        </div>
+                        <div class="wrapbox--right">
+                            <div class="tab-content" id="collection-tabs-ajax">
+                                <div class="tab-pane fade  active show" id="collection-tabs-1" role="tabpanel"
+                                    data-get="true">
+
+                                    <div class="row listProduct-row">
+                                        <div class="col-lg-cus5 col-md-6 col-6 product-loop" data-id="1114835408">
+                                            <div class="product-inner" data-proid="1051064662" id="navTab_1_loop_1">
+                                                <div class="proloop-image">
+                                                    <div class="pro-sale"><span>-66%</span></div>
+
+
+
+                                                    <div class="product--image">
+
+                                                        <div class="lazy-img first-image">
+                                                            <picture>
+                                                                <source media="(max-width: 480px)"
+                                                                    data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg"
+                                                                    srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg">
+                                                                <source media="(min-width: 481px)"
+                                                                    data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg"
+                                                                    srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg">
+                                                                <img class="img-loop ls-is-cached lazyloaded"
+                                                                    data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
+                                                                    src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
+                                                                    alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
+                                                            </picture>
+                                                        </div>
+                                                        <div
+                                                            class="lazy-img second-image hovered-img d-none d-lg-block">
+                                                            <picture>
+                                                                <source media="(min-width: 481px) and (max-width:767px)"
+                                                                    data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg"
+                                                                    srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg">
+                                                                <source media="(min-width:768px)"
+                                                                    data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg"
+                                                                    srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg">
+                                                                <img class="img-loop ls-is-cached lazyloaded"
+                                                                    data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
+                                                                    src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
+                                                                    alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
+                                                            </picture>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="quickview-product">
+                                                        <a class="icon-quickview" href="javascript:void(0)"
+                                                            data-handle="/products/vo-goi-tua-phantom"
+                                                            title="Xem nhanh"><i class="fa fa-eye"
+                                                                aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <a href="/products/vo-goi-tua-phantom"
+                                                        class="proloop-link quickview-product"
+                                                        data-handle="/products/vo-goi-tua-phantom"
+                                                        title="Vỏ Gối Tựa Vải Cotton PHANTOM"
+                                                        previewlistener="true"></a>
+                                                    <div class="sticker_frame"><a href="/products/vo-goi-tua-phantom"
+                                                            previewlistener="true"><img class=" ls-is-cached lazyloaded"
+                                                                src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="proloop-detail">
+                                                    <p class="proloop--vendor"><a title="Show vendor"
+                                                            href="/collections/vendors?q=phantom"
+                                                            previewlistener="true">PHANTOM</a></p>
+                                                    <h3><a href="/products/vo-goi-tua-phantom" class="quickview-product"
+                                                            data-handle="/products/vo-goi-tua-phantom"
+                                                            previewlistener="true">Vỏ Gối Tựa Vải Cotton
+                                                            PHANTOM</a>
+                                                    </h3>
+                                                    <p class="proloop--price on-sale">
+                                                        <span class="price">50,000₫</span>
+
+                                                        <span class="price-del">149,000₫</span>
+                                                        <span class="pro-percent">-66%</span>
+                                                    </p>
+
+                                                    <div class="proloop-actions" data-vrid="1114835408">
+                                                        <div class="proloop-actions__inner">
+                                                            <div class="actions-primary">
+                                                                <button type="submit"
+                                                                    class="btn-proloop-cart add-to-cart  btn-addcart-view "
+                                                                    onclick="HRT.All.addCartProdItem('1114835408')">
+                                                                    <span class="btnadd"> Thêm vào giỏ </span>
+                                                                    <span class="btnico" title="Thêm vào giỏ">
+                                                                        <svg class="btnico-first" version="1.0"
+                                                                            viewBox="0 0 512 512"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g
+                                                                                transform="translate(0 512) scale(.1 -.1)">
+                                                                                <path
+                                                                                    d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                </path>
+                                                                                <path
+                                                                                    d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                </path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+
+                                                            </div>
+                                                            <div class="actions-boxqty d-flex">
+                                                                <div class="actions-wrapqty d-flex">
+                                                                    <button class="qty-btn proloop-minus"
+                                                                        onclick="HRT.All.minusQtyProdItem('1114835408')">
+                                                                        <svg width="18" height="18" viewBox="0 0 20 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <rect height="1" width="18" y="9" x="1">
+                                                                            </rect>
+                                                                        </svg>
+                                                                    </button>
+                                                                    <input class="proloop-value" type="text" readonly=""
+                                                                        name="proloop-quantity" value="">
+                                                                    <button class="qty-btn proloop-plus"
+                                                                        onclick="HRT.All.plusQtyProdItem('1114835408')">
+                                                                        <svg width="18" height="18" viewBox="0 0 20 20"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <rect x="9" y="1" width="1" height="17">
+                                                                            </rect>
+                                                                            <rect x="1" y="9" width="17" height="1">
+                                                                            </rect>
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="actions-icon">
+                                                                    <span class="btnico"
+                                                                        onclick="HRT.All.addCartProdItem('1114835408')"
+                                                                        title="Thêm vào giỏ">
+                                                                        <svg version="1.0" viewBox="0 0 512 512"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g
+                                                                                transform="translate(0 512) scale(.1 -.1)">
+                                                                                <path
+                                                                                    d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
+                                                                                </path>
+                                                                                <path
+                                                                                    d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
+                                                                                </path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
 
 
                                     </div>
                                 </div>
-                                <div class="wrapbox--right">
-                                    <div class="tab-content" id="collection-tabs-ajax">
-                                        <div class="tab-pane fade  active show" id="collection-tabs-1" role="tabpanel"
-                                            data-get="true">
-
-                                            <div class="row listProduct-row">
-                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop"
-                                                    data-id="1114835408">
-                                                    <div class="product-inner" data-proid="1051064662"
-                                                        id="navTab_1_loop_1">
-                                                        <div class="proloop-image">
-                                                            <div class="pro-sale"><span>-66%</span></div>
+                                <div class="tab-pane fade " id="collection-tabs-2" role="tabpanel" data-get="false">
+                                    <div class="row listProduct-row">
 
 
 
-                                                            <div class="product--image">
-
-                                                                <div class="lazy-img first-image">
-                                                                    <picture>
-                                                                        <source media="(max-width: 480px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_medium.jpg">
-                                                                        <source media="(min-width: 481px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099980_5aeedcf1355d4d7db42e85f297424a2f_small.jpg"
-                                                                            alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
-                                                                    </picture>
-                                                                </div>
-                                                                <div
-                                                                    class="lazy-img second-image hovered-img d-none d-lg-block">
-                                                                    <picture>
-                                                                        <source
-                                                                            media="(min-width: 481px) and (max-width:767px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_medium.jpg">
-                                                                        <source media="(min-width:768px)"
-                                                                            data-srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg"
-                                                                            srcset="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_large.jpg">
-                                                                        <img class="img-loop ls-is-cached lazyloaded"
-                                                                            data-src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
-                                                                            src="//product.hstatic.net/200000796751/product/phantom_cushion_cover_baya_1099997_54dc38186b164c50aaeb4a56be688e58_small.jpg"
-                                                                            alt=" Vỏ Gối Tựa Vải Cotton PHANTOM ">
-                                                                    </picture>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="quickview-product">
-                                                                <a class="icon-quickview" href="javascript:void(0)"
-                                                                    data-handle="/products/vo-goi-tua-phantom"
-                                                                    title="Xem nhanh"><i class="fa fa-eye"
-                                                                        aria-hidden="true"></i></a>
-                                                            </div>
-                                                            <a href="/products/vo-goi-tua-phantom"
-                                                                class="proloop-link quickview-product"
-                                                                data-handle="/products/vo-goi-tua-phantom"
-                                                                title="Vỏ Gối Tựa Vải Cotton PHANTOM"
-                                                                previewlistener="true"></a>
-                                                            <div class="sticker_frame"><a
-                                                                    href="/products/vo-goi-tua-phantom"
-                                                                    previewlistener="true"><img
-                                                                        class=" ls-is-cached lazyloaded"
-                                                                        src="https://file.hstatic.net/200000796751/file/kv_big_sale_web-_label_2c1dbcb149944b3c9ab542c29d3d4e5a.jpg"></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="proloop-detail">
-                                                            <p class="proloop--vendor"><a title="Show vendor"
-                                                                    href="/collections/vendors?q=phantom"
-                                                                    previewlistener="true">PHANTOM</a></p>
-                                                            <h3><a href="/products/vo-goi-tua-phantom"
-                                                                    class="quickview-product"
-                                                                    data-handle="/products/vo-goi-tua-phantom"
-                                                                    previewlistener="true">Vỏ Gối Tựa Vải Cotton
-                                                                    PHANTOM</a>
-                                                            </h3>
-                                                            <p class="proloop--price on-sale">
-                                                                <span class="price">50,000₫</span>
-
-                                                                <span class="price-del">149,000₫</span>
-                                                                <span class="pro-percent">-66%</span>
-                                                            </p>
-
-                                                            <div class="proloop-actions" data-vrid="1114835408">
-                                                                <div class="proloop-actions__inner">
-                                                                    <div class="actions-primary">
-                                                                        <button type="submit"
-                                                                            class="btn-proloop-cart add-to-cart  btn-addcart-view "
-                                                                            onclick="HRT.All.addCartProdItem('1114835408')">
-                                                                            <span class="btnadd"> Thêm vào giỏ </span>
-                                                                            <span class="btnico" title="Thêm vào giỏ">
-                                                                                <svg class="btnico-first" version="1.0"
-                                                                                    viewBox="0 0 512 512"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <g
-                                                                                        transform="translate(0 512) scale(.1 -.1)">
-                                                                                        <path
-                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
-                                                                                        </path>
-                                                                                        <path
-                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </button>
-
-                                                                    </div>
-                                                                    <div class="actions-boxqty d-flex">
-                                                                        <div class="actions-wrapqty d-flex">
-                                                                            <button class="qty-btn proloop-minus"
-                                                                                onclick="HRT.All.minusQtyProdItem('1114835408')">
-                                                                                <svg width="18" height="18"
-                                                                                    viewBox="0 0 20 20"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect height="1" width="18" y="9"
-                                                                                        x="1">
-                                                                                    </rect>
-                                                                                </svg>
-                                                                            </button>
-                                                                            <input class="proloop-value" type="text"
-                                                                                readonly="" name="proloop-quantity"
-                                                                                value="">
-                                                                            <button class="qty-btn proloop-plus"
-                                                                                onclick="HRT.All.plusQtyProdItem('1114835408')">
-                                                                                <svg width="18" height="18"
-                                                                                    viewBox="0 0 20 20"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect x="9" y="1" width="1"
-                                                                                        height="17">
-                                                                                    </rect>
-                                                                                    <rect x="1" y="9" width="17"
-                                                                                        height="1">
-                                                                                    </rect>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="actions-icon">
-                                                                            <span class="btnico"
-                                                                                onclick="HRT.All.addCartProdItem('1114835408')"
-                                                                                title="Thêm vào giỏ">
-                                                                                <svg version="1.0" viewBox="0 0 512 512"
-                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                    <g
-                                                                                        transform="translate(0 512) scale(.1 -.1)">
-                                                                                        <path
-                                                                                            d="m2371 5100c-150-40-306-141-387-248l-35-48-492-58c-271-32-501-63-512-69-31-16-44-39-45-75 0-32 54-516 64-573 5-25 3-27-44-31-27-3-56-11-65-18s-78-117-155-245l-139-232-86-1660c-47-913-85-1692-85-1730 0-60 3-73 23-91l23-22h2125 2126l21 23c18 19 22 35 22 92 0 37-38 815-85 1728l-86 1660-139 232c-77 128-147 238-156 246-11 9-49 15-106 18-86 3-90 4-84 25 3 11 18 74 33 138 29 128 26 152-19 182-13 8-190 54-393 101-204 47-380 90-391 94-14 6-24 22-28 45-11 60-92 208-153 281-76 91-209 181-324 220-73 25-102 29-219 32-111 2-148-1-209-17zm318-176c139-34 279-140 353-265 21-34 36-64 34-66s-51 8-110 22c-113 28-152 27-180-4-8-9-34-96-56-192-23-95-43-182-46-191-4-14-72-44-80-35-1 1-19 139-39 306-19 167-40 311-44 320-21 39-55 45-163 33-56-7-103-10-106-7-8 8 127 68 183 81 72 18 178 17 254-2zm-329-258c0-2 14-117 30-256 17-139 27-256 23-260s-190-51-413-104c-308-74-410-102-427-118-31-29-30-70 7-220 17-67 30-128 30-135 0-10-45-13-203-13h-203l-56 478c-31 262-56 478-55 478 1 1 283 36 627 77s628 75 633 76c4 0 7-1 7-3zm1105-357c242-56 444-105 449-110 6-5-20-134-64-324l-74-315h-246-246l-82 343c-72 301-85 345-107 365-31 26-65 28-147 6-33-8-61-14-63-12-1 2 7 42 18 89l20 86 51-13c28-7 249-58 491-115zm-495-226c0-5 27-120 60-257 33-136 60-252 60-257s-276-9-643-9h-642l-28 117c-15 64-26 117-24 119 2 1 1194 291 1210 293 4 0 7-2 7-6zm-1980-282c0-9 14-119 25-203l5-38h-100c-55 0-100 3-100 6 0 18 145 244 156 244 8 0 14-4 14-9zm3239-110c39-66 71-122 71-125s-74-6-165-6-165 3-165 8c0 4 12 60 27 125l27 117h67 66l72-119zm155-373c3-35 40-733 81-1553s76-1511 78-1537l4-48h-1987-1987l4 48c2 26 37 717 78 1537s78 1518 81 1553l6 62h1818 1818l6-62z">
-                                                                                        </path>
-                                                                                        <path
-                                                                                            d="m1850 3209c-168-32-260-248-169-395 24-39 82-92 114-104 23-9 23-10 27-242 4-223 5-236 32-313 85-248 285-432 534-492 88-21 256-21 344 0 249 60 449 244 534 492 27 77 28 90 32 312l4 233 34 16c42 20 101 85 121 133 24 55 21 159-6 214-26 53-87 112-140 134-46 20-156 20-202 0-199-83-215-381-26-479l39-19-4-207c-5-237-17-291-88-400-225-349-715-349-940 0-71 109-83 164-88 400l-4 207 39 19c85 44 132 127 133 232 0 175-145 292-320 259z">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </svg>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
+                                        <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                            <div class="product-inner loading-mask">
+                                                <div class="proloop-image loading-mask__image">
+                                                    <div class="mask-line lazy-img"></div>
                                                 </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade " id="collection-tabs-2" role="tabpanel"
-                                            data-get="false">
-                                            <div class="row listProduct-row">
-
-
-
-                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
-                                                    <div class="product-inner loading-mask">
-                                                        <div class="proloop-image loading-mask__image">
-                                                            <div class="mask-line lazy-img"></div>
-                                                        </div>
-                                                        <div class="proloop-detail loading-mask__detail">
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="proloop-detail loading-mask__detail">
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
                                                 </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade " id="collection-tabs-3" role="tabpanel"
-                                            data-get="false">
-                                            <div class="row listProduct-row">
-
-
-
-                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
-                                                    <div class="product-inner loading-mask">
-                                                        <div class="proloop-image loading-mask__image">
-                                                            <div class="mask-line lazy-img"></div>
-                                                        </div>
-                                                        <div class="proloop-detail loading-mask__detail">
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade " id="collection-tabs-4" role="tabpanel"
-                                            data-get="false">
-                                            <div class="row listProduct-row">
-
-
-
-                                                <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
-                                                    <div class="product-inner loading-mask">
-                                                        <div class="proloop-image loading-mask__image">
-                                                            <div class="mask-line lazy-img"></div>
-                                                        </div>
-                                                        <div class="proloop-detail loading-mask__detail">
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                            <div class="mask-line"> </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
+                                <div class="tab-pane fade " id="collection-tabs-3" role="tabpanel" data-get="false">
+                                    <div class="row listProduct-row">
 
-                                <div class="wrapbox--btn ">
-                                    <a href="/collections/noi-that-phong-ngu" class="button btn-loadmore"
-                                        previewlistener="true">Xem tất cả <strong>Nội Thất Phòng Ngủ</strong></a>
+
+
+                                        <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                            <div class="product-inner loading-mask">
+                                                <div class="proloop-image loading-mask__image">
+                                                    <div class="mask-line lazy-img"></div>
+                                                </div>
+                                                <div class="proloop-detail loading-mask__detail">
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade " id="collection-tabs-4" role="tabpanel" data-get="false">
+                                    <div class="row listProduct-row">
+
+
+
+                                        <div class="col-lg-cus5 col-md-6 col-6 product-loop product-loadding ">
+                                            <div class="product-inner loading-mask">
+                                                <div class="proloop-image loading-mask__image">
+                                                    <div class="mask-line lazy-img"></div>
+                                                </div>
+                                                <div class="proloop-detail loading-mask__detail">
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
+                                                    <div class="mask-line"> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="modal-coupon--backdrop"></div>
+                        <div class="wrapbox--btn ">
+                            <a href="/collections/noi-that-phong-ngu" class="button btn-loadmore"
+                                previewlistener="true">Xem tất cả <strong>Nội Thất Phòng Ngủ</strong></a>
+                        </div>
 
-                        <div id="body" ng-controller="openAiCtrl">
+                    </div>
+                </div>
 
-                            <div class="icon-container" id="chat-circle">
-                                <i class="bi bi-robot"></i>
-                                <div class="color-container"></div>
-                                <!-- <div class="btn btn-raised">
+                <div class="modal-coupon--backdrop"></div>
+
+                <div id="body" ng-controller="openAiCtrl">
+
+                    <div class="icon-container" id="chat-circle">
+                        <i class="bi bi-robot"></i>
+                        <div class="color-container"></div>
+                        <!-- <div class="btn btn-raised">
                                     <div id="chat-overlay"></div>
                                 </div> -->
-                            </div>
+                    </div>
 
-                            <div class="chat-box">
-                                <div class="chat-box-header">
-                                    <span>ChatBot</span> <br>
-                                    <span>(Tư vấn sản phẩm tự động)</span>
-                                    <span class="chat-box-toggle">Đóng</span>
-                                </div>
-                                <div class="chat-box-body">
-                                    <div class="chat-box-overlay">
-                                    </div>
-                                    <div class="chat-logs">
-                                        <div>
-                                            <h3>Phản hồi:</h3>
-                                            <!-- <pre>{{ feedbackData.data[0].content[0].text.value }}</pre> -->
-                                        </div>
-                                    </div><!--chat-log -->
-
-                                    <span ng-if="responseStatus === 'in_progress'"
-                                        style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
-                                    <span ng-if="responseStatus === 'completed'"
-                                        style="font-weight: bolder; margin-left: 13px;">Thành công</span>
-                                </div>
-                                <div class="chat-input">
-                                    <form>
-                                        <input ng-model="userMessage" type="text" id="chat-input"
-                                            placeholder="Nhập vào câu hỏi..." />
-                                        <button ng-click="sendMessage()" type="submit" class="chat-submit"
-                                            id="chat-submit"><span class="material-icons">Gửi</span></button>
-                                    </form>
-                                </div>
-                            </div>
+                    <div class="chat-box">
+                        <div class="chat-box-header">
+                            <span>ChatBot</span> <br>
+                            <span>(Tư vấn sản phẩm tự động)</span>
+                            <span class="chat-box-toggle">Đóng</span>
                         </div>
+                        <div class="chat-box-body">
+                            <div class="chat-box-overlay">
+                            </div>
+                            <div class="chat-logs">
+                                <div>
+                                    <h3>Phản hồi:</h3>
+                                    <!-- <pre>{{ feedbackData.data[0].content[0].text.value }}</pre> -->
+                                </div>
+                            </div><!--chat-log -->
+
+                            <span ng-if="responseStatus === 'in_progress'"
+                                style="font-weight: bolder; margin-left: 13px;">Đang gửi</span>
+                            <span ng-if="responseStatus === 'completed'"
+                                style="font-weight: bolder; margin-left: 13px;">Thành công</span>
+                        </div>
+                        <div class="chat-input">
+                            <form>
+                                <input ng-model="userMessage" type="text" id="chat-input"
+                                    placeholder="Nhập vào câu hỏi..." />
+                                <button ng-click="sendMessage()" type="submit" class="chat-submit"
+                                    id="chat-submit"><span class="material-icons">Gửi</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </main>
 
                 <div data-th-insert="~{include/footer.html}"></div>
@@ -1213,133 +1209,133 @@
                     <div class="listSharing_overlay"></div>
                 </div>
 
-            </div>
-
-            <div class="siteCart-mobile">
-                <div class="siteCart-mobile__header">
-                    <div class="boxinfo p-count">0 sản phẩm </div>
-                    <div class="boxinfo p-price">0₫</div>
-                    <div class="boxinfo">Xem chi tiết</div>
-                </div>
-                <div class="siteCart-mobile__dialog">
-                    <div class="siteCart-mobile__header">
-                        <div class="boxinfo p-count">0 sản phẩm </div>
-                        <div class="boxinfo p-price">0₫</div>
-                        <div class="boxinfo">Đóng</div>
-                    </div>
-                    <div class="siteCart-mobile__body">
-
-
-                        <div class="sitenav-content sitenav-cart">
-                            <p class="boxtitle">Giỏ hàng</p>
-                            <div class="cart-view clearfix">
-                                <div class="cart-view-scroll">
-                                    <table id="clone-item-cart" class="table-clone-cart">
-                                        <tbody>
-                                            <tr class="mini-cart__item d-none">
-                                                <td class="mini-cart__left"><a class="mnc-link" href="#" title=""><img
-                                                            src="" alt=""></a></td>
-                                                <td class="mini-cart__right">
-                                                    <p class="mini-cart__title">
-                                                        <a class="mnc-title mnc-link" href="#" title=""></a>
-                                                        <span class="mnc-variant"> </span>
-                                                    </p>
-                                                    <div class="mini-cart__quantity">
-                                                        <button class="qty-btn mnc-minus">
-                                                            <svg width="18" height="18" viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <rect height="1" width="18" y="9" x="1"></rect>
-                                                            </svg>
-                                                        </button>
-                                                        <input class="qty-value" type="text" readonly=""
-                                                            name="mnc-quantity" value="">
-                                                        <button class="qty-btn mnc-plus">
-                                                            <svg width="18" height="18" viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <rect x="9" y="1" width="1" height="17"></rect>
-                                                                <rect x="1" y="9" width="17" height="1"></rect>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <div class="mini-cart__price">
-                                                        <span class="mnc-price">0₫</span>
-                                                        <del class="mnc-ori-price"></del>
-                                                    </div>
-                                                    <div class="mini-cart__remove"></div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table id="cart-view">
-
-                                        <tbody>
-                                            <tr class="mini-cart__empty">
-                                                <td>
-                                                    <div class="svgico-mini-cart">
-                                                        <svg width="81" height="70" viewBox="0 0 81 70">
-                                                            <g transform="translate(0 2)" stroke-width="4" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <circle stroke-linecap="square" cx="34" cy="60" r="6">
-                                                                </circle>
-                                                                <circle stroke-linecap="square" cx="67" cy="60" r="6">
-                                                                </circle>
-                                                                <path
-                                                                    d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                    Hiện chưa có sản phẩm
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="cart-view-line"></div>
-                                <div class="cart-view-total">
-                                    <table class="table-total">
-                                        <tbody>
-                                            <tr>
-                                                <td class="mnc-total text-left">TỔNG TIỀN:</td>
-                                                <td class="mnc-total text-right" id="total-view-cart">0₫</td>
-                                            </tr>
-                                            <tr class="mini-cart__button">
-                                                <td colspan="2"><a href="/cart" class="linktocart button "
-                                                        previewlistener="true">Xem giỏ hàng</a></td>
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="siteCart-mobile__overlay"></div>
-            </div>
-            <div id="quick-view-modal" class="modal fade modal-product-quickview">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content wrapper-quickview">
-
-                    </div>
-                </div>
-            </div>
-            <div class="quickviewOverlay"></div>
-
-            <!-- SCRIPT THEME -->
-            <script type="text/javascript" src="/taiNguyenCuaDung/js/scripts.js" defer=""></script>
-            <!-- <script type="text/javascript" src="taiNguyenCuaThang/js/chatOpenAi.js"></script> -->
-            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> -->
-            <!-- <script src="taiNguyenCuaThang/js/navbargiohang.js"></script> -->
-            <!-- <script type="text/javascript" src="taiNguyenCuaDung/js/index.js" defer=""></script> -->
-
-            <!-- SCRIPT THEME -->
-            <script src="/js/user/index.js"></script>
-
-        </body>
     </div>
+
+    <div class="siteCart-mobile">
+        <div class="siteCart-mobile__header">
+            <div class="boxinfo p-count">0 sản phẩm </div>
+            <div class="boxinfo p-price">0₫</div>
+            <div class="boxinfo">Xem chi tiết</div>
+        </div>
+        <div class="siteCart-mobile__dialog">
+            <div class="siteCart-mobile__header">
+                <div class="boxinfo p-count">0 sản phẩm </div>
+                <div class="boxinfo p-price">0₫</div>
+                <div class="boxinfo">Đóng</div>
+            </div>
+            <div class="siteCart-mobile__body">
+
+
+                <div class="sitenav-content sitenav-cart">
+                    <p class="boxtitle">Giỏ hàng</p>
+                    <div class="cart-view clearfix">
+                        <div class="cart-view-scroll">
+                            <table id="clone-item-cart" class="table-clone-cart">
+                                <tbody>
+                                    <tr class="mini-cart__item d-none">
+                                        <td class="mini-cart__left"><a class="mnc-link" href="#" title=""><img src=""
+                                                    alt=""></a></td>
+                                        <td class="mini-cart__right">
+                                            <p class="mini-cart__title">
+                                                <a class="mnc-title mnc-link" href="#" title=""></a>
+                                                <span class="mnc-variant"> </span>
+                                            </p>
+                                            <div class="mini-cart__quantity">
+                                                <button class="qty-btn mnc-minus">
+                                                    <svg width="18" height="18" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect height="1" width="18" y="9" x="1"></rect>
+                                                    </svg>
+                                                </button>
+                                                <input class="qty-value" type="text" readonly="" name="mnc-quantity"
+                                                    value="">
+                                                <button class="qty-btn mnc-plus">
+                                                    <svg width="18" height="18" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect x="9" y="1" width="1" height="17"></rect>
+                                                        <rect x="1" y="9" width="17" height="1"></rect>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="mini-cart__price">
+                                                <span class="mnc-price">0₫</span>
+                                                <del class="mnc-ori-price"></del>
+                                            </div>
+                                            <div class="mini-cart__remove"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table id="cart-view">
+
+                                <tbody>
+                                    <tr class="mini-cart__empty">
+                                        <td>
+                                            <div class="svgico-mini-cart">
+                                                <svg width="81" height="70" viewBox="0 0 81 70">
+                                                    <g transform="translate(0 2)" stroke-width="4" fill="none"
+                                                        fill-rule="evenodd">
+                                                        <circle stroke-linecap="square" cx="34" cy="60" r="6">
+                                                        </circle>
+                                                        <circle stroke-linecap="square" cx="67" cy="60" r="6">
+                                                        </circle>
+                                                        <path
+                                                            d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547">
+                                                        </path>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                            Hiện chưa có sản phẩm
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart-view-line"></div>
+                        <div class="cart-view-total">
+                            <table class="table-total">
+                                <tbody>
+                                    <tr>
+                                        <td class="mnc-total text-left">TỔNG TIỀN:</td>
+                                        <td class="mnc-total text-right" id="total-view-cart">0₫</td>
+                                    </tr>
+                                    <tr class="mini-cart__button">
+                                        <td colspan="2"><a href="/cart" class="linktocart button "
+                                                previewlistener="true">Xem giỏ hàng</a></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="siteCart-mobile__overlay"></div>
+    </div>
+    <div id="quick-view-modal" class="modal fade modal-product-quickview">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content wrapper-quickview">
+
+            </div>
+        </div>
+    </div>
+    <div class="quickviewOverlay"></div>
+
+    <!-- SCRIPT THEME -->
+    <script type="text/javascript" src="/taiNguyenCuaDung/js/scripts.js" defer=""></script>
+    <!-- <script type="text/javascript" src="taiNguyenCuaThang/js/chatOpenAi.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> -->
+    <!-- <script src="taiNguyenCuaThang/js/navbargiohang.js"></script> -->
+    <!-- <script type="text/javascript" src="taiNguyenCuaDung/js/index.js" defer=""></script> -->
+
+    <!-- SCRIPT THEME -->
+    <script src="/js/user/index.js"></script>
+
+</body>
+</div>
 
 </html>
