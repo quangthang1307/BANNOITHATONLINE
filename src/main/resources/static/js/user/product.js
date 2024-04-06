@@ -320,6 +320,9 @@ app.controller("productController", function ($scope, $http, $window) {
         if (!$scope.CheckboxCategory[index].isChecked) {
             IntegerArray = IntegerArray.filter(number => number !== id);
             if ($scope.CheckboxCategory.every(category => category.isChecked === false)) {
+                if ($scope.filterBySale === true){
+                    return $scope.getDataProductSale();
+                }
                 $scope.filterByCategory = false;
                 return $scope.getData();
             }

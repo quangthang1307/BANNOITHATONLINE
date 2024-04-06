@@ -16,6 +16,7 @@ const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
 const hostFlashSale = "/rest/flashsale";
 const hostFlashSaleUpdate = "/rest/flashsale/update"
 const hostProductFlashsale = "/rest/product/flashsale";
+const hostProductBestseller = "/rest/product/bestseller";
 
 app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
@@ -45,7 +46,7 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
   }
   $scope.getDataProductBestSeller = function () {
     $http
-      .get("/rest/product/bestseller")
+      .get(hostProductBestseller)
       .then(function (response) {
         $scope.productsbestsellers = response.data;
         console.log(response.data);
@@ -102,16 +103,16 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
     return foundItem ? foundItem.percent : null;
   };
   //
-   //Kiểm tra sản phẩm Flashsale để thay đổi giá
-   $scope.isProductInFlashSale = function (productId) {
+  //Kiểm tra sản phẩm Flashsale để thay đổi giá
+  $scope.isProductInFlashSale = function (productId) {
     return $scope.productFlashSale.some(item => item.product.productid === productId);
-};
+  };
 
-$scope.getPercentFlashSaleForProduct = function (productId) {
+  $scope.getPercentFlashSaleForProduct = function (productId) {
     var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
     return foundItem ? foundItem.percent : null;
-};
-//
+  };
+  //
 
   // Hàm xử lý khi nhấp vào tên sản phẩm
   $scope.clickById = function (productId) {

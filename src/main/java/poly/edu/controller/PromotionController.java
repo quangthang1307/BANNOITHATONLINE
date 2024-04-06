@@ -278,10 +278,15 @@ public class PromotionController {
                 products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
             }
         }
+        String sizeproduct = "chưa chọn sản phẩm nào";
+        if (productselectflashsale.size() > 0) {
+            sizeproduct = String.valueOf(productselectflashsale.size());
+        }
         model.addAttribute("daystart", flashhsale.get().getDateStart());
         model.addAttribute("flashhsales", flashhsale);
         model.addAttribute("products", products);
         model.addAttribute("productselect", productselectflashsale);
+        model.addAttribute("sizeproduct", sizeproduct);
 
         return "admin/flashsaleform";
     }

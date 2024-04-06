@@ -6,6 +6,6 @@ import poly.edu.entity.Categoryproduct;
 
 public interface CategoryService {
    public List<Categoryproduct> findAllCapCon();
-
+   public List<Categoryproduct> findAllCapcha();
    public List<Categoryproduct> findCategoryByCapCha(List<Integer> category);
 }

@@ -24,5 +24,10 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Categoryproduct> findCategoryByCapCha(List<Integer> category) {
         return categoryProductRepository.findCategoryByRoom(category);
     }
+
+    @Override
+    public List<Categoryproduct> findAllCapcha() {
+        return categoryProductRepository.getAllCategoryProductCapCha();
+    }
     
 }
