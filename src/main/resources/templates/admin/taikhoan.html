@@ -33,40 +33,10 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
-                window.location.href = '/admin/deleteTaiKhoan/' + accountId;
+                window.location.href = '/admin/deleteTaiKhoan1/' + accountId;
             }
         });
-
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	//HIển thị thông báo
-	<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
-		var successMessage = 'Chuyển đổi trạng thái thành công';
-		Swal.fire({
-			icon: 'success',
-			title: 'Thành  công!',
-			text: successMessage,
-			showConfirmButton: false,
-			timer: 1500,
-		});
-	</script>
-	<!-- //xóa hiện thông báo -->
-	<script>
-		function confirmDelete(accountId) {
-			Swal.fire({
-				title: 'Bạn có chắc muốn xóa không?',
-				icon: 'question',
-				showCancelButton: true,
-				confirmButtonText: 'Có',
-				cancelButtonText: 'Không',
-			}).then((result) => {
-				if (result.isConfirmed) {
-					// Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
-					window.location.href = '/admin/deleteTaiKhoan/' + accountId;
-				}
-			});
-
-
-			// Trả về false để ngăn chặn hành động mặc định của liên kết
+		// Trả về false để ngăn chặn hành động mặc định của liên kết
 			return false;
 		}
 	</script>
@@ -178,10 +148,14 @@
 
 												<td th:text="${account.email}"></td>
 												<td>
-												<button type="submit" class="bi bi-floppy btn btn-info"></button>
-													<a th:onclick="'return confirmDelete(\'' + *{account.accountId} + '\');'"
-														href="#">
-														<button class="btn btn-danger" type="submit"
+													
+											
+													<button type="submit" class="bi bi-floppy btn btn-info">
+														<!-- <a th:onclick="'return confirmDelete(\'' + *{account.accountId} + '\');'"href="#"> -->
+													</button>
+									
+													
+														<!-- <button class="btn btn-danger" type="submit"
 															style="width:40px; max-width: 100%;  border-radius: 5px; ">
 															<svg style="margin-left:-1px;"
 																xmlns="http://www.w3.org/2000/svg" width="16"
@@ -193,9 +167,7 @@
 																	d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
 															</svg>
 														</button>
-													</a>
-
-													
+														 -->
 													<!-- </button> <a class="bi bi-floppy btn btn-info"
 													th:href="@{/admin/saveAccount/{accountId}(accountId=${account.accountId})}"></a> -->
 												</td>
@@ -248,14 +220,14 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<!-- <script>
+	 <!-- <script>
 		function confirmDelete(accountId) {
 			if (confirm("Bạn có chắc muốn xóa không?")) {
 				window.location.href = '/admin/deleteTaiKhoan/' + accountId;
 			}
 			return false;
 		}
-	</script> -->
+	</script>  -->
 
 	<!-- chuyển trang thái	 -->
 	<!-- 

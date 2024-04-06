@@ -60,7 +60,7 @@ public class TaikhoanController {
     @GetMapping("/taikhoan")
     public String showList(@ModelAttribute("taikhoan") Account account, Model model) {
 
-        model.addAttribute("allAccount", accountService.findAll()); // Thêm danh sách thương hiệu vào model
+        model.addAttribute("allAccount", accountRepository.findAll()); // Thêm danh sách thương hiệu vào model
         // model.addAttribute("newBrand", new Brands()); // Thêm một đối tượng Brands
         // mới cho form
         return "admin/taikhoan";
@@ -184,7 +184,7 @@ public class TaikhoanController {
         return "redirect:/admin/taikhoan";
     }
 
-    @GetMapping("/deleteTaiKhoan/{accountId}")
+    @GetMapping("/deleteTaiKhoan1/{accountId}")
     public String deleteTaiKhoan(@PathVariable("accountId") Integer accountId, RedirectAttributes redirectAttributes) {
         try {
             Account account = accountService.findById(accountId);
@@ -200,14 +200,15 @@ public class TaikhoanController {
     }
 
     // edit product
-    @GetMapping("editAccount/{accountId}")
-    public String EditAccount(@PathVariable("accountId") Integer accountId, Model model) {
-        Account account = accountService.findById(accountId);
-        model.addAttribute("taikhoan", account);
-        model.addAttribute("allbrands", accountService.findAll());
+    // @GetMapping("editAccount/{accountId}")
+    // public String EditAccount(@PathVariable("accountId") Integer accountId, Model
+    // model) {
+    // Account account = accountService.findById(accountId);
+    // model.addAttribute("taikhoan", account);
+    // model.addAttribute("allbrands", accountService.findAll());
 
-        return "admin/taikhoan1";
-    }
+    // return "admin/taikhoan1";
+    // }
 
     // @RequestMapping("/taikhoan/saveAccount1")
     // public String saveStatusOrder(@RequestParam("accountId") Integer accountId,
