@@ -33,4 +33,5 @@ public interface AccountService {
     // newStatus);
 
     public List<AccountInfo> getAccountInfo();
+
 }

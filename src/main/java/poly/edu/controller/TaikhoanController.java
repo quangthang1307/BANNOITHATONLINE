@@ -60,7 +60,7 @@ public class TaikhoanController {
     @GetMapping("/taikhoan")
     public String showList(@ModelAttribute("taikhoan") Account account, Model model) {
 
-        model.addAttribute("allAccount", accountService.findAll()); // Thêm danh sách thương hiệu vào model
+        model.addAttribute("allAccount", accountRepository.findAll()); // Thêm danh sách thương hiệu vào model
         // model.addAttribute("newBrand", new Brands()); // Thêm một đối tượng Brands
         // mới cho form
         return "admin/taikhoan";
