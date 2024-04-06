@@ -33,71 +33,73 @@ public class BrandsConTroller {
     return "admin/brand";
   }
 
-  @PostMapping("/saveBrands")
+  @GetMapping("/formbrand")
+  public String Formbrand(@ModelAttribute("brand") Brands brands, Model model) {
+    model.addAttribute("allbrands", brandService.findAll()); // Thêm danh sách thương hiệu vào model
+    // model.addAttribute("newBrand", new Brands()); // Thêm một đối tượng Brands
+    // mới cho form
+    return "admin/brands";
+  }
+
+  @PostMapping("/saveBrand")
   public String saveAccount(
-    @Validated @ModelAttribute("brand") Brands brands,
-    BindingResult bindingResult,
-    RedirectAttributes redirectAttributes,
-    Model model
-  ) {
+      @Validated @ModelAttribute("brand") Brands brands,
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes,
+      Model model) {
     // Kiểm tra xem tên thương hiệu đã tồn tại trong danh sách hay chưa
     if (brandService.existsByNameIgnoreCase(brands.getBrandname())) {
       bindingResult.rejectValue(
-        "brandname",
-        "error.brand",
-        "Tên thương hiệu đã tồn tại."
-      );
+          "brandname",
+          "error.brand",
+          "Tên thương hiệu đã tồn tại.");
     }
 
     // Kiểm tra xem có lỗi khi binding dữ liệu không
     if (bindingResult.hasErrors()) {
       model.addAttribute("allbrands", brandService.findAll());
-      return "/admin/brand"; // Trả về trang brand nếu có lỗi
+      return "/admin/brands"; // Trả về trang brand nếu có lỗi
     }
 
     // Kiểm tra độ dài tối đa của tên thương hiệu
     if (brands.getBrandname().length() > 50) {
       bindingResult.rejectValue(
-        "brandname",
-        "error.brand",
-        "Tên thương hiệu không được vượt quá 50 ký tự."
-      );
+          "brandname",
+          "error.brand",
+          "Tên thương hiệu không được vượt quá 50 ký tự.");
       model.addAttribute("allbrands", brandService.findAll());
-      return "/admin/brand"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
+      return "/admin/brands"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
     }
 
     // Lưu thương hiệu vào cơ sở dữ liệu
     brandService.create(brands);
 
     // Thêm thông báo thành công vào flash attribute để hiển thị
+
     redirectAttributes.addFlashAttribute(
-      "successMessage",
-      "Lưu sản phẩm thành công!"
-    );
+        "successMessage",
+        "Lưu thương hiệu thành công!");
 
     // Chuyển hướng đến trang danh sách brand
-    return "redirect:/admin/brand";
+    return "redirect:/admin/formbrand";
   }
 
   @GetMapping("/deleteBrands/{brandsId}")
   public String deleteBrands(
-    @PathVariable("brandsId") Integer brandsId,
-    RedirectAttributes redirectAttributes
-  ) {
+      @PathVariable("brandsId") Integer brandsId,
+      RedirectAttributes redirectAttributes) {
     try {
       Brands brands = brandService.findById(brandsId);
       brandService.delete(brandsId);
       // Đặt thông báo thành công vào redirectAttributes
       redirectAttributes.addFlashAttribute(
-        "deletesuccessMessage",
-        "Xóa thành công!"
-      );
+          "deletesuccessMessage",
+          "Xóa thành công!");
     } catch (Exception e) {
       // Đặt thông báo lỗi vào redirectAttributes nếu có lỗi
       redirectAttributes.addFlashAttribute(
-        "deleteerrorMessage",
-        "Xóa thất bại: " + e.getMessage()
-      );
+          "deleteerrorMessage",
+          "Xóa thất bại: " + e.getMessage());
     }
     // Chuyển hướng người dùng đến trang hiển thị danh sách loại sản phẩm hoặc trang
     // chính của trang quản trị
@@ -107,14 +109,13 @@ public class BrandsConTroller {
   // edit product
   @GetMapping("editBrands/{brandsId}")
   public String EditBrands(
-    @PathVariable("brandsId") Integer brandsId,
-    Model model
-  ) {
+      @PathVariable("brandsId") Integer brandsId,
+      Model model) {
     Brands brands = brandService.findById(brandsId);
     model.addAttribute("brand", brands);
     model.addAttribute("allbrands", brandService.findAll());
 
-    return "admin/brand";
+    return "admin/brands";
   }
   // @GetMapping("/editBrands/{brandsId}")
   // public String showUpdateForm(@PathVariable("brandsId") Integer brandsId,
