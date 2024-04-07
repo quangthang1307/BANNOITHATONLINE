@@ -116,7 +116,7 @@ public class TelegramRestController {
                 + "*Ngày đặt hàng:* " + time + "\n"
                 + "*Sản phẩm:* " + sanpham + "\n"
                 + "*Tổng tiền:* " + tongtien + "\n"
-                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www.localhost/rest/telegram/approve?orderID="
+                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www.localhost/api/telegram/approve?orderID="
                 + String.valueOf(orderID) + ")";
 
         try {
