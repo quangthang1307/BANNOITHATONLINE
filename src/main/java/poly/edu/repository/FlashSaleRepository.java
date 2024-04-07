@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import poly.edu.entity.Flashsale;
+import poly.edu.entity.Product;
 
 public interface FlashSaleRepository extends  JpaRepository<Flashsale, Integer> {
     @Query(value =  "SELECT * FROM Flashsale WHERE [Status] = 1 AND FlashsalehourID IN (SELECT ID FROM Flashsalehour WHERE Starthour = CAST(? AS time))", nativeQuery = true)
@@ -27,4 +28,6 @@ public interface FlashSaleRepository extends  JpaRepository<Flashsale, Integer> 
 
     @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID = ?", nativeQuery = true)
     List<Flashsale> findByFlashSaleHourID(Integer flashSaleHourID);
+
+    Flashsale findByProduct(Product product);
 }

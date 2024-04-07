@@ -18,4 +18,5 @@ public interface FlashSaleHourRepository extends JpaRepository<FlashSaleHour, In
 
     @Query(value =  "SELECT * FROM Flashsalehour WHERE Starthour <= CONVERT(TIME, GETDATE()) AND Endhour > CONVERT(TIME, GETDATE()) AND CONVERT(DATE, Startdate) = CONVERT(DATE, GETDATE())", nativeQuery = true)
     List<FlashSaleHour> getFlashSalesHourOnStart();
+    
 }

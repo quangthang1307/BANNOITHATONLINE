@@ -1,7 +1,9 @@
 package poly.edu.RestController;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.CartService;
+import poly.edu.entity.Flashsale;
 import poly.edu.entity.Cart;
+import poly.edu.entity.FlashSaleHour;
 import poly.edu.entity.Product;
 import poly.edu.entity.Sale;
 import poly.edu.repository.CartRepository;
+import poly.edu.repository.FlashSaleHourRepository;
+import poly.edu.repository.FlashSaleRepository;
 import poly.edu.repository.ProductRepository;
 import poly.edu.repository.SaleRepository;
 
@@ -43,6 +49,12 @@ public class RestCartController {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    FlashSaleRepository flashSaleRepository;
+
+    @Autowired
+    FlashSaleHourRepository flashSaleHourRepository;
+
     @GetMapping("/rest/showCart/{customerId}")
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {
         List<Cart> carts = cartService.findByCustomerId(customerId);
@@ -52,7 +64,27 @@ public class RestCartController {
         for (Cart cart2 : carts) {
             if (cart2.getProduct().isProductactivate()) {
                 Sale sale = saleRepository.findByProductID(cart2.getProduct().getProductid());
-                if (sale != null) {
+                Flashsale falshSale = flashSaleRepository.findByProduct(cart2.getProduct());
+                boolean giamgia = false;
+
+                if (falshSale != null && falshSale.getStatus()) {
+                    Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
+                            .findById(falshSale.getFlashSaleHourID());
+                    if (flashSaleHour.isPresent()) {
+                        if (flashSaleHour.get().getStatus()
+                                && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
+                                && flashSaleHour.get().getHourStart().isBefore(LocalTime.now())
+                                && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
+                            Optional<Product> product = productRepository.findById(sale.getProductID());
+                            product.get().setPricexuat(product.get().getPricexuat()
+                                    - (product.get().getPricexuat() * falshSale.getPercent() / 100));
+                            cart2.setProduct(product.get());
+                            giamgia = true;
+                        }
+                    }
+                }
+
+                if (sale != null && !giamgia) {
                     if (LocalDateTime.now().isAfter(sale.getDayStart())
                             && LocalDateTime.now().isBefore(sale.getDayEnd())) {
                         Optional<Product> product = productRepository.findById(sale.getProductID());
