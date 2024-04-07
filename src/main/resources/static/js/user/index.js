@@ -17,6 +17,7 @@ const hostFlashSale = "/rest/flashsale";
 const hostFlashSaleUpdate = "/rest/flashsale/update"
 const hostProductFlashsale = "/rest/product/flashsale";
 const hostProductBestseller = "/rest/product/bestseller";
+const hostInventory = "/rest/product/inventory";
 
 app.controller("IndexController", function ($scope, $http, $window, $timeout, $interval) {
   $scope.listCart = [];
@@ -24,6 +25,7 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
   $scope.productSale = [];
   $scope.discounts = [];
   $scope.productFlashSale = [];
+  $scope.inventory = [];
   // Gán CustomerId người dùng
   function fetchCustomer() {
     return $http
@@ -91,6 +93,20 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
         console.error('Error fetching productSale:', error);
       }
       );
+
+
+    $http.get(hostInventory)
+      .then(function (response) {
+
+        $scope.inventory = response.data
+        localStorage.setItem('productInventory', JSON.stringify($scope.inventory));
+        console.log($scope.inventory);
+
+      })
+      .catch(function (error) {
+        console.error('Error fetching productSale:', error);
+      }
+      );
   }
 
   //Kiểm tra sản phẩm sale để thay đổi giá
@@ -112,6 +128,13 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
     var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
     return foundItem ? foundItem.percent : null;
   };
+  //
+
+  //Kiểm tra tồn kho
+  $scope.checkInventory = function (productId) {
+    const product = $scope.inventory.find(item => item.product.productid === productId);
+    return product && product.quantityonhand > 0;
+  }
   //
 
   // Hàm xử lý khi nhấp vào tên sản phẩm

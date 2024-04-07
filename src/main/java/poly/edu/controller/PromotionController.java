@@ -144,17 +144,18 @@ public class PromotionController {
         products = productService.findAllNoActive();
 
         Optional<Sale> sale = saleService.findById(saleId);
-        products.forEach(p -> {
-            if (p.getProductid() == sale.get().getProductID()) {
-                productselect.add(p);
-            }
-        });
         if (!productselect.isEmpty()) {
             System.out.println("Khong trong");
             for (Product ps : productselect) {
                 products.removeIf(p -> p.getProductid() == ps.getProductid());
             }
         }
+        products.forEach(p -> {
+            if (p.getProductid() == sale.get().getProductID()) {
+                productselect.add(p);
+            }
+        });
+        
 
         model.addAttribute("sale", sale.get());
         model.addAttribute("daystart", sale.get().getDayStart());
@@ -190,7 +191,7 @@ public class PromotionController {
 
     @PostMapping("/selectproduct")
     public String selectProduct(
-            @RequestParam(name = "selectedProducts", required = false) List<String> selectedProducts, Model model) {
+            @RequestParam(name = "selectedProducts", required = false) List<String> selectedProducts, Model model, Sale sale) {
 
         if (selectedProducts != null) {
             // Xử lý các sản phẩm đã được chọn ở đây
@@ -206,6 +207,9 @@ public class PromotionController {
             for (Product product : list) {
                 productselect.add(product);
             }
+        }
+        if (sale.getSaleID() != null) {
+            return "redirect:/admin/formpromotionsale/" + sale.getSaleID();
         }
         return "redirect:/admin/formpromotionsale";
     }
@@ -269,19 +273,26 @@ public class PromotionController {
         Optional<FlashSaleHour> flashhsale = flashSaleHourService.findbyId(flashsalehourId);
         List<Flashsale> flashsales = flashSaleService.findByFlashsaleHour(flashsalehourId);
         flashhsale.get().setFrequencyFor(flashhsale.get().getFrequencyFor().trim());
+       
+        if (!productselectflashsale.isEmpty()) {
+            System.out.println("Khong trong");
+            for (Flashsale ps : flashsales) {
+                productselectflashsale.removeIf(p -> p.getProduct().getProductid() == ps.getProduct().getProductid());
+            }
+        }
         for (Flashsale flashsale : flashsales) {
             productselectflashsale.add(flashsale);
         }
-        if (!productselectflashsale.isEmpty()) {
-            System.out.println("Khong trong");
-            for (Flashsale ps : productselectflashsale) {
-                products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
-            }
-        }
+        
         String sizeproduct = "chưa chọn sản phẩm nào";
         if (productselectflashsale.size() > 0) {
             sizeproduct = String.valueOf(productselectflashsale.size());
         }
+        boolean checknone = false;
+        if (flashhsale.get().getFrequencyFor().trim().equals("NONE")) {
+            checknone = true;
+        }
+        model.addAttribute("checknone", checknone);
         model.addAttribute("daystart", flashhsale.get().getDateStart());
         model.addAttribute("flashhsales", flashhsale);
         model.addAttribute("products", products);
@@ -310,7 +321,7 @@ public class PromotionController {
             s.setFrequency(flashSaleHour.getFrequency());
         } else {
 
-            s.setFrequencyFor("none");
+            s.setFrequencyFor("NONE");
             s.setFrequency(0);
         }
 
@@ -332,8 +343,8 @@ public class PromotionController {
 
     @PostMapping("/selectproductflashsale")
     public String selectProductFlashsale(
-            @RequestParam(name = "selectedProducts", required = false) List<String> selectedProducts) {
-
+            @RequestParam(name = "selectedProducts", required = false) List<String> selectedProducts, FlashSaleHour p) {
+              System.out.println("DAY LA ID " + p.getID());  
         if (selectedProducts != null) {
             // Xử lý các sản phẩm đã được chọn ở đây
             List<Integer> productidselect = new ArrayList<Integer>();
@@ -349,6 +360,10 @@ public class PromotionController {
                 f.setProduct(product);
                 productselectflashsale.add(f);
             }
+        }
+
+        if (p.getID() != null) {
+            return "redirect:/admin/formpromotionflashsale/" + p.getID();
         }
         return "redirect:/admin/formpromotionflashsale";
     }

@@ -369,13 +369,13 @@
 
                                                             </p>
 
-                                                            <div class="proloop-actions" data-vrid="1114458402">
+                                                            <div ng-if="checkInventory(FlashSaleProduct.product.productid)" class="proloop-actions" data-vrid="1114458402">
                                                                 <div class="proloop-actions__inner">
                                                                     <div class="actions-primary">
                                                                         <button type="submit"
                                                                             class="btn-proloop-cart add-to-cart  "
                                                                             onclick="HRT.All.addCartProdItem('1114458402')">
-                                                                            <span class="btnadd"> Thêm vào giỏ </span>
+                                                                            <span class="btnadd"> Thêm vào giỏ</span>
                                                                             <span class="btnico" title="Thêm vào giỏ">
                                                                                 <svg version="1.0" viewBox="0 0 512 512"
                                                                                     xmlns="http://www.w3.org/2000/svg">
@@ -396,6 +396,7 @@
 
                                                                 </div>
                                                             </div>
+                                                            <div ng-if="!checkInventory(FlashSaleProduct.product.productid)" class="text-danger">Hết hàng</div>
                                                         </div>
                                                     </div>
 
@@ -568,7 +569,7 @@
                                                                     }}₫</span>
                                                             </p>
 
-                                                            <div class="proloop-actions">
+                                                            <div ng-if="checkInventory(productsbestseller.productid)" class="proloop-actions">
                                                                 <div class="proloop-actions__inner">
                                                                     <div class="actions-primary">
                                                                         <button type="submit"
@@ -593,6 +594,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div ng-if="!checkInventory(productsbestseller.productid)" class="text-danger">Hết hàng</div>
                                                         </div>
                                                     </div>
                                                 </div>

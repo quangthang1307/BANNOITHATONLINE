@@ -821,7 +821,8 @@
                                                         <span class="price">{{product.pricexuat | number }}₫</span>
                                                     </p>
 
-                                                    <div class="proloop-actions" data-vrid="1117380330">
+                                                    
+                                                    <div ng-if="checkInventory(product.productid)" class="proloop-actions" data-vrid="1117380330">
                                                         <div class="proloop-actions__inner">
                                                             <div class="actions-primary">
                                                                 <button type="submit"
@@ -849,6 +850,8 @@
 
                                                         </div>
                                                     </div>
+                                                    <div ng-if="!checkInventory(product.productid)" class="text-danger">Hết hàng</div>
+
                                                 </div>
                                             </div>
                                         </div>
