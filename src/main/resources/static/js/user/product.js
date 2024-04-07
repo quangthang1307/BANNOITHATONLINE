@@ -35,6 +35,8 @@ const hostProductZA = "/rest/product/za";
 
 const hostProductFlashsale = "/rest/product/flashsale";
 
+const hostInventory = "/rest/product/inventory";
+
 
 app.controller("productController", function ($scope, $http, $window) {
     $scope.titlePage = "Tất cả sản phẩm";
@@ -73,6 +75,7 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.listCart = [];
     $scope.productSale = [];
     $scope.productFlashSale = [];
+    $scope.inventory = [];
 
     $scope.getData = function () {
 
@@ -108,12 +111,25 @@ app.controller("productController", function ($scope, $http, $window) {
             }
             );
 
-            $http.get(hostProductFlashsale)
+        $http.get(hostProductFlashsale)
             .then(function (response) {
 
                 $scope.productFlashSale = response.data
                 localStorage.setItem('productFlashSale', JSON.stringify($scope.productFlashSale));
                 console.log($scope.productFlashSale);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching productSale:', error);
+            }
+            );
+
+        $http.get(hostInventory)
+            .then(function (response) {
+
+                $scope.inventory = response.data
+                localStorage.setItem('productInventory', JSON.stringify($scope.inventory));
+                console.log($scope.inventory);
 
             })
             .catch(function (error) {
@@ -146,6 +162,13 @@ app.controller("productController", function ($scope, $http, $window) {
     };
     //
 
+    //Kiểm tra tồn kho
+    $scope.checkInventory = function(productId) {
+        const product = $scope.inventory.find(item => item.product.productid === productId);
+        return product && product.quantityonhand > 0;
+    }
+    //
+
     // Hàm xử lý khi nhấp vào tên sản phẩm
     $scope.clickById = function (productId) {
         var url = `${host}/${productId}`;
@@ -154,13 +177,13 @@ app.controller("productController", function ($scope, $http, $window) {
             .then(resp => {
                 $scope.productbyid = resp.data;
                 // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
-                if ($scope.isProductInSale(resp.data.productid) &&  !$scope.isProductInFlashSale(resp.data.productid)) {
+                if ($scope.isProductInSale(resp.data.productid) && !$scope.isProductInFlashSale(resp.data.productid)) {
                     var percent = $scope.getPercentSaleForProduct(resp.data.productid);
                     resp.data.percent = percent;
-                }else if(!$scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                } else if (!$scope.isProductInSale(resp.data.productid) && $scope.isProductInFlashSale(resp.data.productid)) {
                     var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
                     resp.data.percent = percent;
-                }else if($scope.isProductInSale(resp.data.productid) &&  $scope.isProductInFlashSale(resp.data.productid)){
+                } else if ($scope.isProductInSale(resp.data.productid) && $scope.isProductInFlashSale(resp.data.productid)) {
                     var percent = $scope.getPercentFlashSaleForProduct(resp.data.productid);
                     resp.data.percent = percent;
                 } else {
@@ -198,15 +221,15 @@ app.controller("productController", function ($scope, $http, $window) {
     $scope.goToPage = function (page) {
         $scope.currentPage = page;
         console.log($scope.currentPage);
-        if ($scope.filterByCategory === true &&  $scope.filterByCategoryDESC == false &&  $scope.filterByCategoryASC == false &&  $scope.filterByCategoryAZ == false &&  $scope.filterByCategoryZA == false) return $scope.getDataByCategory();
+        if ($scope.filterByCategory === true && $scope.filterByCategoryDESC == false && $scope.filterByCategoryASC == false && $scope.filterByCategoryAZ == false && $scope.filterByCategoryZA == false) return $scope.getDataByCategory();
 
-        if ($scope.filterByCategory === true &&  $scope.filterByCategoryDESC == true) return $scope.getDataByCategoryDESC();
+        if ($scope.filterByCategory === true && $scope.filterByCategoryDESC == true) return $scope.getDataByCategoryDESC();
 
-        if ($scope.filterByCategory === true &&  $scope.filterByCategoryASC == true) return $scope.getDataByCategoryASC();
+        if ($scope.filterByCategory === true && $scope.filterByCategoryASC == true) return $scope.getDataByCategoryASC();
 
-        if ($scope.filterByCategory === true &&  $scope.filterByCategoryAZ == true) return $scope.getDataByCategoryAZ();
+        if ($scope.filterByCategory === true && $scope.filterByCategoryAZ == true) return $scope.getDataByCategoryAZ();
 
-        if ($scope.filterByCategory === true &&  $scope.filterByCategoryZA == true) return $scope.getDataByCategoryZA();
+        if ($scope.filterByCategory === true && $scope.filterByCategoryZA == true) return $scope.getDataByCategoryZA();
 
         if ($scope.filterBySale === true && $scope.filterBySaleDESC === false && $scope.filterBySaleASC === false && $scope.filterBySaleAZ === false && $scope.filterBySaleZA === false) return $scope.getDataProductSale();
 
@@ -320,6 +343,9 @@ app.controller("productController", function ($scope, $http, $window) {
         if (!$scope.CheckboxCategory[index].isChecked) {
             IntegerArray = IntegerArray.filter(number => number !== id);
             if ($scope.CheckboxCategory.every(category => category.isChecked === false)) {
+                if ($scope.filterBySale === true) {
+                    return $scope.getDataProductSale();
+                }
                 $scope.filterByCategory = false;
                 return $scope.getData();
             }
@@ -785,12 +811,12 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryAZ = false;
                     $scope.filterSaleByCategoryZA = false;
                     $scope.getDataProductSaleByCategoryAndASC();
-                }else if (!$scope.filterBySale && $scope.filterByCategory) {
+                } else if (!$scope.filterBySale && $scope.filterByCategory) {
                     $scope.filterByCategoryDESC = false;
                     $scope.filterByCategoryASC = true;
                     $scope.filterByCategoryAZ = false;
                     $scope.filterByCategoryZA = false;
-                    
+
                     $scope.getDataByCategoryASC();
                 }
                 else {
@@ -827,7 +853,7 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryASC = false;
                     $scope.filterByCategoryAZ = false;
                     $scope.filterByCategoryZA = false;
-                    
+
                     $scope.getDataByCategoryDESC();
                 }
                 else {
@@ -859,12 +885,12 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterSaleByCategoryDESC = false;
                     $scope.filterSaleByCategoryZA = false;
                     $scope.getDataProductSaleByCategoryAndAZ();
-                }else if (!$scope.filterBySale && $scope.filterByCategory) {
+                } else if (!$scope.filterBySale && $scope.filterByCategory) {
                     $scope.filterByCategoryDESC = false;
                     $scope.filterByCategoryASC = false;
                     $scope.filterByCategoryAZ = true;
                     $scope.filterByCategoryZA = false;
-                    
+
                     $scope.getDataByCategoryAZ();
                 }
                 else {
@@ -901,7 +927,7 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryASC = false;
                     $scope.filterByCategoryAZ = false;
                     $scope.filterByCategoryZA = true;
-                    
+
                     $scope.getDataByCategoryZA();
                 }
                 else {
@@ -1094,28 +1120,30 @@ app.controller('productDetailController', function ($scope, $http) {
     $scope.productdetail = null;
     $scope.productRelates = null;
     $scope.productSale = null;
+    $scope.inventory = [];
     $scope.quantity = 1;
     $scope.getProductDetail = function () {
         $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
         $scope.productSale = JSON.parse(localStorage.getItem('productSale'));
+        $scope.inventory = JSON.parse(localStorage.getItem('productInventory'));
         $scope.getTop5ProductRelate($scope.productdetail.category);
         console.log("ProductDetail", $scope.productdetail);
         console.log("productSale", $scope.productSale);
     };
-//get đánh giá
-    $scope.getEvaluate = function(productdetail){
-       console.log("productdetail", productdetail);
-       $http.get(hostGetEvaluateByProductID + productdetail.productid)
-       .then(function (response) {
+    //get đánh giá
+    $scope.getEvaluate = function (productdetail) {
+        console.log("productdetail", productdetail);
+        $http.get(hostGetEvaluateByProductID + productdetail.productid)
+            .then(function (response) {
 
-           $scope.productEvaluate = response.data;
-           console.log($scope.productEvaluate);
+                $scope.productEvaluate = response.data;
+                console.log($scope.productEvaluate);
 
-       })
-       .catch(function (error) {
-           console.error('Error fetching products:', error);
-       }
-       );
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            }
+            );
     }
 
     $scope.getTop5ProductRelate = function (categoryid) {
@@ -1133,6 +1161,7 @@ app.controller('productDetailController', function ($scope, $http) {
             );
     }
 
+
     //Kiểm tra sản phẩm sale để thay đổi giá
     $scope.isProductInSale = function (productId) {
         return $scope.productSale.some(item => item.productID === productId);
@@ -1142,6 +1171,12 @@ app.controller('productDetailController', function ($scope, $http) {
         var foundItem = $scope.productSale.find(item => item.productID === productId);
         return foundItem ? foundItem.percent : null;
     };
+    //
+    //Kiểm tra tồn kho
+    $scope.checkInventory = function(productId) {
+        const product = $scope.inventory.find(item => item.product.productid === productId);
+        return product && product.quantityonhand > 0;
+    }
     //
 
     // Hàm xử lý khi nhấp vào tên sản phẩm
@@ -1298,6 +1333,6 @@ app.controller('productDetailController', function ($scope, $http) {
     // Load data for the first time
     $scope.getProductDetail();
     $scope.loadCart();
-    $scope.getEvaluate( $scope.productdetail);
+    $scope.getEvaluate($scope.productdetail);
 
 });

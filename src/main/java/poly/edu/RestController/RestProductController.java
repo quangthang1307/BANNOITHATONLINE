@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.FlashSaleService;
+import poly.edu.Service.InventoryService;
 import poly.edu.Service.ProductService;
 import poly.edu.Service.SaleService;
 import poly.edu.entity.Flashsale;
+import poly.edu.entity.Inventory;
 import poly.edu.entity.Product;
 import poly.edu.entity.Sale;
 
@@ -32,6 +34,8 @@ public class RestProductController {
     private SaleService saleService;
     @Autowired
     private FlashSaleService flashSaleService;
+    @Autowired
+    private InventoryService inventoryService;
 
     @GetMapping("/rest/product")
     public ResponseEntity<Page<Product>> getAllProducts(
@@ -364,5 +368,12 @@ public class RestProductController {
         } else {
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @GetMapping("/rest/product/inventory")
+    public ResponseEntity<Optional<List<Inventory>>> getInventory() {
+        List<Inventory> list = inventoryService.findAll();
+        Optional<List<Inventory>> inventory = Optional.ofNullable(list);
+        return ResponseEntity.ok(inventory);
     }
 }

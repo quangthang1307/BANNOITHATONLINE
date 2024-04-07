@@ -781,7 +781,7 @@
     
                                                                 </p>
 
-                                                            <div class="proloop-actions" data-vrid="1114458402">
+                                                            <div ng-if="checkInventory(FlashSaleProduct.product.productid)" class="proloop-actions" data-vrid="1114458402">
                                                                 <div class="proloop-actions__inner">
                                                                     <div class="actions-primary">
                                                                         <button type="submit"
@@ -855,6 +855,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div ng-if="!checkInventory(FlashSaleProduct.product.productid)" class="text-danger">Hết hàng</div>
                                                         </div>
                                                     </div>
                                         </div>

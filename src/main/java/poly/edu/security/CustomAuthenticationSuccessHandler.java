@@ -22,9 +22,6 @@ import poly.edu.entity.Employee;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
     private EmployeeService employeeService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -32,14 +29,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
-        final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        final String jwt = jwtUtil.generateToken(userDetails);
-
-        Cookie cookie = new Cookie("jwtToken", jwt);
-        cookie.setMaxAge(60*60); // 7 days
-        response.addCookie(cookie);
-
-        response.addHeader("Authorization", "Bearer " + jwt);
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ADMIN"));
@@ -50,8 +39,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         HttpSession session = request.getSession();
         session.setAttribute("username", authentication.getName());
-        Employee employee = employeeService.findByUsername(authentication.getName());
-        session.setAttribute("employee", employee);
 
         if (isAdmin) {
             redirectStrategy.sendRedirect(request, response, "/admin");

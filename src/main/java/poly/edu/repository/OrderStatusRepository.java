@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import poly.edu.entity.Orderstatus;
 
 public interface OrderStatusRepository extends JpaRepository<Orderstatus, Integer> {
+    @Query(value = "select * from Orderstatus where orderstatusname = ?1", nativeQuery = true)
+    Orderstatus findByStatusName(String statusName);
 
-    @Query(value="select * from Orderstatus where Orderstatusname = ?1", nativeQuery = true)
+    @Query(value = "select * from Orderstatus where Orderstatusname = ?1", nativeQuery = true)
     Orderstatus findByOrderStatusName(String statusName);
 }

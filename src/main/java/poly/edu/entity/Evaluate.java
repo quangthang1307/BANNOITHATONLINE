@@ -32,10 +32,10 @@ public class Evaluate {
     @Column(name = "CustomerID")
     private Integer customerId;
 
-    @Column(name = "EvaluateStar")
+    @Column(name = "Evaluatestar")
     private Integer evaluateStar;
 
-    @Column(name = "EvaluateDate")
+    @Column(name = "Evaluatedate")
     private LocalDateTime evaluateDate;
 
     @Column(name = "Description")
