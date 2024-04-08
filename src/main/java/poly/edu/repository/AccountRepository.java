@@ -3,6 +3,7 @@ package poly.edu.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import poly.edu.entity.Account;
@@ -21,4 +22,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
+
+    @Query(value = "select * from Accounts where AccountID = ?", nativeQuery = true)
+    Account findByCustomerId(Integer customerId);
 }

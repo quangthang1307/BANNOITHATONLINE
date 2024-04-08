@@ -24,7 +24,6 @@ app.controller('ProfileController', function ($scope, $http, $window) {
         $scope.customerId = customerId;
 
         fetchProfiles(customerId);
-        console.log(customerId);
     });
 
     function fetchProfiles(customerId) {
@@ -50,6 +49,113 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             document.getElementById('updateProfileForm').style.display = 'inline';
     }
     
+    
+    
+    $scope.updateProfile = function () {
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var avatarValue = $("#image").val();
+        var isError = false;
+    
+        if (name == "" || name.length < 3) {
+          $("#nameError").text("Vui lòng nhập họ tên và tên phải lớn hơn 3 kí tự");
+          isError = true;
+        } else if (
+          !/^[a-zA-Z\sàáạãảăắằẳẵặâấầẩẫậèéẹẽẻêếềểễệđìíịĩỉòóọõỏôốồổỗộơớờởỡợùúụũủưứừửữựỳýỵỹỷÀÁẠÃẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẼẺÊẾỀỂỄỆĐÌÍỊĨỈÒÓỌÕỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚỤŨỦƯỨỪỬỮỰỲÝỴỸỶ']*$/u.test(
+            name
+          )
+        ) {
+          $("#nameError").text(
+            "Họ và tên không được chứa số hoặc ký tự đặc biệt"
+          );
+          isError = true;
+        } 
 
-      
+        if (email == "") {
+            $("#emailError").text("Vui lòng nhập Email");
+            isError = true;
+          } else if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+          ) {
+            $("#emailError").text(
+              "Email không sai định dạng"
+            );
+            isError = true;
+          } 
+          if (phone == "" ) {
+            $("#phoneError").text("Vui lòng nhập số điện thoại");
+            isError = true;
+          } else if (
+            !/^0\d{9}$/.test(
+                phone
+            )
+          ) {
+            $("#phoneError").text(
+              "Số điện thoại bắt buộc phải 10 chữ số và bắt đầu bằng số 0"
+            );
+            isError = true;
+          } else {
+            $scope.customer.account.email = email;
+            $scope.customer.name = name;
+            $scope.customer.phone = phone;
+            isError = false;
+          }
+        if (avatarValue != "") {
+          console.log("đã chọn ảnh");
+    
+          const imageInput = document.getElementById("image");
+    
+          const file = imageInput.files[0];
+          console.log(file);
+          const formData = new FormData();
+          formData.append("avatar", file);
+          const request = $http({
+            method: "PUT",
+            url: "/rest/customer/update-avatar/" + $scope.customer.customerId,
+            headers: {
+              transformRequest: angular.identity,
+              "Content-Type": undefined,
+            },
+            data: formData,
+          });
+          request
+            .then((response) => {
+              console.log(response.data);
+              $scope.customer.image = response.data.avatarName;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+        console.log(isError);
+        if (!isError) {
+            $http({
+                method: 'PUT',
+                url: '/rest/customer/' + $scope.customer.customerId,
+                data: $scope.customer
+            })
+            .then(function (response) {
+              $("#phoneError").text("");
+              Swal.fire({
+                icon: "success",
+                title: "Cập nhật thành công",
+                text: "Thông tin cá nhân đã được cập nhật !",
+                showConfirmButton: true,
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+              Swal.fire({
+                icon: "warning",
+                title: "Có lỗi xảy ra",
+                text: "Vui  lòng thử lại !",
+                showConfirmButton: true,
+              });
+            });
+        }
+      };
+    
+   
+  
 });

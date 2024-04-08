@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,8 +16,10 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import poly.edu.Service.CustomerService;
+import poly.edu.Service.ParamService;
 import poly.edu.entity.Account;
 import poly.edu.entity.Address;
 import poly.edu.entity.Customer;
@@ -24,6 +27,7 @@ import poly.edu.oauth2.CustomerOauth2User;
 import poly.edu.repository.AccountRepository;
 import poly.edu.repository.AddressRepository;
 import poly.edu.repository.CustomerRepository;
+import poly.edu.utils.validUtil;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +49,9 @@ public class CustomerRestController {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    ParamService paramService;
 
     @GetMapping("/rest/customer")
     public ResponseEntity<Customer> getCurrentUser() {
@@ -162,6 +169,7 @@ public class CustomerRestController {
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/api/customers/{id}")
     public ResponseEntity<?> deleteCustomer(@PathVariable Integer id) {
         customerService.delete(id);
@@ -249,5 +257,62 @@ public class CustomerRestController {
     // customerService.create(customer.get());
     // return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     // }
+    // cập nhật ảnh người dùng
+   
+    @PutMapping("/rest/customer/{customerId}")
+    public ResponseEntity<?> update(@RequestBody Customer newCustomer,Account newAccount,  @PathVariable Integer customerId) {
+        Account accountCustomer = accountRepository.findByCustomerId(customerId);
+        Map<String, String> errors = new HashMap<>();
+        try {
+            if (!customerRepository.existsById(customerId)) {
+                return ResponseEntity.notFound().build();
+            }
 
+            if (newCustomer.getName().isBlank()) {
+                errors.put("name", "Vui lòng nhập họ tên");
+            } else if (validUtil.containsSpecialCharacters(newCustomer.getName())
+                    || validUtil.containsNumber(newCustomer.getName())) {
+                errors.put("name", "Họ tên không được chứa số và kí tự đặt biệt");
+            }
+            if (newCustomer.getAccount().getEmail().isBlank()) {
+                errors.put("email", "Vui lòng nhập email");
+            } 
+            if (newCustomer.getPhone().isBlank()) {
+                errors.put("phone", "Vui lòng nhập số điện thoại");
+            } else if (validUtil.containsSpecialCharacters(newCustomer.getPhone())) {
+                errors.put("phone", "Số điện thoại không được chứa kí tự đặt biệt");
+            }
+            
+            if (!errors.isEmpty()) {
+                return ResponseEntity.ok(errors);
+            } else {
+                newCustomer.setName(newCustomer.getName());
+                newCustomer.setPhone(newCustomer.getPhone());
+                accountCustomer.setEmail(newCustomer.getAccount().getEmail());
+                customerRepository.save(newCustomer);
+                return ResponseEntity.ok(newCustomer);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.ok(null);
+        }
+
+    }
+    @PutMapping(value = "/rest/customer/update-avatar/{id}")
+    public ResponseEntity<?> putMethodName(@PathVariable int id, @RequestBody MultipartFile avatar) {
+        try {
+            Customer customer = customerRepository.findById(id).get();
+            String avatarName = paramService.saveFile(avatar, "/avatar").getName();
+            customer.setImage(avatarName);
+            System.out.println(avatarName);
+            Map<String, String> rs = new HashMap<String, String>();
+            rs.put("avatarName", avatarName);
+            customerRepository.save(customer);
+            return ResponseEntity.ok(rs);
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
+    
