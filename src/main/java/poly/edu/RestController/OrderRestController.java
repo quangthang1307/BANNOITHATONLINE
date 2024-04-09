@@ -285,16 +285,26 @@ public class OrderRestController {
         JSONArray response = new JSONArray();
         Optional<Order> order = orderRepository.findById(orderId);
         List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+        List<Flashsale> flash = new ArrayList<>();
     
         for (Orderdetails orderDetail : orderDetails) {
             JSONObject orderDetailJSON = new JSONObject();
             Sale sale = saleRepository.findByProductID(orderDetail.getProduct().getProductid());
-            Flashsale falshSale = flashSaleRepository.findByProduct(orderDetail.getProduct());            
+            List<Flashsale> falshSale = flashSaleRepository.findByProduct(orderDetail.getProduct());            
             boolean giamgia = false;
 
-            if (falshSale != null && falshSale.getStatus()) {
+            if(falshSale.size() > 0){
+                for (Flashsale f : falshSale) {
+                    if(f.getStatus()){
+                        flash.add(f);
+                        break;
+                    }
+                }
+            }
+
+            if (falshSale != null && flash.get(0).getStatus()) {
                 Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
-                        .findById(falshSale.getFlashSaleHourID());
+                        .findById(flash.get(0).getFlashSaleHourID());
                 if (flashSaleHour.isPresent()) {
                     if (flashSaleHour.get().getStatus()
                             && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
@@ -302,7 +312,7 @@ public class OrderRestController {
                             && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
                         Optional<Product> product = productRepository.findById(sale.getProductID());
                         product.get().setPricexuat(product.get().getPricexuat()
-                                - (product.get().getPricexuat() * falshSale.getPercent() / 100));
+                                - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
                                 orderDetail.setProduct(product.get());
                         giamgia = true;
                     }
