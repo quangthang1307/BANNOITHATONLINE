@@ -29,5 +29,5 @@ public interface FlashSaleRepository extends  JpaRepository<Flashsale, Integer> 
     @Query(value =  "SELECT * FROM Flashsale WHERE FlashsalehourID = ?", nativeQuery = true)
     List<Flashsale> findByFlashSaleHourID(Integer flashSaleHourID);
 
-    Flashsale findByProduct(Product product);
+    List<Flashsale> findByProduct(Product product);
 }
