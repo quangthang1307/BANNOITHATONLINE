@@ -79,7 +79,7 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
           ) {
             $("#emailError").text(
-              "Email không sai định dạng"
+              "Email sai định dạng"
             );
             isError = true;
           } 
