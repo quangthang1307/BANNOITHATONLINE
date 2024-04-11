@@ -1,20 +1,54 @@
-<!-- myModalEvaluate.html -->
 <style>
-    .rating-stars {
-        font-size: 36px; /* Kích thước lớn hơn cho ngôi sao */
+    /* Increase modal width and add space on both sides */
+    .modal-dialog {
+        width: 90%; /* Width of the modal */
+        max-width: 1200px; /* Maximum width */
+        margin: 0 auto; /* Center the modal horizontally */
     }
+
+    .modal-content {
+        padding: 40px; /* Padding inside the modal content */
+    }
+
+    .modal-body {
+        padding: 40px 0; /* Vertical padding for the modal body */
+    }
+
+    .modal-title {
+        font-size: 28px; /* Increase title font size */
+        margin-bottom: 30px; /* Bottom margin for the title */
+    }
+
+    .form-group {
+        margin-bottom: 30px; /* Bottom margin for form groups */
+    }
+
+    .rating-stars {
+        font-size: 48px; /* Larger star size */
+    }
+
     .star {
         cursor: pointer;
-        color: red; /* Màu đỏ ban đầu */
+        color: red; /* Initial star color */
     }
+
     .star.filled {
-        color: gold; /* Màu vàng cho ngôi sao đã được chọn */
+        color: gold; /* Filled star color */
     }
+
     .image-preview {
         max-width: 100%;
-        max-height: 200px;
+        max-height: 300px;
+        margin-top: 30px; /* Top margin for image preview */
+    }
+
+    .btn-upload {
+        margin-top: 30px; /* Top margin for upload button */
     }
 </style>
+
+
+
 
 <div class="modal-header">
     <h3 class="modal-title">Đánh giá sản phẩm</h3>
