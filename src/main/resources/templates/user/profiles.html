@@ -12,9 +12,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Profile</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
     <!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <link rel="stylesheet" href="taiNguyenCuaDung/css/theme1.css" />
 
@@ -62,58 +63,61 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-9 col-md-12 col-12">
-                            <div class="row wrap_content_account">
-                                <div class="col-lg-6 col-md-12 col-12 wrap_inforAccount" id="customer_sidebar">
-                                    <p class="title-detail">Thông tin tài khoản</p>
-                                    <p>
-                                        <strong>Tên đăng nhập:</strong><span> {{ customer.account.username }}</span>
-                                    </p>
-                                    <p>
-                                        <strong>Họ và tên:</strong><span><input type="text" value="{{ customer.name }}"
-                                                disabled />
-                                        </span>
-                                    </p>
-                                    <p>
-                                        <strong>Email:</strong><span><input type="text"
-                                                value="{{ customer.account.email }}" disabled /></span>
-                                    </p>
-                                    <p>
-                                        <strong>Số điện thoại:</strong><span><input type="text"
-                                                value=" {{ customer.phone }}" disabled /></span>
-                                    </p>
-                                    <div class="address">
-                                        <a id="view_address" href="/user/profile/pageaddress">Xem địa chỉ</a>
-                                    </div>
-                                    <button type="submit" ng-click="editProfile()" class="button">Chỉnh sửa</button>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-12 wrap_inforAccount" id="updateProfileForm"
-                                    style="display: none">
-                                    <p class="title-detail">CẬP NHẬT THÔNG TIN</p>
-                                    <form>
+                        <form ng-submit="updateProfile()" id="formAccount">
+                            <div class="col-lg-9 col-md-12 col-12">
+                                <div class="row wrap_content_account">
+                                    <div class="col-lg-8 col-md-12 col-12 wrap_inforAccount" id="customer_sidebar">
+                                        <p class="title-detail">Thông tin tài khoản</p>
                                         <p>
-                                            <strong>Họ và tên:</strong><span><input type="text"
-                                                    value="{{ customer.name }}" id="updatename" />
-                                            </span>
+                                            <strong>Tên đăng nhập:</strong>
+                                            <input type="text" class="form-control" placeholder="Tên đăng nhập"
+                                                value="{{customer.account.username}}" autocomplete="none" disabled />
                                         </p>
-                                        <!-- <p>
-                    <strong>Email:</strong><span><input type="text" value="{{ customer.account.email }}"
-                        id="updateemail" /></span>
-                  </p> -->
                                         <p>
-                                            <strong>Số điện thoại:</strong><span><input type="text"
-                                                    value=" {{ customer.phone }}" id="updatephone" /></span>
+                                            <strong>Họ và tên:</strong>
+                                            <input type="text" class="form-control" placeholder="Họ tên" name="name"
+                                                id="name" value="{{customer.name}}" autocomplete="none" />
+                                            <small id="nameError" class="text-danger"></small>
+                                        </p>
+                                        <p>
+                                            <strong>Email:</strong><input type="text" class="form-control"
+                                                placeholder="Email" name="email" id="email"
+                                                value="{{customer.account.email}}" autocomplete="none" />
+                                            <small id="emailError" class="text-danger"></small>
+                                        </p>
+                                        <p>
+                                            <strong>Số điện thoại:</strong><input type="text" class="form-control"
+                                                placeholder="Số điện thoại" name="phone" id="phone"
+                                                value="{{customer.phone}}" autocomplete="none" />
+                                            <small id="phoneError" class="text-danger"></small>
                                         </p>
                                         <div class="address">
                                             <a id="view_address" href="/user/profile/pageaddress">Xem địa chỉ</a>
                                         </div>
-                                        <button type="submit" ng-click="updateProfile()" class="button">Cập
-                                            nhật</button>
-                                    </form>
+                                        <button type="submit" class="button">Lưu</button>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-12 wrap_inforAccount">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="XWsmVn col-12 d-flex  justify-content-center mb-2">
+                                                    <div class="img" id="imageContainer"
+                                                        style="background-image: url('../../../images/avatar/{{customer.image!=null?customer.image:'default-avatar.jpg'}}')">
+                                                    </div>
+                                                </div>
+                                                <input type="file" accept=".jpg,.jpeg,.png" name="avatar" id="image" />
+                                                <small id="imageError" class="text-danger"></small>
+                                                <div class="L4SAGB col-12 mb-2">
+                                                    <div class="SlaeTm text-center text-muted">Dung lượng file
+                                                        tối đa 1 MB</div>
+                                                    <div class="SlaeTm  text-center text-muted">Định dạng:
+                                                        .JPEG, .PNGm .JPG</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

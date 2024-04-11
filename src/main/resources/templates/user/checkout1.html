@@ -39,6 +39,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         #paymentMethod {
@@ -49,11 +50,7 @@
         }
 
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+        
     </style>
 
     <!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -83,155 +80,45 @@
 </head>
 
 <body>
-
     <div data-th-insert="~{include/navbar.html}"></div>
-
     <div class="container-fluid" ng-controller="checkoutController">
-
-        <div class="kimi-container">
-            <!--breadcrumb start-->
-            <ol class="breadcrumb hidden-xs">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shoppingCart.html">Cart</a></li>
-                <li>Customer Information</li>
-                <li>Shipping Mehtod</li>
-                <li>Payment Method</li>
-            </ol>
             <div class="clearfix"></div>
-
-            <div class="box-bg-gray visible-xs less-padding-left">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-
-                <a style="margin-right: 15px;" class="text-black" role="button" data-toggle="collapse"
-                    href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Show Order Summary <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-
-                <strong class="pull-right">IDR 225.000</strong>
-
-                <div class="clearfix"></div>
-                <div class="collapse" id="collapseExample">
-                    <div class="row">
-                        <div class="box-bg-gray">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <img src="images/brownies.jpg" width="100%">
-                                </div>
-                                <div class="col-xs-5">
-                                    <span>Brownies Chocolate</span><br />
-                                    <small>Sucicakes</small>
-                                </div>
-                                <div class="col-xs-4">
-                                    <p class="text-right">IDR 50.000</p>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <img src="images/lapisSurabaya.jpg" width="100%">
-                                </div>
-                                <div class="col-xs-5">
-                                    <span>Brownies Chocolate</span><br />
-                                    <small>Sucicakes</small>
-                                </div>
-                                <div class="col-xs-4">
-                                    <p class="text-right">IDR 50.000</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <form class="form-inline">
-                                <div class="col-xs-8">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="" placeholder="Discount Code">
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button type="submit" class="btn btn-default button-black-medium">Apply</button>
-                                </div>
-                            </form>
-                            <hr />
-
-                            <div class="row">
-                                <div class="col-xs-6">Subtotal</div>
-                                <div class="col-xs-6">
-                                    <p class="text-right"><strong>IDR 207.000</strong></p>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-6">Shipping + Trx Fee</div>
-                                <div class="col-xs-6">
-                                    <p class="text-right"><strong> - </strong></p>
-                                </div>
-                            </div>
-
-                            <hr />
-
-                            <div class="pull-left">Total</div>
-                            <div class="pull-right"><strong>IDR 232.000</strong></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clearfix"></div>
-
             <div class="row">
                 <div class="col-md-7">
-                    <div class="box-bg-white" style="width:100%">
-                        <h3 class="section-title">Thông tin người mua: </h3>
-
+                    <div class="box-bg-white" style="width:100%">                        
                         <div class="row">
                             <div class="col-md-12">
                                 <form>
-                                    <div class="form-group row">
-                                        <p for="fullname" class="col-sm-2 col-form-label"
-                                            style="margin-top: 5px; font-weight: bold;">Họ và tên:</p>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="fullname"
-                                                ng-model="customer.name" disabled>
+                                    <div class="form-group">
+                                        <label for="fullname"><i class="fas fa-user"></i> Họ và tên:</label>
+                                        <input type="text" class="form-control" id="fullname" ng-model="customer.name" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone"><i class="fas fa-phone"></i> Số điện thoại:</label>
+                                        <input type="text" class="form-control" id="phone" ng-model="customer.phone" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email"><i class="fas fa-envelope"></i> Địa chỉ email:</label>
+                                        <input type="email" class="form-control" id="email" ng-model="customer.account.email" disabled>
+                                    </div>
+                        
+                                    <!-- Địa chỉ -->
+                                    <h4><i class="fas fa-map-marker-alt"></i> Địa chỉ của bạn:</h4>
+                                    <div class="form-group" style="margin-bottom: 5%;">
+                                        <div class="radio" ng-repeat="addr in address" style="margin-bottom: 1%;">
+                                            <label>
+                                                <input type="radio" ng-model="selectedAddress" ng-value="addr.addressID" ng-checked="selectedAddressID === addr.addressID" name="addressGroup" ng-change="onAddressSelected(addr)" ng-click="isSelectedAddress(addr)">
+                                                Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <p for="fullname" class="col-sm-2 col-form-label"
-                                            style="margin-top: 5px; font-weight: bold;">Số điện thoại:</p>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="" ng-model="customer.phone"
-                                                disabled>
-                                        </div>
+                        
+                                    <!-- Thay đổi địa chỉ -->
+                                    <div class="form-group">
+                                        <label>Bạn muốn thay đổi địa chỉ khác?</label>
+                                        <a href="#" class="btn btn-primary" ng-click="showSelectedInfoModal()"><i class="fas fa-edit"></i> Thay đổi</a>
                                     </div>
-
-                                    <div class="form-group row" style="margin-bottom: 5%;">
-                                        <p for="fullname" class="col-sm-2 col-form-label"
-                                            style="margin-top: 5px; font-weight: bold;">Địa chỉ email:</p>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id=""
-                                                ng-model="customer.account.email" disabled>
-                                        </div>
-                                    </div>
-
-
-                                    
-                                    <!-- Trong template HTML của bạn -->
-                                    <span>Địa chỉ của bạn:</span>
-                                    <div style="margin-bottom: 5%; margin-top: 1%;">
-                                        <div class="form-check" ng-repeat="addr in address" style="margin-bottom: 1%;">
-                                            <input class="form-check-input"  type="radio" id="{{addr.addressID}}" ng-model="selectedAddress" value="{{addr.addressID}}" ng-checked="selectedAddressID === addr.addressID"
-                                                name="addressGroup" ng-change="onAddressSelected(addr)" ng-click="isSelectedAddress(addr)"  />
-                                            <span class="form-check-label" style="margin: 17px;"> Số nhà: {{addr.sonha }} - Đường: {{addr.duong}} - {{ addr.phuongxa }} - {{ addr.quanhuyen }} - {{ addr.tinhthanhpho }}</span>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <span>Bạn muốn thay đổi địa chỉ khác ?</span>
-                                    <a class="" ng-click="showSelectedInfoModal()">Thay đổi</a>
-
-
-                                    
-                                    
-
+                                </form>
                                 <div style="margin-bottom: 20px;">
                                     <label>Chọn phương thức thanh toán:</label>
                                     <select id="paymentMethod" class="form-control" ng-model="selectedPaymentMethod"
@@ -245,11 +132,11 @@
                                     style="border-radius: 10px;">Giỏ hàng</a>
                                 <a id="checkoutButtonF" ng-click="continuePayment()"
                                     class="btn btn-default pull-right btn-primary hidden-xs"
-                                    style="border-radius: 10px;">Tiếp tục thanh toán</a>
+                                    style="border-radius: 10px; color: white;">Tiếp tục thanh toán</a>
 
                                     <a id="checkoutButtonL" ng-click="continuePayment()"
                                     class="btn btn-default pull-right btn-primary hidden-xs"
-                                    style="border-radius: 10px;">Thanh toán</a>
+                                    style="border-radius: 10px; ">Thanh toán</a>
 
 
                                 <div class="clearfix maya-small-padding"></div>
@@ -262,7 +149,7 @@
 
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-5 mt-4">
                     <div class="box-bg-white hidden-xs" style="width: 100%;">
                         <div class="row" ng-repeat="payment in products">
                             <div ng-repeat="product in payment.Product">
@@ -270,11 +157,11 @@
                                     <img class="img img-thumbnail" ng-src="{{product.imageUrl}}" width="100%">
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-xs-12">
-                                    <span>{{product.product.productname}}</span><br />
-                                    <span class="text-gray-2 text-thin">Số lượng : {{product.quantity}}</span>
+                                    <span ng-bind="product.product.productname"></span><br />
+                                    <span class="text-gray-2 text-thin" ng-bind="'Số lượng: ' + product.quantity"></span>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-xs-5">
-                                    <p class="text-right">{{product.product.pricexuat | currency : '' :0}} VND</p>
+                                    <p style="color: blue; font-weight: bold;" class="text-right" ng-bind="(product.product.pricexuat | currency : '' :0) + ' VND'"></p>
                                 </div>
                                 <div class="clearfix maya-small-padding"></div>
                             </div>
@@ -297,13 +184,13 @@
                         <hr />
 
                         <div class="row">
-                            <div class="col-sm-8">Tổng tiền</div>
-                            <div class="col-sm-4 text-right">{{products[0].TotalPayment | currency : '' :0}} VND</div>
+                            <div class="col-sm-8">Tổng tiền: </div>
+                            <div style="color: blue;" class="col-sm-4 text-right" ng-bind="(products[0].TotalPayment | currency : '' :0) + ' VND'"></div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-8 less">Tiền giảm giá: </div>
-                            <div class="col-sm-4 text-right">{{valueDiscountCode | currency : '' :0}} VND</div>
+                            <div style="color: blue;" class="col-sm-4 text-right" ng-bind="(valueDiscountCode | currency : '' :0) + ' VND'"></div>
                         </div>
 
 
@@ -311,8 +198,7 @@
                         <div class="row">
                             <div class="col-sm-4 less">Số tiền cần thanh toán</div>
                             <div class="col-sm-8 text-right">
-                                <h3 class="less-margin">{{products[0].TotalPayment - valueDiscountCode | currency : ''
-                                    :0}} VND</h3>
+                                <h3 style="color: red;" class="less-margin" ng-bind="(products[0].TotalPayment - valueDiscountCode | currency : '':0) + ' VND'"></h3>
                             </div>
                         </div>
                     </div>
@@ -320,26 +206,10 @@
 
 
 
-                    <div class="box-bg-white" style="width: 100%;">
-                        <div class="clearfix maya-small-padding"></div>
-                        <h3 class="text-right text-oswald">Need Help ? </h3>
-                        <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call
-                            or write question by email</p>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="text-right">+62 21 567898765<br><a class="text-black text-underline"
-                                        href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
-                            </div>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div>
-                    </div>
+                   
                 </div>
             </div>
-        </div>
+   
 
     </div><!-- /.container -->
 

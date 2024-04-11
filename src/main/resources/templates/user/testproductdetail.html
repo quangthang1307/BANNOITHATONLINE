@@ -266,8 +266,8 @@
 
                                     <span class="pro-soldold">Tình trạng:
 
-                                        <strong>Còn hàng</strong>
-
+                                        <strong ng-if="checkInventory(productdetail.productid)">Còn hàng</strong>
+                                        <strong ng-if="!checkInventory(productdetail.productid)">Hết hàng</strong>
                                     </span>
                                     <span class="pro-vendor">Thương hiệu: <strong><a title="Show vendor"
                                                 href="/collections/vendors?q=floral"
@@ -526,7 +526,7 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <div class="addcart-area">
+                                        <div class="addcart-area" ng-if="checkInventory(productdetail.productid)">
                                             <button type="button" id="add-to-cart"
                                                 class="add-to-cartProduct button dark btn-addtocart addtocart-modal"
                                                 name="add" ng-click="addToCart(productdetail)"><span>Thêm vào giỏ</span></button>
@@ -538,7 +538,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="product-toshare">
+                                <!-- <div class="product-toshare">
                                     <span>Chia sẻ: </span>
                                     <a href="//www.facebook.com/sharer/sharer.php?u=https://baya.vn/products/salad-bowl-floral"
                                         target="_blank" class="share-facebook" previewlistener="true">
@@ -582,7 +582,7 @@
                                         <i class="fa fa-link" aria-hidden="true"></i>
                                         <span class="ico-tooltip d-none">Đã sao chép</span>
                                     </a>
-                                </div>
+                                </div> -->
                                 <div class="row product-deliverly">
                                     <div class="col-lg-6 col-md col-12 deliverly-inner">
                                         <div class="title-deliverly">

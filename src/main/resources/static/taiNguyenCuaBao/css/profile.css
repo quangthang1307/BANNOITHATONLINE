@@ -699,3 +699,14 @@ button {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+/* Hình ảnh */
+#imageContainer {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: 2px solid #ccc;
+}

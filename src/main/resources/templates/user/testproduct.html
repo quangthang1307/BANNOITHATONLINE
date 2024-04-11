@@ -659,7 +659,7 @@
                                                             <li><span data-value="title-descending"
                                                                     ng-click="clickFilter(4)">Tên:
                                                                     Z-A</span></li>
-                                                            <li><span data-value="created-ascending"
+                                                            <!-- <li><span data-value="created-ascending"
                                                                     data-filter="(updated_at:product=asc)">Cũ
                                                                     nhất</span></li>
                                                             <li><span data-value="created-descending"
@@ -670,7 +670,7 @@
                                                                     chạy nhất</span></li>
                                                             <li><span data-value="quantity-descending"
                                                                     data-filter="(quantity:product=desc)">Tồn kho
-                                                                    giảm dần</span></li>
+                                                                    giảm dần</span></li> -->
                                                         </ul>
                                                     </div>
 
@@ -694,8 +694,9 @@
                                                 <div class="filter_tags"></div>
 
                                                 <div ng-class="{'opened' : filterByCategory}" class="filter_tags ">
-                                                    Nhà cung cấp: <b ng-repeat="category in CheckboxCategory"
-                                                        ng-if="category.isChecked">{{category.name}},</b>
+                                                    Danh mục: <b ng-repeat="category in CheckboxCategory"
+                                                        ng-if="category.isChecked"> {{category.name}},</b>
+                                                        
                                                     <!-- <span class="filter_tags_remove">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
@@ -732,13 +733,13 @@
                                                     </div>
                                                     <div class="pro-sale"
                                                         ng-if="isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
-                                                        <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
+                                                        <span>Flashsale -{{getPercentFlashSaleForProduct(product.productid)}}%</span>
 
                                                     </div>
                                                     <div class="pro-sale"
                                                         ng-if="!isProductInSale(product.productid) && isProductInFlashSale(product.productid)">
-                                                        <span>-{{getPercentFlashSaleForProduct(product.productid)}}%</span>
-
+                                                        <span>Flashsale -{{getPercentFlashSaleForProduct(product.productid)}}%</span>
+                                                        
                                                     </div>
 
                                                     <div class="product--image">
@@ -820,7 +821,8 @@
                                                         <span class="price">{{product.pricexuat | number }}₫</span>
                                                     </p>
 
-                                                    <div class="proloop-actions" data-vrid="1117380330">
+                                                    
+                                                    <div ng-if="checkInventory(product.productid)" class="proloop-actions" data-vrid="1117380330">
                                                         <div class="proloop-actions__inner">
                                                             <div class="actions-primary">
                                                                 <button type="submit"
@@ -848,6 +850,8 @@
 
                                                         </div>
                                                     </div>
+                                                    <div ng-if="!checkInventory(product.productid)" class="text-danger">Hết hàng</div>
+
                                                 </div>
                                             </div>
                                         </div>

@@ -51,14 +51,11 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Sản Phẩm</h4>
+                        <h4 class="page-title">Đơn hàng | Chi tiết đơn hàng</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Sản Phẩm
-                                    </li>
                                 </ol>
                             </nav>
                         </div>
@@ -82,80 +79,31 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
-                                <h5 class="card-title fw-bold">Danh Sách Flash Sale</h5>
-                                <a class="btn btn-sm btn-info rounded" href="/admin/formpromotionflashsale">Thêm Flash Sale</a>
+                                <h5 class="card-title fw-bold">Chi tiết đơn hàng</h5>
                             </div>
-                            
+
                             <div class="table-responsive">
 
                                 <table id="zero_config" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-center fw-bold">ID</th>
-                                            <th class="text-center fw-bold">Khung giờ</th>
-                                            <th class="text-center fw-bold">Ngày bắt đầu</th>
-                                           
-                                            <th class="text-center fw-bold">Hiển thị</th>
-                                            <th class="text-center fw-bold">Lặp lại</th>          
-                                            <th class="text-center fw-bold">Thao tác</th>
-                                            
+                                            <th class="text-center fw-bold">Mã hóa đơn</th>
+                                            <th class="text-center fw-bold">Tên sản phẩm</th>
+                                            <th class="text-center fw-bold">Ngày mua</th>
+                                            <th class="text-center fw-bold">Trạng thái</th>
+                                            <th class="text-center fw-bold">Tổng tiền</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                        <tr class="text-center" th:each="flashsale : ${flashsalehour}">
-                                            <td th:text="${flashsale.ID}"></td>
-                                            <td>
-                                            Từ:
-                                                <span class="fw-bold " th:text="${flashsale.hourStart}"></span>
-                                            - Đến: 
-                                                <span class="fw-bold" th:text="${flashsale.hourEnd}"></span>
+                                    <tbody class="text-center">
+                                        <tr th:each="orderDetail : ${order.orderDetails}">
+                                            <td th:text="${order.OrderID}"></td>
+                                            <td th:text="${orderDetail.product.productname}">
                                             </td>
-                                            <td th:text="${flashsale.dateStart}"></td>
-                                        
-                                            <td th:if="${flashsale.status}">
-                                                <small style="border-radius: 5px;"
-                                                    class=" bg-success text-center text-white p-1">Đang hoạt
-                                                    động</small>
-                                            </td>
-                                            <td th:if="${!flashsale.status}">
-                                                <small style="border-radius: 5px;" class=" bg-danger text-center text-white p-1">Đang
-                                                    ngừng</small>
-                                            </td>
-                                            <td >
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'NONE'}">Không lặp lại</span>
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'DAY'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' ngày'"></span>
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'WEEK'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tuần'"></span>
-                                                <span th:if="${#strings.trim(flashsale.FrequencyFor) == 'MONTH'}" th:text="'Mỗi ' + ${flashsale.Frequency} + ' tháng'"></span>
-                                            </td>
-
-
-
-
-
-
-
-
-                                          
-
-
-
-
-                                            <td><button type="button" class="btn btn-danger"
-                                                >
-                                                <i class="bi bi-trash"
-                                                    ></i>
-
-                                            </button>
-
-                                            <a  class="btn btn-info"  th:href="@{/admin/formpromotionflashsale/{flashsalehourId}(flashsalehourId=${flashsale.ID})}"
-                                            >
-                                                <i class="bi bi-pencil-square "></i></a>
-
-                                            </td>
+                                            <td th:text="${#temporals.format(order.time, 'dd/MM/yyyy HH:mm:ss')}">
+                                            <td th:text="${order.orderstatus.orderstatusname}"></td>
+                                            <td th:text="${orderDetail.totalpayment}"></td>
 
                                         </tr>
-
                                     </tbody>
 
                                 </table>
@@ -205,6 +153,116 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+
+
+    <script>
+        const exampleModal = document.getElementById('modaladdproduct')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+
+                //   Button that triggered the modal
+                const button = event.relatedTarget;
+                // Extract info from data-bs-* attributes
+                const recipient = button.getAttribute('data-bs-whatever')
+                if (recipient === "null") {
+                    modalBodyInputBrand.selectedIndex = 0;
+                    modalBodyInputCategory.selectedIndex = 0;
+                    return;
+                }
+                // const recipient = JSON.parse(button.dataset.bsWhatever);
+                var mangPhanTu = recipient.split('{}');
+
+                var ID = mangPhanTu[0];
+                var Name = mangPhanTu[1];
+                var Description = mangPhanTu[2];
+                var PriceNhap = mangPhanTu[3];
+                var PriceXuat = mangPhanTu[4];
+                var Brand = mangPhanTu[5];
+                var Category = mangPhanTu[6];
+                var Active = mangPhanTu[7];
+
+                for (var i = 0; i <= 7; i++) {
+                    console.log(mangPhanTu[i]);
+                }
+
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+
+
+                modalButton.innerHTML = "Cập nhật"
+                modalTitle.textContent = `Cập nhật sản phẩm`
+                modalBodyInputID.value = ID;
+                modalBodyInputName.value = Name;
+                modalBodyInputDescription.value = Description;
+                modalBodyInputPriceNhap.value = PriceNhap;
+                modalBodyInputPriceXuat.value = PriceXuat;
+                modalBodyInputBrand.value = Brand;
+                modalBodyInputCategory.value = Category;
+                modalBodyInputActive.value = Active;
+
+
+
+                if (Active === "true") {
+                    modalBodyInputActive.checked = true;
+                }
+                else {
+                    modalBodyInputActive.checked = false;
+                }
+
+
+            })
+
+            exampleModal.addEventListener('hide.bs.modal', event => {
+                // Xử lý khi modal đóng ở đây
+                console.log('Modal đóng.');
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+                modalButton.innerHTML = "Thêm"
+                modalTitle.textContent = `Thêm sản phẩm`
+                modalBodyInputID.value = "";
+                modalBodyInputName.value = ""
+                modalBodyInputDescription.value = "";
+                modalBodyInputPriceNhap.value = "";
+                modalBodyInputPriceXuat.value = "";
+                modalBodyInputBrand.value = "";
+                modalBodyInputCategory.value = "";
+                modalBodyInputActive.value = "false";
+
+
+                modalBodyInputActive.checked = false;
+
+
+
+            });
+        }
+    </script>
+
+
 
     <script>
         function confirmDelete(saleId) {

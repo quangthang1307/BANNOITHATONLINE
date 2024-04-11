@@ -13,6 +13,9 @@ public interface CategoryProductRepository extends JpaRepository<Categoryproduct
     @Query(value = "SELECT * FROM Categoryproduct WHERE IDcapcha IS NOT NULL", nativeQuery = true)
     List<Categoryproduct> getAllCategoryProductCapCon();
 
+    @Query(value = "SELECT * FROM Categoryproduct WHERE IDcapcha IS NULL", nativeQuery = true)
+    List<Categoryproduct> getAllCategoryProductCapCha();
+
     @Query(value = "SELECT * FROM Categoryproduct WHERE ID IN (SELECT ID FROM Categoryproduct WHERE IDcapcha IN :categoryIDs)", nativeQuery = true)
     List<Categoryproduct> findCategoryByRoom(@Param("categoryIDs") List<Integer> categoryIDs);
 

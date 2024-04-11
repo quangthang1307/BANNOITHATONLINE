@@ -31,4 +31,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByAccountUsername(String username);
 
     Customer findByAccount(Account account);
+
 }

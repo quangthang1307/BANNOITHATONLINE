@@ -1,6 +1,8 @@
 package poly.edu.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,18 +33,25 @@ import poly.edu.entity.Address;
 import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
+import poly.edu.entity.FlashSaleHour;
+import poly.edu.entity.Flashsale;
 import poly.edu.entity.Order;
 import poly.edu.entity.Orderdetails;
 import poly.edu.entity.Orderstatus;
 import poly.edu.entity.Payment;
 import poly.edu.entity.Product;
 import poly.edu.entity.ProductImage;
+import poly.edu.entity.Sale;
 import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
+import poly.edu.repository.FlashSaleHourRepository;
+import poly.edu.repository.FlashSaleRepository;
 import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
 import poly.edu.repository.OrderStatusRepository;
 import poly.edu.repository.ProductImageRepository;
+import poly.edu.repository.ProductRepository;
+import poly.edu.repository.SaleRepository;
 import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
@@ -72,6 +81,17 @@ public class OrderRestController {
 
     @Autowired
     ProductImageRepository productImageRepository;
+
+    @Autowired
+    SaleRepository saleRepository;
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    FlashSaleRepository flashSaleRepository;
+
+    @Autowired
+    FlashSaleHourRepository flashSaleHourRepository;
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
@@ -265,9 +285,50 @@ public class OrderRestController {
         JSONArray response = new JSONArray();
         Optional<Order> order = orderRepository.findById(orderId);
         List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+        List<Flashsale> flash = new ArrayList<>();
     
         for (Orderdetails orderDetail : orderDetails) {
             JSONObject orderDetailJSON = new JSONObject();
+            Sale sale = saleRepository.findByProductID(orderDetail.getProduct().getProductid());
+            List<Flashsale> falshSale = flashSaleRepository.findByProduct(orderDetail.getProduct());            
+            boolean giamgia = false;
+
+            if(falshSale.size() > 0){
+                for (Flashsale f : falshSale) {
+                    if(f.getStatus()){
+                        flash.add(f);
+                        break;
+                    }
+                }
+            }
+
+            if (falshSale != null && flash.get(0).getStatus()) {
+                Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
+                        .findById(flash.get(0).getFlashSaleHourID());
+                if (flashSaleHour.isPresent()) {
+                    if (flashSaleHour.get().getStatus()
+                            && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
+                            && flashSaleHour.get().getHourStart().isBefore(LocalTime.now())
+                            && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
+                        Optional<Product> product = productRepository.findById(sale.getProductID());
+                        product.get().setPricexuat(product.get().getPricexuat()
+                                - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
+                                orderDetail.setProduct(product.get());
+                        giamgia = true;
+                    }
+                }
+            }
+
+            if (sale != null && !giamgia) {
+                if (LocalDateTime.now().isAfter(sale.getDayStart())
+                        && LocalDateTime.now().isBefore(sale.getDayEnd())) {
+                    Optional<Product> product = productRepository.findById(sale.getProductID());
+                    product.get().setPricexuat(product.get().getPricexuat()
+                            - (product.get().getPricexuat() * sale.getPercent() / 100));
+                            orderDetail.setProduct(product.get());
+                }
+
+            }
             
             JSONObject productObject = new JSONObject();
             productObject.put("product", orderDetail.getProduct());

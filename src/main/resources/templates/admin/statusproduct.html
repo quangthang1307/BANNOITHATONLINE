@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+
+    <style>
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Tình trạng đơn hàng</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
+                                <h5 class="card-title fw-bold">Quản lý hóa đơn</h5>
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <table id="zero_config" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center fw-bold">Mã đơn hàng</th>
+                                            <th class="text-center fw-bold">Ngày tạo</th>
+                                            <th class="text-center fw-bold">Tổng tiền</th>
+                                            <th class="text-center fw-bold">Thông tin KH</th>
+                                            <th class="text-center fw-bold">Phương thức thanh toán</th>
+                                            <th class="text-center fw-bold">Trạng thái</th>
+                                            <th class="text-center fw-bold">Chi tiết HĐ</th>
+                                            <th class="text-center fw-bold">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center" th:each="orderItem : ${orders}">
+                                        <tr>
+                                            <td>
+                                                <span th:text="${orderItem.OrderID}"></span>
+                                            </td>
+                                            <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
+                                            </td>
+                                            <td th:text="${orderItem.sumpayment}"></td>
+                                            <td><a
+                                                    th:href="@{'/admin/statusproduct/findcustomer/' +${orderItem.customer.customerId}}"><button
+                                                        class="btn btn-primary btn-sm">Xem thông tin</button></a></td>
+                                            <td th:text="${orderItem.payment.paymentname}"></td>
+                                            <td>
+                                                <form th:action="@{/admin/invoice/update}" th:method="post">
+                                                    <select th:name="orderstatusname">
+                                                        <option th:each="status : ${statuses}"
+                                                            th:value="${status.orderstatusname}"
+                                                            th:text="${status.orderstatusname}"
+                                                            th:selected="${status.orderstatusname == orderItem.orderstatus.orderstatusname}">
+                                                        </option>
+                                                    </select>
+                                                    <input type="hidden" th:name="OrderID"
+                                                        th:value="${orderItem.OrderID}">
+                                                    <input type="submit" value="Cập nhật">
+                                                </form>
+                                            </td>
+                                            <td><a th:href="@{'/admin/showinvoicedetails/' +${orderItem.OrderID}}"><button
+                                                        class="btn btn-info btn-sm">Xem</button></a>
+                                            </td>
+                                            <td>
+                                                <form th:action="@{'/admin/deleteoder/' + ${orderItem.OrderID}}"
+                                                    method="post">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tbody>
+
+                                        <tr class="text-center" th:each="sale : ${sales}">
+                                            <td th:text="${sale.saleID}"></td>
+                                            <td th:text="${sale.productID}"></td>
+                                            <td th:text="${sale.Percent} + '%'"></td>
+                                            <td th:if="${sale.status}">
+                                                <small style="border-radius: 5px;"
+                                                    class=" bg-success text-center text-white p-1">Đang hoạt
+                                                    động</small>
+                                            </td>
+                                            <td th:if="${!sale.status}">
+                                                <small style="border-radius: 5px;" class=" bg-danger text-center text-white p-1">Đang
+                                                    ngừng</small>
+                                            </td>
+                                            <th:block
+                                                th:with="now=${#temporals.createNow()}, 
+                    startDate=${#temporals.create(sale.dayStart.year, sale.dayStart.monthValue, sale.dayStart.dayOfMonth, sale.dayStart.hour, sale.dayStart.minute).plusSeconds(sale.dayStart.second)}, 
+                    endDate=${#temporals.create(sale.dayEnd.year, sale.dayEnd.monthValue, sale.dayEnd.dayOfMonth, sale.dayEnd.hour, sale.dayEnd.minute).plusSeconds(sale.dayEnd.second)}">
+                                                <td
+                                                    th:if="${now.compareTo(startDate) &gt; 0 and now.compareTo(endDate) &lt;= 0}">
+                                                    <small
+                                                        class="border border-2 border-success text-success rounded fw-bolder p-1 text-center">Đang
+                                                        khuyến mãi</small>
+                                                </td>
+                                                <td th:if="${now.isAfter(endDate)}">
+                                                    <small
+                                                        class="border border-2 border-danger text-danger rounded fw-bolder p-1 text-center">Đã
+                                                        kết thúc</small>
+                                                </td>
+                                                <td th:if="${now.isBefore(startDate)}">
+                                                    <small
+                                                        class="border border-2 border-warning text-warning rounded fw-bolder p-1 text-center">Chưa
+                                                        bắt đầu</small>
+                                                </td>
+                                            </th:block>
+
+
+
+
+
+
+
+
+                                            <td>
+                                                <small
+                                                    th:text="${#temporals.format(sale.dayStart, 'dd-MM-yyyy HH:mm:ss')}">
+                                                </small>
+                                                <br>
+                                                <small
+                                                    th:text="${#temporals.format(sale.dayEnd, 'dd-MM-yyyy HH:mm:ss')}">
+                                                </small>
+                                            </td>
+
+
+
+
+                                            <td><button type="button" class="btn btn-danger"
+                                                th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'">
+                                                <i class="bi bi-trash"
+                                                    th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'"></i>
+
+                                            </button>
+
+                                            <a  class="btn btn-info"  
+                                            th:href="@{/admin/products/form/{saleId}(saleId=${sale.saleID})}">
+                                                <i class="bi bi-pencil-square "></i></a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody> -->
+
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by Matrix-admin. Designed and Developed by
+            <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+
+    <script>
+        const exampleModal = document.getElementById('modaladdproduct')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+
+                //   Button that triggered the modal
+                const button = event.relatedTarget;
+                // Extract info from data-bs-* attributes
+                const recipient = button.getAttribute('data-bs-whatever')
+                if (recipient === "null") {
+                    modalBodyInputBrand.selectedIndex = 0;
+                    modalBodyInputCategory.selectedIndex = 0;
+                    return;
+                }
+                // const recipient = JSON.parse(button.dataset.bsWhatever);
+                var mangPhanTu = recipient.split('{}');
+
+                var ID = mangPhanTu[0];
+                var Name = mangPhanTu[1];
+                var Description = mangPhanTu[2];
+                var PriceNhap = mangPhanTu[3];
+                var PriceXuat = mangPhanTu[4];
+                var Brand = mangPhanTu[5];
+                var Category = mangPhanTu[6];
+                var Active = mangPhanTu[7];
+
+                for (var i = 0; i <= 7; i++) {
+                    console.log(mangPhanTu[i]);
+                }
+
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+
+
+                modalButton.innerHTML = "Cập nhật"
+                modalTitle.textContent = `Cập nhật sản phẩm`
+                modalBodyInputID.value = ID;
+                modalBodyInputName.value = Name;
+                modalBodyInputDescription.value = Description;
+                modalBodyInputPriceNhap.value = PriceNhap;
+                modalBodyInputPriceXuat.value = PriceXuat;
+                modalBodyInputBrand.value = Brand;
+                modalBodyInputCategory.value = Category;
+                modalBodyInputActive.value = Active;
+
+
+
+                if (Active === "true") {
+                    modalBodyInputActive.checked = true;
+                }
+                else {
+                    modalBodyInputActive.checked = false;
+                }
+
+
+            })
+
+            exampleModal.addEventListener('hide.bs.modal', event => {
+                // Xử lý khi modal đóng ở đây
+                console.log('Modal đóng.');
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+                modalButton.innerHTML = "Thêm"
+                modalTitle.textContent = `Thêm sản phẩm`
+                modalBodyInputID.value = "";
+                modalBodyInputName.value = ""
+                modalBodyInputDescription.value = "";
+                modalBodyInputPriceNhap.value = "";
+                modalBodyInputPriceXuat.value = "";
+                modalBodyInputBrand.value = "";
+                modalBodyInputCategory.value = "";
+                modalBodyInputActive.value = "false";
+
+
+                modalBodyInputActive.checked = false;
+
+
+
+            });
+        }
+    </script>
+
+
+
+    <script>
+        function confirmDelete(saleId) {
+            if (confirm("Bạn có chắc muốn xóa không?")) {
+                window.location.href = '/admin/deletesale/' + saleId;
+            }
+            return false;
+        }
+    </script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

@@ -165,7 +165,7 @@ public class FlashSaleScheduler {
         }
         // Nếu Lặp theo tháng
         if (flashSaleHour.getFrequencyFor().trim().equals("MONTH")) {
-            while (!check) { // Vòng lặp vô hạn
+            while (!check) {
                 targetDateTime = targetDateTime.plusMonths(flashSaleHour.getFrequency());
                 targetDateTime = LocalDateTime.of(targetDateTime.toLocalDate(), flashSaleHour.getHourStart());
                 System.out.println(targetDateTime);

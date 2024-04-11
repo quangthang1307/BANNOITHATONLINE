@@ -218,6 +218,10 @@ app.controller("productController", function ($scope, $http, $window) {
         $http.get(api)
             .then(function (response) {
                 $scope.categorys = response.data;
+                if ($scope.categorys.length <= 0) {
+                    console.log("trống");
+                    return;
+                }
                 console.log("Success", $scope.categorys[0].productname);
                 console.log("Success", $scope.categorys.length);
 
