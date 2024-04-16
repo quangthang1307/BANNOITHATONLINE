@@ -66,13 +66,62 @@ app.controller("checkoutController", [
 
     $scope.discount = function () {
       if ($scope.discountCode.length > 0) {
-        $http.get(hostListDiscount).then((resp) => {
-          var trust = resp.data.find((element) => {
-            const currentDate = new Date();
-            const startDate = new Date(element.startDate);
-            const endDate = new Date(element.endDate);
-            if ($scope.discountCode === element.code) {
-              if (!(currentDate >= startDate && currentDate <= endDate)) {
+
+        $http.get("/rest/discount/check", {
+          params: {
+              username: $scope.customer.account.username,
+              discountCode: $scope.discountCode
+          }
+      }).then((resp) => {
+          if (resp.status === 200) {
+            $http.get(hostListDiscount).then((resp) => {
+              var trust = resp.data.find((element) => {
+                const currentDate = new Date();
+                const startDate = new Date(element.startDate);
+                const endDate = new Date(element.endDate);
+                if ($scope.discountCode === element.code) {
+                  if (!(currentDate >= startDate && currentDate <= endDate)) {
+                    $scope.discountCode = "";
+                    Swal.fire({
+                      title: "Mã giảm giá không hợp lệ !",
+                      icon: "error",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      customClass: {
+                        popup: "custom-popup-class",
+                        title: "custom-title-class",
+                      },
+                    });
+                    return false;
+                  } else if (element.quantityUsed >= element.quantity) {
+                    $scope.discountCode = "";
+                    Swal.fire({
+                      title: "Mã giảm giá đã hết lượt sử dụng !",
+                      icon: "error",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      customClass: {
+                        popup: "custom-popup-class",
+                        title: "custom-title-class",
+                      },
+                    });
+                    return false;
+                  } else if (
+                    currentDate >= startDate &&
+                    currentDate <= endDate &&
+                    element.quantityUsed < element.quantity
+                  ) {
+                    $scope.valueDiscountCode =
+                      ($scope.products[0].TotalPayment * element.percent) / 100;
+                    return true;
+                  }
+                }
+                return false;
+              });
+    
+              if (!trust) {
+                console.log($scope.valueDiscountCode);
+                $scope.valueDiscountCode = 0;
                 $scope.discountCode = "";
                 Swal.fire({
                   title: "Mã giảm giá không hợp lệ !",
@@ -84,49 +133,29 @@ app.controller("checkoutController", [
                     title: "custom-title-class",
                   },
                 });
-                return false;
-              } else if (element.quantityUsed >= element.quantity) {
-                $scope.discountCode = "";
-                Swal.fire({
-                  title: "Mã giảm giá đã hết lượt sử dụng !",
-                  icon: "error",
-                  showConfirmButton: false,
-                  timer: 3000,
-                  customClass: {
-                    popup: "custom-popup-class",
-                    title: "custom-title-class",
-                  },
-                });
-                return false;
-              } else if (
-                currentDate >= startDate &&
-                currentDate <= endDate &&
-                element.quantityUsed < element.quantity
-              ) {
-                $scope.valueDiscountCode =
-                  ($scope.products[0].TotalPayment * element.percent) / 100;
-                return true;
               }
-            }
-            return false;
-          });
-
-          if (!trust) {
-            console.log($scope.valueDiscountCode);
-            $scope.valueDiscountCode = 0;
-            $scope.discountCode = "";
-            Swal.fire({
-              title: "Mã giảm giá không hợp lệ !",
-              icon: "error",
-              showConfirmButton: false,
-              timer: 3000,
-              customClass: {
-                popup: "custom-popup-class",
-                title: "custom-title-class",
-              },
             });
+          } else {
+              console.log("BadRequest");
           }
-        });
+      }).catch((error) => {
+          console.error("Error occurred:", error);
+          $scope.discountCode = "";
+          Swal.fire({
+            title: "Bạn đã vượt số lần dùng mã giảm giá này !",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: {
+              popup: "custom-popup-class",
+              title: "custom-title-class",
+            },
+          });
+      });
+      
+
+
+        
       }
       // Dời kiểm tra xuống đây để đảm bảo kiểm tra sau khi vòng lặp kết thúc
     };
@@ -239,6 +268,7 @@ app.controller("checkoutController", [
             });
             return;
           }
+          
 
           // Nếu có mã giảm giá
           if ($scope.valueDiscountCode > 0) {

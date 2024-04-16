@@ -102,7 +102,18 @@ public class OrderRestController {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
                 List<DiscountUsage> usageList = discountUsageRepository
                         .findAllByCustomerId(order.getCustomer().getCustomerId());
-                if (usageList.size() < discount.get().getMaxUsage()) {
+
+                        int countDiscount = 0;
+                        for (DiscountUsage list : usageList) {
+                            if(list.getDiscount().getCode().equals(order.getDiscount().getCode())){
+                                countDiscount++;
+                            }
+                            if (countDiscount >= discount.get().getMaxUsage()) {
+                                break;
+                            }
+                        }
+
+                if (countDiscount >= discount.get().getMaxUsage()) {
                     if (discount.isPresent()) {
                         discount.get().setQuantityUsed(discount.get().getQuantityUsed() + 1);
                         discountService.update(discount.get());
@@ -111,7 +122,7 @@ public class OrderRestController {
                         usage.setDiscount(order.getDiscount());
                         usage.setUseddate(LocalDateTime.now());
                         discountUsageRepository.save(usage);
-                    }
+                    } 
                 }
             }
 
@@ -138,7 +149,18 @@ public class OrderRestController {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
                 List<DiscountUsage> usageList = discountUsageRepository
                         .findAllByCustomerId(order.getCustomer().getCustomerId());
-                if (usageList.size() < discount.get().getMaxUsage()) {
+
+                        int countDiscount = 0;
+                        for (DiscountUsage list : usageList) {
+                            if(list.getDiscount().getCode().equals(order.getDiscount().getCode())){
+                                countDiscount++;
+                            }
+                            if (countDiscount >= discount.get().getMaxUsage()) {
+                                break;
+                            }
+                        }
+
+                if (countDiscount < discount.get().getMaxUsage()) {
                     if (discount.isPresent()) {
                         discount.get().setQuantityUsed(discount.get().getQuantityUsed() + 1);
                         discountService.update(discount.get());
@@ -147,7 +169,7 @@ public class OrderRestController {
                         usage.setDiscount(order.getDiscount());
                         usage.setUseddate(LocalDateTime.now());
                         discountUsageRepository.save(usage);
-                    }
+                    } 
                 }
             }
 
