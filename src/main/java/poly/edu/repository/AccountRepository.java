@@ -24,4 +24,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query("SELECT ar.account FROM AccountRole ar WHERE ar.role.id <> 1")
     List<Account> findAll();
+
+    @Query(value = "select * from Accounts where AccountID = ?", nativeQuery = true)
+    Account findByCustomerId(Integer customerId);
 }
