@@ -53,13 +53,13 @@ public class OrderController {
 
     @RequestMapping("/admin/invoice")
     public String showAdminOrder(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("orders", orderRepository.findOrderAll());
         return "admin/admininvoice";
     }
 
     @RequestMapping("/admin/statusproduct")
     public String showAdminstatusproduct(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("orders", orderRepository.findOrderAll());
         model.addAttribute("statuses", orderStatusRepository.findAll());
         return "admin/statusproduct";
     }

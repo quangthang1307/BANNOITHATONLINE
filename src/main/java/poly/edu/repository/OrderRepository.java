@@ -31,4 +31,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value = "SELECT * FROM dbo.[Order] WHERE CustomerID = ?", nativeQuery = true)
 	List<Order> findByCustomerid(int id);
+
+    @Query(value = "SELECT * FROM dbo.[Order] order by [Time] desc", nativeQuery = true)
+	List<Order> findOrderAll();
 }
