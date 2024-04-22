@@ -132,6 +132,32 @@ var chart2 = Highcharts.chart('container1', {
     }]
 });
 
+var char3 = Highcharts.chart('container2', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Bảng thống kê doanh thu của 7 ngày gần nhất',
+        align: 'left'
+    },
+    xAxis: {
+        categories: ['6 ngày', '5 ngày', '4 ngày', '3 ngày', '2 ngày', '1 ngày', 'Hôm nay'],
+        crosshair: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [
+        {
+            name: 'Doanh thu',
+            data: sumpaymentLast7Days
+        },
+    ]
+});
+
 $('#yearForm').submit(function (event) {
     event.preventDefault();
     var selectedYear = $('#year').val();

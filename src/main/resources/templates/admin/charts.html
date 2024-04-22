@@ -59,6 +59,16 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
 
+        <div class="row mt-2">
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="container2"></div>
+              <p class="highcharts-description">
+              </p>
+            </figure>
+          </div>
+        </div>
+
         <form id="yearForm" action="/admin/statistics" method="get">
           <label for="year">Chọn năm:</label>
           <select id="year" name="selectedYear">
@@ -69,7 +79,7 @@
         </form>
 
         <div class="row mt-2">
-          
+
           <div class="col-6">
             <figure class="highcharts-figure">
               <div id="container"></div>
@@ -95,9 +105,8 @@
           var sumpayment = [[${ message }]];
           //  var sumpaymentWithVNPay = [[${ message2 }]];
           var chartData = [[${ chartData }]];
+          var sumpaymentLast7Days = [[${ totalSumpaymentsLast7Days }]];
         </script>
-
-
 
         <!-- End Charts -->
         <!-- ============================================================== -->
