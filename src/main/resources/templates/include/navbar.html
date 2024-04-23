@@ -545,11 +545,11 @@
                                             class="searchform-product searchform-categoris ultimate-search">
                                             <div class="wpo-search-inner">
                                                 <input type="hidden" name="type" value="product">
-                                                <input required="" id="inputSearchAuto-3" class="input-search" name="q"
+                                                <input required id="inputSearchAuto-3" class="input-search" name="q"
                                                     maxlength="40" autocomplete="off" type="text" size="20"
                                                     placeholder="Tìm kiếm sản phẩm...">
                                             </div>
-                                            <button type="submit" class="btn-search btn">
+                                            <button type="button" onclick="Search()" class="btn-search btn">
                                                 <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                     viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;"
@@ -565,7 +565,9 @@
                                         </form>
                                         <div id="ajaxSearchResults-3" class="smart-search-wrapper ajaxSearchResults"
                                             style="display: none">
-                                            <div class="resultsContent"></div>
+                                            <div class="resultsContent" id="searchResult">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -635,7 +637,8 @@
                                                             name="q" maxlength="40" autocomplete="off" type="text"
                                                             size="20" placeholder="Tìm kiếm sản phẩm...">
                                                     </div>
-                                                    <button type="submit" class="btn-search btn" id="search-header-btn">
+                                                    <button type="button" onclick="Search()" class="btn-search btn"
+                                                        id="search-header-btn">
                                                         <svg version="1.1" class="svg search"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -683,13 +686,14 @@
                                         </span>
 
                                         <span class="box-text" th:if="${session.username != null}">
-                                            <span style="color: white;" th:text="${session.customerName != null ? session.customerName : session.username}"></span>
+                                            <span style="color: white;"
+                                                th:text="${session.customerName != null ? session.customerName : session.username}"></span>
                                         </span>
                                         <span class="box-text" th:unless="${session.username != null}">
                                             <a href="/login" style="color: white;">Đăng nhập / Đăng ký</a>
                                         </span>
-                                        
-                                        
+
+
                                     </a>
                                     <span class="box-triangle">
                                         <svg viewBox="0 0 20 9" role="presentation">
@@ -729,7 +733,8 @@
                                             </span>
                                         </span>
                                         <span class="box-text">
-                                            <a href="/cart"><span class="txtbl" style="color: white;">Giỏ hàng</span></a>
+                                            <a href="/cart"><span class="txtbl" style="color: white;">Giỏ
+                                                    hàng</span></a>
                                         </span>
                                     </a>
                                     <span class="box-triangle">
@@ -1349,4 +1354,242 @@
             </div>
         </div>
     </header>
+    <script>
+
+        const elSearchInput = document.getElementById("inputSearchAuto-3");
+        const elSearchResult = document.getElementById("searchResult");
+        const elementDisplay = document.getElementById("ajaxSearchResults-3");
+
+        const handleShowResultDebounce = useDebounce(handleShowResult, 400);
+
+        let dataSale = [];
+        let dataFlashsale = [];
+        let dataSearchProduct = [];
+        let valueSearch = "";
+
+        // Lấy sản phầm giảm giá
+        fetch('/rest/product/sale')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu trả về
+                dataSale = data;
+                console.log(data);
+
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+
+        //Lấy sản phẩm flashsale
+        fetch('/rest/product/flashsale')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu trả về
+                console.log(data);
+                dataFlashsale = data;
+
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+
+        //functions check Flashsale
+        function checkFlashSale(productId) {
+            return dataFlashsale.some(item => item.product.productid === productId);
+        }
+
+        function getPercentFlashSaleForProduct(productId) {
+            var foundItem = dataFlashsale.find(item => item.product.productid === productId);
+            return foundItem ? foundItem.percent : null;
+        }
+        //functions check sale
+        function checkSale(productId) {
+            return dataSale.some(item => item.productid === productId);
+        }
+
+        function getPercentSaleForProduct(productId) {
+            var foundItem = dataSale.find(item => item.productid === productId);
+            return foundItem ? foundItem.percent : null;
+        }
+
+        elSearchInput.addEventListener("input", () => {
+            if (elSearchInput.value.length > 0) {
+                elementDisplay.style.display = null;
+                valueSearch = elSearchInput.value
+                localStorage.setItem('valueSearch', JSON.stringify(valueSearch));
+                handleShowResultDebounce(valueSearch);
+            } else {
+                valueSearch = "";
+                localStorage.setItem('valueSearch', JSON.stringify(valueSearch));
+                elementDisplay.style.display = "none";
+            }
+        });
+
+
+        function handleShowResult(searchValue) {
+            console.log(searchValue);
+            fetch('/rest/product/search/' + searchValue)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Xử lý dữ liệu trả về
+                    dataSearchProduct = data;
+                    localStorage.setItem('productBySearch', JSON.stringify(dataSearchProduct));
+
+                    let renderElement = "";
+                    if (data.length > 0) {
+                        let lengthProduct = data.length - 4;
+                        let index = 1;
+                        data.forEach((element) => {
+                            if (index > 4) {
+                                return;
+                            }
+                            const flashSale = checkFlashSale(element.productid);
+                            const sale = checkSale(element.productid);
+                            let percent = null;
+                            if (flashSale) {
+                                var pricexuat = element.pricexuat;
+                                percent = element.pricexuat - (element.pricexuat * getPercentFlashSaleForProduct(element.productid)) / 100;
+                                var formattedPrice = percent.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                var formattedPricexuat = pricexuat.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                renderElement += `<div class="item-ult">
+                                                    <div class="thumbs">
+                                                        <a onclick="clickById(${element.productid})"
+                                                            previewlistener="true">
+                                                            <img alt="${element.productname}"
+                                                                src="/${element.productimages[0].image}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="title">
+                                                        <a 
+                                                        onclick="clickById(${element.productid})" previewlistener="true">${element.productname}</a>
+                                                        <p class="f-initial">${formattedPrice}
+
+                                                            <del>${formattedPricexuat}</del>
+
+                                                        </p>
+                                                    </div>
+                                                </div>`;
+                            } else {
+                                var pricexuat = element.pricexuat;
+                                percent = element.pricexuat - (element.pricexuat * getPercentSaleForProduct(element.productid)) / 100;
+                                var formattedPrice = percent.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                var formattedPricexuat = pricexuat.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                if (sale) {
+                                    renderElement += `<div class="item-ult">
+                                                    <div class="thumbs">
+                                                        <a onclick="clickById(${element.productid})"
+                                                            previewlistener="true">
+                                                            <img alt="${element.productname}"
+                                                                src="/${element.productimages[0].image}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="title">
+                                                        <a 
+                                                        onclick="clickById(${element.productid})" previewlistener="true">${element.productname}</a>
+                                                        <p class="f-initial">${formattedPrice}
+
+                                                            <del>${formattedPricexuat}</del>
+
+                                                        </p>
+                                                    </div>
+                                                </div>`;
+                                } else {
+                                    renderElement += `<div class="item-ult">
+                                                    <div class="thumbs">
+                                                        <a onclick="clickById(${element.productid})"
+                                                            previewlistener="true">
+                                                            <img alt="${element.productname}"
+                                                                src="${element.productimages[0].image}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="title">
+                                                        <a 
+                                                        onclick="clickById(${element.productid})" previewlistener="true">${element.productname}</a>
+                                                        <p class="f-initial">${formattedPricexuat}
+
+                                              
+
+                                                        </p>
+                                                    </div>
+                                                </div>`;
+                                }
+                            }
+
+
+                            index++;
+                        });
+                        if (lengthProduct > 4) {
+                            renderElement += `<div class="resultsMore">
+	                                            <a href="product/search" previewlistener="true">
+                                                    Xem thêm ${lengthProduct} sản phẩm
+                                                </a>
+                                          </div>`;
+                        }
+
+                        elSearchResult.innerHTML = renderElement;
+                    } else {
+                        renderElement = `<p class="dataEmpty">Không có sản phẩm nào...</p>`;
+                        elSearchResult.innerHTML = renderElement;
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function useDebounce(callback, delay) {
+            let timeoutId;
+            return (searchValue) => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    callback(searchValue);
+                }, delay);
+            };
+        }
+
+
+        function clickById(productId) {
+            var product = dataSearchProduct.find(item => item.productid === productId);
+            var percent = 0;
+
+            if (checkFlashSale(product.productid)) {
+                percent = getPercentFlashSaleForProduct(product.productid);
+            } else if (checkSale(product.productid)) {
+                percent = getPercentSaleForProduct(product.productid);
+            } else {
+                percent = 0;
+            }
+
+            product.percent = percent;
+            console.log(product);
+            localStorage.setItem('productById', JSON.stringify(product));
+
+            // Chuyển hướng đến trang chi tiết sản phẩm
+            window.location.href = `/productdetail/${productId}`;
+        }
+
+        function Search() {
+            if (valueSearch.length > 0) {
+                window.location.href = `/product/search`;
+            }
+        }
+
+    </script>
 </div>

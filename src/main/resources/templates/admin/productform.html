@@ -99,7 +99,7 @@
                                         <a href="/admin/products">Sản phẩm</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
-                                        
+
                                     </li>
                                 </ol>
                             </nav>
@@ -247,7 +247,8 @@
 
                                                             </label>
 
-                                                            <input type="file" name="allimage" id="fileInput2" multiple hidden>
+                                                            <input type="file" name="allimage" id="fileInput2" multiple
+                                                                hidden>
                                                         </div>
 
                                                         <div class="col-3 " th:id="'hinh' + ${images.ID}"
@@ -336,9 +337,9 @@
                                         <hr>
 
                                         <div class="">
-                                            
+
                                             <div class="form-check form-switch mx-2">
-                                                
+
                                                 <input class="form-check-input rounded-pill"
                                                     th:field="${product.productactivate}"
                                                     th:checked="${product.productactivate}" value="true" type="checkbox"
@@ -346,7 +347,7 @@
 
 
                                             </div>
-                                            
+
 
                                         </div>
 
@@ -533,7 +534,7 @@
                     newFileInput.files = fileList.files;
 
 
-                   
+
                     console.log(selectedFiles);
                     console.log(selectedFiless);
                     const selectedFilesDiv = document.getElementById('imageContainer');
@@ -585,6 +586,106 @@
                     // Gọi lại hàm handleFileSelect để render lại các file đã chọn
                     input.value = '';
                     handleFileSelect({ target: input });
+                }
+
+            </script>
+
+            //xoa
+            <script>
+                // const selectedFiless = [];
+                function createDeleteButton() {
+                    // Tạo một nút xóa mới và trả về nút đó
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Xóa';
+                    deleteButton.classList.add('delete-button');
+                    deleteButton.addEventListener('click', function () {
+                        // Xóa hình ảnh khi nút xóa được nhấp
+                        const imageContainer = deleteButton.parentElement;
+                        imageContainer.remove();
+                    });
+                    return deleteButton;
+                }
+
+                function removeFile(index) {
+                    console.log(index);
+                  
+                    selectedFiless.splice(index, 1); // Xóa phần tử tại chỉ mục được chỉ định
+
+                    // Tạo một đối tượng DataTransfer
+                    const fileList = new DataTransfer();
+
+                    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
+                    for (let i = 0; i < selectedFiless.length; i++) {
+                        const filetran = selectedFiless[i];
+                        fileList.items.add(filetran);
+                    }
+
+                    // Gán đối tượng DataTransfer vào input thứ hai
+                    const newFileInput = document.getElementById('fileInput2');
+                    newFileInput.files = fileList.files;
+                   
+                }
+
+
+                function previewImages(event) {
+                    const previewContainer = document.getElementById('previewImages');
+                    const files = event.target.files;
+                    const maxImages = 5;
+
+                    // Lấy số lượng ảnh hiện có
+                    const currentImageCount = previewContainer.querySelectorAll('.image-container').length;
+
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const reader = new FileReader();
+                        selectedFiless.push(file);
+
+                        if (currentImageCount + i + 1 > maxImages) {
+                            swal("Thông báo", "Bạn chỉ được chọn tối đa 5 ảnh.", "warning");
+                            return; // Dừng việc thêm ảnh khi đạt tối đa số lượng cho phép
+                        }
+
+                        const imageElement = document.createElement('img');
+                        imageElement.style.maxWidth = '100px';
+                        imageElement.style.marginRight = '10px';
+
+                        reader.onload = function () {
+                            imageElement.src = reader.result;
+                        }
+
+                        reader.readAsDataURL(file);
+
+                        const deleteButton = createDeleteButton(); // Gọi hàm tạo nút xóa
+                        const imageContainer = document.createElement('div');
+                        imageContainer.classList.add('image-container');
+                        imageContainer.appendChild(imageElement);
+                        imageContainer.appendChild(deleteButton);
+                        previewContainer.appendChild(imageContainer);
+
+                        // Lấy số thứ tự cột ảnh dựa trên số lượng ảnh đã chọn và số lượng ảnh hiện có
+                        const columnIndex = currentImageCount + i + 1;
+
+                        // Gán tên file ảnh vào các cột image1, image2, image3, image4, image5 tương ứng
+                        const imageNameField = document.createElement('input');
+                        imageNameField.type = 'hidden';
+                        imageNameField.name = 'image' + columnIndex; // Tên của cột ảnh
+                        imageNameField.value = file.name; // Tên của file ảnh
+                        previewContainer.appendChild(imageNameField);
+                    }
+                    // Tạo một đối tượng DataTransfer
+                    const fileList = new DataTransfer();
+
+                    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
+                    for (let i = 0; i < selectedFiless.length; i++) {
+                        const filetran = selectedFiless[i];
+                        fileList.items.add(filetran);
+                    }
+
+                    // Gán đối tượng DataTransfer vào input thứ hai
+                    const newFileInput = document.getElementById('fileInput2');
+                    newFileInput.files = fileList.files;
+
+                    document.getElementById('selectedImageContainer').style.display = 'block';
                 }
 
             </script>

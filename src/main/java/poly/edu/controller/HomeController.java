@@ -1,12 +1,17 @@
 package poly.edu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import poly.edu.Service.ImageService;
+
 @Controller
 public class HomeController {
+	@Autowired
+	ImageService imageService;
 
 	@RequestMapping("")
 	public String showindex() {
@@ -15,9 +20,10 @@ public class HomeController {
 
 	@RequestMapping("/index")
 	public String index() {
+		System.out.println(imageService.uploadPathDanhgia);
 		return "user/index";
 	}
-	
+
 	@RequestMapping("/admin")
 	public String Adminindex() {
 		return "redirect:/admin/index";
@@ -42,7 +48,7 @@ public class HomeController {
 	public String showLogin() {
 		return "login";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String showLogout() {
 		return "login";
@@ -68,6 +74,11 @@ public class HomeController {
 		return "user/productflashsale";
 	}
 
+	@RequestMapping("/product/search")
+	public String showSearchProduct() {
+		return "user/searchproduct";
+	}
+
 	// @RequestMapping("/productdetail")
 	// public String showProductDetail() {
 	// return "user/productDetail";
@@ -91,6 +102,7 @@ public class HomeController {
 	public String modalShow() {
 		return "myModalContent";
 	}
+
 	@RequestMapping("/myModalEvaluate.html")
 	public String modal2Show() {
 		return "myModalEvaluate";
@@ -102,7 +114,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/stream")
-	public String stream(){
+	public String stream() {
 		return "stream.html";
 	}
 }
