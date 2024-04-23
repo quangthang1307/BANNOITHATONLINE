@@ -147,8 +147,9 @@
                                                     <input th:field="${product.productname}" type="text"
                                                         class="form-control" name="" id="productname"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        
+                                                        <small th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
 
@@ -243,7 +244,7 @@
                                                                     hình
                                                                     ảnh</span>
                                                                 <input type="file" name="imageFile" id="imageInput"
-                                                                    accept="image/*" multiple required hidden>
+                                                                    accept="image/*" multiple hidden>
 
                                                             </label>
 
@@ -292,8 +293,8 @@
                                                     <input type="number" th:field="${product.pricenhap}"
                                                         class="form-control" name="" id="pricenhap"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        <small th:if="${#fields.hasErrors('pricenhap')}" th:errors="*{pricenhap}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -302,15 +303,15 @@
                                                     <input type="number" th:field="${product.pricexuat}"
                                                         class="form-control" name="" id="pricexuat"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        <small th:if="${#fields.hasErrors('pricexuat')}" th:errors="*{pricexuat}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
 
-                                    <div class="tonkho bg-white mb-3 p-4 mx-auto shadow-sm">
+                                    <!-- <div class="tonkho bg-white mb-3 p-4 mx-auto shadow-sm">
                                         <h4 class="text-info">Quản Lý Tồn Kho</h4>
                                         <hr>
                                         <div class="row">
@@ -325,7 +326,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
 
 
@@ -551,7 +552,7 @@
                         const file = selectedFiless[i];
 
                         const fileItem = document.createElement('div');
-                        fileItem.classList.add('col-3', 'newimage');
+                        fileItem.classList.add('col-lg-3','col-xs-12', 'newimage');
 
 
 
@@ -590,105 +591,6 @@
 
             </script>
 
-            //xoa
-            <script>
-                // const selectedFiless = [];
-                function createDeleteButton() {
-                    // Tạo một nút xóa mới và trả về nút đó
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'Xóa';
-                    deleteButton.classList.add('delete-button');
-                    deleteButton.addEventListener('click', function () {
-                        // Xóa hình ảnh khi nút xóa được nhấp
-                        const imageContainer = deleteButton.parentElement;
-                        imageContainer.remove();
-                    });
-                    return deleteButton;
-                }
-
-                function removeFile(index) {
-                    console.log(index);
-                  
-                    selectedFiless.splice(index, 1); // Xóa phần tử tại chỉ mục được chỉ định
-
-                    // Tạo một đối tượng DataTransfer
-                    const fileList = new DataTransfer();
-
-                    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
-                    for (let i = 0; i < selectedFiless.length; i++) {
-                        const filetran = selectedFiless[i];
-                        fileList.items.add(filetran);
-                    }
-
-                    // Gán đối tượng DataTransfer vào input thứ hai
-                    const newFileInput = document.getElementById('fileInput2');
-                    newFileInput.files = fileList.files;
-                   
-                }
-
-
-                function previewImages(event) {
-                    const previewContainer = document.getElementById('previewImages');
-                    const files = event.target.files;
-                    const maxImages = 5;
-
-                    // Lấy số lượng ảnh hiện có
-                    const currentImageCount = previewContainer.querySelectorAll('.image-container').length;
-
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-                        const reader = new FileReader();
-                        selectedFiless.push(file);
-
-                        if (currentImageCount + i + 1 > maxImages) {
-                            swal("Thông báo", "Bạn chỉ được chọn tối đa 5 ảnh.", "warning");
-                            return; // Dừng việc thêm ảnh khi đạt tối đa số lượng cho phép
-                        }
-
-                        const imageElement = document.createElement('img');
-                        imageElement.style.maxWidth = '100px';
-                        imageElement.style.marginRight = '10px';
-
-                        reader.onload = function () {
-                            imageElement.src = reader.result;
-                        }
-
-                        reader.readAsDataURL(file);
-
-                        const deleteButton = createDeleteButton(); // Gọi hàm tạo nút xóa
-                        const imageContainer = document.createElement('div');
-                        imageContainer.classList.add('image-container');
-                        imageContainer.appendChild(imageElement);
-                        imageContainer.appendChild(deleteButton);
-                        previewContainer.appendChild(imageContainer);
-
-                        // Lấy số thứ tự cột ảnh dựa trên số lượng ảnh đã chọn và số lượng ảnh hiện có
-                        const columnIndex = currentImageCount + i + 1;
-
-                        // Gán tên file ảnh vào các cột image1, image2, image3, image4, image5 tương ứng
-                        const imageNameField = document.createElement('input');
-                        imageNameField.type = 'hidden';
-                        imageNameField.name = 'image' + columnIndex; // Tên của cột ảnh
-                        imageNameField.value = file.name; // Tên của file ảnh
-                        previewContainer.appendChild(imageNameField);
-                    }
-                    // Tạo một đối tượng DataTransfer
-                    const fileList = new DataTransfer();
-
-                    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
-                    for (let i = 0; i < selectedFiless.length; i++) {
-                        const filetran = selectedFiless[i];
-                        fileList.items.add(filetran);
-                    }
-
-                    // Gán đối tượng DataTransfer vào input thứ hai
-                    const newFileInput = document.getElementById('fileInput2');
-                    newFileInput.files = fileList.files;
-
-                    document.getElementById('selectedImageContainer').style.display = 'block';
-                }
-
-            </script>
 
             <script>
                 function confirmDelete(brandsId) {
