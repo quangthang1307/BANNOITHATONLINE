@@ -20,7 +20,6 @@ public class HomeController {
 
 	@RequestMapping("/index")
 	public String index() {
-		System.out.println(imageService.uploadPathDanhgia);
 		return "user/index";
 	}
 
