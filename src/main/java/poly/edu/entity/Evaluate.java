@@ -38,17 +38,5 @@ public class Evaluate {
     @Column(name = "Evaluatedate")
     private LocalDateTime evaluateDate;
 
-    @Column(name = "Description")
-    private String description;
-
-    @Column(name = "Image1")
-    private String image1;
-
-    @Column(name = "Image2")
-    private String image2;
-
-    @Column(name = "Image3")
-    private String image3;
-
     // Nếu cần, bạn có thể thêm quan hệ với các entity khác tại đây.
 }
