@@ -54,6 +54,12 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                 duong: ''
             };
             fetchAddresses($scope.customerId);
+            Swal.fire({
+                icon: "success",
+                title: "Thêm mới thành công",
+                text: "Thông tin địa chỉ đã được thêm mới !",
+                showConfirmButton: true,
+              });
         });
     }
 
@@ -99,6 +105,12 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             $scope.editingAddress = null;
             document.getElementById('updateAddressForm').style.display = 'none';
             fetchAddresses($scope.customerId);
+            Swal.fire({
+                icon: "success",
+                title: "Cập nhật thành công",
+                text: "Thông tin địa chỉ đã được cập nhật !",
+                showConfirmButton: true,
+              });
         });
     }
     
@@ -106,6 +118,12 @@ app.controller('ProfileController', function ($scope, $http, $window) {
         $http.delete("/rest/profile/customers/" + $scope.customerId + "/addresses/" + addressId)
         .then(function(response) {
             fetchAddresses($scope.customerId);
+            Swal.fire({
+                icon: "success",
+                title: "Xóa thành công",
+                text: "Thông tin địa chỉ đã xóa!",
+                showConfirmButton: true,
+              });
         });
     }
 

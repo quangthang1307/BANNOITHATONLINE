@@ -104,7 +104,10 @@
                                             </td>
                                             <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
                                             </td>
-                                            <td th:text="${orderItem.sumpayment}"></td>
+                                            <td>
+												<span
+													th:text="${#numbers.formatDecimal(orderItem.sumpayment,0,'COMMA',0,'POINT')} + ' VND'"></span>
+											</td>
                                             <td><a
                                                     th:href="@{'/admin/statusproduct/findcustomer/' +${orderItem.customer.customerId}}"><button
                                                         class="btn btn-primary btn-sm">Xem thông tin</button></a></td>
