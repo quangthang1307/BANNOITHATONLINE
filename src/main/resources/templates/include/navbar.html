@@ -9,7 +9,7 @@
                                 <div class="header-action_text">
                                     <a class="header-action__link header-action_clicked" href="javascript:void(0)"
                                         id="site-menu-handle" aria-label="Menu" title="Menu">
-                                        <span class="box-icon">
+                                        <!-- <span class="box-icon">
                                             <span class="hamburger-menu" aria-hidden="true">
                                                 <span class="bar"></span>
                                             </span>
@@ -20,7 +20,7 @@
                                                         fill-rule="evenodd"></path>
                                                 </svg>
                                             </span>
-                                        </span>
+                                        </span> -->
                                     </a>
                                     <span class="box-triangle">
                                         <svg viewBox="0 0 20 9" role="presentation">
@@ -688,6 +688,10 @@
                                         <span class="box-text" th:if="${session.username != null}">
                                             <span style="color: white;"
                                                 th:text="${session.customerName != null ? session.customerName : session.username}"></span>
+                                            <a href="/logout"><span style="color: white; padding: 10px;"
+                                                >Đăng xuất</span></a>
+                                            <a href="/order"><span style="color: white; padding: 10px;"
+                                                >Lịch sử mua hàng</span></a>
                                         </span>
                                         <span class="box-text" th:unless="${session.username != null}">
                                             <a href="/login" style="color: white;">Đăng nhập / Đăng ký</a>
