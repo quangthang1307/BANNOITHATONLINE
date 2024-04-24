@@ -132,6 +132,73 @@ var chart2 = Highcharts.chart('container1', {
     }]
 });
 
+var char3 = Highcharts.chart('container2', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Bảng thống kê doanh thu của 7 ngày gần nhất',
+        align: 'left'
+    },
+    xAxis: {
+        categories: ['6 ngày', '5 ngày', '4 ngày', '3 ngày', '2 ngày', '1 ngày', 'Hôm nay'],
+        crosshair: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [
+        {
+            name: 'Doanh thu',
+            data: sumpaymentLast7Days
+        },
+    ]
+});
+
+var chartLast7Days = Highcharts.chart('containerLast7Days', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: 'Phân loại danh mục đã bán trong 7 ngày qua'
+    },
+    tooltip: {
+        valueSuffix: ''
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                distance: 20
+            }, {
+                enabled: true,
+                distance: -40,
+                format: '{point.percentage:.1f}%',
+                style: {
+                    fontSize: '1.2em',
+                    textOutline: 'none',
+                    opacity: 0.7
+                },
+                filter: {
+                    operator: '>',
+                    property: 'percentage',
+                    value: 10
+                }
+            }]
+        }
+    },
+    series: [{
+        name: 'Số lượng',
+        colorByPoint: true,
+        data: chartDataLast7Days
+    }]
+});
+
 $('#yearForm').submit(function (event) {
     event.preventDefault();
     var selectedYear = $('#year').val();
