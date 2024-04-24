@@ -36,4 +36,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT SUM(o.[Sumpayment]) FROM [Order] o JOIN [Orderstatus] os ON o.[OrderstatusID] = os.[OrderstatusID] WHERE os.[Orderstatusname] = ?1 AND o.[Time] BETWEEN ?2 AND ?3", nativeQuery = true)
     Integer findSumpaymentOrderForLast7Days(String orderStatus, LocalDateTime sevenDaysAgo, LocalDateTime now);
 
+    @Query(value = "SELECT cp.Categoryname, COUNT(od.ProductID) AS SoLuong FROM Categoryproduct cp JOIN Product p ON cp.ID = p.CategoryID JOIN OrderDetails od ON p.ProductID = od.ProductID JOIN [Order] o ON od.OrderID = o.OrderID JOIN Orderstatus os ON o.OrderstatusID = os.OrderstatusID WHERE os.Orderstatusname = N'Thanh toán' AND o.[Time] BETWEEN :startDate AND :endDate GROUP BY cp.Categoryname", nativeQuery = true)
+    List<Object[]> countProductByCategoryAndStatusForLast7Days(@Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
+
 }

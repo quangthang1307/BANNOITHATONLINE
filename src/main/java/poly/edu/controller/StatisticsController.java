@@ -60,7 +60,19 @@ public class StatisticsController {
             Integer sumpayment = orderRepository.findSumpaymentOrderForLast7Days("Thanh Toán", dayStart, dayEnd);
             totalSumpaymentsLast7Days.add(sumpayment);
         }
-        
+
+        List<Object[]> categoryCountsLast7Days = orderRepository
+                .countProductByCategoryAndStatusForLast7Days(sevenDaysAgo, now);
+        List<Map<String, Object>> chartDataLast7Days = new ArrayList<>();
+        for (Object[] categoryCount : categoryCountsLast7Days) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", categoryCount[0]);
+            map.put("y", categoryCount[1]);
+            chartDataLast7Days.add(map);
+        }
+
+        model.addAttribute("chartDataLast7Days", chartDataLast7Days);
+
         model.addAttribute("totalSumpaymentsLast7Days", totalSumpaymentsLast7Days);
 
         model.addAttribute("chartData", chartData);

@@ -67,6 +67,14 @@
               </p>
             </figure>
           </div>
+
+          <div class="col-6">
+            <figure class="highcharts-figure">
+              <div id="containerLast7Days"></div>
+              <p class="highcharts-description">
+              </p>
+            </figure>
+          </div>
         </div>
 
         <form id="yearForm" action="/admin/statistics" method="get">
@@ -106,6 +114,7 @@
           //  var sumpaymentWithVNPay = [[${ message2 }]];
           var chartData = [[${ chartData }]];
           var sumpaymentLast7Days = [[${ totalSumpaymentsLast7Days }]];
+          var chartDataLast7Days = [[${ chartDataLast7Days }]];
         </script>
 
         <!-- End Charts -->
