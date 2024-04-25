@@ -73,4 +73,5 @@ public class Product {
     @JsonManagedReference
     private List<ProductImage> productimages;
 
+    
 }
