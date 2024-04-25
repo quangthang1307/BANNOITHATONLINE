@@ -136,8 +136,8 @@ app.controller("OrderController", [
                 "<html>" +
                 "<head>" +
                 "<style>" +
-                "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
-                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg');}" +
+                "body { font-family: Arial, sans-serif;  }" +
+                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }" +
                 "h2 { text-align: center; }" +
                 "</style>" +
                 "</head>" +
@@ -200,8 +200,8 @@ app.controller("OrderController", [
                 "<html>" +
                 "<head>" +
                 "<style>" +
-                "body { font-family: Arial, sans-serif; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
-                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-image: url('https://didongviet.vn/dchannel/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-didongviet-22.jpg'); }" +
+                "body { font-family: Arial, sans-serif; }" +
+                ".container { max-width: 1200px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }" +
                 "h2 { text-align: center; }" +
                 "</style>" +
                 "</head>" +
