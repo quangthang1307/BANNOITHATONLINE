@@ -268,23 +268,30 @@ public class CustomerRestController {
                 return ResponseEntity.notFound().build();
             }
 
-            if (newCustomer.getName().isBlank()) {
-                errors.put("name", "Vui lòng nhập họ tên");
-            } else if (validUtil.containsSpecialCharacters(newCustomer.getName())
-                    || validUtil.containsNumber(newCustomer.getName())) {
-                errors.put("name", "Họ tên không được chứa số và kí tự đặt biệt");
-            }
-            if (newCustomer.getAccount().getEmail().isBlank()) {
-                errors.put("email", "Vui lòng nhập email");
-            } 
-            if (newCustomer.getPhone().isBlank()) {
-                errors.put("phone", "Vui lòng nhập số điện thoại");
-            } else if (validUtil.containsSpecialCharacters(newCustomer.getPhone())) {
-                errors.put("phone", "Số điện thoại không được chứa kí tự đặt biệt");
-            }
-            
+            // if (newCustomer.getName().isBlank()) {
+            //     errors.put("name", "Vui lòng nhập họ tên");
+            // } else if (validUtil.containsSpecialCharacters(newCustomer.getName())
+            //         || validUtil.containsNumber(newCustomer.getName())) {
+            //     errors.put("name", "Họ tên không được chứa số và kí tự đặt biệt");
+            // }else if(newCustomer.getName().length() < 3){
+            //     errors.put("name", "Họ tên phải có ít nhất 3 ký tự");
+            // }
+            // if (newCustomer.getAccount().getEmail().isBlank()) {
+            //     errors.put("email", "Vui lòng nhập email");
+            // } 
+            // if (!accountRepository.findByEmailAccount(newCustomer.getAccount().getEmail()).isEmpty()) {
+            //     errors.put("email", "Email đã tồn tại");
+            // }
+            // if (newCustomer.getPhone().isBlank()) {
+            //     errors.put("phone", "Vui lòng nhập số điện thoại");
+            // }else if (validUtil.containsSpecialCharacters(newCustomer.getPhone())) {
+            //     errors.put("phone", "Số điện thoại không được chứa kí tự đặt biệt");
+            // }
+            //  if (!customerRepository.findByPhoneCustomer(newCustomer.getPhone()).isEmpty()) {
+            //     errors.put("phone", "Số điện thoại đã tồn tại");
+            // }
             if (!errors.isEmpty()) {
-                return ResponseEntity.ok(errors);
+                return ResponseEntity.badRequest().body(errors);
             } else {
                 newCustomer.setName(newCustomer.getName());
                 newCustomer.setPhone(newCustomer.getPhone());

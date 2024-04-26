@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <div data-th-insert="~{include/styleadmin.html}"></div>
@@ -17,11 +17,9 @@
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
 </head>
 
-<body ng-controller="StatusProduct">
+<body>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -53,7 +51,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Tình trạng đơn hàng</h4>
+                        <h4 class="page-title">Quản lý khách hàng</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -81,7 +79,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
-                                <h5 class="card-title fw-bold">Quản lý hóa đơn</h5>
+                                <h5 class="card-title fw-bold">Thông tin khách hàng mới nhất</h5>
                             </div>
 
                             <div class="table-responsive">
@@ -89,63 +87,44 @@
                                 <table id="zero_config" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-center fw-bold">Mã đơn hàng</th>
-                                            <th class="text-center fw-bold">Ngày tạo</th>
-                                            <th class="text-center fw-bold">Tổng tiền</th>
-                                            <!-- <th class="text-center fw-bold">Thông tin KH</th> -->
-                                            <th class="text-center fw-bold">Phương thức thanh toán</th>
-                                            <th class="text-center fw-bold">Trạng thái</th>
-                                            <th class="text-center fw-bold">Chi tiết HĐ</th>
-                                            <th class="text-center fw-bold">Hành động</th>
+                                            <th class="text-center fw-bold">Số thứ tự</th>
+                                            <th class="text-center fw-bold">Tên khách hàng</th>
+                                            <th class="text-center fw-bold">Số điện thoại</th>
+                                            <th class="text-center fw-bold">Email</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center" >
-                                        <tr th:each="orderItem : ${orders}">
-                                            <td>
-                                                <span th:text="${orderItem.OrderID}"></span>
-                                            </td>
-                                            <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
-                                            </td>
-                                            <td>
-												<span
-													th:text="${#numbers.formatDecimal(orderItem.sumpayment,0,'COMMA',0,'POINT')} + ' VND'"></span>
-											</td>
-                                            <!-- <td><a
-                                                    th:href="@{'/admin/statusproduct/findcustomer/' +${orderItem.customer.customerId}}"><button
-                                                        class="btn btn-primary btn-sm">Xem thông tin</button></a></td> -->
-                                            <td th:text="${orderItem.payment.paymentname}"></td>
-                                            <td>
-                                                <form th:action="@{/admin/invoice/update}" th:method="post">
-                                                    <select th:name="orderstatusname" id="orderStatusSelect autoSizingSelect" style="border-radius: 5px;" class="form-select">
-                                                        <option th:each="status : ${statuses}"
-                                                            th:value="${status.orderstatusname}"
-                                                            th:text="${status.orderstatusname}"
-                                                            th:selected="${status.orderstatusname == orderItem.orderstatus.orderstatusname}">
-                                                        </option>
-                                                    </select>
-                                                    <input type="hidden" th:name="OrderID"
-                                                        th:value="${orderItem.OrderID}">
-                                                        <button type="submit" class="btn btn-primary">Lưu</button>
-                                                    <!-- <input type="submit" value="Lưu"> -->
-                                                </form>
-                                            </td>
-                                            <td><a th:href="@{'/admin/showinvoicedetails/' +${orderItem.OrderID}}"><button
-                                                        class="btn btn-info btn-sm">Xem</button></a>
-                                            </td>
-                                            <td>
-                                                <form th:action="@{'/admin/deleteoder/' + ${orderItem.OrderID}}"
-                                                    method="post">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
-                                                </form>
+                                    <tbody class="text-center">
+                                        <tr th:each="customer, itemStat : ${customers}">
+                                            <td th:text="${itemStat.index + 1}"></td>
+                                            <td th:text="${customer.name}"></td>
+                                            <td th:text="${customer.phone}"></td>
+                                            <td th:text="${customer.account.email}">
                                             </td>
                                         </tr>
                                     </tbody>
+
                                 </table>
+
+
                             </div>
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
@@ -171,8 +150,125 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="/js/admin/statusproduct.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+
+
+    <script>
+        const exampleModal = document.getElementById('modaladdproduct')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+
+                //   Button that triggered the modal
+                const button = event.relatedTarget;
+                // Extract info from data-bs-* attributes
+                const recipient = button.getAttribute('data-bs-whatever')
+                if (recipient === "null") {
+                    modalBodyInputBrand.selectedIndex = 0;
+                    modalBodyInputCategory.selectedIndex = 0;
+                    return;
+                }
+                // const recipient = JSON.parse(button.dataset.bsWhatever);
+                var mangPhanTu = recipient.split('{}');
+
+                var ID = mangPhanTu[0];
+                var Name = mangPhanTu[1];
+                var Description = mangPhanTu[2];
+                var PriceNhap = mangPhanTu[3];
+                var PriceXuat = mangPhanTu[4];
+                var Brand = mangPhanTu[5];
+                var Category = mangPhanTu[6];
+                var Active = mangPhanTu[7];
+
+                for (var i = 0; i <= 7; i++) {
+                    console.log(mangPhanTu[i]);
+                }
+
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+
+
+                modalButton.innerHTML = "Cập nhật"
+                modalTitle.textContent = `Cập nhật sản phẩm`
+                modalBodyInputID.value = ID;
+                modalBodyInputName.value = Name;
+                modalBodyInputDescription.value = Description;
+                modalBodyInputPriceNhap.value = PriceNhap;
+                modalBodyInputPriceXuat.value = PriceXuat;
+                modalBodyInputBrand.value = Brand;
+                modalBodyInputCategory.value = Category;
+                modalBodyInputActive.value = Active;
+
+
+
+                if (Active === "true") {
+                    modalBodyInputActive.checked = true;
+                }
+                else {
+                    modalBodyInputActive.checked = false;
+                }
+
+
+            })
+
+            exampleModal.addEventListener('hide.bs.modal', event => {
+                // Xử lý khi modal đóng ở đây
+                console.log('Modal đóng.');
+
+                // Update the modal's content.
+                const modalButton = exampleModal.querySelector('#buttonadd')
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInputID = exampleModal.querySelector('#productid')
+                const modalBodyInputName = exampleModal.querySelector('#productname')
+                const modalBodyInputDescription = exampleModal.querySelector('#productdescription')
+                const modalBodyInputPriceNhap = exampleModal.querySelector('#pricenhap')
+                const modalBodyInputPriceXuat = exampleModal.querySelector('#pricexuat')
+                const modalBodyInputBrand = exampleModal.querySelector('#productbrand')
+                const modalBodyInputCategory = exampleModal.querySelector('#productcategory')
+                const modalBodyInputActive = exampleModal.querySelector('#productactive')
+
+                modalButton.innerHTML = "Thêm"
+                modalTitle.textContent = `Thêm sản phẩm`
+                modalBodyInputID.value = "";
+                modalBodyInputName.value = ""
+                modalBodyInputDescription.value = "";
+                modalBodyInputPriceNhap.value = "";
+                modalBodyInputPriceXuat.value = "";
+                modalBodyInputBrand.value = "";
+                modalBodyInputCategory.value = "";
+                modalBodyInputActive.value = "false";
+
+
+                modalBodyInputActive.checked = false;
+
+
+
+            });
+        }
+    </script>
+
+
+
+    <script>
+        function confirmDelete(saleId) {
+            if (confirm("Bạn có chắc muốn xóa không?")) {
+                window.location.href = '/admin/deletesale/' + saleId;
+            }
+            return false;
+        }
+    </script>
     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>

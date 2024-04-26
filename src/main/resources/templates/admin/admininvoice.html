@@ -45,9 +45,6 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
@@ -62,16 +59,9 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
+           
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
+                
                 <div class="row">
 
 
@@ -97,8 +87,8 @@
                                             <th class="text-center fw-bold">Địa chỉ</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center" th:each="orderItem, itemStat : ${orders}">
-                                        <tr>
+                                    <tbody class="text-center" >
+                                        <tr th:each="orderItem, itemStat : ${orders}">
                                             <td th:text="${itemStat.index + 1}"></td>
                                             <td th:text="${orderItem.customer.name}"></td>
                                             <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
@@ -137,16 +127,6 @@
 
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End PAge Content -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Right sidebar -->
-            <!-- ============================================================== -->
-            <!-- .right-sidebar -->
-            <!-- ============================================================== -->
-            <!-- End Right sidebar -->
-            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
@@ -291,7 +271,7 @@
             return false;
         }
     </script>
-    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
