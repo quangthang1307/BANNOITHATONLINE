@@ -214,10 +214,10 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
       var delay = FlashSaleHour.delay;
       console.log(delay);
       $timeout(function () {
+        // Thực hiện công việc khi bắt đầu flash sale
         console.log("Flash sale is starting now at ");
         $scope.getFlashSale();
-        // Thực hiện công việc khi bắt đầu flash sale
-        // $scope.getFlashSale();
+
         // Lập lịch cho công việc khi kết thúc flash sale
         $scope.scheduleSaleOffTask();
       }, delay);

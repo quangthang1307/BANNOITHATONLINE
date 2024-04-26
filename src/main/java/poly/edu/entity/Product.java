@@ -16,6 +16,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public class Product {
     private Integer productid;
 
     @Column(name = "Productname")
+    @NotEmpty(message = "Vui lòng nhập tên sản phẩm")
     private String productname;
 
     @Column(name = "Description", columnDefinition = "nvarchar(MAX)")
@@ -42,9 +45,6 @@ public class Product {
 
     @Column(name = "Viewcount")
     private Integer viewcount;
-
-    // @Column(name = "BrandID")
-    // private Integer brand;
 
     @ManyToOne
     @JoinColumn(name = "BrandID")
@@ -62,13 +62,16 @@ public class Product {
     private LocalDateTime createddate;
 
     @Column(name = "Pricenhap")
+    @NotNull(message = "Vui lòng nhập giá nhập")
     private Double pricenhap;
 
     @Column(name = "Pricexuat")
+    @NotNull(message = "Vui lòng nhập giá bán")
     private Double pricexuat;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ProductImage> productimages;
 
+    
 }

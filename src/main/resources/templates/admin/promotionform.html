@@ -168,9 +168,10 @@
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label fw-bold">Mã giảm giá</label>
-                                                    <input type="text" class="form-control" name="" id="pricexuat" th:field="${discount.code}"
+                                                    <input type="text" class="form-control" name="" id="pricexuat" th:field="*{code}"
                                                         aria-describedby="helpId" placeholder="Nhập mã giảm giá" />
-                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        
+                                                    <small th:if="${#fields.hasErrors('code')}" th:errors="*{code}" id="helpId" class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
@@ -195,8 +196,8 @@
                                                     <label for="" class="form-label fw-bold">Phần trăm</label>
                                                     <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.percent}"
                                                         aria-describedby="helpId" placeholder="Nhập %" min="1"
-                                                        max="100" />
-                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        max="49" />
+                                                    <small th:if="${#fields.hasErrors('percent')}" th:errors="*{percent}" id="helpId" class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
@@ -205,16 +206,16 @@
                                                     <label for="" class="form-label fw-bold">Số lượng</label>
                                                     <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.quantity}"
                                                         aria-describedby="helpId" placeholder="Nhập số lượng"/>
-                                                    <small id="helpId" class="form-text text-muted">Help
+                                                    <small th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" id="helpId" class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="" class="form-label fw-bold">Sử dụng tối đa</label>
+                                                    <label for="" class="form-label fw-bold">Sử dụng tối đa/1 tài khoản</label>
                                                     <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.MaxUsage}"
-                                                        aria-describedby="helpId" placeholder="Nhập số lượng sử dụng tối đa"  />
-                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        aria-describedby="helpId" placeholder="Nhập số lần được sử dụng"  />
+                                                    <small th:if="${#fields.hasErrors('MaxUsage')}" th:errors="*{MaxUsage}" id="helpId" class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
@@ -252,14 +253,14 @@
                                                 <label class="form-label fw-bold">Thời gian bắt đầu</label>
                                                 <input type="datetime-local" name="daystart" class="form-control" th:value="${daystart}"
                                                     aria-describedby="helpId" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                <small th:if="${#fields.hasErrors('StartDate')}" th:errors="*{StartDate}" id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="" class="form-label fw-bold">Thời gian kết thúc</label>
                                                 <input type="datetime-local" name="dayend" class="form-control" th:value="${dayend}"
                                                     aria-describedby="helpId" placeholder="" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                <small th:if="${#fields.hasErrors('EndDate')}" th:errors="*{EndDate}" id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
 

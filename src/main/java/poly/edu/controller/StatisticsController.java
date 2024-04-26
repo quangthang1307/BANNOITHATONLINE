@@ -1,7 +1,9 @@
 package poly.edu.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,30 @@ public class StatisticsController {
             map.put("y", categoryCount[1]);
             chartData.add(map);
         }
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime sevenDaysAgo = now.minusDays(7);
+        List<Integer> totalSumpaymentsLast7Days = new ArrayList<>();
+        for (int day = 0; day < 7; day++) {
+            LocalDateTime dayStart = sevenDaysAgo.plusDays(day);
+            LocalDateTime dayEnd = dayStart.plusDays(1);
+            Integer sumpayment = orderRepository.findSumpaymentOrderForLast7Days("Thanh Toán", dayStart, dayEnd);
+            totalSumpaymentsLast7Days.add(sumpayment);
+        }
+
+        List<Object[]> categoryCountsLast7Days = orderRepository
+                .countProductByCategoryAndStatusForLast7Days(sevenDaysAgo, now);
+        List<Map<String, Object>> chartDataLast7Days = new ArrayList<>();
+        for (Object[] categoryCount : categoryCountsLast7Days) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", categoryCount[0]);
+            map.put("y", categoryCount[1]);
+            chartDataLast7Days.add(map);
+        }
+
+        model.addAttribute("chartDataLast7Days", chartDataLast7Days);
+
+        model.addAttribute("totalSumpaymentsLast7Days", totalSumpaymentsLast7Days);
 
         model.addAttribute("chartData", chartData);
         model.addAttribute("message", totalSumpayments);

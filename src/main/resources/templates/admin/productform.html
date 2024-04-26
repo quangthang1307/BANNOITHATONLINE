@@ -99,7 +99,7 @@
                                         <a href="/admin/products">Sản phẩm</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
-                                        
+
                                     </li>
                                 </ol>
                             </nav>
@@ -147,8 +147,9 @@
                                                     <input th:field="${product.productname}" type="text"
                                                         class="form-control" name="" id="productname"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        
+                                                        <small th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
 
@@ -243,11 +244,12 @@
                                                                     hình
                                                                     ảnh</span>
                                                                 <input type="file" name="imageFile" id="imageInput"
-                                                                    accept="image/*" multiple required hidden>
+                                                                    accept="image/*" multiple hidden>
 
                                                             </label>
 
-                                                            <input type="file" name="allimage" id="fileInput2" multiple hidden>
+                                                            <input type="file" name="allimage" id="fileInput2" multiple
+                                                                hidden>
                                                         </div>
 
                                                         <div class="col-3 " th:id="'hinh' + ${images.ID}"
@@ -291,8 +293,8 @@
                                                     <input type="number" th:field="${product.pricenhap}"
                                                         class="form-control" name="" id="pricenhap"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        <small th:if="${#fields.hasErrors('pricenhap')}" th:errors="*{pricenhap}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -301,15 +303,15 @@
                                                     <input type="number" th:field="${product.pricexuat}"
                                                         class="form-control" name="" id="pricexuat"
                                                         aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
+                                                        <small th:if="${#fields.hasErrors('pricexuat')}" th:errors="*{pricexuat}" id="helpId" class="form-text text-danger">Help
+                                                            text</small>
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
 
-                                    <div class="tonkho bg-white mb-3 p-4 mx-auto shadow-sm">
+                                    <!-- <div class="tonkho bg-white mb-3 p-4 mx-auto shadow-sm">
                                         <h4 class="text-info">Quản Lý Tồn Kho</h4>
                                         <hr>
                                         <div class="row">
@@ -324,7 +326,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
 
 
@@ -336,9 +338,9 @@
                                         <hr>
 
                                         <div class="">
-                                            
+
                                             <div class="form-check form-switch mx-2">
-                                                
+
                                                 <input class="form-check-input rounded-pill"
                                                     th:field="${product.productactivate}"
                                                     th:checked="${product.productactivate}" value="true" type="checkbox"
@@ -346,7 +348,7 @@
 
 
                                             </div>
-                                            
+
 
                                         </div>
 
@@ -533,7 +535,7 @@
                     newFileInput.files = fileList.files;
 
 
-                   
+
                     console.log(selectedFiles);
                     console.log(selectedFiless);
                     const selectedFilesDiv = document.getElementById('imageContainer');
@@ -550,7 +552,7 @@
                         const file = selectedFiless[i];
 
                         const fileItem = document.createElement('div');
-                        fileItem.classList.add('col-3', 'newimage');
+                        fileItem.classList.add('col-lg-3','col-xs-12', 'newimage');
 
 
 
@@ -588,6 +590,7 @@
                 }
 
             </script>
+
 
             <script>
                 function confirmDelete(brandsId) {

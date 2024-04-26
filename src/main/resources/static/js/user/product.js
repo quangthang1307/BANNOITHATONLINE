@@ -1,6 +1,7 @@
 var app = angular.module("bannoithatonline", []);
 const host = "/rest/product";
 const hostCategory = "/rest/category";
+const hostProductByCategoryAndPrice = "/rest/product/categoryprice";
 const hostProductByCategory = "/rest/product/category";
 const hostProductByCategoryDESC = "/rest/product/category/desc";
 const hostProductByCategoryASC = "/rest/product/category/asc";
@@ -36,12 +37,16 @@ const hostProductZA = "/rest/product/za";
 const hostProductFlashsale = "/rest/product/flashsale";
 
 const hostInventory = "/rest/product/inventory";
+const hostPrice = "/rest/product/priceon";
+const hostSaleCategoryPrice = "/rest/productsale/categoryprice";
+const hostSalePrice = "/rest/productsale/priceon";
 
 
 app.controller("productController", function ($scope, $http, $window) {
     $scope.titlePage = "Tất cả sản phẩm";
     $scope.filterByCategory = false;
     $scope.filterBySale = false;
+    $scope.filterByPrice = false;
     $scope.locationInProductSale = 0;
     $scope.listCart = [];
 
@@ -163,7 +168,7 @@ app.controller("productController", function ($scope, $http, $window) {
     //
 
     //Kiểm tra tồn kho
-    $scope.checkInventory = function(productId) {
+    $scope.checkInventory = function (productId) {
         const product = $scope.inventory.find(item => item.product.productid === productId);
         return product && product.quantityonhand > 0;
     }
@@ -269,6 +274,45 @@ app.controller("productController", function ($scope, $http, $window) {
     //Loc Sản Phẩm Theo Danh Mục
     $scope.categorys = [];
     $scope.CheckboxCategory = [];
+    $scope.CheckboxPrice =
+        [
+            {
+                label: 'Dưới 1.000.000₫',
+                minPrice: 0,
+                maxPrice: 1000000,
+                isChecked: false
+            },
+            {
+                label: '1.000.000₫ - 2.000.000₫',
+                minPrice: 1000000,
+                maxPrice: 2000000,
+                isChecked: false
+            },
+            {
+                label: '2.000.000₫ - 3.000.000₫',
+                minPrice: 2000000,
+                maxPrice: 3000000,
+                isChecked: false
+            },
+            {
+                label: '3.000.000₫ - 4.000.000₫',
+                minPrice: 3000000,
+                maxPrice: 4000000,
+                isChecked: false
+            },
+            {
+                label: 'Trên 4.000.000₫',
+                minPrice: 4000000,
+                maxPrice: 1000000000,
+                isChecked: false
+            },
+            {
+                label: 'macdinh',
+                minPrice: 0,
+                maxPrice: 1000000000,
+                isChecked: false
+            }
+        ]
     $scope.getDataCategory = function () {
         $http.get(hostCategory)
             .then(function (response) {
@@ -311,7 +355,14 @@ app.controller("productController", function ($scope, $http, $window) {
             $scope.filterActiveDESC = false;
             $scope.filterActiveAZ = false;
             $scope.filterActiveZA = false;
+            $scope.filterByCategory = false;
             $scope.CheckboxCategory.forEach(function (item) {
+                if (item.isChecked) {
+                    item.isChecked = false;
+                }
+            });
+            $scope.filterByPrice = false;
+            $scope.CheckboxPrice.forEach(function (item) {
                 if (item.isChecked) {
                     item.isChecked = false;
                 }
@@ -323,8 +374,14 @@ app.controller("productController", function ($scope, $http, $window) {
         if (id === 0 && index === 1) {
             console.log($scope.productSale);
             $scope.filterBySale = true;
-            console.log($scope.filterBySale);
+            $scope.filterByCategory = false;
             $scope.CheckboxCategory.forEach(function (item) {
+                if (item.isChecked) {
+                    item.isChecked = false;
+                }
+            });
+            $scope.filterByPrice = false;
+            $scope.CheckboxPrice.forEach(function (item) {
                 if (item.isChecked) {
                     item.isChecked = false;
                 }
@@ -336,9 +393,10 @@ app.controller("productController", function ($scope, $http, $window) {
         }
 
         $scope.filterByCategory = true;
-        console.log("filterByCategory" + $scope.filterByCategory);
+
 
         IntegerArray.push(id);
+        console.log(IntegerArray.length);
 
         if (!$scope.CheckboxCategory[index].isChecked) {
             IntegerArray = IntegerArray.filter(number => number !== id);
@@ -346,8 +404,13 @@ app.controller("productController", function ($scope, $http, $window) {
                 if ($scope.filterBySale === true) {
                     return $scope.getDataProductSale();
                 }
-                $scope.filterByCategory = false;
-                return $scope.getData();
+                if ($scope.CheckboxPrice.every(category => category.isChecked === false)) {
+                    $scope.filterByCategory = false;
+                    return $scope.getData();
+                }
+
+                return getDataByCategory();
+
             }
         }
 
@@ -355,6 +418,38 @@ app.controller("productController", function ($scope, $http, $window) {
         if ($scope.filterBySale === true) return $scope.getDataProductSaleByCategory();
         $scope.getDataByCategory();
 
+    }
+
+    var PriceArray = [];
+    $scope.clickfillprice = function (index) {
+        if (!$scope.CheckboxPrice[index].isChecked) {
+            PriceArray = PriceArray.filter(item => item.name !== $scope.CheckboxPrice[index].label);
+            if ($scope.CheckboxPrice.every(category => category.isChecked === false)) {
+                if ($scope.CheckboxCategory.every(category => category.isChecked === false)) {
+                    $scope.filterByPrice = false;
+                    if ($scope.filterBySale === true) return $scope.getDataProductSale();
+                    return $scope.getData();
+                }
+                $scope.filterByPrice = false;
+                if ($scope.filterBySale === true) return $scope.getDataProductSaleByCategory();
+                return $scope.getDataByCategory();
+            }
+            console.table(PriceArray);
+            $scope.productssum = [];
+            if ($scope.filterBySale === true) return $scope.getDataSaleByCategoryAndPrice();
+            $scope.getDataByCategory();
+            return
+        }
+        var price = {
+            name: $scope.CheckboxPrice[index].label,
+            minPrice: $scope.CheckboxPrice[index].minPrice,
+            maxPrice: $scope.CheckboxPrice[index].maxPrice
+        }
+        $scope.filterByPrice = true;
+        PriceArray.push(price);
+        console.table(PriceArray);
+        if ($scope.filterBySale === true) return $scope.getDataSaleByCategoryAndPrice();
+        $scope.getDataByCategory();
     }
 
     // $scope.getFifteenProductSale = function () {
@@ -373,18 +468,84 @@ app.controller("productController", function ($scope, $http, $window) {
     //     console.log($scope.products);
     // }
 
+    $scope.productssum = [];
     $scope.getDataByCategory = function () {
+        if (PriceArray.length <= 0) {
+            var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+            $scope.getProductByCategory(apiUrl)
+            return
+        }
 
-        var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        $scope.productssum = [];
+        PriceArray.forEach(function (element) {
+            console.log(element.minPrice); // In ra từng phần tử của mảng
+            if (IntegerArray.length <= 0) {
+                var apiUrl = hostPrice + '?minprice=' + element.minPrice + '&maxprice=' + element.maxPrice;
+                console.log(apiUrl);
+                $scope.getProductByCPriceon(apiUrl)
+            } else {
+                var apiUrl = hostProductByCategoryAndPrice + '?categoryId=' + IntegerArray + '&minprice=' + element.minPrice + '&maxprice=' + element.maxPrice;
+                console.log(apiUrl);
+                $scope.getProductByCPriceon(apiUrl)
+            }
+
+        });
+
+    }
+    $scope.getDataSaleByCategoryAndPrice = function () {
+        // if (PriceArray.length <= 0) {
+        //     var apiUrl = hostProductByCategory + '?page=' + ($scope.currentPage - 1) + '&size=' + $scope.itemsPerPage + '&categoryId=' + IntegerArray;
+        //     $scope.getProductByCategory(apiUrl)
+        //     return
+        // }
+
+        $scope.productssum = [];
+        PriceArray.forEach(function (element) {
+            console.log(element.minPrice); // In ra từng phần tử của mảng
+            if (IntegerArray.length <= 0) {
+                var apiUrl = hostSalePrice + '?minprice=' + element.minPrice + '&maxprice=' + element.maxPrice;
+                console.log(apiUrl);
+                $scope.getProductByCPriceon(apiUrl)
+            } else {
+                var apiUrl = hostSaleCategoryPrice + '?categoryId=' + IntegerArray + '&minprice=' + element.minPrice + '&maxprice=' + element.maxPrice;
+                console.log(apiUrl);
+                $scope.getProductByCPriceon(apiUrl)
+            }
+
+        });
+
+    }
+    $scope.getProductByCategory = function (apiUrl) {
         $http.get(apiUrl)
             .then(function (response) {
 
                 $scope.products = response.data.content;
+                console.table($scope.products);
 
                 $scope.totalItems = response.data.totalElements;
                 console.log($scope.totalItems);
 
                 $scope.totalPages = parseInt(response.data.totalPages, 10);
+                console.log($scope.totalPages);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    $scope.getProductByCPriceon = function (apiUrl) {
+        $http.get(apiUrl)
+            .then(function (response) {
+
+                $scope.productssum = $scope.productssum.concat(response.data);
+                $scope.products = $scope.productssum;
+                console.table($scope.productssum);
+                $scope.totalItems = $scope.products.length
+                console.log($scope.totalItems);
+
+                $scope.totalPages = 0
                 console.log($scope.totalPages);
 
 
@@ -818,8 +979,12 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryZA = false;
 
                     $scope.getDataByCategoryASC();
-                }
-                else {
+                }else if ($scope.filterByPrice) {
+                    $scope.products.sort(function(a, b) {                     
+                        return a.pricexuat - b.pricexuat;
+                    });
+                   
+                }else {
                     $scope.filterActiveASC = true;
                     $scope.filterActiveDESC = false;
                     $scope.filterActiveAZ = false;
@@ -855,6 +1020,11 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryZA = false;
 
                     $scope.getDataByCategoryDESC();
+                }else if ($scope.filterByPrice) {
+                    $scope.products.sort(function(a, b) {                     
+                        return b.pricexuat - a.pricexuat;
+                    });
+                   
                 }
                 else {
                     $scope.filterActiveDESC = true;
@@ -892,6 +1062,19 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryZA = false;
 
                     $scope.getDataByCategoryAZ();
+                }else if ($scope.filterByPrice) {
+                    $scope.products.sort(function(a, b) {
+                        var nameA = a.productname.toUpperCase(); // Chuyển tên thành chữ hoa để so sánh không phân biệt chữ hoa - chữ thường
+                        var nameB = b.productname.toUpperCase(); // Chuyển tên thành chữ hoa để so sánh không phân biệt chữ hoa - chữ thường
+                        
+                        if (nameA < nameB) {
+                            return -1; // Trả về số nhỏ hơn để sắp xếp tên tăng dần
+                        } else if (nameA > nameB) {
+                            return 1; // Trả về số lớn hơn để sắp xếp tên tăng dần
+                        } else {
+                            return 0; // Trả về 0 nếu tên bằng nhau
+                        }
+                    });     
                 }
                 else {
                     $scope.filterActiveDESC = false;
@@ -929,6 +1112,20 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterByCategoryZA = true;
 
                     $scope.getDataByCategoryZA();
+                }else if ($scope.filterByPrice) {
+                    $scope.products.sort(function(a, b) {
+                        var nameA = a.productname.toUpperCase(); // Chuyển tên thành chữ hoa để so sánh không phân biệt chữ hoa - chữ thường
+                        var nameB = b.productname.toUpperCase(); // Chuyển tên thành chữ hoa để so sánh không phân biệt chữ hoa - chữ thường
+                        
+                        if (nameA < nameB) {
+                            return 1; // Trả về số lớn hơn để sắp xếp tên giảm dần
+                        } else if (nameA > nameB) {
+                            return -1; // Trả về số nhỏ hơn để sắp xếp tên giảm dần
+                        } else {
+                            return 0; // Trả về 0 nếu tên bằng nhau
+                        }
+                    }); 
+                   
                 }
                 else {
                     $scope.filterActiveDESC = false;
@@ -938,19 +1135,7 @@ app.controller("productController", function ($scope, $http, $window) {
                     $scope.filterProductZA();
                 }
 
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-
-                break;
+                break; 
 
             default:
                 break;
@@ -1120,13 +1305,15 @@ app.controller('productDetailController', function ($scope, $http) {
     $scope.productdetail = null;
     $scope.productRelates = null;
     $scope.productSale = null;
+    $scope.productFlashSale = null;
     $scope.inventory = [];
     $scope.quantity = 1;
     $scope.getProductDetail = function () {
         $scope.productdetail = JSON.parse(localStorage.getItem('productById'));
         $scope.productSale = JSON.parse(localStorage.getItem('productSale'));
+        $scope.productFlashSale = JSON.parse(localStorage.getItem('productFlashSale'));
         $scope.inventory = JSON.parse(localStorage.getItem('productInventory'));
-        $scope.getTop5ProductRelate($scope.productdetail.category);
+        $scope.getTop5ProductRelate($scope.productdetail.category.id);
         console.log("ProductDetail", $scope.productdetail);
         console.log("productSale", $scope.productSale);
     };
@@ -1172,8 +1359,18 @@ app.controller('productDetailController', function ($scope, $http) {
         return foundItem ? foundItem.percent : null;
     };
     //
+    //Kiểm tra sản phẩm Flashsale để thay đổi giá
+    $scope.isProductInFlashSale = function (productId) {
+        return $scope.productFlashSale.some(item => item.product.productid === productId);
+    };
+
+    $scope.getPercentFlashSaleForProduct = function (productId) {
+        var foundItem = $scope.productFlashSale.find(item => item.product.productid === productId);
+        return foundItem ? foundItem.percent : null;
+    };
+    //
     //Kiểm tra tồn kho
-    $scope.checkInventory = function(productId) {
+    $scope.checkInventory = function (productId) {
         const product = $scope.inventory.find(item => item.product.productid === productId);
         return product && product.quantityonhand > 0;
     }

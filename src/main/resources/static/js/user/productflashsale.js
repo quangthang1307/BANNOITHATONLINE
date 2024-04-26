@@ -42,6 +42,8 @@ const hostFlashSaleHourEnd = "/rest/flashsaledelay/end";
 const hostFlashSale = "/rest/flashsale";
 const hostFlashSaleUpdate = "/rest/flashsale/update"
 
+const hostInventory = "/rest/product/inventory";
+
 
 
 
@@ -72,8 +74,7 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
             });
     }
 
-    //Gọi API lấy sản phẩm
-    //FLASH SALE
+
     $scope.FlashSaleHours = [];
     $scope.FlashSaleProducts = [];
     $scope.itemsPerPage = 15;
@@ -82,6 +83,7 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
     $scope.totalPages = 0;
     $scope.timetodelay = 0;
     $scope.listCart = [];
+    $scope.inventory = [];
 
     // Hàm lập lịch task cho flash sale
     $scope.scheduleFlashSaleTask = function () {
@@ -169,6 +171,21 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
             });
     }
 
+    $scope.getInventory = function () {
+        $http.get(hostInventory)
+            .then(function (response) {
+
+                $scope.inventory = response.data
+                localStorage.setItem('productInventory', JSON.stringify($scope.inventory));
+                console.log($scope.inventory);
+
+            })
+            .catch(function (error) {
+                console.error('Error fetching productSale:', error);
+            }
+            );
+    }
+
     $scope.UpdateFlashSale = function (dataflashsale) {
         $http.put(hostFlashSaleUpdate, dataflashsale)
             .then(function (response) {
@@ -234,15 +251,15 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
     // Hàm xử lý khi nhấp vào tên sản phẩm
     $scope.clickById = function (productId) {
         var url = `${host}/${productId}`;
-        const productflashsale =  $scope.FlashSaleProducts.find(item => item.product.productid === productId);
+        const productflashsale = $scope.FlashSaleProducts.find(item => item.product.productid === productId);
         console.log(productflashsale.percent);
 
         $http.get(url)
             .then(resp => {
                 $scope.productbyid = resp.data;
                 // Trong controller hiện tại, lưu dữ liệu dạng Json và localStorage
-                    resp.data.percent = productflashsale.percent;
-               
+                resp.data.percent = productflashsale.percent;
+
                 localStorage.setItem('productById', JSON.stringify(resp.data));
 
                 // Chuyển hướng đến trang chi tiết sản phẩm
@@ -252,6 +269,14 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
             .catch(error => {
                 console.log("Error", error);
             });
+    }
+    //
+
+    //Kiểm tra tồn kho
+    $scope.checkInventory = function (productId) {
+        console.log($scope.inventory);
+        const product = $scope.inventory.find(item => item.product.productid === productId);
+        return product && product.quantityonhand > 0;
     }
     //
 
@@ -511,7 +536,7 @@ app.controller("productController", function ($scope, $http, $window, $timeout, 
     ////////////
 
     // Load data for the first time
-    // $scope.getData();
+    $scope.getInventory();
     $scope.getDataCategory();
 
     // Call loadCart when the customer is loaded

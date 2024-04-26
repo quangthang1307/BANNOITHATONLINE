@@ -30,7 +30,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/*", "/rest/**").permitAll()
+                    .requestMatchers("/*", "/rest/**", "/user/**").permitAll()
                     .requestMatchers("/user/**").hasAuthority("USER")
                     .requestMatchers("/admin/**", "/employee/**", "/api/telegram/approve/**").hasAuthority("ADMIN")
                     .requestMatchers("/employee/**").hasAuthority("EMPLOYEE")

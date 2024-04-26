@@ -22,9 +22,11 @@ import poly.edu.entity.Orderdetails;
 import poly.edu.Service.OrderService;
 import poly.edu.Service.OrderStatusService;
 import poly.edu.entity.Customer;
+import poly.edu.entity.Inventory;
 import poly.edu.entity.Orderstatus;
 import poly.edu.entity.Product;
 import poly.edu.repository.CustomerRepository;
+import poly.edu.repository.InventoryRepository;
 import poly.edu.repository.OrderRepository;
 import poly.edu.repository.OrderStatusRepository;
 
@@ -49,17 +51,20 @@ public class OrderController {
     private OrderStatusRepository orderStatusRepository;
 
     @Autowired
+    private InventoryRepository inventoryRepository;
+
+    @Autowired
     private CustomerRepository customerRepository;
 
     @RequestMapping("/admin/invoice")
     public String showAdminOrder(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("orders", orderRepository.findOrderAll());
         return "admin/admininvoice";
     }
 
     @RequestMapping("/admin/statusproduct")
     public String showAdminstatusproduct(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("orders", orderRepository.findOrderAll());
         model.addAttribute("statuses", orderStatusRepository.findAll());
         return "admin/statusproduct";
     }
@@ -103,10 +108,9 @@ public class OrderController {
 
     @RequestMapping("/admin/showinvoicedetails/{orderId}")
     public String adminShowInvoiceDetails(Model model, @PathVariable("orderId") Integer orderId) {
-        Order order = orderService.findById(orderId);
+        Order order = orderService.findById(orderId); // 
 
         List<Orderdetails> orderDetails = order.getOrderDetails();
-
         List<Product> products = new ArrayList<>();
         for (Orderdetails orderDetail : orderDetails) {
             Product product = orderDetail.getProduct();
