@@ -9,7 +9,7 @@ import poly.edu.repository.TelegramRepository;
 public class CronProvider {
     @Autowired TelegramRepository telegramRepository;
 
-    public String getCronValue() {
+    public String getCronThongKe() {
         Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.THONGKE);
         System.out.println(telegram);
         return telegram.getTime();

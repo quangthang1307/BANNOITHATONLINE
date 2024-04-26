@@ -24,7 +24,7 @@ public class BannoithatonlineApplication {
 	}
 	
 
-	@Scheduled(cron = "#{@cronProvider.getCronValue()}", zone = "GMT+7")
+	@Scheduled(cron = "#{@cronProvider.getCronThongKe()}", zone = "GMT+7")
     public void runTaskAt12GMT7() {
         doanhThuTelegram.doanhThu();
         System.out.println("Đã chạy đoạn code vào 12h GMT+7.");

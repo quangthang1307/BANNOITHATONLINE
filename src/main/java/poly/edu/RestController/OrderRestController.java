@@ -47,6 +47,7 @@ import poly.edu.entity.Payment;
 import poly.edu.entity.Product;
 import poly.edu.entity.ProductImage;
 import poly.edu.entity.Sale;
+import poly.edu.entity.Telegram;
 import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
 import poly.edu.repository.FlashSaleHourRepository;
@@ -57,6 +58,7 @@ import poly.edu.repository.OrderStatusRepository;
 import poly.edu.repository.ProductImageRepository;
 import poly.edu.repository.ProductRepository;
 import poly.edu.repository.SaleRepository;
+import poly.edu.repository.TelegramRepository;
 import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
@@ -97,6 +99,8 @@ public class OrderRestController {
 
     @Autowired
     FlashSaleHourRepository flashSaleHourRepository;
+
+    @Autowired TelegramRepository telegramRepository;
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
@@ -269,11 +273,15 @@ public class OrderRestController {
                     + "*Sản phẩm:* " + sanpham + "\n"
                     + "*Tổng tiền:* " + tongtien + "\n";
 
-            try {
-                TelegramBot bot = new TelegramBot("7122381171:AAEnkMM5mTKNhKRNIDsl3RstjUXaIqZKRfs");
-                SendMessage send = new SendMessage("5884779776", message).parseMode(ParseMode.Markdown);
-                SendResponse response = bot.execute(send);
-            } catch (Exception e) {
+            Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.HUYHANG);
+            if (telegram != null) {
+                try {
+                    TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                    SendMessage send = new SendMessage(telegram.getChatId(), message).parseMode(ParseMode.Markdown);
+                    SendResponse response = bot.execute(send);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
             }
         }
 

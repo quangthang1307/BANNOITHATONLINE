@@ -9,5 +9,7 @@ import poly.edu.entity.Telegram.MissionType;
 @Repository
 public interface TelegramRepository extends JpaRepository <Telegram, Integer> {
     Telegram findByMission(Telegram.MissionType mission);
+
+    Telegram findByBotToken(String botToken);
     
 }

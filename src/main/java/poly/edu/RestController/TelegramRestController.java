@@ -27,9 +27,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import poly.edu.entity.Order;
 import poly.edu.entity.Orderdetails;
 import poly.edu.entity.Orderstatus;
+import poly.edu.entity.Telegram;
 import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
 import poly.edu.repository.OrderStatusRepository;
+import poly.edu.repository.TelegramRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -41,6 +43,9 @@ public class TelegramRestController {
     OrderRepository orderRepository;
     @Autowired
     OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    TelegramRepository telegramRepository;
 
     @Autowired
     HttpServletRequest request;
@@ -60,7 +65,6 @@ public class TelegramRestController {
                 }
             } else if (action.equals("cancel")) {
                 if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
-                    TelegramBot bot = new TelegramBot("7122381171:AAEnkMM5mTKNhKRNIDsl3RstjUXaIqZKRfs");
                     String madonhang = String.valueOf(order.get().getOrderID());
                     String name = order.get().getCustomer().getName();
                     String username = order.get().getCustomer().getAccount().getUsername();
@@ -95,8 +99,16 @@ public class TelegramRestController {
                             + "*Ngày hủy:* " + time + "\n"
                             + "*Sản phẩm:* " + sanpham + "\n"
                             + "*Tổng tiền:* " + tongtien + "\n";
-                    SendMessage send = new SendMessage("5884779776", message).parseMode(ParseMode.Markdown);
-                    SendResponse response = bot.execute(send);
+                    Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.HUYHANG);
+                    if (telegram != null) {
+                        try {
+                            TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                            SendMessage send = new SendMessage(telegram.getChatId(), message)
+                                    .parseMode(ParseMode.Markdown);
+                            SendResponse response = bot.execute(send);
+                        } catch (Exception e) {
+                        }
+                    }
                     Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã hủy");
                     order.get().setOrderstatus(orderstatus);
                     orderRepository.save(order.get());
@@ -171,17 +183,20 @@ public class TelegramRestController {
                 + "*Ngày đặt hàng:* " + time + "\n"
                 + "*Sản phẩm:* " + sanpham + "\n"
                 + "*Tổng tiền:* " + tongtien + "\n"
-                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://" + host + "/admin/showinvoicedetails/1114/"
+                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www." + host + "/admin/showinvoicedetails/"
                 + String.valueOf(orderID) + ")";
 
-        try {
-            TelegramBot bot = new TelegramBot("6853009990:AAHzyQYieOgmEUBr6cAI8-OXGQD_t_GHVW4");
-            SendMessage send = new SendMessage("5884779776", message).parseMode(ParseMode.Markdown);
-            SendResponse response = bot.execute(send);
-            return true;
-        } catch (Exception e) {
-            // TODO: handle exception
-            return false;
+        Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.DATHANG);
+        if (telegram != null) {
+            try {
+                TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                SendMessage send = new SendMessage(telegram.getChatId(), message).parseMode(ParseMode.Markdown);
+                SendResponse response = bot.execute(send);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
+        return false;
     }
 }
