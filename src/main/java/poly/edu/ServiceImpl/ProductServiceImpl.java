@@ -29,8 +29,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findByCategory(Pageable pageable, List<Integer> category) {
-        return productResponsitory.findProductByCategory(pageable, category);
+    public Page<Product> findByCategory(Pageable pageable, List<Integer> category, double minprice, double maxprice) {
+        return productResponsitory.findProductByCategory(pageable, category, minprice, maxprice);
     }
 
 
@@ -177,6 +177,31 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAllByAllId(List<Integer> productid) {
        return productResponsitory.findProductByAllId(productid);
+    }
+
+    @Override
+    public List<Product> findTop4ForSearch(String searchValue) {
+       return productResponsitory.findTop4ForSearch(searchValue);
+    }
+
+    @Override
+    public List<Product> findByPrice(double minprice, double maxprice) {
+        return productResponsitory.findProductByPrice(minprice, maxprice);
+    }
+
+    @Override
+    public List<Product> findByCategoryAndPrice(List<Integer> category, double minprice, double maxprice) {
+        return productResponsitory.findProductByCategoryAndPrice(category, minprice, maxprice);
+    }
+
+    @Override
+    public List<Product> findSaleByCategoryAndPrice(List<Integer> category, double minprice, double maxprice) {
+        return productResponsitory.findProductSaleByCategoryAndPrice(category, minprice, maxprice);
+    }
+
+    @Override
+    public List<Product> findSaleByPrice(double minprice, double maxprice) {
+        return productResponsitory.findProductSaleByPrice(minprice, maxprice);
     }
 
 

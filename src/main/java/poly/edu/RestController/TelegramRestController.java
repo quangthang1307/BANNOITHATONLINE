@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pengrad.telegrambot.TelegramBot;
@@ -42,21 +45,31 @@ public class TelegramRestController {
     HttpServletRequest request;
 
     @GetMapping("/api/telegram/approve")
-    public String approve(@RequestParam Integer orderID) {
+    public RedirectView approve(@RequestParam Integer orderID, @RequestParam String action,
+            RedirectAttributes attributes) {
         Optional<Order> order = orderRepository.findById(orderID);
         if (order.isPresent()) {
-            if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
-                Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
-                order.get().setOrderstatus(orderstatus);
-                orderRepository.save(order.get());
-                return "Duyệt thành công!";
-            }else{
-                return "Trạng thái đơn hàng: " + order.get().getOrderstatus().getOrderstatusname() ;
+            if (action.equals("approve")) {
+                if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
+                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
+                    order.get().setOrderstatus(orderstatus);
+                    orderRepository.save(order.get());
+                } else {
+                    attributes.addFlashAttribute("errorMessage", "Trạng thái đơn hàng không hợp lệ");
+                }
+            } else if (action.equals("cancel")) {
+                if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
+                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã hủy");
+                    order.get().setOrderstatus(orderstatus);
+                    orderRepository.save(order.get());
+                } else {
+                    attributes.addFlashAttribute("errorMessage", "Trạng thái đơn hàng không hợp lệ");
+                }
             }
-
         } else {
-            return "Duyệt thất bại";
+            attributes.addFlashAttribute("errorMessage", "Đơn hàng không tồn tại");
         }
+        return new RedirectView("/admin/showinvoicedetails/" + orderID);
     }
 
     @PostMapping("/rest/telegram/notification")
@@ -71,19 +84,23 @@ public class TelegramRestController {
         int orderID = (int) data.get("data");
         Optional<Order> order = orderRepository.findById(orderID);
         List<Orderdetails> orderDetail = orderDetailRepository.getOrderdetailsByOrderID(orderID);
-        StringBuilder concatenatedNames = new StringBuilder();
 
         // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
-        for (Orderdetails orderdetails : orderDetail) {
-            // Lấy tên sản phẩm và nối vào chuỗi
-            concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
-
-            // Lấy số lượng sản phẩm và nối vào chuỗi
-            concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
+        if (orderDetail.size() == 1) {
+            sanpham = orderDetail.get(0).getProduct().getProductname();
+        } else {
+            StringBuilder concatenatedNames = new StringBuilder();
+            // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
+            for (Orderdetails orderdetails : orderDetail) {
+                // Lấy tên sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
+                // Lấy số lượng sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
+            }
+            // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
+            String finalNames = concatenatedNames.toString().replaceAll(", $", "");
+            sanpham = finalNames;
         }
-        // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
-        String finalNames = concatenatedNames.toString().replaceAll(", $", "");
-        sanpham = finalNames;
 
         if (order.isPresent()) {
             if (order.get().getCustomer().getAccount().getUsername() != null
@@ -107,7 +124,7 @@ public class TelegramRestController {
             // request.getContextPath());
             // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
         }
-
+        String host = request.getServerName();
         String message = "Đơn hàng mới!\n"
                 + "*Mã đơn hàng:* " + orderID + "\n"
                 + "*Họ và tên:* " + name + "\n"
@@ -116,7 +133,7 @@ public class TelegramRestController {
                 + "*Ngày đặt hàng:* " + time + "\n"
                 + "*Sản phẩm:* " + sanpham + "\n"
                 + "*Tổng tiền:* " + tongtien + "\n"
-                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www.localhost/api/telegram/approve?orderID="
+                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://" + host + "/admin/showinvoicedetails/1114/"
                 + String.valueOf(orderID) + ")";
 
         try {
