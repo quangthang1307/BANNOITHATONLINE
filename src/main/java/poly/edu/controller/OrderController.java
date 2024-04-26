@@ -108,7 +108,11 @@ public class OrderController {
 
     @RequestMapping("/admin/showinvoicedetails/{orderId}")
     public String adminShowInvoiceDetails(Model model, @PathVariable("orderId") Integer orderId) {
-        Order order = orderService.findById(orderId); // 
+        Order order = orderService.findById(orderId); //
+        String status = order.getOrderstatus().getOrderstatusname();
+        if (status != null) {
+            model.addAttribute("status", status);
+        }
 
         List<Orderdetails> orderDetails = order.getOrderDetails();
         List<Product> products = new ArrayList<>();
@@ -121,6 +125,7 @@ public class OrderController {
 
         return "admin/admininvoicedetails";
     }
+    
 
     @RequestMapping("/admin/deleteoder/{orderId}")
     public String deleteOrder(@PathVariable Integer orderId) {

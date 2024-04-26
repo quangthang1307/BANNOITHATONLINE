@@ -117,9 +117,12 @@
                                     </tbody>
 
                                 </table>
-
-
                             </div>
+                            <div class="mt-3 mb-3" th:if="${status == 'Chờ xác nhận'}">
+                                <a class="btn btn-success float-end mx-3" th:href="@{/api/telegram/approve(orderID=${order.OrderID}, action='approve')}" onclick="return confirm('Bạn có chắc chắn muốn duyệt đơn hàng?')">Duyệt đơn hàng</a>
+                                <a class="btn btn-danger float-end" th:href="@{/api/telegram/approve(orderID=${order.OrderID}, action='cancel')}" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng?')">Hủy đơn hàng</a>
+                            </div>
+                            
                         </div>
                     </div>
 
