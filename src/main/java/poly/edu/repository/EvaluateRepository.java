@@ -10,12 +10,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import poly.edu.entity.Account;
 import poly.edu.entity.Evaluate;
+import poly.edu.entity.Order;
 
 @Repository
 public interface EvaluateRepository extends JpaRepository<Evaluate, Integer> {
 
+    @Query("SELECT e FROM Evaluate e WHERE e.productId = :productId")
+    List<Evaluate> findByProductId1(@Param("productId") Integer productId);
+    // EvaluateRepository.java
+    // @Query("SELECT e FROM Evaluate e WHERE e.product.productId = :productId")
+    // List<Evaluate> findByProductId1(@Param("productId") Integer productId);
+
     Optional<List<Evaluate>> findByProductId(Integer productId);
+
+    @Query(value = "SELECT * FROM dbo.[Order] WHERE CustomerID = ?", nativeQuery = true)
+    List<Order> findByCustomerid(int id);
     // @Query("SELECT COUNT(r) FROM Evaluate r WHERE r.product.id = :productId")
     // Integer countReviewProduct(@Param("productId") Integer productId);
     //

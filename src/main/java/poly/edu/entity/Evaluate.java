@@ -29,8 +29,13 @@ public class Evaluate {
     @Column(name = "ProductID")
     private Integer productId;
 
-    @Column(name = "CustomerID")
-    private Integer customerId;
+    // @ManyToOne
+    // @JoinColumn(name = "ProductID")
+    // Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "CustomerID")
+    Customer customer;
 
     @Column(name = "Evaluatestar")
     private Integer evaluateStar;
@@ -38,8 +43,8 @@ public class Evaluate {
     @Column(name = "Evaluatedate")
     private LocalDateTime evaluateDate;
 
-    @Column(name = "Description")
-    private String description;
+    @Column(name = "Comment")
+    private String comment;
 
     @Column(name = "Image1")
     private String image1;
@@ -50,5 +55,12 @@ public class Evaluate {
     @Column(name = "Image3")
     private String image3;
 
+    @Column(name = "Image4")
+    private String image4;
+
+    @Column(name = "Image5")
+    private String image5;
     // Nếu cần, bạn có thể thêm quan hệ với các entity khác tại đây.
+    // Thêm getter và setter cho productId
+
 }

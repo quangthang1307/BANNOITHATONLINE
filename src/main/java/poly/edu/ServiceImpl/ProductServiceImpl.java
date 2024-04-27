@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import poly.edu.Service.ProductService;
 import poly.edu.entity.Product;
 import poly.edu.repository.ProductRepository;
@@ -32,7 +33,6 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findByCategory(Pageable pageable, List<Integer> category) {
         return productResponsitory.findProductByCategory(pageable, category);
     }
-
 
     @Override
     public Integer[] findTop5ProductBestSeller() {
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findProductSaleDESC(Pageable pageable) {
-       return productResponsitory.findProductOnSaleDESC(pageable);
+        return productResponsitory.findProductOnSaleDESC(pageable);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findSaleByCategoryAndDESC(Pageable pageable, List<Integer> category) {
-       return productResponsitory.findProductSaleByCategoryAndDESC(pageable, category);
+        return productResponsitory.findProductSaleByCategoryAndDESC(pageable, category);
     }
 
     @Override
@@ -111,12 +111,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findTop5ByCategory(Integer category) {
-       return productResponsitory.findTop5ProductByCategory(category);
+        return productResponsitory.findTop5ProductByCategory(category);
     }
 
     @Override
     public Page<Product> findByRoom(Pageable pageable, Integer category) {
-       return productResponsitory.findProductByRoom(pageable, category);
+        return productResponsitory.findProductByRoom(pageable, category);
     }
 
     @Override
@@ -176,11 +176,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByAllId(List<Integer> productid) {
-       return productResponsitory.findProductByAllId(productid);
+        return productResponsitory.findProductByAllId(productid);
     }
-
-
-
 
     // @Override
     // public List<Product> findAll() {

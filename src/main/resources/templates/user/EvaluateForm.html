@@ -1,0 +1,562 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+
+</html>
+<link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    crossorigin="">
+<link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    as="style">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+
+<link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+    as="style">
+
+<title>Evaluate</title>
+
+<!-- Bootstrap core CSS -->
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="css/kimi.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/index.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/indexcolor.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme1.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme2.css">
+<link rel="stylesheet" href="/taiNguyenCuaDung/css/theme3.css">
+<link rel="stylesheet" href="taiNguyenCuaThang/css/login.css">
+
+<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<script type="text/javascript" src="taiNguyenCuaDung/js/jquery.min.js"></script>
+<script type="text/javascript" src="taiNguyenCuaDung/js/theme.js"></script>
+<link rel="preconnect" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    crossorigin="">
+<link rel="preload stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;display=swap"
+    as="style">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="//theme.hstatic.net/200000796751/1001150659/14/fontawesome-webfont.woff2?v=788" as="font"
+    type="font/woff2" crossorigin="anonymous">
+
+<link rel="preload stylesheet" href="//theme.hstatic.net/200000796751/1001150659/14/style-themes.scss.css?v=788"
+    as="style">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<div data-th-insert="~{include/navbar.html}"></div>
+<link rel="stylesheet" href="path/to/your/styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    /* Thiết lập font và màu chữ */
+    body {
+        font-family: 'Quicksand', sans-serif;
+        color: #333;
+    }
+
+    /* Phần đánh giá */
+    .review-form {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .review-form h2 {
+        margin-bottom: 20px;
+    }
+
+    /* Các trường nhập dữ liệu */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    /* Input, textarea và select */
+    input[type="text"],
+    input[type="file"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        /* Giảm thiểu chiều rộng của phần padding và border từ kích thước tổng */
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+    }
+
+    /* Nút gửi */
+    button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .star {
+        font-size: 2em;
+        /* Kích thước của ngôi sao */
+        color: #ccc;
+        /* Màu của ngôi sao không được chọn */
+        cursor: pointer;
+        /* Con trỏ chuột sẽ thay đổi thành pointer khi di chuột qua ngôi sao */
+    }
+
+    /* Khi di chuột qua ngôi sao, màu của nó sẽ thay đổi thành màu vàng */
+    .star:hover {
+        color: #FFFA00;
+    }
+
+    /* Khi ngôi sao được chọn, màu của nó sẽ là màu vàng */
+    .star.active {
+        color: #FFFA00;
+    }
+
+    /* Chỉ định các phần tử trong cùng một hàng */
+    .rating {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Định dạng chữ mô tả đánh giá */
+    #ratingDescription {
+        color: red;
+        /* Màu chữ đỏ */
+        font-weight: bold;
+        /* Chữ in đậm */
+        font-size: 1.2em;
+        /* Kích thước chữ lớn hơn */
+        margin-left: 10px;
+        /* Khoảng cách giữa mô tả và các ngôi sao */
+        display: inline-block;
+        /* Đảm bảo nằm cùng hàng với các ngôi sao */
+        vertical-align: middle;
+        /* Căn giữa theo chiều dọc */
+    }
+
+
+
+
+
+    /* Hiển thị hình ảnh đã chọn */
+    #selectedImageContainer {
+        margin-top: 0px;
+    }
+
+    #previewImages {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        /* Khoảng cách giữa các ảnh */
+    }
+
+    .image-container {
+        position: relative;
+    }
+
+    .image-container img {
+        width: 100px;
+        /* Đặt kích thước cố định cho tất cả các ảnh */
+        height: 100px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .delete-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+</style>
+
+<div class="review-form">
+    <h2>Đánh giá sản phẩm</h2>
+    <form th:object="${evaluate}" method="POST" enctype="multipart/form-data">
+
+        <!-- Hiển thị hình ảnh sản phẩm và tên sản phẩm ngang -->
+        <div class="form-group d-flex align-items-center">
+
+            <input type="hidden" id="productId" th:field="*{productId}">
+
+            <div>
+                <label for="productImage" class="mr-3">Hình ảnh sản phẩm:</label>
+                <img th:each="productimage,iterStat  : ${evaluateProduct.productimages}" th:if="${iterStat.index == 0}"
+                    th:src="'/' + ${productimage.image}" alt="Ảnh sản phẩm" style="max-width: 100px;">
+            </div>
+
+            <div>
+                <label for="productName" class="ml-3">Tên sản phẩm:</label>
+                <h1 id="productName" th:text="${evaluateProduct.productname}" class="ml-3"></h1>
+
+
+            </div>
+        </div>
+
+        <input type="hidden" id="customerId" th:field="*{customer}">
+
+        <!-- <input type="hidden" th:field="*{evaluateDate}"> -->
+
+
+        <!-- Hiển thị ngôi sao đánh giá -->
+        <div class="form-group">
+            <label for="evaluateStar">Đánh giá:</label>
+            <div class="rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+                <span id="ratingDescription"></span>
+            </div>
+            <input type="hidden" id="evaluateStar" name="evaluateStar" value="0">
+
+        </div>
+
+        <div class="form-group">
+            <label for="description">Nhận xét:</label>
+            <!-- Ô văn bản để nhập nhận xét -->
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+            </div>
+            <textarea id="description" th:field="*{comment}" name="comment" class="form-control" rows="5"></textarea>
+        </div>
+
+
+        <!-- Ô để tải lên hình ảnh (nếu có) -->
+        <div class="form-group">
+            <label for="image">Ảnh (nếu có):</label>
+            <input type="file" id="image" name="image" class="form-control-file" accept="image/*"
+                onchange="previewImages(event)">
+
+            <input type="file" name="allimage" id="fileInput2" multiple hidden>
+        </div>
+
+        <!-- Hiển thị hình ảnh đã chọn -->
+        <div id="selectedImageContainer" class="form-group" style="display: none;">
+            <label for="selectedImages">Ảnh đã chọn:</label>
+            <div id="previewImages"></div>
+        </div>
+
+        <!-- Nút gửi đánh giá -->
+        <button type="submit" formaction="/productdetail/saveevaluate" class="btn btn-primary">Gửi đánh
+            giá</button>
+    </form>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const descriptions = ['Tệ', 'Kém', 'Tạm được', 'Tuyệt', 'Rất Tuyệt'];
+        const evaluateStarInput = document.getElementById('evaluateStar');
+        const ratingDescription = document.getElementById('ratingDescription');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                evaluateStarInput.value = index + 1;
+
+                for (let i = 0; i < stars.length; i++) {
+                    stars[i].style.color = i <= index ? '#FFFA00' : '#ccc';
+                }
+
+                ratingDescription.innerText = descriptions[index];
+            });
+        });
+
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (event) {
+            const evaluateStar = evaluateStarInput.value;
+            const description = document.getElementById("description").value;
+
+            if (evaluateStar === "" || description === "") {
+                alert("Vui lòng điền đầy đủ thông tin đánh giá!");
+                event.preventDefault();
+            }
+        });
+    });
+
+</script>
+
+
+
+<script>
+    const selectedFiless = [];
+    function createDeleteButton() {
+        // Tạo một nút xóa mới và trả về nút đó
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Xóa';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function () {
+            // Xóa hình ảnh khi nút xóa được nhấp
+            const imageContainer = deleteButton.parentElement;
+            imageContainer.remove();
+
+
+        });
+        return deleteButton;
+    }
+
+    function removeFile(index) {
+        console.log(index);
+
+        selectedFiless.splice(index, 1); // Xóa phần tử tại chỉ mục được chỉ định
+
+        // Tạo một đối tượng DataTransfer
+        const fileList = new DataTransfer();
+
+        // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
+        for (let i = 0; i < selectedFiless.length; i++) {
+            const filetran = selectedFiless[i];
+            fileList.items.add(filetran);
+        }
+
+        // Gán đối tượng DataTransfer vào input thứ hai
+        const newFileInput = document.getElementById('fileInput2');
+        newFileInput.files = fileList.files;
+
+    }
+
+
+    function checkImageSize(file) {
+    const maxFileSize = 2048 * 1024; // Kích thước tối đa ảnh là 2MB (2048KB)
+    if (file.size > maxFileSize) {
+        return false; // Kích thước vượt quá giới hạn
+    }
+    return true; // Kích thước hợp lệ
+}
+
+    let selectedFileNames = []; // Biến tạm để lưu tên của các tệp đã chọn
+
+    function clearInputFileName() {
+        selectedFileNames = []; // Xóa tên của các tệp đã chọn
+    }
+
+    function previewImages(event) {
+    const previewContainer = document.getElementById('previewImages');
+    const files = event.target.files;
+    const maxImages = 5;
+
+    // Lấy số lượng ảnh hiện có
+    const currentImageCount = previewContainer.querySelectorAll('.image-container').length;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        // Kiểm tra kích thước của ảnh
+        if (!checkImageSize(file)) {
+            swal("Thông báo", "Kích thước ảnh không được vượt quá 2MB.", "warning");
+            clearInputFileName(); // Gọi hàm để xóa tên của các tệp đã chọn
+            return; // Dừng việc thêm ảnh nếu kích thước vượt quá giới hạn
+        }
+
+        // Nếu kích thước ảnh không vượt quá 450KB, thì lưu tên của tệp vào biến tạm
+        selectedFileNames.push(file.name);
+
+        // Các bước khác để xử lý ảnh
+        const reader = new FileReader();
+        selectedFiless.push(file);
+
+        if (currentImageCount + i + 1 > maxImages) {
+            swal("Thông báo", "Bạn chỉ được chọn tối đa 5 ảnh.", "warning");
+            return; // Dừng việc thêm ảnh khi đạt tối đa số lượng cho phép
+        }
+
+        const imageElement = document.createElement('img');
+        imageElement.style.maxWidth = '100px';
+        imageElement.style.marginRight = '10px';
+
+        reader.onload = function () {
+            imageElement.src = reader.result;
+        }
+
+        reader.readAsDataURL(file);
+
+        const deleteButton = createDeleteButton(); // Gọi hàm tạo nút xóa
+        const imageContainer = document.createElement('div');
+        imageContainer.classList.add('image-container');
+        imageContainer.appendChild(imageElement);
+        imageContainer.appendChild(deleteButton);
+        previewContainer.appendChild(imageContainer);
+
+        // Lấy số thứ tự cột ảnh dựa trên số lượng ảnh đã chọn và số lượng ảnh hiện có
+        const columnIndex = currentImageCount + i + 1;
+
+        // Gán tên file ảnh vào các cột image1, image2, image3, image4, image5 tương ứng
+        const imageNameField = document.createElement('input');
+        imageNameField.type = 'hidden';
+        imageNameField.name = 'image' + columnIndex; // Tên của cột ảnh
+        imageNameField.id = 'image' + columnIndex; //id 
+        imageNameField.value = file.name; // Tên của file ảnh
+        imageContainer.appendChild(imageNameField);
+    }
+
+    // Tạo một đối tượng DataTransfer
+    const fileList = new DataTransfer();
+
+    // Lặp qua từng file và thêm chúng vào đối tượng DataTransfer
+    for (let i = 0; i < selectedFiless.length; i++) {
+        const filetran = selectedFiless[i];
+        fileList.items.add(filetran);
+    }
+
+    // Gán đối tượng DataTransfer vào input thứ hai
+    const newFileInput = document.getElementById('fileInput2');
+    newFileInput.files = fileList.files;
+
+    document.getElementById('selectedImageContainer').style.display = 'block';
+}
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const descriptions = ['Tệ', 'Kém', 'Tạm được', 'Tuyệt', 'Rất Tuyệt'];
+
+        // Thiết lập màu vàng cho các ngôi sao mặc định
+        const defaultRating = 5;
+        for (let i = 0; i < defaultRating; i++) {
+            stars[i].style.color = '#FFFA00';
+        }
+
+        // Thiết lập giá trị cho input ẩn và mô tả ban đầu
+        const evaluateStarInput = document.getElementById('evaluateStar');
+        evaluateStarInput.value = defaultRating;
+        document.getElementById('ratingDescription').innerText = descriptions[defaultRating - 1];
+
+        // Lắng nghe sự kiện click cho từng ngôi sao
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                // Thiết lập giá trị của input ẩn là vị trí ngôi sao đã được click
+                evaluateStarInput.value = index + 1;
+
+                // Thiết lập màu vàng cho các ngôi sao trước vị trí được click
+                for (let i = 0; i <= index; i++) {
+                    stars[i].style.color = '#FFFA00';
+                }
+
+                // Thiết lập màu đen cho các ngôi sao sau vị trí được click
+                for (let i = index + 1; i < stars.length; i++) {
+                    stars[i].style.color = '#ccc';
+                }
+
+                // Hiển thị mô tả tương ứng
+                document.getElementById('ratingDescription').innerText = descriptions[index];
+            });
+        });
+    });
+
+</script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (event) {
+            const evaluateStar = document.getElementById("evaluateStar").value;
+            const description = document.getElementById("description").value;
+
+            if (evaluateStar === "" || description === "") {
+                alert("Vui lòng điền đầy đủ thông tin đánh giá!");
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+<!-- <script>
+    function createDeleteButton() {
+        // Tạo một nút xóa mới và trả về nút đó
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Xóa';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function () {
+            // Xóa hình ảnh khi nút xóa được nhấp
+            const imageContainer = deleteButton.parentElement;
+            imageContainer.remove();
+        });
+        return deleteButton;
+    }
+
+    function previewImages(event) {
+        const previewContainer = document.getElementById('previewImages');
+        const files = event.target.files;
+        const maxImages = 5;
+
+        // Lấy số lượng ảnh hiện có
+        const currentImageCount = previewContainer.querySelectorAll('.image-container').length;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            if (currentImageCount + i + 1 > maxImages) {
+                swal("Thông báo", "Bạn chỉ được chọn tối đa 5 ảnh.", "warning");
+                return; // Dừng việc thêm ảnh khi đạt tối đa số lượng cho phép
+            }
+
+            const imageElement = document.createElement('img');
+            imageElement.style.maxWidth = '100px';
+            imageElement.style.marginRight = '10px';
+
+            reader.onload = function () {
+                imageElement.src = reader.result;
+            }
+
+            reader.readAsDataURL(file);
+
+            const deleteButton = createDeleteButton(); // Gọi hàm tạo nút xóa
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+            imageContainer.appendChild(imageElement);
+            imageContainer.appendChild(deleteButton);
+            previewContainer.appendChild(imageContainer);
+
+            // Lấy số thứ tự cột ảnh dựa trên số lượng ảnh đã chọn và số lượng ảnh hiện có
+            const columnIndex = currentImageCount + i + 1;
+
+            // Gán tên file ảnh vào các cột image1, image2, image3, image4, image5 tương ứng
+            const imageNameField = document.createElement('input');
+            imageNameField.type = 'hidden';
+            imageNameField.name = 'image' + columnIndex; // Tên của cột ảnh
+            imageNameField.value = file.name; // Tên của file ảnh
+            previewContainer.appendChild(imageNameField);
+        }
+
+        document.getElementById('selectedImageContainer').style.display = 'block';
+    }
+
+</script> -->

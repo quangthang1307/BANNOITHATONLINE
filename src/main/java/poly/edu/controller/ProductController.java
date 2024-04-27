@@ -34,6 +34,7 @@ import poly.edu.Service.ProductService;
 import poly.edu.Service.UpdateHistoryProductService;
 import poly.edu.entity.Brands;
 import poly.edu.entity.Employee;
+import poly.edu.entity.Evaluate;
 import poly.edu.entity.Product;
 import poly.edu.entity.ProductImage;
 import poly.edu.entity.UpdateHistoryProduct;
@@ -210,4 +211,5 @@ public class ProductController {
 
 	// return "redirect:/admin/products";
 	// }
+
 }

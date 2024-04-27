@@ -58,6 +58,8 @@ app.controller("OrderController", [
                 var urlProduct = `${host}/rest/products/${orderDetail.product.productid}`;
                 $http.get(urlProduct).then((productResponse) => {
                   order.products.push({
+                    customerid:  $scope.customer.customerId,
+                    productId: orderDetail.product.productid,
                     quantity: orderDetail.productquantity,
                     name: orderDetail.product.productname,
                     imageUrl: productResponse.data[0].image,
