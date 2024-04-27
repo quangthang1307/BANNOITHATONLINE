@@ -105,7 +105,6 @@
                                         <tr>
                                             <th class="text-center fw-bold">SỐ THỨ TỰ</th>
                                             <th class="text-center fw-bold">TOKEN</th>
-                                            <th class="text-center fw-bold">CHAT ID</th>
                                             <th class="text-center fw-bold">Nhiệm vụ</th>
                                             <th class="text-center fw-bold">Thời gian</th>
                                             <th class="text-center fw-bold">Hành động</th>
@@ -115,11 +114,10 @@
                                         <tr>
                                             <td th:text="${itemStat.index + 1}"></td>
                                             <td th:text="${tele.botToken}"></td>
-                                            <td th:text="${tele.chatId}"></td>
                                             <td th:text="${tele.mission}"></td>
                                             <td th:text="${tele.time}" class="formatted-time"></td>
                                             <td><a class="btn btn-warning" href="">Sửa</a></td>
-                                            <td><a class="btn btn-danger" href="">Xóa</a></td>
+                                            <td><a class="btn btn-danger" th:href="@{/admin/bot/delete/{id}(id=${tele.ID})}" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a></td>
                                         </tr>
                                     </tbody>
 

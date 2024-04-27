@@ -3,6 +3,7 @@ package poly.edu.controller;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import com.pengrad.telegrambot.model.Update;
 
 import poly.edu.entity.Telegram;
 import poly.edu.repository.TelegramRepository;
+import com.pengrad.telegrambot.request.GetMe;
+import com.pengrad.telegrambot.response.GetMeResponse;
 
 @Controller
 public class HomeController {
@@ -75,7 +78,15 @@ public class HomeController {
 
 	@PostMapping("/admin/bot")
 	public String showBOTPOST(Model model, Telegram telegram) {
-
+		TelegramBot bot = new TelegramBot(telegram.getBotToken());
+		GetMe getMe = new GetMe();
+		try {
+			GetMeResponse response = bot.execute(getMe);
+			if(!response.isOk()){
+				model.addAttribute("error", "TOKEN KHÔNG HỢP LỆ !");
+			}
+		} catch (Exception e) {
+		}
 		Telegram telegramFind = telegramRepository.findByBotToken(telegram.getBotToken());
 		if (telegramFind != null) {
 			telegramFind.setMission(telegram.getMission());
@@ -120,13 +131,12 @@ public class HomeController {
 						}
 						model.addAttribute("telegramList", telegramList);
 					}
-					model.addAttribute("error", "Nhiệm vụ cho mỗi BOT là duy nhất !");
+					model.addAttribute("error", "NHIỆM VỤ CHO MỖI BOT LÀ DUY NHẤT !");
 					return "admin/bot";
 				}
 			}
 			Telegram tele = new Telegram();
-			if (telegram.getBotToken() != null) {
-				TelegramBot bot = new TelegramBot(telegram.getBotToken());
+			if (telegram.getBotToken() != null) {				
 				bot.setUpdatesListener(updates -> {
 					// Xử lý từng cập nhật
 					for (Update update : updates) {
@@ -194,6 +204,15 @@ public class HomeController {
 			model.addAttribute("telegramList", telegramList);
 		}
 		return "admin/bot";
+	}
+
+	@GetMapping("/admin/bot/delete/{id}")
+	public String  deleteBOT(@PathVariable Integer id){
+		Optional<Telegram> telegram = telegramRepository.findById(id);
+		if(telegram.isPresent()){
+			telegramRepository.delete(telegram.get());
+		}
+		return "redirect:/admin/bot";
 	}
 
 	@RequestMapping("/user")
