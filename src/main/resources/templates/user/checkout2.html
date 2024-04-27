@@ -62,24 +62,22 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <style>
-        .product-row {
-            display: flex;
-            align-items: center;
-        }
-
-        .product-container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
-
-        .product-name {
-            flex-grow: 1;
-            /* Cho phép product.name mở rộng để căn giữa */
-        }
-    </style>
+<style>
+    .product-row {
+    display: flex;
+    align-items: center;
+}
+.product-container {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.product-name {
+    flex-grow: 1; /* Cho phép product.name mở rộng để căn giữa */
+}
+</style>
 </head>
 
 <body ng-controller="OrderController">
@@ -266,7 +264,7 @@
 
         </script>
 
-        <div class="include-footer"></div>
+    <div data-th-insert="~{include/footer.html}"></div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="./js/jquery.min.js"></script>

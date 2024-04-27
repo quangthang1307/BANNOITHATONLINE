@@ -96,10 +96,10 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             );
             isError = true;
           } else {
-            $scope.customer.account.email = email;
-            $scope.customer.name = name;
-            $scope.customer.phone = phone;
-            isError = false;
+            // $scope.customer.account.email = email;
+            // $scope.customer.name = name;
+            // $scope.customer.phone = phone;
+            // isError = false;
           }
         if (avatarValue != "") {
           console.log("đã chọn ảnh");
@@ -128,30 +128,36 @@ app.controller('ProfileController', function ($scope, $http, $window) {
               console.log(error);
             });
         }
+            $scope.customer.account.email = email;
+            $scope.customer.name = name;
+            $scope.customer.phone = phone;
         console.log(isError);
         if (!isError) {
+
             $http({
                 method: 'PUT',
                 url: '/rest/customer/' + $scope.customer.customerId,
                 data: $scope.customer
             })
             .then(function (response) {
-              $("#phoneError").text("");
               Swal.fire({
                 icon: "success",
                 title: "Cập nhật thành công",
                 text: "Thông tin cá nhân đã được cập nhật !",
                 showConfirmButton: true,
+                
               });
+              setTimeout(function() {
+                location.reload();
+            }, 5000);
             })
             .catch(function (error) {
-              console.log(error);
-              Swal.fire({
-                icon: "warning",
-                title: "Có lỗi xảy ra",
-                text: "Vui  lòng thử lại !",
-                showConfirmButton: true,
-              });
+            Swal.fire({
+                      icon: "warning",
+                      title: "Cập nhật thất bại",
+                      text: "Vui lòng thử lại !",
+                      showConfirmButton: true,
+                  });
             });
         }
       };

@@ -130,8 +130,12 @@
   display: flex;
   align-items: center; /* Căn giữa theo chiều dọc */
 }
-
-
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Đảm bảo checkbox được căn giữa theo chiều dọc */
+}
 
 </style>
 
@@ -172,7 +176,9 @@
                 <div class="box-bg-white col-md-12"  ng-repeat="cart in listCart">
                     <div class="row">
                         <div class="col-md-1 col-xs-2">
-                            <input type="checkbox" ng-model="cart.isSelected" ng-click="checkboxClicked(cart)" style="margin:40%;margin-top:140%;transform: scale(1.5);" />
+                            <div class="checkbox-container">
+                                <input type="checkbox" ng-model="cart.isSelected" ng-click="checkboxClicked(cart)" style="transform: scale(1.5);" />
+                            </div>
                         </div>
                         
                         <div class="col-md-2 col-xs-6 less-padding-right">
@@ -232,7 +238,7 @@
 </div><!-- /.container -->
 
 <!--include footer-->
-<div class="include-footer"></div>
+<div data-th-insert="~{include/footer.html}"></div>
 
 
 

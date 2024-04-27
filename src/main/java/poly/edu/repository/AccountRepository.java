@@ -27,4 +27,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "select * from Accounts where AccountID = ?", nativeQuery = true)
     Account findByCustomerId(Integer customerId);
+
+    @Query(value = "SELECT * FROM Accounts where Email=?", nativeQuery = true)
+    List<Account> findByEmailAccount(String email);
+
+  
 }

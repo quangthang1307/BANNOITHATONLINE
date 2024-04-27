@@ -19,6 +19,8 @@ public interface ProductService {
 
     Page<Product> findAll(Pageable pageable);
 
+    List<Product> findTop4ForSearch(String searchValue);
+
     List<Product> findAllNoActive();
 
     List<Product> findAllByAllId(List<Integer> productid);
@@ -35,7 +37,15 @@ public interface ProductService {
 
     Page<Product> findByRoomZA(Pageable pageable, Integer category);
 
-    Page<Product> findByCategory(Pageable pageable, List<Integer> category);
+    Page<Product> findByCategory(Pageable pageable, List<Integer> category, double minprice, double maxprice);
+
+    List<Product> findByCategoryAndPrice(List<Integer> category, double minprice, double maxprice);
+
+    List<Product> findByPrice(double minprice, double maxprice);
+
+    List<Product> findSaleByCategoryAndPrice(List<Integer> category, double minprice, double maxprice);
+
+    List<Product> findSaleByPrice(double minprice, double maxprice);
 
     Page<Product> findByCategoryDESC(Pageable pageable, List<Integer> category);
 

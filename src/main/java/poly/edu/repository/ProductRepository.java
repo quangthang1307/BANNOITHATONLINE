@@ -43,8 +43,23 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT TOP 5 * FROM Product WHERE Productactivate = 1 AND CategoryID = ?", nativeQuery = true)
     List<Product> findTop5ProductByCategory(@Param("CategoryID") Integer categoryID);
 
-    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs", nativeQuery = true)
-    Page<Product> findProductByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs AND Pricexuat > :minprice AND Pricexuat <= :maxprice ", nativeQuery = true)
+    Page<Product> findProductByCategory(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs,
+            @Param("minprice") double minprice, @Param("maxprice") double maxprice);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs AND Pricexuat > :minprice AND Pricexuat <= :maxprice ", nativeQuery = true)
+    List<Product> findProductByCategoryAndPrice(@Param("categoryIDs") List<Integer> categoryIDs,
+            @Param("minprice") double minprice, @Param("maxprice") double maxprice);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND Pricexuat > :minprice AND Pricexuat <= :maxprice ", nativeQuery = true)
+    List<Product> findProductByPrice(@Param("minprice") double minprice, @Param("maxprice") double maxprice);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND CategoryID IN :categoryIDs AND Pricexuat > :minprice AND Pricexuat <= :maxprice ", nativeQuery = true)
+    List<Product> findProductSaleByCategoryAndPrice(@Param("categoryIDs") List<Integer> categoryIDs,
+            @Param("minprice") double minprice, @Param("maxprice") double maxprice);
+
+    @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Pricexuat > :minprice AND Pricexuat <= :maxprice ", nativeQuery = true)
+    List<Product> findProductSaleByPrice(@Param("minprice") double minprice, @Param("maxprice") double maxprice);
 
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 and CategoryID IN :categoryIDs ORDER BY PriceXuat DESC", nativeQuery = true)
     Page<Product> findProductByCategoryDESC(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
@@ -100,7 +115,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY Productname ASC;;", nativeQuery = true)
     Page<Product> findProductAZ(Pageable pageable);
 
-    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY Productname DESC;;", nativeQuery = true)
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 ORDER BY Productname DESC;", nativeQuery = true)
     Page<Product> findProductZA(Pageable pageable);
+
+    @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND Productname LIKE %?%", nativeQuery = true)
+    List<Product> findTop4ForSearch(String searchValue);
 
 }

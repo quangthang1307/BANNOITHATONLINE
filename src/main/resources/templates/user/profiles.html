@@ -31,10 +31,16 @@
     <script type="text/javascript" src="/taiNguyenCuaDung/js/theme.js"></script>
 
     <link rel="stylesheet" href="../taiNguyenCuaBao/css/profile.css" />
+    <style>
+        .default-avatar {
+            background-image: url('/path/to/default-image.jpg');
+        }
+    </style>
 </head>
-<div data-th-insert="~{include/navbar.html}"></div>
+
 
 <body ng-controller="ProfileController">
+    <div data-th-insert="~{include/navbar.html}"></div>
     <main class="wrapperMain_content">
         <div class="layout-account">
             <div class="container">
@@ -76,13 +82,13 @@
                                         <p>
                                             <strong>Họ và tên:</strong>
                                             <input type="text" class="form-control" placeholder="Họ tên" name="name"
-                                                id="name" value="{{customer.name}}" autocomplete="none" />
+                                                id="name" value="{{customer.name}}" />
                                             <small id="nameError" class="text-danger"></small>
                                         </p>
                                         <p>
                                             <strong>Email:</strong><input type="text" class="form-control"
                                                 placeholder="Email" name="email" id="email"
-                                                value="{{customer.account.email}}" autocomplete="none" />
+                                                value="{{customer.account.email}}" autocomplete="none"/>
                                             <small id="emailError" class="text-danger"></small>
                                         </p>
                                         <p>
@@ -100,8 +106,11 @@
                                         <div class="container">
                                             <div class="row justify-content-center">
                                                 <div class="XWsmVn col-12 d-flex  justify-content-center mb-2">
-                                                    <div class="img" id="imageContainer"
-                                                        style="background-image: url('../../../images/avatar/{{customer.image!=null?customer.image:'default-avatar.jpg'}}')">
+                                                    <div class="img" id="imageContainer" ng-if="customer.image"
+                                                        style="background-image: url('../../../images/avatar/{{customer.image}}')">
+                                                    </div>
+                                                    <div class="img default-avatar" id="imageContainer" ng-if="!customer.image"
+                                                        style="background-image: url('../../../images/avatar/default-avatar.jpg')">
                                                     </div>
                                                 </div>
                                                 <input type="file" accept=".jpg,.jpeg,.png" name="avatar" id="image" />

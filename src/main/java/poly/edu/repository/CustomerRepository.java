@@ -2,6 +2,7 @@ package poly.edu.repository;
 
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -32,4 +33,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Customer findByAccount(Account account);
 
+    @Query(value = "select * from Customer order by customerId desc", nativeQuery = true)
+	List<Customer> findCustomerDESC();
+
+    @Query(value = "SELECT * FROM Customer where Phone=?", nativeQuery = true)
+    List<Customer> findByPhoneCustomer(String email);
 }

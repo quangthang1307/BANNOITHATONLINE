@@ -165,10 +165,54 @@ public class RestProductController {
     public ResponseEntity<Page<Product>> getProductByCategory(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(name = "categoryId") List<Integer> categoryId) {
+            @RequestParam(name = "categoryId") List<Integer> categoryId,
+            @RequestParam(defaultValue = "0") int minprice,
+            @RequestParam(defaultValue = "1000000000") int maxprice) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Product> productPage = productService.findByCategory(pageRequest, categoryId);
+        Page<Product> productPage = productService.findByCategory(pageRequest, categoryId, minprice, maxprice);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/categoryprice")
+    public ResponseEntity<List<Product>> getProductByCategoryAndPrice(
+            @RequestParam(name = "categoryId") List<Integer> categoryId,
+            @RequestParam(defaultValue = "0") int minprice,
+            @RequestParam(defaultValue = "1000000000") int maxprice) {
+
+        List<Product> productPage = productService.findByCategoryAndPrice(categoryId, minprice, maxprice);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/product/priceon")
+    public ResponseEntity<List<Product>> getProductByPrice(
+            @RequestParam(defaultValue = "0") int minprice,
+            @RequestParam(defaultValue = "1000000000") int maxprice) {
+
+        List<Product> productPage = productService.findByPrice(minprice, maxprice);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/productsale/categoryprice")
+    public ResponseEntity<List<Product>> getProductSaleByCategoryAndPrice(
+            @RequestParam(name = "categoryId") List<Integer> categoryId,
+            @RequestParam(defaultValue = "0") int minprice,
+            @RequestParam(defaultValue = "1000000000") int maxprice) {
+
+        List<Product> productPage = productService.findSaleByCategoryAndPrice(categoryId, minprice, maxprice);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping("/rest/productsale/priceon")
+    public ResponseEntity<List<Product>> getProductSaleByPrice(
+            @RequestParam(defaultValue = "0") int minprice,
+            @RequestParam(defaultValue = "1000000000") int maxprice) {
+
+        List<Product> productPage = productService.findSaleByPrice(minprice, maxprice);
 
         return ResponseEntity.ok(productPage);
     }
@@ -375,5 +419,13 @@ public class RestProductController {
         List<Inventory> list = inventoryService.findAll();
         Optional<List<Inventory>> inventory = Optional.ofNullable(list);
         return ResponseEntity.ok(inventory);
+    }
+
+    @GetMapping("/rest/product/search/{searchvalue}")
+    public ResponseEntity<Optional<List<Product>>> getTop4ForSearchProduct(
+            @PathVariable("searchvalue") String searchvalue) {
+        List<Product> list = productService.findTop4ForSearch(searchvalue);
+        Optional<List<Product>> products = Optional.ofNullable(list);
+        return ResponseEntity.ok(products);
     }
 }

@@ -40,6 +40,15 @@ app.controller('ProfileController', function ($scope, $http, $window) {
     };
 
     $scope.addAddress = function() {
+
+        if (!$scope.validateSonha()) {
+            // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
+            return;
+        }
+        if (!$scope.validateDuong()) {
+            // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
+            return;
+        }
         var newAddress = {
             tinhthanhpho: $scope.selectedProvince.Name,
             quanhuyen: $scope.selectedDistrict.Name,
@@ -54,6 +63,12 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                 duong: ''
             };
             fetchAddresses($scope.customerId);
+            Swal.fire({
+                icon: "success",
+                title: "Thêm mới thành công",
+                text: "Thông tin địa chỉ đã được thêm mới !",
+                showConfirmButton: true,
+              });
         });
     }
 
@@ -99,15 +114,79 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             $scope.editingAddress = null;
             document.getElementById('updateAddressForm').style.display = 'none';
             fetchAddresses($scope.customerId);
+            Swal.fire({
+                icon: "success",
+                title: "Cập nhật thành công",
+                text: "Thông tin địa chỉ đã được cập nhật !",
+                showConfirmButton: true,
+              });
         });
     }
     
     $scope.deleteAddress = function(addressId) {
-        $http.delete("/rest/profile/customers/" + $scope.customerId + "/addresses/" + addressId)
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn xóa không?",
+            text: "Địa chỉ đang chọn!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, tôi đồng ý!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $http.delete("/rest/profile/customers/" + $scope.customerId + "/addresses/" + addressId)
         .then(function(response) {
             fetchAddresses($scope.customerId);
+            
         });
+              Swal.fire({
+                icon: "success",
+                title: "Xóa thành công",
+                text: "Thông tin địa chỉ đã xóa!",
+              });
+            }
+          });
+        
     }
+
+// Bắt lỗi 
+
+    $scope.validateSonha = function() {
+        // Sử dụng biểu thức chính quy để kiểm tra xem số nhà có chứa ký tự đặc biệt không
+        var regex = /^[0-9]+$/;
+        if (!regex.test($scope.newAddress.sonha)) {
+            // Nếu không hợp lệ, hiển thị thông báo lỗi
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Số nhà chỉ được chứa ký tự số!",
+                showConfirmButton: true,
+            });
+            // Xóa nội dung nhập sai
+            $scope.newAddress.sonha = '';
+            return false;
+        }
+        return true;
+    };
+
+    $scope.validateDuong = function() {
+        // Sử dụng biểu thức chính quy để kiểm tra xem đường có chứa ký tự đặc biệt không
+        var regex = /^[a-zA-Z0-9\s]+$/;
+        if (!regex.test($scope.newAddress.duong)) {
+            // Nếu không hợp lệ, hiển thị thông báo lỗi
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi",
+                text: "Đường không được chứa ký tự đặc biệt!",
+                showConfirmButton: true,
+            });
+            // Xóa nội dung nhập sai
+            $scope.newAddress.duong = '';
+            return false;
+        }
+        return true;
+    };
+
 
       
 });

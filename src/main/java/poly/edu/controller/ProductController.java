@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import poly.edu.Service.BrandService;
 import poly.edu.Service.CategoryService;
 import poly.edu.Service.ImageService;
@@ -84,11 +85,9 @@ public class ProductController {
 
 	@GetMapping("/products/form/{productid}")
 	public String showProductForm(@PathVariable("productid") Integer productid, Model model) {
-		Product product;
+		
 		if (productid == 0) {
-			product = new Product();
-			product.setProductname("abc");
-			model.addAttribute("product", product);
+			model.addAttribute("product", new Product());
 			model.addAttribute("tiltePage", "Tạo Sản Phẩm Mới");
 			model.addAttribute("tilteButton", "Thêm sản phẩm");
 		} else {
@@ -105,16 +104,13 @@ public class ProductController {
 	}
 
 	@PostMapping("/saveProduct")
-	public String createProduct(@RequestPart("allimage") List<MultipartFile> files, Model model, Product product) {
-
-		System.out.println(product.getProductname());
+	public String createProduct(@RequestPart("allimage") List<MultipartFile> files, Model model,@Valid @ModelAttribute("product") Product product, BindingResult result) {
+		if (result.hasErrors()) {
+			// Xử lý lỗi ở đây
+			return "admin/productform";
+		}
 		Employee employee = (Employee) session.getAttribute("employee");
 		System.out.println(employee);
-		for (MultipartFile file : files) {
-			System.out.println(file.getOriginalFilename());
-
-			// Xử lý mỗi file
-		}
 
 		if (product.getProductid() == null) {
 			List<ProductImage> images = new ArrayList<>();
