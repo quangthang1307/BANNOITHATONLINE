@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import poly.edu.Service.CronProvider;
 import poly.edu.Service.DoanhThuTelegram;
-import poly.edu.entity.Telegram;
 
 @SpringBootApplication
 @EnableScheduling

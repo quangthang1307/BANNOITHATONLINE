@@ -79,7 +79,7 @@ public class RestCartController {
 
 
 
-                if (flash != null && flash.get(0).getStatus()) {
+                if (flash != null && !flash.isEmpty() && flash.get(0).getStatus()) {
                     Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
                             .findById(flash.get(0).getFlashSaleHourID());
                     if (flashSaleHour.isPresent()) {

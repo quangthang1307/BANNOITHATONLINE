@@ -11,7 +11,10 @@ public class CronProvider {
 
     public String getCronThongKe() {
         Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.THONGKE);
-        System.out.println(telegram);
-        return telegram.getTime();
+        if (telegram != null) {
+            return telegram.getTime();
+        } else {            
+            return "0 12 12 * * *";
+        }
     }
 }
