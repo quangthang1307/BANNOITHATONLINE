@@ -279,6 +279,91 @@
                                                 href="/collections/vendors?q=floral"
                                                 previewlistener="true">{{productdetail.brand.brandname}}</a></strong></span>
                                 </div>
+                                <!-- phần css đánh giá -->
+                                <style>
+                                    .rating-wrapper {
+                                        display: flex;
+                                        /* Sử dụng flexbox để căn chỉnh các phần tử trên cùng một hàng */
+                                        align-items: center;
+                                        /* Canh giữa các phần tử theo chiều dọc */
+                                    }
+
+                                    .average-stars {
+                                        margin-right: 10px;
+                                        /* Tạo ra một khoảng cách 20px giữa .average-stars và .avenger-star-evaluate */
+                                        font-size: 20px;
+                                        /* Tăng kích thước của ngôi sao */
+                                    }
+
+                                    .avenger-star-evaluate.fill {
+                                        font-size: 20px;
+
+                                        /* Kích thước của ngôi sao */
+                                    }
+
+                                    .rating-wrapper {
+                                        cursor: pointer;
+                                        /* Đặt kiểu con trỏ thành bàn tay */
+                                    }
+
+                                    .rating-stars1 {
+                                        cursor: pointer;
+                                        /* Đặt kiểu con trỏ thành bàn tay */
+                                    }
+
+                                    .container.container-pd0 {
+                                        cursor: pointer;
+                                        /* Đặt kiểu con trỏ thành bàn tay */
+                                    }
+
+                                    .container.container-pd0:hover {
+                                        cursor: default;
+                                        /* Đặt kiểu con trỏ thành con trỏ thông thường khi di chuột qua phần tử */
+                                    }
+
+                                    .review-heading {
+                                        font-size: 1.5em;
+                                        /* Điều chỉnh kích thước font chữ */
+                                        color: rgb(3, 3, 3);
+                                        /* Màu chữ */
+                                        margin-top: 15px;
+                                        font-weight: normal;
+                                        /* Loại bỏ in đậm */
+
+                                    }                            
+                                   
+                                </style>
+                                <div class="rating-wrapper">
+                                    <!-- hiển thị đánh giá và ngôi sao -->
+                                    <div class="average-stars"
+                                        style="display: inline-block; color: red; font-size: 20px;  text-transform: uppercase;  border-bottom: 1px solid rgb(193, 0, 0);"
+                                        onclick="scrollToRating()"> <!-- Thêm sự kiện onclick để gọi hàm JavaScript -->
+                                    </div>
+                                    <div class="rating-stars1">
+                                        <div class="avenger-star-evaluate fill" onclick="scrollToRating()"></div>
+                                    </div>
+                                    <h3
+                                        style="color: black; margin-top: 10px; margin-left: 10px; margin-right: 10px; font-weight: normal; font-size: 25px;">
+                                        |</h3>
+
+                                    <h1 class="review-heading"><span id="allEvaluate"></span> đánh giá</h1>
+                                    <!-- HTML -->
+
+                                </div>
+
+
+
+                                <script>
+                                    function scrollToRating() {
+                                        // Lấy vị trí của phần tử có ID là "ratingSection"
+                                        const ratingSection = document.getElementById('ratingSection');
+                                        // Sử dụng smooth scrolling để di chuyển đến vị trí của ratingSection
+                                        ratingSection.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                </script>
+
+
+
                                 <div ng-if="productdetail.percent !== 0" class="product-price" id="price-preview"><span
                                         class="pro-title">Giá:
                                     </span><span class="pro-price">{{productdetail.pricexuat - (productdetail.pricexuat
@@ -716,11 +801,41 @@
                     </div>
 
                 </div>
-                <div class="container container-pd0" style="margin-top: 10px;">
+
+                <!-- chỗ hiển thị số đánh giá -->
+                <!-- <div class="container container-pd0" style="margin-top: 10px;" id="ratingSection">
                     <div data-th-insert="~{user/evaluate.html}"></div>
+                </div> -->
+                <style>
+                    .hasRating #noRatingMessage {
+                        display: none;
+                    }
+
+                    .hasRating #ratingSection {
+                        display: block;
+                    }
+                </style>
+
+                <div class="container container-pd0" style="margin-top: 10px;" id="ratingSection">
+                    <div data-th-insert="~{user/evaluate.html}" id="ratingContainer"></div>
                 </div>
+                <!-- <div id="noRatingMessage" class="hasRating">Chưa có đánh giá</div> -->
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        // Kiểm tra xem phần tử có id là "ratingContainer" có nội dung không
+                        if ($('#ratingContainer').is(':empty')) {
+                            // Nếu không có nội dung, hiển thị thông báo "Chưa có đánh giá"
+                            $('#noRatingMessage').show();
+                        }
+                    });
+                </script>
+
 
             </section>
+
+
 
             <!-- related -->
             <section class="productDetail-related">

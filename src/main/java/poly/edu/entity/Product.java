@@ -73,5 +73,21 @@ public class Product {
     @JsonManagedReference
     private List<ProductImage> productimages;
 
-    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ProductImage> productImages;
+
+    // Getter và setter cho productImages
+
+    // Phương thức trả về URL của hình ảnh đầu tiên
+    // Phương thức trả về URL của hình ảnh đầu tiên
+    public String getFirstImageUrl() {
+        if (productImages != null && !productImages.isEmpty()) {
+            String relativePath = "/images/product/"; // Đường dẫn tương đối của thư mục lưu trữ hình ảnh
+            return relativePath + productImages.get(0).getImage(); // Giả sử có một phương thức getImageFileName() trong
+                                                                   // ProductImage để lấy tên file hình ảnh
+        }
+        return null;
+    }
+
 }

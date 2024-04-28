@@ -15,23 +15,26 @@ import poly.edu.entity.ProductImage;
 @Service
 public class ImageService {
     @Autowired
-	private ProductImageService productimageService;
+    private ProductImageService productimageService;
 
     @Value("${upload.path}") // Đường dẫn tới thư mục lưu trữ hình ảnh trong application.properties
     private String uploadPath;
 
+    @Value("${upload.pathEvaluate}") // Đường dẫn tới thư mục lưu trữ hình ảnh trong evaluate application.properties
+    private String uploadPathEvaluate;
+
     public ProductImage updateImage(MultipartFile file, Product product) throws IOException {
         // Tạo tên file duy nhất
-        String fileName =  UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
         // Lưu file vào thư mục
         Path filePath = Path.of(uploadPath, fileName);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        
+
         // Tạo đối tượng ImageEntity và lưu vào cơ sở dữ liệu
         ProductImage imageEntity = new ProductImage();
         imageEntity.setProduct(product);
-        imageEntity.setImage("images/product/" +fileName);
+        imageEntity.setImage("images/product/" + fileName);
         productimageService.save(imageEntity);
         // Lưu vào cơ sở dữ liệu (thực hiện lưu vào cơ sở dữ liệu ở đây)
 
@@ -40,16 +43,25 @@ public class ImageService {
 
     public String saveImage(MultipartFile file) throws IOException {
         // Tạo tên file duy nhất
-        String fileName =  UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         System.out.println(fileName);
         // Lưu file vào thư mục
         Path filePath = Path.of(uploadPath, fileName);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        
-        return fileName;
-       
-        
 
-     
+        return fileName;
+
+    }
+
+    // save ảnh evaluate
+    public String saveImageEvaluate(MultipartFile file) throws IOException {
+        // Tạo tên file duy nhất
+        String fileName = file.getOriginalFilename();
+        // Lưu file vào thư mục
+        Path filePath = Path.of(uploadPathEvaluate, fileName);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return fileName;
+
     }
 }

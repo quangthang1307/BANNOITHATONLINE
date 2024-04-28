@@ -1,6 +1,7 @@
 package poly.edu.RestController;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,9 +27,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import poly.edu.entity.Order;
 import poly.edu.entity.Orderdetails;
 import poly.edu.entity.Orderstatus;
+import poly.edu.entity.Telegram;
 import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
 import poly.edu.repository.OrderStatusRepository;
+import poly.edu.repository.TelegramRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -40,6 +43,9 @@ public class TelegramRestController {
     OrderRepository orderRepository;
     @Autowired
     OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    TelegramRepository telegramRepository;
 
     @Autowired
     HttpServletRequest request;
@@ -59,6 +65,50 @@ public class TelegramRestController {
                 }
             } else if (action.equals("cancel")) {
                 if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
+                    String madonhang = String.valueOf(order.get().getOrderID());
+                    String name = order.get().getCustomer().getName();
+                    String username = order.get().getCustomer().getAccount().getUsername();
+                    String phone = order.get().getCustomer().getPhone();
+                    String time = order.get().getTime().toString().substring(0, 10);
+                    String sanpham = null;
+                    List<Orderdetails> orderDetail = orderDetailRepository.getOrderdetailsByOrderID(orderID);
+                    if (orderDetail.size() == 1) {
+                        sanpham = orderDetail.get(0).getProduct().getProductname();
+                    } else {
+                        StringBuilder concatenatedNames = new StringBuilder();
+                        // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
+                        for (Orderdetails orderdetails : orderDetail) {
+                            // Lấy tên sản phẩm và nối vào chuỗi
+                            concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
+                            // Lấy số lượng sản phẩm và nối vào chuỗi
+                            concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
+                        }
+                        // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
+                        String finalNames = concatenatedNames.toString().replaceAll(", $", "");
+                        sanpham = finalNames;
+                    }
+
+                    DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
+                    String tongtien = decimalFormat.format(Double.parseDouble(order.get().getSumpayment().toString()));
+
+                    String message = "Đơn hủy!\n"
+                            + "*Mã đơn hàng:* " + orderID + "\n"
+                            + "*Họ và tên:* " + name + "\n"
+                            + "*Username:* " + username + "\n"
+                            + "*Số điện thoại:* " + phone + "\n"
+                            + "*Ngày hủy:* " + time + "\n"
+                            + "*Sản phẩm:* " + sanpham + "\n"
+                            + "*Tổng tiền:* " + tongtien + "\n";
+                    Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.HUYHANG);
+                    if (telegram != null) {
+                        try {
+                            TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                            SendMessage send = new SendMessage(telegram.getChatId(), message)
+                                    .parseMode(ParseMode.Markdown);
+                            SendResponse response = bot.execute(send);
+                        } catch (Exception e) {
+                        }
+                    }
                     Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã hủy");
                     order.get().setOrderstatus(orderstatus);
                     orderRepository.save(order.get());
@@ -125,7 +175,7 @@ public class TelegramRestController {
             // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
         }
         String host = request.getServerName();
-        String message = "Đơn hàng mới!\n"
+        String message = "Đơn hàng mới !\n"
                 + "*Mã đơn hàng:* " + orderID + "\n"
                 + "*Họ và tên:* " + name + "\n"
                 + "*Username:* " + username + "\n"
@@ -133,17 +183,20 @@ public class TelegramRestController {
                 + "*Ngày đặt hàng:* " + time + "\n"
                 + "*Sản phẩm:* " + sanpham + "\n"
                 + "*Tổng tiền:* " + tongtien + "\n"
-                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://" + host + "/admin/showinvoicedetails/1114/"
+                + "Link duyệt đơn hàng: " + "[Ấn vào đây](http://www." + host + "/admin/showinvoicedetails/"
                 + String.valueOf(orderID) + ")";
 
-        try {
-            TelegramBot bot = new TelegramBot("6853009990:AAHzyQYieOgmEUBr6cAI8-OXGQD_t_GHVW4");
-            SendMessage send = new SendMessage("5884779776", message).parseMode(ParseMode.Markdown);
-            SendResponse response = bot.execute(send);
-            return true;
-        } catch (Exception e) {
-            // TODO: handle exception
-            return false;
+        Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.DATHANG);
+        if (telegram != null) {
+            try {
+                TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                SendMessage send = new SendMessage(telegram.getChatId(), message).parseMode(ParseMode.Markdown);
+                SendResponse response = bot.execute(send);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
+        return false;
     }
 }

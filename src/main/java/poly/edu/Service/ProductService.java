@@ -14,6 +14,7 @@ public interface ProductService {
     // List<Product> findAll();
 
     void save(Product product);
+
     void deleteById(int productid);
 
     Page<Product> findAll(Pageable pageable);
@@ -55,7 +56,7 @@ public interface ProductService {
     Page<Product> findByCategoryZA(Pageable pageable, List<Integer> category);
 
     List<Product> findTop5ByCategory(Integer category);
-    
+
     Page<Product> findSaleByCategory(Pageable pageable, List<Integer> category);
 
     Page<Product> findSaleByCategoryAndDESC(Pageable pageable, List<Integer> category);
@@ -86,5 +87,7 @@ public interface ProductService {
 
     Page<Product> findProductZA(Pageable pageable);
 
+    // Phương thức findById1 để tìm kiếm sản phẩm theo ID
+    // Trong ProductService
 
 }

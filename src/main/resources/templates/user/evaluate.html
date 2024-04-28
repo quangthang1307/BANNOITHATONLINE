@@ -7,191 +7,476 @@
         border-radius: 8px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
-    
+
     .review-post h5 {
         font-size: 1.5rem;
         color: #000000;
         text-transform: uppercase;
         padding-top: 20px;
     }
-    
+
     /* Style for unchecked and checked stars */
     .avenger-star-checked .fa-star {
-        color: #ccc; /* Default color for unchecked and checked stars */
+        color: #ccc;
+        /* Default color for unchecked and checked stars */
     }
-    
+
     /* Style for checked stars */
     .avenger-star-checked .fa-star.checked {
-        color: #f7b731; /* Yellow color for checked stars */
+        color: #FFFA00;
+        /* Yellow color for checked stars */
     }
-    
+
+    .avenger-star-evaluate .fa-star {
+        color: #ccc;
+        /* Default color for unchecked and checked stars */
+    }
+
+    /* Style for checked stars */
+    .avenger-star-evaluate .fa-star.checked {
+        color: #FFFA00;
+        /* Yellow color for checked stars */
+    }
+
     /* Card styles */
     .carder {
         background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
+        
+        
     }
-    
+
     .carder .row {
         padding: 20px;
     }
-    
+
     .carder .row img {
         border-radius: 50%;
     }
-    
+
     .carder .name {
         font-weight: bold;
         color: #333;
     }
-    
+
     .carder .rating-star-checked {
         margin-top: 10px;
     }
-    
+
     .carder small {
         color: #999;
     }
-    
+
     .carder .img-drop-fee {
-        margin-top: 15px;
+        margin-top: 150px;
+      
     }
-    
+
     .carder .img-drop-fee .row {
         margin-top: 10px;
     }
-    
+
     .carder .img-drop-fee img {
-        border-radius: 8px;
-        margin-right: 10px;
+        border-radius: 10px;
+    margin-right: 20px; /* Giảm giá trị của margin-right xuống 20px */
+    margin-bottom: 20px; /* Thêm margin phía dưới của ảnh */
+    max-width: 150px; /* Xác định kích thước tối đa cho ảnh */
     }
-    
+
     .carder hr {
         margin-top: 20px;
         margin-bottom: 0;
     }
-    
-    </style>
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="review-post container bg-white mb-4 rounded-1 ps-4 pe-4">
-            <h5 class="pt-4 text-black text-uppercase">Đánh giá sản phẩm</h5>
-            <div class=" card mb-4 mt-3" style="background: #fffbf8;">
-                <div class="row py-5 ps-1">
-                    <div class="col-2 pe-0 text-center">
-                        <span class="fs-2 text-danger fw-bold">0</span>
-                        <span class="fs-5 text-danger"> trên 5</span> <br>
-                        <div class="avenger-star-checked text-secondary">
-                            <span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-10 ps-0 text-capitalize">
-                        <ul class="nav nav-pills" id="myTab" role="tablist">
-                            <li class="" role="presentation">
-                                <a class=" active btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="home-tab"
-                                    data-bs-toggle="tab" data-bs-target="#allStart" type="button" role="tab"
-                                    aria-controls="home" aria-selected="true">
-                                    tất cả
-                                </a>
-                            </li>
-                            <li class=" " role="presentation">
-                                <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#fiveStart" type="button" role="tab"
-                                    ng-click="chooseStart(5)" aria-controls="profile" aria-selected="false">
-                                    5 sao
-                                </a>
-                            </li>
-                            <li class=" " role="presentation">
-                                <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#fourStart" type="button" role="tab"
-                                    ng-click="chooseStart(4)" aria-controls="profile" aria-selected="false">
-                                    4 sao
-                                </a>
-                            </li>
-                            <li class=" " role="presentation">
-                                <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#threeStart" type="button" role="tab"
-                                    ng-click="chooseStart(3)" aria-controls="profile" aria-selected="false">
-                                    3 sao
-                                </a>
-                            </li>
-                            <li class=" " role="presentation">
-                                <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#twoStart" type="button" role="tab"
-                                    aria-controls="profile" aria-selected="false" ng-click="chooseStart(2)">
-                                    2 sao
-                                </a>
-                            </li>
-                            <li class=" " role="presentation">
-                                <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
-                                    data-bs-toggle="tab" data-bs-target="#oneStart" type="button" role="tab"
-                                    aria-controls="profile" aria-selected="false" ng-click="chooseStart(1)">
-                                    1 sao
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
+    /* phân trang  */
+    .pagination {
+        margin-top: 20px;
+    }
+
+    .page-item.disabled .page-link {
+        pointer-events: none;
+    }
+
+    .avenger-star-evaluate.fill .fa-star {
+        color: #FFFA00;
+        /* Màu vàng */
+    }
+
+    .avenger-star-evaluate.fill .fa-star.checked,
+    .avenger-star-evaluate.fill .fa-star-half.checked {
+        color: #FFFA00;
+        /* Màu vàng */
+    }
+
+    .avenger-star-evaluate.fill .fa-star:not(.checked):not(.checked-half) {
+        color: #ccc;
+        /* Màu xám */
+    }
+</style>
+
+<div class="review-post container bg-white mb-4 rounded-1 ps-4 pe-4">
+    <h5 class="pt-4 text-black text-uppercase">Đánh giá sản phẩm</h5>
+    <div class=" card mb-4 mt-3" style="background: #fffbf8;">
+        <div class="row py-5 ps-1">
+            <div class="col-2 pe-0 text-center">
+                <div class="average-stars"
+                    style="display: inline-block; color: red; font-size: 24px; font-weight: bold; text-transform: uppercase;">
+                </div> <!-- Thêm font-size và font-weight để đặt cỡ chữ lớn hơn và in đậm -->
+                <span class="fs-5 text-danger"
+                    style="color: red; font-size: 24px; font-weight: bold; text-transform: uppercase;"> trên 5</span>
+                <br>
+                <!-- HTML -->
+                <div class="avenger-star-evaluate fill"></div>
             </div>
-            <!-- Nav tabs -->
-         <table>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active min-height-30" id="allStart" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="carder mb-4 mx-3">
-                        <div class="row" >
-                            <div class="col-1 px-0 text-center" th:each="evaluate : ${allEvaluate}">
-                                <!-- <img th:src="@{${'/path/to/images/' + evaluate.customer}}" alt="Customer Image" /> -->
-                            </div>
-                            
-                            
-                            <div class="col-10 ps-0" th:each="evaluate : ${allEvaluate}">
-                               
-                                <div class="avenger-star-checked text-secondary">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star "></span>
-                                    <span class="fa fa-star "></span>
-                                </div>
-                                <div >
-                                <h3  th:text="${evaluate.evaluateDate}"></h3>
-                            </div>
-                                <div class="content" th:each="evaluate : ${allEvaluate}">
-                                    <span th:text="${evaluate.description}"></span>
-                                </div>
-                                <div class="img-drop-fee my-2">
-                                    <div class="row">
-                                        <div class="col-1 px-0">
-                                            <img src="placeholder_image.jpg" alt="Review Image" class="w-100">
-                                        </div>
-                                        <!-- Add more image placeholders if needed -->
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-10 ps-0 text-capitalize">
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" 
+                            id="home-tab" data-bs-toggle="tab" data-bs-target="#allStart" type="button" role="tab"
+                            aria-controls="home" aria-selected="true" onclick="chooseStart('all')">
+                            Tất cả (<span id="allCount"></span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="five-tab"
+                            data-bs-toggle="tab" data-bs-target="#fiveStart" type="button" role="tab"
+                            aria-controls="fiveStart" aria-selected="false" onclick="chooseStart(5)">
+                            5 sao (<span id="fiveCount"></span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="four-tab"
+                            data-bs-toggle="tab" data-bs-target="#fourStart" type="button" role="tab"
+                            aria-controls="fourStart" aria-selected="false" onclick="chooseStart(4)">
+                            4 sao (<span id="fourCount"></span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="three-tab"
+                            data-bs-toggle="tab" data-bs-target="#threeStart" type="button" role="tab"
+                            aria-controls="threeStart" aria-selected="false" onclick="chooseStart(3)">
+                            3 sao (<span id="threeCount"></span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="two-tab"
+                            data-bs-toggle="tab" data-bs-target="#twoStart" type="button" role="tab"
+                            aria-controls="twoStart" aria-selected="false" onclick="chooseStart(2)">
+                            2 sao (<span id="twoCount"></span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="one-tab"
+                            data-bs-toggle="tab" data-bs-target="#oneStart" type="button" role="tab"
+                            aria-controls="oneStart" aria-selected="false" onclick="chooseStart(1)">
+                            1 sao (<span id="oneCount"></span>)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Nav tabs -->
+    <table>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active min-height-30" id="allStart" role="tabpanel" aria-labelledby="all-tab">
+                <!-- Loop through each evaluation -->
+                <div class="carder mb-4 mx-3" th:each="evaluate : ${allEvaluate}"
+                    th:data-star-rating="${evaluate.evaluateStar}">
+                    <div class="row">
+                        <div style="width: 100px;">
+                            <img th:src="@{'/images/avatar/' + ${evaluate.customer.image}}" alt="Customer Image" />
                         </div>
-                        <hr class="mt-4">
-                        <!-- Repeat this section for each review -->
-                        <!-- You can duplicate this whole section for each review or use a loop to generate dynamic content -->
+                        <div class="col-10 ps-0">
+                            <h5 th:text="${evaluate.customer.name}"></h5>
+                            <div class="avenger-star-checked text-secondary">
+                                <span th:switch="${evaluate.evaluateStar}">
+                                    <span th:case="1">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </span>
+                                    <span th:case="2">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </span>
+                                    <span th:case="3">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </span>
+                                    <span th:case="4">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    </span>
+                                    <span th:case="5">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </span>
+                                </span>
+                            </div>
+                            <small
+                                th:text="${T(java.time.format.DateTimeFormatter).ofPattern('dd-MM-yyyy').format(evaluate.evaluateDate)}"></small>
+                            <div class="content">
+                                <span th:text="${evaluate.comment}"></span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" th:if="${evaluate.image1 != null}">
+                                        <img th:src="'/images/evaluate/' + ${evaluate.image1}" alt="Review Image"
+                                            class="w-100">
+                                    </div>
+                                    <div class="col-1 px-0" th:if="${evaluate.image2 != null}">
+                                        <img th:src="'/images/evaluate/' + ${evaluate.image2}" alt="Review Image"
+                                            class="w-100">
+                                    </div>
+                                    <div class="col-1 px-0" th:if="${evaluate.image3 != null}">
+                                        <img th:src="'/images/evaluate/' + ${evaluate.image3}" alt="Review Image"
+                                            class="w-100">
+                                    </div>
+                                    <div class="col-1 px-0" th:if="${evaluate.image4 != null}">
+                                        <img th:src="'/images/evaluate/' + ${evaluate.image4}" alt="Review Image"
+                                            class="w-100">
+                                    </div>
+                                    <div class="col-1 px-0" th:if="${evaluate.image5 != null}">
+                                        <img th:src="'/images/evaluate/' + ${evaluate.image5}" alt="Review Image"
+                                            class="w-100">
+                                    </div>
+                                    <!-- Add more image placeholders if needed -->
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        
                     </div>
+                    <hr class="mt-4">
                 </div>
-                
-       
-                
-                <!-- <div class="tab-pane min-height-30" id="fiveStart" role="tabpanel" aria-labelledby="profile-tab">
+          
+
+                <!-- End of evaluation loop -->
+            </div>
+        </div>
+    </table>
+
+
+
+    <div class="pagination-container"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var reviews = $(".carder");
+            var numPerPage = 5;
+            var numPages = Math.ceil(reviews.length / numPerPage);
+
+            // Hiển thị chỉ số trang và đánh giá tương ứng
+            var showPage = function (page) {
+                reviews.hide().slice((page - 1) * numPerPage, page * numPerPage).show();
+            };
+
+            // Tạo các liên kết trang
+            var createPagination = function () {
+                var pagination = $(".pagination-container");
+                var pageLink = "<ul class='pagination justify-content-center'>";
+                for (var i = 1; i <= numPages; i++) {
+                    pageLink += "<li class='page-item'><a class='page-link' href='#'>" + i + "</a></li>";
+                }
+                pageLink += "</ul>";
+                pagination.html(pageLink);
+
+                pagination.find("a").on("click", function (event) {
+                    event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+                    var page = $(this).text();
+                    showPage(parseInt(page));
+                    $('html, body').animate({
+                        scrollTop: $(".review-post").offset().top // Cuộn trang đến vị trí của phần "Đánh giá sản phẩm"
+                    }, 500);
+                    return false; // Ngăn chặn hành vi mặc định và kết thúc xử lý sự kiện
+                });
+            };
+
+            // Mặc định hiển thị trang đầu tiên
+            showPage(1);
+            // Tạo phân trang
+            createPagination();
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var totalStars = 0; // Tổng số sao đã đánh giá
+            var numReviews = 0; // Tổng số đánh giá
+            var starCounts = [0, 0, 0, 0, 0]; // Mảng lưu số lượng đánh giá của mỗi loại sao
+            // Trong phần JavaScript của bạn, sau khi tính toán tổng số đánh giá
+
+            // Lấy thẻ h1 theo class "total-reviews" và thêm số lượng đánh giá vào nội dung của nó
+            $(".total-reviews").text(numReviews);
+
+            // Lặp qua mỗi đánh giá và tính tổng số sao và số lượng đánh giá cho mỗi loại
+            $(".carder").each(function () {
+                var starRating = parseInt($(this).attr('data-star-rating'));
+                totalStars += starRating;
+                numReviews++;
+                starCounts[starRating - 1]++;
+            });
+
+            // Tính trung bình số sao
+            var averageStars = totalStars / numReviews;
+
+            // Hiển thị kết quả
+            $(".average-stars").text(averageStars.toFixed(1)); // Hiển thị trung bình số sao với 1 số thập phân
+
+            // Cập nhật số lượng đánh giá cho mỗi loại sao ở các tab
+            $("#allCount").text(numReviews);
+            $("#allEvaluate").text(numReviews);
+            $("#fiveCount").text(starCounts[4]);
+            $("#fourCount").text(starCounts[3]);
+            $("#threeCount").text(starCounts[2]);
+            $("#twoCount").text(starCounts[1]);
+            $("#oneCount").text(starCounts[0]);
+        });
+
+
+    </script>
+    <script>
+        function chooseStart(evaluateStar) {
+            // Lấy tất cả các card chứa đánh giá
+            var cards = document.querySelectorAll('.carder');
+
+            // Ẩn tất cả các card đánh giá
+            cards.forEach(function (card) {
+                var starRating = parseInt(card.getAttribute('data-star-rating')); // Lấy số sao của đánh giá
+                if (starRating === evaluateStar || evaluateStar === 'all') { // Hiển thị card nếu số sao tương ứng hoặc chọn "Tất cả"
+                    card.style.display = 'block';
+
+                    console.log(starRating);
+                } else {
+                    card.style.display = 'none'; // Ẩn card nếu không phù hợp với số sao được chọn
+                }
+            });
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var totalStars = 0; // Tổng số sao đã đánh giá
+            var numReviews = 0; // Tổng số đánh giá
+
+            // Lặp qua mỗi đánh giá và tính tổng số sao
+            $(".carder").each(function () {
+                var starRating = parseInt($(this).attr('data-star-rating'));
+                totalStars += starRating;
+                numReviews++;
+            });
+
+            // Tính trung bình số sao
+            var averageStars = totalStars / numReviews;
+
+            // Hiển thị kết quả
+            $(".average-stars").text(averageStars.toFixed(1)); // Hiển thị trung bình số sao với 1 số thập phân
+        });
+
+
+    </script>
+
+    <script>
+        // $(document).ready(function () {
+        //     var totalStars = 0; // Tổng số sao đã đánh giá
+        //     var numReviews = 0; // Tổng số đánh giá
+
+        //     // Lặp qua mỗi đánh giá và tính tổng số sao
+        //     $(".carder").each(function () {
+        //         var starRating = parseFloat($(this).attr('data-star-rating'));
+        //         totalStars += starRating;
+        //         numReviews++;
+        //     });
+
+        //     // Tính trung bình số sao
+        //     var averageStars = totalStars / numReviews;
+
+        //     // Số ngôi sao được điền màu
+        //     var filledStars = Math.floor(averageStars);
+
+        //     // Tính phần thập phân để quyết định màu sắc của ngôi sao cuối cùng
+        //     var decimalPart = averageStars - filledStars;
+
+        //     // Tạo chuỗi HTML để điền đầy ngôi sao
+        //     var starsHTML = '';
+        //     for (var i = 0; i < 5; i++) {
+        //         if (i < filledStars) {
+        //             starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy
+        //         } else if (i === filledStars && decimalPart >= 0.50 && decimalPart < 0.75) {
+        //             starsHTML += '<span class="fa fa-star-half checked"></span>'; // Thêm nửa sao cho ngôi sao cuối cùng nếu cần
+        //         } else {
+        //             starsHTML += '<span class="fa fa-star"></span>'; // Thêm ngôi sao trống
+        //         }
+        //     }
+
+        //     // Hiển thị các ngôi sao
+        //     $(".avenger-star-evaluate.fill").html(starsHTML);
+        // });
+        $(document).ready(function () {
+            var totalStars = 0; // Tổng số sao đã đánh giá
+            var numReviews = 0; // Tổng số đánh giá
+
+            // Lặp qua mỗi đánh giá và tính tổng số sao
+            $(".carder").each(function () {
+                var starRating = parseFloat($(this).attr('data-star-rating'));
+                totalStars += starRating;
+                numReviews++;
+            });
+
+            // Tính trung bình số sao
+            var averageStars = totalStars / numReviews;
+
+            // Số ngôi sao được điền màu
+            var filledStars = Math.floor(averageStars);
+
+            // Tính phần thập phân để quyết định xem có cần thêm nửa ngôi sao không
+            var decimalPart = averageStars - filledStars;
+
+            var starsHTML = '';
+            for (var i = 0; i < 5; i++) {
+                if (i < filledStars) {
+                    starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy
+                } else if (i === filledStars && decimalPart >= 0.50 && decimalPart < 0.75) {
+                    // Thêm hình ảnh khi decimalPart nằm trong khoảng từ 0.50 đến 0.75
+                    starsHTML += '<img src="/images/rating.png" style="width: 27px; height: 27px; border-radius: 10px; margin-top: -7px;">';
+                } else if (i === filledStars && decimalPart >= 0.75) {
+                    starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy cho ngôi sao cuối cùng nếu cần
+                } else {
+                    starsHTML += '<span class="fa fa-star"></span>'; // Thêm ngôi sao trống
+                }
+            }
+
+            // Hiển thị các ngôi sao
+            $(".avenger-star-evaluate.fill").html(starsHTML);
+        });
+
+
+
+    </script>
+</div>
+
+
+
+
+
+<!-- <div class="tab-pane min-height-30" id="fiveStart" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="carder mb-4 mx-3">
                         <div class=" row" ng-repeat="review in startsData">
                             <div class="col-1 px-0 text-center">
@@ -253,8 +538,3 @@
                         </div>
                     </div>
                 </div> -->
-                
-            </div>
-        </table>
-        </div>
-        
