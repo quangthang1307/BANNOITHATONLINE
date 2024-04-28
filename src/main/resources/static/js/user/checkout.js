@@ -478,8 +478,9 @@ app.controller("checkoutController", [
         tinhthanhpho: $scope.selectedProvince.Name,
         quanhuyen: $scope.selectedDistrict.Name,
         phuongxa: $scope.selectedWard.Name,
-        sonha: $scope.newAddressc,
+        sonha: $scope.newAddress.sonha,
         duong: $scope.newAddress.duong,
+        status: true
       };
       $http
         .post(
