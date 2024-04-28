@@ -40,6 +40,9 @@ public class Address {
     @Column(name = "Duong")
     private String duong;
 
+    @Column(name = "status")
+    private boolean status;
+
     @ManyToOne
     @JoinColumn(name = "CustomerID")
     private Customer customer;
