@@ -203,9 +203,7 @@ public class OrderRestController {
 
     @GetMapping("/rest/orderByCustomer")
     public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId) {
-        List<Order> order = orderService.getOrderListByCustomerId(customerId);
-        List<?> evaluate = evaluateRepository.disableBTN(customerId, order.get(0).getCustomer().getCustomerId());
-        System.out.println(evaluate)
+        List<Order> order = orderService.getOrderListByCustomerId(customerId);        
         if (order.size() > 0) {
             return ResponseEntity.ok(order);
         } else {

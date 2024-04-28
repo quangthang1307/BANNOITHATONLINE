@@ -45,7 +45,8 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             quanhuyen: $scope.selectedDistrict.Name,
             phuongxa: $scope.selectedWard.Name,
             sonha: $scope.newAddress.sonha,
-            duong: $scope.newAddress.duong
+            duong: $scope.newAddress.duong,
+            status: true
         };
         $http.post("/rest/profile/customers/" + $scope.customerId + "/addresses", newAddress)
         .then(function(response) {

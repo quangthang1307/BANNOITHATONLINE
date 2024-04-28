@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -179,7 +181,8 @@ public class CustomerRestController {
     @GetMapping("/rest/profile/customers/{customerId}/addresses")
     public ResponseEntity<List<Address>> getAddressesByCustomerId(@PathVariable Integer customerId) {
         List<Address> addresses = addressRepository.findAddressesByCustomerId(customerId);
-        return new ResponseEntity<>(addresses, HttpStatus.OK);
+        List<Address> returnaddress = addresses.stream().filter(a -> a.isStatus()).collect(Collectors.toList());
+        return new ResponseEntity<>(returnaddress, HttpStatus.OK);
     }
 
     @PostMapping("/rest/profile/customers/{customerId}/addresses")
@@ -218,6 +221,7 @@ public class CustomerRestController {
         currentAddress.setPhuongxa(newAddress.getPhuongxa());
         currentAddress.setSonha(newAddress.getSonha());
         currentAddress.setDuong(newAddress.getDuong());
+        currentAddress.setStatus(newAddress.isStatus());
         Address updatedAddress = addressRepository.save(currentAddress);
         return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
     }
