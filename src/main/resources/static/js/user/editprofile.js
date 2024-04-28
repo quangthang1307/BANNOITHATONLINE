@@ -70,7 +70,9 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             "Họ và tên không được chứa số hoặc ký tự đặc biệt"
           );
           isError = true;
-        } 
+        } else{
+          $("#nameError").text("");
+        }
 
         if (email == "") {
             $("#emailError").text("Vui lòng nhập Email");
@@ -82,7 +84,9 @@ app.controller('ProfileController', function ($scope, $http, $window) {
               "Email sai định dạng"
             );
             isError = true;
-          } 
+          } else{
+            $("#emailError").text("");
+          }
           if (phone == "" ) {
             $("#phoneError").text("Vui lòng nhập số điện thoại");
             isError = true;
@@ -96,10 +100,7 @@ app.controller('ProfileController', function ($scope, $http, $window) {
             );
             isError = true;
           } else {
-            // $scope.customer.account.email = email;
-            // $scope.customer.name = name;
-            // $scope.customer.phone = phone;
-            // isError = false;
+            $("#phoneError").text("");
           }
         if (avatarValue != "") {
           console.log("đã chọn ảnh");
@@ -145,11 +146,13 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                 title: "Cập nhật thành công",
                 text: "Thông tin cá nhân đã được cập nhật !",
                 showConfirmButton: true,
-                
-              });
-              setTimeout(function() {
-                location.reload();
-            }, 5000);
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(function() {
+                        location.reload(); // Load lại trang
+                    }, 1000);
+                }
+            });
             })
             .catch(function (error) {
             Swal.fire({
@@ -159,9 +162,43 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                       showConfirmButton: true,
                   });
             });
+            
+        }else{
+          Swal.fire({
+            icon: "warning",
+            title: "Cập nhật thất bại",
+            text: "Vui lòng thử lại !",
+            showConfirmButton: true,
+        });
         }
       };
     
-   
+      // Bắt sự kiện khi người dùng chọn file ảnh
+      $("#image").change(function() {
+      // Lấy thông tin về file được chọn
+      var file = this.files[0];
+      
+      // Kiểm tra nếu file tồn tại
+      if (file) {
+          // Lấy dung lượng của file (đơn vị bytes)
+          var fileSize = file.size;
+
+          // Chuyển đổi dung lượng từ bytes sang kilobytes
+          var fileSizeInKB = fileSize / 1024;
+
+          // Kiểm tra nếu dung lượng vượt quá 2MB
+          if (fileSizeInKB > 1024) {
+              // Hiển thị thông báo
+              Swal.fire({
+                icon: "warning",
+                title: "Dung lượng vượt quá 2MB",
+                text: "Vui lòng thử lại !",
+                showConfirmButton: true,
+              });
+          } else {
+              
+          }
+      }
+});
   
 });
