@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.swing.text.html.Option;
 
+import org.antlr.v4.runtime.atn.SemanticContext.AND;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,4 +32,7 @@ public interface EvaluateRepository extends JpaRepository<Evaluate, Integer> {
     // r.evaluateStar = :start")
     // Evaluate getChooseStartByProductId(@Param("productId") Integer productId,
     // @Param("start") Integer start);
+
+    @Query(value="SELECT dg.EvaluateID FROM Evaluate dg INNER JOIN Product p ON dg.ProductID = p.ProductID INNER JOIN Customer c ON dg.CustomerID = c.CustomerID INNER JOIN OrderDetails od ON p.ProductID = od.ProductID INNER JOIN [Order] o ON od.OrderID = o.OrderID WHERE dg.CustomerID = ?1 AND dg.ProductID = ?2 GROUP BY dg.EvaluateID", nativeQuery = true)
+    List<?> disableBTN(Integer CustomerID, Integer ProductID);
 }

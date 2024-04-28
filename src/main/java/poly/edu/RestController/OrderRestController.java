@@ -38,6 +38,7 @@ import poly.edu.entity.Address;
 import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
+import poly.edu.entity.Evaluate;
 import poly.edu.entity.FlashSaleHour;
 import poly.edu.entity.Flashsale;
 import poly.edu.entity.Order;
@@ -50,6 +51,7 @@ import poly.edu.entity.Sale;
 import poly.edu.entity.Telegram;
 import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
+import poly.edu.repository.EvaluateRepository;
 import poly.edu.repository.FlashSaleHourRepository;
 import poly.edu.repository.FlashSaleRepository;
 import poly.edu.repository.OrderDetailRepository;
@@ -101,6 +103,8 @@ public class OrderRestController {
     FlashSaleHourRepository flashSaleHourRepository;
 
     @Autowired TelegramRepository telegramRepository;
+
+    @Autowired EvaluateRepository evaluateRepository;
 
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
@@ -200,6 +204,8 @@ public class OrderRestController {
     @GetMapping("/rest/orderByCustomer")
     public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId) {
         List<Order> order = orderService.getOrderListByCustomerId(customerId);
+        List<?> evaluate = evaluateRepository.disableBTN(customerId, order.get(0).getCustomer().getCustomerId());
+        System.out.println(evaluate)
         if (order.size() > 0) {
             return ResponseEntity.ok(order);
         } else {
