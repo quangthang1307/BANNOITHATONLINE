@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+
+    <style>
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">QUẢN LÝ BOT TELEGRAM</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
+                                <h5 class="card-title fw-bold">QUẢN LÝ BOT TELEGRAM</h5>
+                            </div>
+                            <form method="POST" action="/admin/bot"  th:object="${telegram}">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="NHẬP BOT TOKEN - xxxxxx:xxxxxxx"  name="botToken">
+                                </div>
+                                <select id="bot-type" class="form-select"  name="mission">
+                                    <option class="form-control" value="">Chọn kiểu cho BOT</option>
+                                    <option class="form-control" value="DATHANG">Đặt hàng</option>
+                                    <option class="form-control" value="HUYHANG">Hủy hàng</option>
+                                    <option class="form-control" value="THONGKE">Thống kê</option>
+                                </select>
+
+                                <div id="date-input" hidden class="form-group mt-3">
+                                    <input type="time" id="time-input" class="form-control" name="time">
+                                </div>
+                                <button class="mt-3 btn btn-success" id="create">Thêm</button>
+                            </form>
+
+                            <div class="table-responsive mt-3">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center fw-bold">SỐ THỨ TỰ</th>
+                                            <th class="text-center fw-bold">TOKEN</th>
+                                            <th class="text-center fw-bold">Nhiệm vụ</th>
+                                            <th class="text-center fw-bold">Thời gian</th>
+                                            <th class="text-center fw-bold">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center" th:each="tele, itemStat : ${telegramList}">
+                                        <tr>
+                                            <td th:text="${itemStat.index + 1}"></td>
+                                            <td th:text="${tele.botToken}"></td>
+                                            <td th:text="${tele.mission}"></td>
+                                            <td th:text="${tele.time}" class="formatted-time"></td>
+                                            <td><a class="btn btn-warning" href="">Sửa</a></td>
+                                            <td><a class="btn btn-danger" th:href="@{/admin/bot/delete/{id}(id=${tele.ID})}" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+
+                            </div>
+                            <div th:if="${error != null}" class="mt-3">
+                                <div class="alert alert-primary" th:text="${error}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by Matrix-admin. Designed and Developed by
+            <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script>
+        document.getElementById('bot-type').addEventListener('change', function() {
+            var dateInputDiv = document.getElementById('date-input');
+            if (this.value === 'THONGKE') {
+                dateInputDiv.removeAttribute('hidden');
+            } else {
+                dateInputDiv.setAttribute('hidden', 'hidden');
+            }
+        });
+    </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Lấy danh sách tất cả các nút "Sửa"
+    var editButtons = document.querySelectorAll('.btn-warning');
+
+    // Duyệt qua mỗi nút "Sửa"
+    editButtons.forEach(function(button) {
+        // Thêm sự kiện click cho mỗi nút
+        button.addEventListener('click', function(event) {
+            // Ngăn chặn hành vi mặc định của nút
+            event.preventDefault();
+
+            // Lấy hàng chứa nút "Sửa" đang được nhấn
+            var row = button.closest('tr');
+
+            // Lấy các dữ liệu từ hàng này
+            var botToken = row.querySelector('td:nth-child(2)').textContent;
+            var chatId = row.querySelector('td:nth-child(3)').textContent;
+            var mission = row.querySelector('td:nth-child(4)').textContent;
+            var timeString = row.querySelector('td:nth-child(5)').textContent;
+            
+            // Đổ dữ liệu lên form
+            document.querySelector('input[name="botToken"]').value = botToken;
+            document.querySelector('select[name="mission"]').value = mission;
+
+            // Giải mã thời gian từ chuỗi
+            var timeParts = timeString.split(':');
+            var hours = parseInt(timeParts[0]);
+            var minutes = parseInt(timeParts[1]);
+
+            // Format lại giờ và phút để phù hợp với input type="time"
+            var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+            // Đặt giá trị cho input type="time"
+            document.getElementById('time-input').value = formattedTime;
+
+            // Hiển thị ô nhập ngày nếu cần thiết
+            if (mission === "THONGKE") {
+                document.getElementById('date-input').removeAttribute('hidden');
+            } else {
+                document.getElementById('date-input').setAttribute('hidden', true);
+            }
+            // Thay đổi nút "Thêm" thành "Lưu"
+            var createButton = document.getElementById('create');
+            createButton.textContent = 'Lưu';
+            createButton.classList.remove('btn-success');
+            createButton.classList.add('btn-primary');
+        });
+    });
+});
+
+
+</script>
+<script>
+    
+</script>
+
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

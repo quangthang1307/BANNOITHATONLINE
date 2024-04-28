@@ -1,5 +1,6 @@
 package poly.edu.RestController;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
+import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.SendResponse;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -33,6 +38,7 @@ import poly.edu.entity.Address;
 import poly.edu.entity.Cart;
 import poly.edu.entity.Discount;
 import poly.edu.entity.DiscountUsage;
+import poly.edu.entity.Evaluate;
 import poly.edu.entity.FlashSaleHour;
 import poly.edu.entity.Flashsale;
 import poly.edu.entity.Order;
@@ -42,8 +48,10 @@ import poly.edu.entity.Payment;
 import poly.edu.entity.Product;
 import poly.edu.entity.ProductImage;
 import poly.edu.entity.Sale;
+import poly.edu.entity.Telegram;
 import poly.edu.entity.Transaction;
 import poly.edu.repository.DiscountUsageRepository;
+import poly.edu.repository.EvaluateRepository;
 import poly.edu.repository.FlashSaleHourRepository;
 import poly.edu.repository.FlashSaleRepository;
 import poly.edu.repository.OrderDetailRepository;
@@ -52,6 +60,7 @@ import poly.edu.repository.OrderStatusRepository;
 import poly.edu.repository.ProductImageRepository;
 import poly.edu.repository.ProductRepository;
 import poly.edu.repository.SaleRepository;
+import poly.edu.repository.TelegramRepository;
 import poly.edu.repository.TransactionRepository;
 
 @CrossOrigin("*")
@@ -93,25 +102,29 @@ public class OrderRestController {
     @Autowired
     FlashSaleHourRepository flashSaleHourRepository;
 
+    @Autowired TelegramRepository telegramRepository;
+
+    @Autowired EvaluateRepository evaluateRepository;
+
     @PostMapping("/rest/createOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
         order.setTime(LocalDateTime.now());
-        orderService.createdOrder(order);        
+        orderService.createdOrder(order);
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
                 List<DiscountUsage> usageList = discountUsageRepository
                         .findAllByCustomerId(order.getCustomer().getCustomerId());
 
-                        int countDiscount = 0;
-                        for (DiscountUsage list : usageList) {
-                            if(list.getDiscount().getCode().equals(order.getDiscount().getCode())){
-                                countDiscount++;
-                            }
-                            if (countDiscount >= discount.get().getMaxUsage()) {
-                                break;
-                            }
-                        }
+                int countDiscount = 0;
+                for (DiscountUsage list : usageList) {
+                    if (list.getDiscount().getCode().equals(order.getDiscount().getCode())) {
+                        countDiscount++;
+                    }
+                    if (countDiscount >= discount.get().getMaxUsage()) {
+                        break;
+                    }
+                }
 
                 if (countDiscount >= discount.get().getMaxUsage()) {
                     if (discount.isPresent()) {
@@ -122,7 +135,7 @@ public class OrderRestController {
                         usage.setDiscount(order.getDiscount());
                         usage.setUseddate(LocalDateTime.now());
                         discountUsageRepository.save(usage);
-                    } 
+                    }
                 }
             }
 
@@ -135,7 +148,7 @@ public class OrderRestController {
     public ResponseEntity<?> editOrder(@RequestBody Order order) {
         order.setTime(LocalDateTime.now());
         Optional<Order> orderfind = orderRepository.findById(order.getOrderID());
-        if(orderfind.isPresent()){
+        if (orderfind.isPresent()) {
             orderfind.get().setAddress(order.getAddress());
             orderfind.get().setDiscount(order.getDiscount());
             orderfind.get().setPayment(order.getPayment());
@@ -143,22 +156,22 @@ public class OrderRestController {
             orderfind.get().setTime(order.getTime());
         }
         orderRepository.save(orderfind.get());
-        
+
         try {
             if (order.getDiscount().getDiscountId() != null) {
                 Optional<Discount> discount = discountService.findById(order.getDiscount().getDiscountId());
                 List<DiscountUsage> usageList = discountUsageRepository
                         .findAllByCustomerId(order.getCustomer().getCustomerId());
 
-                        int countDiscount = 0;
-                        for (DiscountUsage list : usageList) {
-                            if(list.getDiscount().getCode().equals(order.getDiscount().getCode())){
-                                countDiscount++;
-                            }
-                            if (countDiscount >= discount.get().getMaxUsage()) {
-                                break;
-                            }
-                        }
+                int countDiscount = 0;
+                for (DiscountUsage list : usageList) {
+                    if (list.getDiscount().getCode().equals(order.getDiscount().getCode())) {
+                        countDiscount++;
+                    }
+                    if (countDiscount >= discount.get().getMaxUsage()) {
+                        break;
+                    }
+                }
 
                 if (countDiscount < discount.get().getMaxUsage()) {
                     if (discount.isPresent()) {
@@ -169,7 +182,7 @@ public class OrderRestController {
                         usage.setDiscount(order.getDiscount());
                         usage.setUseddate(LocalDateTime.now());
                         discountUsageRepository.save(usage);
-                    } 
+                    }
                 }
             }
 
@@ -191,6 +204,8 @@ public class OrderRestController {
     @GetMapping("/rest/orderByCustomer")
     public ResponseEntity<?> orderByCustomer(@RequestParam Integer customerId) {
         List<Order> order = orderService.getOrderListByCustomerId(customerId);
+        List<?> evaluate = evaluateRepository.disableBTN(customerId, order.get(0).getCustomer().getCustomerId());
+        System.out.println(evaluate)
         if (order.size() > 0) {
             return ResponseEntity.ok(order);
         } else {
@@ -198,7 +213,6 @@ public class OrderRestController {
         }
 
     }
-
 
     @GetMapping("/rest/findOrder")
     public ResponseEntity<?> getOrderOne(@RequestParam Integer orderId) {
@@ -212,9 +226,72 @@ public class OrderRestController {
     }
 
     @PutMapping("/rest/order/huydon")
-    public void edit(@RequestParam Integer orderId){
+    public void edit(@RequestParam Integer orderId) {
+        String username = null;
+        String sanpham = null;
+        String phone = null;
+        String tongtien = null;
+        String time = null;
+        String name = null;
+        String link = null;
         Optional<Order> order = orderRepository.findById(orderId);
-        if(order.isPresent()){
+
+        List<Orderdetails> orderDetail = orderDetailRepository.getOrderdetailsByOrderID(orderId);
+        if (orderDetail.size() == 1) {
+            sanpham = orderDetail.get(0).getProduct().getProductname();
+        } else {
+            StringBuilder concatenatedNames = new StringBuilder();
+            // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
+            for (Orderdetails orderdetails : orderDetail) {
+                // Lấy tên sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
+                // Lấy số lượng sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
+            }
+            // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
+            String finalNames = concatenatedNames.toString().replaceAll(", $", "");
+            sanpham = finalNames;
+        }
+
+        if (order.isPresent()) {
+            if (order.get().getCustomer().getAccount().getUsername() != null
+                    || !order.get().getCustomer().getAccount().getUsername().isEmpty()) {
+                username = order.get().getCustomer().getAccount().getUsername();
+            }
+            if (order.get().getCustomer().getPhone() != null || !order.get().getCustomer().getPhone().isEmpty()) {
+                phone = order.get().getCustomer().getPhone();
+            }
+            if (order.get().getTime() != null) {
+                time = order.get().getTime().toString().substring(0, 10);
+            }
+            if (order.get().getCustomer().getName() != null || !order.get().getCustomer().getName().isEmpty()) {
+                name = order.get().getCustomer().getName();
+            }
+
+            DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
+            tongtien = decimalFormat.format(Double.parseDouble(order.get().getSumpayment().toString()));
+            String message = "Đơn hủy !\n"
+                    + "*Mã đơn hàng:* " + orderId + "\n"
+                    + "*Họ và tên:* " + name + "\n"
+                    + "*Username:* " + username + "\n"
+                    + "*Số điện thoại:* " + phone + "\n"
+                    + "*Ngày đặt hàng:* " + time + "\n"
+                    + "*Sản phẩm:* " + sanpham + "\n"
+                    + "*Tổng tiền:* " + tongtien + "\n";
+
+            Telegram telegram = telegramRepository.findByMission(Telegram.MissionType.HUYHANG);
+            if (telegram != null) {
+                try {
+                    TelegramBot bot = new TelegramBot(telegram.getBotToken());
+                    SendMessage send = new SendMessage(telegram.getChatId(), message).parseMode(ParseMode.Markdown);
+                    SendResponse response = bot.execute(send);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+            }
+        }
+
+        if (order.isPresent()) {
             Orderstatus orderStatus = orderStatusRepository.findByOrderStatusName("Đã hủy");
             order.get().setOrderstatus(orderStatus);
             orderRepository.save(order.get());
@@ -224,18 +301,19 @@ public class OrderRestController {
 
     // @DeleteMapping("/rest/deleteOrder")
     // public void deleteOrder(@RequestParam Integer orderId) {
-    //     List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
-    //     Optional<Order> order = orderRepository.findById(orderId);
+    // List<Orderdetails> orderDetails =
+    // orderDetailRepository.getOrderdetailsByOrderID(orderId);
+    // Optional<Order> order = orderRepository.findById(orderId);
 
-    //     Transaction transaction = transactionRepository.findByOrder(order.get());
-    //     if (transaction != null) {
-    //         transactionRepository.delete(transaction);
-    //         orderDetailRepository.deleteAll(orderDetails);
-    //         orderRepository.deleteById(orderId);
-    //     } else {
-    //         orderDetailRepository.deleteAll(orderDetails);
-    //         orderRepository.deleteById(orderId);
-    //     }
+    // Transaction transaction = transactionRepository.findByOrder(order.get());
+    // if (transaction != null) {
+    // transactionRepository.delete(transaction);
+    // orderDetailRepository.deleteAll(orderDetails);
+    // orderRepository.deleteById(orderId);
+    // } else {
+    // orderDetailRepository.deleteAll(orderDetails);
+    // orderRepository.deleteById(orderId);
+    // }
 
     // }
 
@@ -300,24 +378,22 @@ public class OrderRestController {
         return ResponseEntity.ok(response);
     }
 
-  
-
     @GetMapping("/rest/payment/again")
     public ResponseEntity<?> paymentAgain(@RequestParam Integer orderId) {
         JSONArray response = new JSONArray();
         Optional<Order> order = orderRepository.findById(orderId);
         List<Orderdetails> orderDetails = orderDetailRepository.getOrderdetailsByOrderID(orderId);
         List<Flashsale> flash = new ArrayList<>();
-    
+
         for (Orderdetails orderDetail : orderDetails) {
             JSONObject orderDetailJSON = new JSONObject();
             Sale sale = saleRepository.findByProductID(orderDetail.getProduct().getProductid());
-            List<Flashsale> falshSale = flashSaleRepository.findByProduct(orderDetail.getProduct());            
+            List<Flashsale> falshSale = flashSaleRepository.findByProduct(orderDetail.getProduct());
             boolean giamgia = false;
 
-            if(falshSale.size() > 0){
+            if (falshSale.size() > 0) {
                 for (Flashsale f : falshSale) {
-                    if(f.getStatus()){
+                    if (f.getStatus()) {
                         flash.add(f);
                         break;
                     }
@@ -335,7 +411,7 @@ public class OrderRestController {
                         Optional<Product> product = productRepository.findById(sale.getProductID());
                         product.get().setPricexuat(product.get().getPricexuat()
                                 - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
-                                orderDetail.setProduct(product.get());
+                        orderDetail.setProduct(product.get());
                         giamgia = true;
                     }
                 }
@@ -347,32 +423,25 @@ public class OrderRestController {
                     Optional<Product> product = productRepository.findById(sale.getProductID());
                     product.get().setPricexuat(product.get().getPricexuat()
                             - (product.get().getPricexuat() * sale.getPercent() / 100));
-                            orderDetail.setProduct(product.get());
+                    orderDetail.setProduct(product.get());
                 }
 
             }
-            
+
             JSONObject productObject = new JSONObject();
             productObject.put("product", orderDetail.getProduct());
             productObject.put("imageUrl", orderDetail.getProduct().getProductimages().get(0).getImage());
-            productObject.put("quantity",orderDetail.getProductquantity());
+            productObject.put("quantity", orderDetail.getProductquantity());
             JSONArray productArray = new JSONArray();
             productArray.add(productObject); // Thêm đối tượng sản phẩm vào mảng
-    
+
             orderDetailJSON.put("Product", productArray);
             orderDetailJSON.put("TotalPayment", order.get().getSumpayment());
-    
+
             response.add(orderDetailJSON);
         }
-    
+
         return ResponseEntity.ok(response);
     }
-
-
-
-
-    
-    
-
 
 }
