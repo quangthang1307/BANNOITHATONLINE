@@ -87,8 +87,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale AND Product.CategoryID IN :categoryIDs ORDER BY Product.Productname DESC;", nativeQuery = true)
     Page<Product> findProductSaleByCategoryAndZA(Pageable pageable, @Param("categoryIDs") List<Integer> categoryIDs);
-
-    @Query(value = "SELECT TOP 5 p.ProductID FROM Product p JOIN Orderdetails od ON p.ProductID = od.ProductID WHERE p.Productactivate = 1 GROUP BY p.ProductID ORDER BY SUM(od.Productquantity) DESC;", nativeQuery = true)
+   
+    @Query(value = "SELECT TOP 10 p.ProductID FROM Product p JOIN Orderdetails od ON p.ProductID = od.ProductID WHERE p.Productactivate = 1 GROUP BY p.ProductID ORDER BY SUM(od.Productquantity) DESC;", nativeQuery = true)
     Integer[] findProductBestSeller();
 
     @Query(value = "SELECT Product.BrandID, Product.CategoryID, Product.Createdby, Product.Createddate, Product.[Description], Product.PriceNhap, Product.PriceXuat, Product.Productactivate, Product.ProductID, Product.Productname, Product.Viewcount FROM Product JOIN Sale ON Product.ProductID = Sale.ProductID WHERE Sale.Statussale = 1 And Productactivate = 1 AND GETDATE() BETWEEN Sale.Daystartsale AND Sale.Dayendsale", nativeQuery = true)
