@@ -221,7 +221,7 @@ public class CustomerRestController {
         currentAddress.setPhuongxa(newAddress.getPhuongxa());
         currentAddress.setSonha(newAddress.getSonha());
         currentAddress.setDuong(newAddress.getDuong());
-        currentAddress.setStatus(newAddress.isStatus());
+        currentAddress.setStatus(true);
         Address updatedAddress = addressRepository.save(currentAddress);
         return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
     }
@@ -236,7 +236,8 @@ public class CustomerRestController {
         if (!address.isPresent()) {
             System.out.println("Address not found");
         }
-        addressRepository.delete(address.get());
+        address.get().setStatus(false);
+        addressRepository.save(address.get());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
