@@ -191,7 +191,7 @@ app.controller('ProfileController', function ($scope, $http, $window) {
               // Hiển thị thông báo
               Swal.fire({
                 icon: "warning",
-                title: "Dung lượng vượt quá 2MB",
+                title: "Dung lượng vượt quá 1MB",
                 text: "Vui lòng thử lại !",
                 showConfirmButton: true,
               });

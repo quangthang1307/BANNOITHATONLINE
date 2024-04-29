@@ -102,14 +102,15 @@
                                                 th:text="${orderItem.customer != null ? orderItem.customer.name : 'Không có'}">
                                             </td>
                                             <td>
-                                                <span th:text="${orderItem.address.tinhthanhpho}">
+                                                <span th:text="${orderItem.address.sonha}">
                                                 </span>,
-                                                <span th:text="${orderItem.address.quanhuyen}">
+                                                <span th:text="${orderItem.address.duong}">
                                                 </span>,
                                                 <span th:text="${orderItem.address.phuongxa}">
                                                 </span>,
-                                                <span th:text="${orderItem.address.sonha}">
-                                                </span>, <span th:text="${orderItem.address.duong}">
+                                                <span th:text="${orderItem.address.quanhuyen}">
+                                                </span>,
+                                                <span th:text="${orderItem.address.tinhthanhpho}">
                                                 </span>.
                                             </td>
                                         </tr>

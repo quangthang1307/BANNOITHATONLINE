@@ -41,7 +41,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         session.setAttribute("username", authentication.getName());
 
         if (isAdmin) {
-            redirectStrategy.sendRedirect(request, response, "/admin");
+            redirectStrategy.sendRedirect(request, response, "/admin/statusproduct");
         } else if (isEmployee) {
             redirectStrategy.sendRedirect(request, response, "/employee");
         } else if (isUser) {
