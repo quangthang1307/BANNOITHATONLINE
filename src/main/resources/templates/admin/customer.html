@@ -16,6 +16,9 @@
             text-overflow: ellipsis;
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
+        .red-text {
+    color: red;
+}
     </style>
 </head>
 
@@ -96,8 +99,8 @@
                                     <tbody class="text-center">
                                         <tr th:each="customer, itemStat : ${customers}">
                                             <td th:text="${itemStat.index + 1}"></td>
-                                            <td th:text="${customer.name}"></td>
-                                            <td th:text="${customer.phone}"></td>
+                                            <td th:text="${customer.name != null ? customer.name : 'Chưa cập nhật thông tin'}" th:class="${customer.name == null ? 'red-text' : ''}"></td>
+                                            <td th:text="${customer.phone != null ? customer.phone : 'Chưa cập nhật thông tin'}" th:class="${customer.phone  == null ? 'red-text' : ''}"></td>
                                             <td th:text="${customer.account.email}">
                                             </td>
                                         </tr>
