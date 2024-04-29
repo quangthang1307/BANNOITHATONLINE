@@ -120,9 +120,22 @@
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav">
       <ul id="sidebarnav" class="pt-4">
+        <!-- hóa đơn -->
         <li class="sidebar-item">
-          <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/statistics}"
-            aria-expanded="false"><i class="bi bi-clipboard-data-fill"></i><span class="hide-menu">Thống kê</span></a>
+          <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+              class="bi bi-cash-stack"></i><span class="hide-menu">Đơn hàng</span></a>
+          <ul aria-expanded="false" class="collapse first-level">
+            <li class="sidebar-item">
+              <a th:href="@{/admin/invoice}" class="sidebar-link"><i class="bi bi-receipt-cutoff"></i><span
+                  class="hide-menu"> Danh sách đơn hàng </span></a>
+            </li>
+
+            <li class="sidebar-item">
+              <a th:href="@{/admin/statusproduct}" class="sidebar-link"><i class="bi bi-currency-exchange"></i><span
+                  class="hide-menu"> Tình trạng đơn hàng </span></a>
+            </li>
+
+          </ul>
         </li>
         <!-- tài khoản -->
         <li class="sidebar-item">
@@ -147,50 +160,50 @@
               class="bi bi-kanban-fill"></i></i><span class="hide-menu">Quản Lý</span></a>
           <ul aria-expanded="false" class="collapse first-level">
             <li class="sidebar-item">
-              <a th:href="@{/admin/brand}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/brand}" class="sidebar-link"><i class="bi bi-shop"></i><span
                   class="hide-menu">Thương Hiệu </span></a>
 
             </li>
 
             <li class="sidebar-item">
-              <a  th:href="@{/admin/categoryproduct}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/categoryproduct}" class="sidebar-link"><i class="bi bi-list-task"></i><span
                   class="hide-menu">Danh mục</span></a>
 
             </li>
 
             <li class="sidebar-item">
-              <a th:href="@{/admin/products}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/products}" class="sidebar-link"><i class="bi bi-cast"></i><span
                   class="hide-menu">Sản Phẩm</span></a>
 
             </li>
             <li class="sidebar-item">
-              <a th:href="@{/admin/promotion}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/promotion}" class="sidebar-link"><i class="bi bi-currency-bitcoin"></i><span
                   class="hide-menu">Mã Khuyến Mãi</span></a>
 
             </li>
             <li class="sidebar-item">
-              <a th:href="@{/admin/promotionsale}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/promotionsale}" class="sidebar-link"><i class="bi bi-person-arms-up"></i><span
                   class="hide-menu">Khuyến Mãi</span></a>
 
             </li>
 
             <li class="sidebar-item">
-              <a th:href="@{/admin/promotion/flashsale}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/promotion/flashsale}" class="sidebar-link"><i class="bi bi-basket2"></i><span
                   class="hide-menu">FlashSale</span></a>
 
             </li>
             <li class="sidebar-item">
-              <a th:href="@{/admin/inventory}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/inventory}" class="sidebar-link"><i class="bi bi-house-door"></i><span
                   class="hide-menu">Kho Hàng</span></a>
 
             </li>
             <li class="sidebar-item">
-              <a th:href="@{/admin/warehouse}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/warehouse}" class="sidebar-link"><i class="bi bi-houses"></i><span
                   class="hide-menu">Nhà Kho</span></a>
 
             </li>
             <li class="sidebar-item">
-              <a th:href="@{/admin/customer}" class="sidebar-link"><i class="bi bi-alexa"></i><span
+              <a th:href="@{/admin/customer}" class="sidebar-link"><i class="bi bi-person-fill-exclamation"></i><span
                   class="hide-menu">Khách hàng</span></a>
             </li>
 
@@ -198,35 +211,22 @@
 
           </ul>
         </li>
+        <!-- bot telegram -->
         <li class="sidebar-item">
           <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-              class="bi bi-pencil-square"></i><span class="hide-menu">Hóa đơn</span></a>
+              class="bi bi-robot"></i><span class="hide-menu">BOT</span></a>
           <ul aria-expanded="false" class="collapse first-level">
             <li class="sidebar-item">
-              <a th:href="@{/admin/invoice}" class="sidebar-link"><i class="bi bi-person-circle"></i><span
-                  class="hide-menu"> Danh sách hóa đơn </span></a>
-            </li>
-
-            <li class="sidebar-item">
-              <a th:href="@{/admin/statusproduct}" class="sidebar-link"><i class="bi bi-person-rolodex"></i><span
-                  class="hide-menu"> Tình trạng đơn hàng </span></a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li class="sidebar-item">
-          <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-              class="bi bi-pencil-square"></i><span class="hide-menu">BOT</span></a>
-          <ul aria-expanded="false" class="collapse first-level">
-            <li class="sidebar-item">
-              <a th:href="@{/admin/bot}" class="sidebar-link"><i class="bi bi-person-circle"></i><span
+              <a th:href="@{/admin/bot}" class="sidebar-link"><i class="bi bi-telegram"></i><span
                   class="hide-menu">BOT TELEGRAM</span></a>
             </li>
           </ul>
         </li>
-
-
+        <!-- thống kê -->
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/statistics}"
+            aria-expanded="false"><i class="bi bi-clipboard-data-fill"></i><span class="hide-menu">Thống kê</span></a>
+        </li>
       </ul>
     </nav>
     <!-- End Sidebar navigation -->
