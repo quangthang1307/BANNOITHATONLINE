@@ -57,7 +57,7 @@ public class TelegramRestController {
         if (order.isPresent()) {
             if (action.equals("approve")) {
                 if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
-                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
+                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đang giao hàng");
                     order.get().setOrderstatus(orderstatus);
                     orderRepository.save(order.get());
                 } else {
@@ -132,25 +132,9 @@ public class TelegramRestController {
         String name = null;
         String link = null;
         int orderID = (int) data.get("data");
+        System.out.println(orderID);
         Optional<Order> order = orderRepository.findById(orderID);
-        List<Orderdetails> orderDetail = orderDetailRepository.getOrderdetailsByOrderID(orderID);
-
-        // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
-        if (orderDetail.size() == 1) {
-            sanpham = orderDetail.get(0).getProduct().getProductname();
-        } else {
-            StringBuilder concatenatedNames = new StringBuilder();
-            // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
-            for (Orderdetails orderdetails : orderDetail) {
-                // Lấy tên sản phẩm và nối vào chuỗi
-                concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
-                // Lấy số lượng sản phẩm và nối vào chuỗi
-                concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
-            }
-            // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
-            String finalNames = concatenatedNames.toString().replaceAll(", $", "");
-            sanpham = finalNames;
-        }
+        
 
         if (order.isPresent()) {
             if (order.get().getCustomer().getAccount().getUsername() != null
@@ -173,6 +157,27 @@ public class TelegramRestController {
             // request.getRequestURL().toString().replace(request.getRequestURI(),
             // request.getContextPath());
             // link = baseUrl + "/rest/telegram/approve?orderID=" + String.valueOf(orderID);
+        }
+
+        List<Orderdetails> orderDetail = orderDetailRepository.getOrderdetailsByOrderID(orderID);
+
+        System.out.println(orderDetail);
+
+        // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
+        if (orderDetail.size() == 1) {
+            sanpham = orderDetail.get(0).getProduct().getProductname();
+        } else {
+            StringBuilder concatenatedNames = new StringBuilder();
+            // Duyệt qua từng order detail để lấy tên sản phẩm và nối vào chuỗi
+            for (Orderdetails orderdetails : orderDetail) {
+                // Lấy tên sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProduct().getProductname()).append(" x ");
+                // Lấy số lượng sản phẩm và nối vào chuỗi
+                concatenatedNames.append(orderdetails.getProductquantity()).append(", ");
+            }
+            // Xóa dấu phẩy cuối cùng và khoảng trắng thừa
+            String finalNames = concatenatedNames.toString().replaceAll(", $", "");
+            sanpham = finalNames;
         }
         String host = request.getServerName();
         String message = "Đơn hàng mới !\n"
