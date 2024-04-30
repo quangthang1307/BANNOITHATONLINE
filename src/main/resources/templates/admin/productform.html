@@ -147,9 +147,11 @@
                                                     <input th:field="${product.productname}" type="text"
                                                         class="form-control" name="" id="productname"
                                                         aria-describedby="helpId" placeholder="" />
-                                                        
-                                                        <small th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}" id="helpId" class="form-text text-danger">Help
-                                                            text</small>
+
+                                                    <small th:if="${#fields.hasErrors('productname')}"
+                                                        th:errors="*{productname}" id="helpId"
+                                                        class="form-text text-danger">Help
+                                                        text</small>
                                                 </div>
                                             </div>
 
@@ -293,8 +295,10 @@
                                                     <input type="number" th:field="${product.pricenhap}"
                                                         class="form-control" name="" id="pricenhap"
                                                         aria-describedby="helpId" placeholder="" />
-                                                        <small th:if="${#fields.hasErrors('pricenhap')}" th:errors="*{pricenhap}" id="helpId" class="form-text text-danger">Help
-                                                            text</small>
+                                                    <small th:if="${#fields.hasErrors('pricenhap')}"
+                                                        th:errors="*{pricenhap}" id="helpId"
+                                                        class="form-text text-danger">Help
+                                                        text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -303,8 +307,10 @@
                                                     <input type="number" th:field="${product.pricexuat}"
                                                         class="form-control" name="" id="pricexuat"
                                                         aria-describedby="helpId" placeholder="" />
-                                                        <small th:if="${#fields.hasErrors('pricexuat')}" th:errors="*{pricexuat}" id="helpId" class="form-text text-danger">Help
-                                                            text</small>
+                                                    <small th:if="${#fields.hasErrors('pricexuat')}"
+                                                        th:errors="*{pricexuat}" id="helpId"
+                                                        class="form-text text-danger">Help
+                                                        text</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -517,6 +523,12 @@
                 const selectedFiless = [];
                 function handleFileSelect(event) {
                     const selectedFiles = event.target.files;
+                    
+                    if (selectedFiles.length > 5) {
+                        alert('Tối đa 5 hình ảnh');
+                        return;
+                    }
+
                     // Lặp qua mỗi file trong danh sách được chọn và thêm vào mảng selectedFiles
                     for (let i = 0; i < selectedFiles.length; i++) {
                         selectedFiless.push(selectedFiles[i]);
@@ -533,8 +545,12 @@
                     // Gán đối tượng DataTransfer vào input thứ hai
                     const newFileInput = document.getElementById('fileInput2');
                     newFileInput.files = fileList.files;
+                    console.log(fileList.items.length);
+                    if (fileList.items.length >= 5) {
+                        const inputImage = document.querySelector('.inputimage');
+                        inputImage.style.display = 'none'; // Ẩn thẻ div
 
-
+                    }
 
                     console.log(selectedFiles);
                     console.log(selectedFiless);
@@ -552,7 +568,7 @@
                         const file = selectedFiless[i];
 
                         const fileItem = document.createElement('div');
-                        fileItem.classList.add('col-lg-3','col-xs-12', 'newimage');
+                        fileItem.classList.add('col-lg-3', 'col-xs-12', 'newimage');
 
 
 

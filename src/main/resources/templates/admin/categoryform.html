@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+    <style>
+        .drop-container {
+
+            display: flex;
+            gap: 10px;
+
+            flex-direction: column;
+            justify-content: center;
+
+            height: 200px;
+            width: 200px;
+            margin-top: 43px;
+            border-radius: 10px;
+            border: 2px dashed #bebbbb;
+            color: #444;
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            background: #eee;
+            border-color: #111;
+        }
+
+        .drop-container:hover .drop-title {
+            color: #222;
+        }
+
+        .drop-title {
+            color: #969696;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+
+
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #cfcfcf;
+            border-radius: 10px;
+            margin-right: 20px;
+            padding: 10px;
+            margin-bottom: 30px;
+
+        }
+
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title fs-3">Tạo danh mục</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/admin/categoryproduct">Danh mục</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Thêm danh mục
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <form th:object="${categorys}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+
+                                    <div class="xacnhan bg-white p-2 mx-auto shadow-sm d-flex justify-content-end">
+
+
+                                        <a class="btn btn-light" href="/admin/categoryproduct">Hủy</a>
+                                        <button th:formaction="@{/admin/categoryproduct/save}"
+                                            class="btn btn-info mx-2 ">Lưu</button>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="col-lg-12 col-xs-12 mb-3">
+                                    <div class="thontinchung  bg-white p-4 mx-auto shadow-sm">
+                                        <h4 class="text-info">Thông tin danh mục</h4>
+                                        <hr>
+
+                                        <div class="row">
+
+                                            <div class="mb-3">
+                                                <input type="text" hidden="true"
+                                                    class="form-control" name="" id="productid"
+                                                    aria-describedby="helpId" placeholder="" />
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Tên danh mục</label>
+                                                    <input type="text" th:field="${categorys.productname}" class="form-control"
+                                                        name="" id="pricexuat" aria-describedby="helpId"
+                                                        placeholder="Nhập tên danh mục" min="0" max="100" />
+                                                        <small th:if="${#fields.hasErrors('productname')}"
+                                                        th:errors="*{productname}" id="helpId"
+                                                        class="form-text text-danger">Help
+                                                        text</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Danh mục cha</label>
+                                                    <div class="mb-3">
+                                                        <select class="form-select form-select" name="optionCategory" id="">
+                                                            <option selected value="0">Trống</option>
+                                                            <option th:each="categorycha : ${categoryscha}" th:value="${categorycha.ID}" th:text="${categorycha.productname}"></option>
+                                                        </select>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        </form>
+                        <!-- ============================================================== -->
+                        <!-- End PAge Content -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Right sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- .right-sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- End Right sidebar -->
+                        <!-- ============================================================== -->
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- footer -->
+                    <!-- ============================================================== -->
+                    <footer class="footer text-center">
+                        All Rights Reserved by Matrix-admin. Designed and Developed by
+                        <a href="https://www.wrappixel.com">WrapPixel</a>.
+                    </footer>
+                    <!-- ============================================================== -->
+                    <!-- End footer -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Page wrapper  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Wrapper -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- All Jquery -->
+            <!-- ============================================================== -->
+
+            <script>
+                // Lấy ra các checkbox
+                var checkboxes = document.querySelectorAll('.checkboxproduct');
+                var checkAllCheckbox = document.getElementById('checkAllproduct');
+
+                // Thêm sự kiện cho nút "Check All"
+                checkAllCheckbox.addEventListener('change', function () {
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = checkAllCheckbox.checked;
+                    });
+                });
+
+                // Kiểm tra trạng thái của checkbox "Check All" khi có sự thay đổi trong các checkbox khác
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('change', function () {
+                        checkAllCheckbox.checked = [...checkboxes].every(function (checkbox) {
+                            return checkbox.checked;
+                        });
+                    });
+                });
+            </script>
+            <script>
+                function confirmDelete(brandsId) {
+                    if (confirm("Bạn có chắc muốn xóa không?")) {
+                        window.location.href = '/admin/deleteproductselectedsale/' + brandsId;
+                    }
+                    return false;
+                }
+            </script>
+            <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+            <!-- Bootstrap tether Core JavaScript -->
+            <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+            <!-- slimscrollbar scrollbar JavaScript -->
+            <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+            <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+            <!--Wave Effects -->
+            <script th:src="@{/dist/js/waves.js}"></script>
+            <!--Menu sidebar -->
+            <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+            <!--Custom JavaScript -->
+            <script th:src="@{/dist/js/custom.min.js}"></script>
+            <!-- this page js -->
+            <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+            <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+            <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+            <script>
+                /****************************************
+                 *       Basic Table                   *
+                 ****************************************/
+                $("#zero_config").DataTable();
+            </script>
+</body>
+
+</html>

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import javax.swing.text.DateFormatter;
 
+import org.antlr.v4.runtime.misc.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,10 +60,12 @@ public class PromotionController {
     List<Flashsale> productselectflashsale = new ArrayList<>();
     String messageDaystart = "";
     String messageDaysend = "";
+    String messageHourend = "";
+    String messageHourstart = "";
 
     // String messageDaystart = "";
     // MÃ GIẢM GIÁ
-    @GetMapping("promotion")
+    @GetMapping("/promotion")
     public String showPromotion(Model model) {
         List<Discount> discounts = discountService.findAll();
         model.addAttribute("discounts", discounts);
@@ -106,11 +109,38 @@ public class PromotionController {
     public String savePromotion(HttpServletRequest request, Model model,
             @Valid @ModelAttribute("discount") Discount discount, BindingResult result) {
 
+        // xóa thông báo lỗi
+        messageDaysend = "";
+        messageDaystart = "";
+        //
         String dayStartValue = request.getParameter("daystart");
         String dayEndValue = request.getParameter("dayend");
 
         if (result.hasErrors() || dayEndValue.isEmpty() || dayStartValue.isEmpty()) {
-            System.out.println("Có lỗi");
+
+            System.out.println("Có lỗi ngày trống");
+            if (dayStartValue.isEmpty()) {
+                messageDaystart = "Vui lòng chọn ngày bắt đầu";
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                LocalDateTime dayStartDateTime = LocalDateTime.parse(dayStartValue, formatter);
+                discount.setStartDate(dayStartDateTime);
+                System.out.println(discount.getStartDate());
+                model.addAttribute("daystart", discount.getStartDate());
+
+            }
+            if (dayEndValue.isEmpty()) {
+                messageDaysend = "Vui lòng chọn ngày kết thúc";
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                LocalDateTime dayEndDateTime = LocalDateTime.parse(dayEndValue, formatter);
+                discount.setEndDate(dayEndDateTime);
+                model.addAttribute("dayend", discount.getEndDate());
+            }
+
+            model.addAttribute("messdaystart", messageDaystart);
+            model.addAttribute("messdayend", messageDaysend);
+
             return "admin/promotionform";
 
         }
@@ -129,7 +159,7 @@ public class PromotionController {
                 || isDateInPast(dayStartDateTime) || discount.getMaxUsage() > discount.getQuantity()) {
             discount.setStartDate(dayStartDateTime);
             discount.setEndDate(dayEndDateTime);
-            System.out.println("Có lỗi");
+            System.out.println("có lỗi liên quan đến ngày");
             return "admin/promotionform";
         }
 
@@ -207,14 +237,79 @@ public class PromotionController {
     }
 
     @PostMapping("/savepromotion")
-    public String savePromotionSale(HttpServletRequest request, Model model, Sale sale) {
+    public String savePromotionSale(HttpServletRequest request, Model model, @Valid @ModelAttribute("sale") Sale sale,
+            BindingResult result) {
+        // xóa thông báo lỗi
+        messageDaysend = "";
+        messageDaystart = "";
+        //
         String dayStartValue = request.getParameter("daystart");
         String dayEndValue = request.getParameter("dayend");
+
+        if (result.hasErrors() || dayStartValue.isEmpty() || dayEndValue.isEmpty()) {
+
+            if (dayStartValue.isEmpty()) {
+                messageDaystart = "Vui lòng chọn ngày bắt đầu";
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                LocalDateTime dayStartDateTime = LocalDateTime.parse(dayStartValue, formatter);
+                sale.setDayStart(dayStartDateTime);
+                model.addAttribute("daystart", sale.getDayStart());
+
+            }
+            if (dayEndValue.isEmpty()) {
+                messageDaysend = "Vui lòng chọn ngày kết thúc";
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                LocalDateTime dayEndDateTime = LocalDateTime.parse(dayEndValue, formatter);
+                sale.setDayEnd(dayEndDateTime);
+                model.addAttribute("dayend", sale.getDayEnd());
+            }
+
+            model.addAttribute("messdaystart", messageDaystart);
+            model.addAttribute("messdayend", messageDaysend);
+
+            products = productService.findAllNoActive();
+
+            if (!productselect.isEmpty()) {
+                System.out.println("Khong trong");
+                for (Product ps : productselect) {
+                    products.removeIf(p -> p.getProductid() == ps.getProductid());
+                }
+            }
+            if (sale.getSaleID() != null) {
+
+                Optional<Sale> sale3 = saleService.findById(sale.getSaleID());
+                products.forEach(p -> {
+                    if (p.getProductid() == sale3.get().getProductID()) {
+                        productselect.add(p);
+                    }
+                });
+                model.addAttribute("sale", sale3.get());
+                model.addAttribute("daystart", sale3.get().getDayStart());
+                model.addAttribute("dayend", sale3.get().getDayEnd());
+            }
+
+            model.addAttribute("products", products);
+            model.addAttribute("productselect", productselect);
+
+            return "admin/promotionsaleform";
+        }
+
         // Định dạng chuỗi ngày giờ
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         // Chuyển đổi chuỗi thành LocalDateTime
         LocalDateTime dayStartDateTime = LocalDateTime.parse(dayStartValue, formatter);
         LocalDateTime dayEndDateTime = LocalDateTime.parse(dayEndValue, formatter);
+
+        if (result.hasErrors() || !isStartDateBeforeEndDate(dayStartDateTime, dayEndDateTime)
+                || !isEndDateAfterStartDate(dayEndDateTime, dayStartDateTime) || isDateInPast(dayEndDateTime)
+                || isDateInPast(dayStartDateTime)) {
+            sale.setDayStart(dayStartDateTime);
+            sale.setDayEnd(dayEndDateTime);
+            System.out.println("có lỗi liên quan đến ngày");
+            return "admin/promotionsaleform";
+        }
         for (Product ps : productselect) {
             Sale s = new Sale();
             s.setSaleID(sale.getSaleID());
@@ -348,11 +443,155 @@ public class PromotionController {
             @RequestParam(value = "checkboxagain", required = false) String checkboxagain) {
 
         String sdaystart = request.getParameter("daystart");
+        if (sdaystart.isEmpty() || flashSaleHour.getHourStart() == null || flashSaleHour.getHourEnd() == null) {
+            products = productService.findAllNoActive();
+            String sizeproduct = "chưa chọn sản phẩm nào";
+            if (productselectflashsale.size() > 0) {
+                sizeproduct = String.valueOf(productselectflashsale.size());
+            }
+
+            if (!productselectflashsale.isEmpty()) {
+                System.out.println("Khong trong");
+                for (Flashsale ps : productselectflashsale) {
+                    products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
+                }
+            }
+            if (flashSaleHour.getID() == null) {
+                FlashSaleHour flashhsale = new FlashSaleHour();
+                flashhsale.setStatus(false);
+                flashhsale.setFrequencyFor("");
+                model.addAttribute("flashhsales", flashhsale);
+            } else {
+                Optional<FlashSaleHour> flashhsale = flashSaleHourService.findbyId(flashSaleHour.getID());
+                List<Flashsale> flashsales = flashSaleService.findByFlashsaleHour(flashSaleHour.getID());
+                flashhsale.get().setFrequencyFor(flashhsale.get().getFrequencyFor().trim());
+
+                for (Flashsale flashsale : flashsales) {
+                    productselectflashsale.add(flashsale);
+                }
+
+                boolean checknone = false;
+                if (flashhsale.get().getFrequencyFor().trim().equals("NONE")) {
+                    checknone = true;
+                }
+                model.addAttribute("checknone", checknone);
+                model.addAttribute("daystart", flashhsale.get().getDateStart());
+            }
+            if (sdaystart.isEmpty()) {
+                messageDaystart = "Vui lòng chọn ngày bắt đầu";
+            }
+            if (flashSaleHour.getHourStart() == null) {
+                messageHourstart = "Vui lòng chọn giờ bắt đầu";
+            }
+            if (flashSaleHour.getHourEnd() == null) {
+                messageHourend = "Vui lòng chọn giờ kết thúc";
+            }
+
+            model.addAttribute("messdaystart", messageDaystart);
+            model.addAttribute("messagehourstart", messageHourstart);
+            model.addAttribute("messagehourend", messageHourend);
+            model.addAttribute("products", products);
+            model.addAttribute("productselect", productselectflashsale);
+            model.addAttribute("sizeproduct", sizeproduct);
+
+            return "admin/flashsaleform";
+
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(sdaystart, formatter);
         FlashSaleHour s = new FlashSaleHour();
         s.setID(flashSaleHour.getID());
         s.setDateStart(date);
+        LocalDate daynow = LocalDate.now();
+        if (date.isBefore(daynow)) {
+
+            System.out.println("có lỗi liên quan đến ngày");
+            products = productService.findAllNoActive();
+            String sizeproduct = "chưa chọn sản phẩm nào";
+            if (productselectflashsale.size() > 0) {
+                sizeproduct = String.valueOf(productselectflashsale.size());
+            }
+
+            if (!productselectflashsale.isEmpty()) {
+                System.out.println("Khong trong");
+                for (Flashsale ps : productselectflashsale) {
+                    products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
+                }
+            }
+            if (flashSaleHour.getID() == null) {
+                FlashSaleHour flashhsale = new FlashSaleHour();
+                flashhsale.setStatus(false);
+                flashhsale.setFrequencyFor("");
+                model.addAttribute("flashhsales", flashhsale);
+            } else {
+                Optional<FlashSaleHour> flashhsale = flashSaleHourService.findbyId(flashSaleHour.getID());
+                List<Flashsale> flashsales = flashSaleService.findByFlashsaleHour(flashSaleHour.getID());
+                flashhsale.get().setFrequencyFor(flashhsale.get().getFrequencyFor().trim());
+
+                for (Flashsale flashsale : flashsales) {
+                    productselectflashsale.add(flashsale);
+                }
+
+                boolean checknone = false;
+                if (flashhsale.get().getFrequencyFor().trim().equals("NONE")) {
+                    checknone = true;
+                }
+                model.addAttribute("checknone", checknone);
+                model.addAttribute("daystart", flashhsale.get().getDateStart());
+            }
+
+            model.addAttribute("products", products);
+            model.addAttribute("productselect", productselectflashsale);
+            model.addAttribute("sizeproduct", sizeproduct);
+            return "admin/flashsaleform";
+        }
+        List<FlashSaleHour> flashSaleHours = flashSaleHourService.findFlashSaleHoursAll();
+        if (checkOverlap(flashSaleHour, flashSaleHours)) {
+            System.out.println("Trùng lặp");
+            products = productService.findAllNoActive();
+            String sizeproduct = "chưa chọn sản phẩm nào";
+            if (productselectflashsale.size() > 0) {
+                sizeproduct = String.valueOf(productselectflashsale.size());
+            }
+
+            if (!productselectflashsale.isEmpty()) {
+                System.out.println("Khong trong");
+                for (Flashsale ps : productselectflashsale) {
+                    products.removeIf(p -> p.getProductid() == ps.getProduct().getProductid());
+                }
+            }
+            if (flashSaleHour.getID() == null) {
+                FlashSaleHour flashhsale = new FlashSaleHour();
+                flashhsale.setDateStart(date);
+                flashhsale.setStatus(false);
+                flashhsale.setFrequencyFor("");
+                model.addAttribute("flashhsales", flashhsale);
+            } else {
+                Optional<FlashSaleHour> flashhsale = flashSaleHourService.findbyId(flashSaleHour.getID());
+                List<Flashsale> flashsales = flashSaleService.findByFlashsaleHour(flashSaleHour.getID());
+                flashhsale.get().setFrequencyFor(flashhsale.get().getFrequencyFor().trim());
+
+                for (Flashsale flashsale : flashsales) {
+                    productselectflashsale.add(flashsale);
+                }
+
+                boolean checknone = false;
+                if (flashhsale.get().getFrequencyFor().trim().equals("NONE")) {
+                    checknone = true;
+                }
+                model.addAttribute("checknone", checknone);
+
+            }
+
+            model.addAttribute("daystart", date);
+            model.addAttribute("messagehourstart", "Khung giờ đã tồn tại");
+            model.addAttribute("messagehourend", "Khung giờ đã tồn tại");
+            model.addAttribute("products", products);
+            model.addAttribute("productselect", productselectflashsale);
+            model.addAttribute("sizeproduct", sizeproduct);
+            return "admin/flashsaleform";
+        }
+
         s.setHourStart(flashSaleHour.getHourStart());
         s.setHourEnd(flashSaleHour.getHourEnd());
 
@@ -380,6 +619,31 @@ public class PromotionController {
         }
 
         return "redirect:/admin/promotion/flashsale";
+    }
+
+    public boolean checkOverlap(FlashSaleHour newInterval, List<FlashSaleHour> existingIntervals) {
+       
+       
+        System.out.println("Size"+existingIntervals.size());
+        System.out.println(newInterval.getHourStart().getHour());
+        System.out.println(newInterval.getHourEnd().getHour());
+        int newStart = newInterval.getHourStart().getHour();
+        int newEnd = newInterval.getHourEnd().getHour();
+        
+        for (FlashSaleHour interval : existingIntervals) {
+            System.out.println(interval.getHourStart().getHour());
+            System.out.println(interval.getHourEnd().getHour());
+            int existingStart = interval.getHourStart().getHour();
+            int existingEnd = interval.getHourEnd().getHour();
+
+            // Kiểm tra trùng lặp
+            if ((newStart >= existingStart && newStart < existingEnd) ||
+                    (newEnd > existingStart && newEnd <= existingEnd) ||
+                    (newStart <= existingStart && newEnd >= existingEnd)) {
+                return true; // Trùng lặp
+            }
+        }
+        return false;
     }
 
     @PostMapping("/selectproductflashsale")

@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -63,9 +64,11 @@ public class Product {
 
     @Column(name = "Pricenhap")
     @NotNull(message = "Vui lòng nhập giá nhập")
+    @Min(value = 0, message = "Giá không được nhỏ hơn 0")
     private Double pricenhap;
 
     @Column(name = "Pricexuat")
+    @Min(value = 0, message = "Giá không được nhỏ hơn 0")
     @NotNull(message = "Vui lòng nhập giá bán")
     private Double pricexuat;
 

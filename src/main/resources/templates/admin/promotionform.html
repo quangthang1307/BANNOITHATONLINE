@@ -106,10 +106,10 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="/admin/products">Sản phẩm</a>
+                                        <a href="/admin/promotion">Mã khuyến mãi</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
-
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Tạo mã khuyến mãi
                                     </li>
                                 </ol>
                             </nav>
@@ -137,7 +137,7 @@
                                     <div class="xacnhan bg-white p-2 mx-auto shadow-sm d-flex justify-content-end">
 
 
-                                        <a class="btn btn-light" href="/admin/promotionsale">Hủy</a>
+                                        <a class="btn btn-light" href="/admin/promotion">Hủy</a>
                                         <button th:formaction="@{/admin/promotion/savepromotion}"
                                             class="btn btn-info mx-2 ">Lưu</button>
 
@@ -160,18 +160,21 @@
                                         <div class="row">
 
                                             <div class="mb-3">
-                                                <input type="text" th:field="${discount.discountId}" hidden="true" class="form-control" name=""
-                                                    id="productid" aria-describedby="helpId" placeholder="" />
+                                                <input type="text" th:field="${discount.discountId}" hidden="true"
+                                                    class="form-control" name="" id="productid"
+                                                    aria-describedby="helpId" placeholder="" />
                                             </div>
 
 
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label fw-bold">Mã giảm giá</label>
-                                                    <input type="text" class="form-control" name="" id="pricexuat" th:field="*{code}"
-                                                        aria-describedby="helpId" placeholder="Nhập mã giảm giá" />
-                                                        
-                                                    <small th:if="${#fields.hasErrors('code')}" th:errors="*{code}" id="helpId" class="form-text text-danger">Help
+                                                    <input type="text" class="form-control" name="" id="pricexuat"
+                                                        th:field="*{code}" aria-describedby="helpId"
+                                                        placeholder="Nhập mã giảm giá" />
+
+                                                    <small th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
+                                                        id="helpId" class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
@@ -194,35 +197,45 @@
                                             <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label fw-bold">Phần trăm</label>
-                                                    <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.percent}"
-                                                        aria-describedby="helpId" placeholder="Nhập %" min="1"
-                                                        max="49" />
-                                                    <small th:if="${#fields.hasErrors('percent')}" th:errors="*{percent}" id="helpId" class="form-text text-danger">Help
+                                                    <input type="number" class="form-control" name="" id="pricexuat"
+                                                        th:field="${discount.percent}" aria-describedby="helpId"
+                                                        placeholder="Nhập %" min="1" max="49" />
+                                                    <small th:if="${#fields.hasErrors('percent')}"
+                                                        th:errors="*{percent}" id="helpId"
+                                                        class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label fw-bold">Số lượng</label>
-                                                    <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.quantity}"
-                                                        aria-describedby="helpId" placeholder="Nhập số lượng"/>
-                                                    <small th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" id="helpId" class="form-text text-danger">Help
+                                                    <input type="number" class="form-control" name="" id="pricexuat"
+                                                        th:field="${discount.quantity}" aria-describedby="helpId"
+                                                        placeholder="Nhập số lượng" />
+                                                    <small th:if="${#fields.hasErrors('quantity')}"
+                                                        th:errors="*{quantity}" id="helpId"
+                                                        class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="" class="form-label fw-bold">Sử dụng tối đa/1 tài khoản</label>
-                                                    <input type="number" class="form-control" name="" id="pricexuat" th:field="${discount.MaxUsage}"
-                                                        aria-describedby="helpId" placeholder="Nhập số lần được sử dụng"  />
-                                                    <small th:if="${#fields.hasErrors('MaxUsage')}" th:errors="*{MaxUsage}" id="helpId" class="form-text text-danger">Help
+                                                    <label for="" class="form-label fw-bold">Sử dụng tối đa/1 tài
+                                                        khoản</label>
+                                                    <input type="number" class="form-control" name="" id="pricexuat"
+                                                        th:field="${discount.MaxUsage}" aria-describedby="helpId"
+                                                        placeholder="Nhập số lần được sử dụng" />
+                                                    <small th:if="${#fields.hasErrors('MaxUsage')}"
+                                                        th:errors="*{MaxUsage}" id="helpId"
+                                                        class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label fw-bold">Mô tả</label>
-                                                    <textarea th:field="${discount.description}" class="form-control" name="" id="" rows="3"></textarea>
+                                                    <textarea th:field="${discount.description}" class="form-control"
+                                                        name="" id="" rows="3"></textarea>
                                                 </div>
 
                                             </div>
@@ -251,16 +264,19 @@
 
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Thời gian bắt đầu</label>
-                                                <input type="datetime-local" name="daystart" class="form-control" th:value="${daystart}"
-                                                    aria-describedby="helpId" />
-                                                <small th:if="${#fields.hasErrors('StartDate')}" th:errors="*{StartDate}" id="helpId" class="form-text text-danger">Help text</small>
+                                                <input type="datetime-local" name="daystart" id="datestarttime"
+                                                    class="form-control" th:value="${daystart}"
+                                                    aria-describedby="helpId" onchange="validateDateTime()" />
+                                                <small th:if="${messdaystart != null}" th:text="${messdaystart}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="" class="form-label fw-bold">Thời gian kết thúc</label>
-                                                <input type="datetime-local" name="dayend" class="form-control" th:value="${dayend}"
-                                                    aria-describedby="helpId" placeholder="" />
-                                                <small th:if="${#fields.hasErrors('EndDate')}" th:errors="*{EndDate}" id="helpId" class="form-text text-danger">Help text</small>
+                                                <input type="datetime-local" name="dayend" id="dateendtime" class="form-control" onchange="validateDateEndTime()"
+                                                    th:value="${dayend}" aria-describedby="helpId" placeholder="" />
+                                                <small th:if="${messdayend != null}" th:text="${messdayend}" id="helpId"
+                                                    class="form-text text-danger">Help text</small>
                                             </div>
 
 
@@ -273,7 +289,50 @@
                                     </div>
 
 
+                                    <script>
+                                        function validateDateTime() {
+                                            var inputDateTime = document.getElementById('datestarttime').value;
+                                            var selectedDate = new Date(inputDateTime);
+                                            var currentDate = new Date();
 
+                                            if (selectedDate < currentDate) {
+                                                var successMessage = 'Ngày không được trước ngày hiện tại.';
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Lỗi!',
+                                                    text: successMessage,
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                });
+                                                document.getElementById('datestarttime').value = null;
+                                                return false;
+                                            }
+                                            // Nếu không có lỗi, có thể tiếp tục xử lý hoặc submit form.
+                                            // return true;
+                                        }
+                                    </script>
+                                    <script>
+                                        function validateDateEndTime() {
+                                            var inputDateTime = document.getElementById('dateendtime').value;
+                                            var selectedDate = new Date(inputDateTime);
+                                            var currentDate = new Date();
+
+                                            if (selectedDate < currentDate) {
+                                                var successMessage = 'Ngày không được trước ngày hiện tại.';
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Lỗi!',
+                                                    text: successMessage,
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                });
+                                                document.getElementById('dateendtime').value = null;
+                                                return false;
+                                            }
+                                            // Nếu không có lỗi, có thể tiếp tục xử lý hoặc submit form.
+                                            // return true;
+                                        }
+                                    </script>
 
 
                                 </div>
@@ -326,27 +385,6 @@
             <!-- ============================================================== -->
 
             <script>
-                // Lấy ra các checkbox
-                var checkboxes = document.querySelectorAll('.checkboxproduct');
-                var checkAllCheckbox = document.getElementById('checkAllproduct');
-
-                // Thêm sự kiện cho nút "Check All"
-                checkAllCheckbox.addEventListener('change', function () {
-                    checkboxes.forEach(function (checkbox) {
-                        checkbox.checked = checkAllCheckbox.checked;
-                    });
-                });
-
-                // Kiểm tra trạng thái của checkbox "Check All" khi có sự thay đổi trong các checkbox khác
-                checkboxes.forEach(function (checkbox) {
-                    checkbox.addEventListener('change', function () {
-                        checkAllCheckbox.checked = [...checkboxes].every(function (checkbox) {
-                            return checkbox.checked;
-                        });
-                    });
-                });
-            </script>
-            <script>
                 function confirmDelete(brandsId) {
                     if (confirm("Bạn có chắc muốn xóa không?")) {
                         window.location.href = '/admin/deleteproductselectedsale/' + brandsId;
@@ -354,6 +392,7 @@
                     return false;
                 }
             </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
             <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
             <!-- Bootstrap tether Core JavaScript -->
             <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
