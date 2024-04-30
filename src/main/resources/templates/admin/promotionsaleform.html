@@ -104,10 +104,10 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="/admin/products">Sản phẩm</a>
+                                        <a href="/admin/promotionsale">Khuyến mãi</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
-
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Tạo khuyến mãi
                                     </li>
                                 </ol>
                             </nav>
@@ -194,8 +194,10 @@
                                                     <label for="" class="form-label">Phần trăm</label>
                                                     <input type="number" th:field="${sale.Percent}" class="form-control"
                                                         name="" id="pricexuat" aria-describedby="helpId"
-                                                        placeholder="Nhập %" min="0" max="100" />
-                                                    <small id="helpId" class="form-text text-muted">Help
+                                                        placeholder="Nhập %" min="0" max="49" />
+                                                        <small th:if="${#fields.hasErrors('Percent')}"
+                                                        th:errors="*{Percent}" id="helpId"
+                                                        class="form-text text-danger">Help
                                                         text</small>
                                                 </div>
                                             </div>
@@ -331,16 +333,18 @@
 
                                             <div class="mb-3">
                                                 <label class="form-label">Thời gian bắt đầu</label>
-                                                <input type="datetime-local" th:value="${daystart}" name="daystart"
+                                                <input type="datetime-local" th:value="${daystart}" id="datestarttime" name="daystart" onchange="validateDateTime()"
                                                     class="form-control" aria-describedby="helpId"  />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                    <small th:if="${messdaystart != null}" th:text="${messdaystart}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Thời gian kết thúc</label>
-                                                <input type="datetime-local" th:value="${dayend}" name="dayend"
+                                                <input type="datetime-local" th:value="${dayend}" id="dateendtime" name="dayend"  onchange="validateDateEndTime()"
                                                     class="form-control" aria-describedby="helpId" placeholder="" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                    <small th:if="${messdayend != null}" th:text="${messdayend}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
 
@@ -352,7 +356,51 @@
 
                                     </div>
 
-                                    
+                                    <script>
+                                        function validateDateTime() {
+                                            var inputDateTime = document.getElementById('datestarttime').value;
+                                            var selectedDate = new Date(inputDateTime);
+                                            var currentDate = new Date();
+
+                                            if (selectedDate < currentDate) {
+                                                var successMessage = 'Ngày không được trước ngày hiện tại.';
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Lỗi!',
+                                                    text: successMessage,
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                });
+                                                document.getElementById('datestarttime').value = null;
+                                                return false;
+                                            }
+                                            // Nếu không có lỗi, có thể tiếp tục xử lý hoặc submit form.
+                                            // return true;
+                                        }
+                                    </script>
+                                    <script>
+                                        function validateDateEndTime() {
+                                            var inputDateTime = document.getElementById('dateendtime').value;
+                                            var selectedDate = new Date(inputDateTime);
+                                            var currentDate = new Date();
+
+                                            if (selectedDate < currentDate) {
+                                                var successMessage = 'Ngày không được trước ngày hiện tại.';
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Lỗi!',
+                                                    text: successMessage,
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                });
+                                                document.getElementById('dateendtime').value = null;
+                                                return false;
+                                            }
+                                            // Nếu không có lỗi, có thể tiếp tục xử lý hoặc submit form.
+                                            // return true;
+                                        }
+                                    </script>
+
 
 
 
@@ -434,6 +482,7 @@
                     return false;
                 }
             </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
             <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
             <!-- Bootstrap tether Core JavaScript -->
             <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>

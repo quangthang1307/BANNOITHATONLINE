@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Categoryproduct {
     private Integer ID;
 
     @Column(name = "Categoryname")
+    @NotEmpty(message = "Vui lòng nhập tên danh mục")
     private String productname;
 
     @Column(name = "IDcapcha")

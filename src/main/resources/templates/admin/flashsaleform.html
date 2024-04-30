@@ -106,10 +106,10 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="/admin/products">Sản phẩm</a>
+                                        <a href="/admin/promotion/flashsale">Flashsale</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page" th:text="${tiltePage}">
-
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Tạo Flashsale
                                     </li>
                                 </ol>
                             </nav>
@@ -151,7 +151,7 @@
 
                                 <div class="col-lg-8 col-xs-12 mb-3">
                                     <div class="thontinchung  bg-white p-4 mx-auto shadow-sm">
-                                        <h4 class="text-info">Chương trình khuyến mãi</h4>
+                                        <h4 class="text-info">Sản phẩm áp dụng</h4>
                                         <hr>
 
 
@@ -164,18 +164,8 @@
                                                     aria-describedby="helpId" placeholder="" />
                                             </div>
 
-                                            <div class="col-12 d-none">
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label fw-bold">Tên chương trình khuyến
-                                                        mãi</label>
-                                                    <input type="text" class="form-control" name="" id="productname"
-                                                        aria-describedby="helpId" placeholder="" />
-                                                    <small id="helpId" class="form-text text-muted">Help
-                                                        text</small>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-6">
+                                            <div class="col-6 d-none">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label">Loại khuyến mãi</label>
                                                     <div class="mb-3">
@@ -215,7 +205,7 @@
                                                                     th:text="${productselected.product.productname}">
                                                                 </td>
                                                                 <td th:text="${productselected.product.pricexuat}"></td>
-                                                                <td><input
+                                                                <td><input min="1" max="49"
                                                                         th:name="percent + ${productselected.product.productid}"
                                                                         placeholder="Nhập %" class="form-control"
                                                                         th:value="${productselected.Percent}"
@@ -323,23 +313,48 @@
 
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Ngày bắt đầu</label>
-                                                <input th:value="${daystart}" type="date" name="daystart"
-                                                    class="form-control" aria-describedby="helpId" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                <input th:value="${daystart}" type="date" name="daystart" id="datestarttime"
+                                                    class="form-control" aria-describedby="helpId"  onchange="validateDateTime()" />
+                                                    <small th:if="${messdaystart != null}" th:text="${messdaystart}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
+
+                                            <script>
+                                                function validateDateTime() {
+                                                    var inputDateTime = document.getElementById('datestarttime').value;
+                                                    var selectedDate = new Date(inputDateTime);
+                                                    var currentDate = new Date();
+                                                    if (selectedDate.getDay() < currentDate.getDay()) {
+                                                        var successMessage = 'Ngày bắt đầu không được trước ngày hiện tại.';
+                                                        Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Lỗi!',
+                                                            text: successMessage,
+                                                            showConfirmButton: false,
+                                                            timer: 2000,
+                                                        });
+                                                        document.getElementById('datestarttime').value = null;
+                                                        return false;
+                                                    }
+                                                    // Nếu không có lỗi, có thể tiếp tục xử lý hoặc submit form.
+                                                    // return true;
+                                                }
+                                            </script>
 
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Giờ bắt đầu</label>
                                                 <input th:field="${flashhsales.hourStart}" type="time"
                                                     class="form-control" aria-describedby="helpId" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                    <small th:if="${messagehourstart != null}" th:text="${messagehourstart}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="" class="form-label fw-bold">Giờ kết thúc</label>
                                                 <input th:field="${flashhsales.hourEnd}" type="time"
                                                     class="form-control" aria-describedby="helpId" placeholder="" />
-                                                <small id="helpId" class="form-text text-muted">Help text</small>
+                                                    <small th:if="${messagehourend != null}" th:text="${messagehourend}"
+                                                    id="helpId" class="form-text text-danger">Help text</small>
                                             </div>
 
 
@@ -454,7 +469,7 @@
             <!-- ============================================================== -->
 
 
-            <script>
+            <!-- <script>
                 document.getElementById("getValuesButton").addEventListener("click", function () {
                     var checkedValues = [];
                     var checkboxes = document.querySelectorAll('input[name="selectedProducts"]:checked');
@@ -478,7 +493,7 @@
                         }
                     });
                 });
-            </script>
+            </script> -->
 
             <script>
                 // Lấy ra các checkbox
@@ -509,6 +524,7 @@
                     return false;
                 }
             </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
             <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
             <!-- Bootstrap tether Core JavaScript -->
             <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
