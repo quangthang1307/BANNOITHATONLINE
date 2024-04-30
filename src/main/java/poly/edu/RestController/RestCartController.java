@@ -65,7 +65,6 @@ public class RestCartController {
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {
         List<Cart> carts = cartService.findByCustomerId(customerId);
         List<Flashsale> flash = new ArrayList<>();
-
         List<Cart> newCart = new ArrayList<Cart>();
 
         for (Cart cart2 : carts) {
@@ -82,9 +81,6 @@ public class RestCartController {
                         }
                     }
                 }
-
-
-
                 if (flash != null && !flash.isEmpty() && flash.get(0).getStatus()) {
                     Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
                             .findById(flash.get(0).getFlashSaleHourID());
@@ -101,7 +97,6 @@ public class RestCartController {
                         }
                     }
                 }
-
                 if (sale != null && !giamgia) {
                     if (LocalDateTime.now().isAfter(sale.getDayStart())
                             && LocalDateTime.now().isBefore(sale.getDayEnd())) {
@@ -119,7 +114,19 @@ public class RestCartController {
         List<Cart> filteredCarts = newCart.stream()
                 .filter(cart -> cart.getProduct().isProductactivate())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(filteredCarts);
+
+        List<Cart> show = new ArrayList<>();
+        
+        for (Cart cart3 : filteredCarts) {
+            Inventory inventory = inventoryRepository.findByProduct(cart3.getProduct());
+            if(inventory.getQuantityonhand() > 0){
+                show.add(cart3);
+            }
+            if(inventory.getQuantityonhand() < cart3.getQuantity()){
+                cart3.setQuantity(inventory.getQuantityonhand());
+            }
+        }
+        return ResponseEntity.ok(show);
     }
 
     @PostMapping("/rest/addToCart")
