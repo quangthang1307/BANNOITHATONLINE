@@ -125,6 +125,16 @@ app.controller('ProfileController', function ($scope, $http, $window) {
     }
     
     $scope.deleteAddress = function(addressId) {
+        console.log($scope.addresses.length);
+        if ($scope.addresses.length === 1) {
+            // Nếu chỉ còn một địa chỉ, vô hiệu hóa nút xóa và không thực hiện xóa địa chỉ
+            Swal.fire({
+                icon: "error",
+                title: "Không thể xóa",
+                text: "Bạn cần ít nhất một địa chỉ!",
+            });
+            return;
+        }
         Swal.fire({
             title: "Bạn có chắc chắn muốn xóa không?",
             text: "Địa chỉ đang chọn!",
@@ -187,7 +197,6 @@ app.controller('ProfileController', function ($scope, $http, $window) {
         }
         return true;
     };
-
 
       
 });

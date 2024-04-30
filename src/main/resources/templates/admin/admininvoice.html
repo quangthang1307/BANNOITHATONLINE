@@ -16,6 +16,13 @@
             text-overflow: ellipsis;
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
+        .text-success {
+    color: green;
+}
+
+.text-danger {
+    color: red;
+}
     </style>
 </head>
 
@@ -97,7 +104,10 @@
                                                 th:text="${orderItem.discount != null ? orderItem.discount : 'Không có'}">
                                             </td>
                                             <td th:text="${orderItem.payment.paymentname}"></td>
-                                            <td th:text="${orderItem.orderstatus.orderstatusname}"></td>
+                                            <td th:text="${orderItem.orderstatus.orderstatusname}" 
+                                                th:class="${orderItem.orderstatus.orderstatusname eq 'Giao hàng thành công'} ? 'text-success' : 
+                                                         (${orderItem.orderstatus.orderstatusname eq 'Đã hủy'} ? 'text-danger' : '')">
+                                            </td>
                                             <td
                                                 th:text="${orderItem.customer != null ? orderItem.customer.name : 'Không có'}">
                                             </td>
