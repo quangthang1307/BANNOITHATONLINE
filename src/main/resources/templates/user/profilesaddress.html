@@ -213,8 +213,8 @@
                         <!-- update địa chỉ mới -->
                         <div class="row wrap_content_address" id="updateAddressForm" style="display:none;">
                             <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
-                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Địa chỉ hiện tại</a>
-                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+                                <a href="/user/profile/pageaddress" class="add-new-address">Địa chỉ hiện tại (X)</a>
+                                <div id="TodayAddressForm" class="customer_address add_address add_address_table">
   
                                         <form>   
                                             <div class="input-group">
@@ -241,22 +241,22 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
-                                <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Địa chỉ muốn cập nhật</a>
-                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+                                <a href="/user/profile/pageaddress" class="add-new-address">Địa chỉ muốn cập nhật (X)</a>
+                                <div class="customer_address add_address add_address_table">
                                     <form>           
                                         <div class="input-group">
                                             <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>        
-                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
+                                            <select class="input-textbox textbox" id="updateTinhthanhpho" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
                                             </select>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb-left"><b>Quận/Huyện:</b></div>             
-                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
+                                            <select class="input-textbox textbox" id="updateQuanhuyen" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
                                             </select>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb-left"><b>Phường/Xã:</b></div>         
-                                            <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
+                                            <select class="input-textbox textbox" id="updatePhuongxa" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
                                             </select>
                                         </div>
                                         <div class="input-group"> 
@@ -287,6 +287,10 @@
                                                             data-height="100" data-displayprevious="true" data-thickness=".2"
                                                             value="" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8"
                                                             style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-left: -110px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"><i class="bi bi-geo-alt-fill"></i></span>
+                                                    </div></strong>	
+                                                    <strong>
+                                                        <div style="display:inline; position: absolute; margin-left: -60px;">Địa chỉ số: {{$index + 1}}
+                                                            
                                                     </div></strong>																
                                                 </h3>
                                                 <p class="address_actions text-right">
@@ -295,10 +299,11 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="address_table">
                                         <div id="view_address_10049254169" class="customer_address">
-                                            <div class="view_address row bio-desk">			
+                                            <div class="view_address row bio-desk">	
                                                 <div class="col-lg-12 col-md-12 large_view">
                                                     <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>
                                                     <div class="lb-right"><p>{{ address.tinhthanhpho }}</p> </div>
@@ -326,25 +331,25 @@
                                 </div>
                             </div>
                             
-                            <div class="col-lg-6 col-md-12 col-12 wrap_addAddress">
+                            <div class="col-lg-6 col-md-12 col-12 wrap_addAddress" id="addAddressForm">
                                 <a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Thêm địa chỉ mới</a>
-                                <div id="addAddressForm" class="customer_address add_address add_address_table">
+                                <div  class="customer_address add_address add_address_table" >
   
                                         <form>
                                             
                                             <div class="input-group">
                                                 <div class="lb-left"><b>Tỉnh/Thành Phố:</b></div>        
-                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
+                                                <select class="input-textbox textbox" id="addTinhthanhpho" name="address[country]" data-default="" ng-model="selectedProvince" ng-options="province.Name for province in provinces" ng-change="updateDistricts()" placeholder="Tỉnh/Thành phố">
                                                 </select>
                                             </div>
                                             <div class="input-group">
                                                 <div class="lb-left"><b>Quận/Huyện:</b></div>             
-                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
+                                                <select class="input-textbox textbox" id="addQuanhuyen" name="address[country]" ng-model="selectedDistrict" ng-options="district.Name for district in selectedProvince.Districts" ng-change="updateWards()">
                                                 </select>
                                             </div>
                                             <div class="input-group">
                                                 <div class="lb-left"><b>Phường/Xã:</b></div>         
-                                                <select class="input-textbox textbox" id="address_country_new" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
+                                                <select class="input-textbox textbox" id="addPhuongxa" name="address[country]" data-default="" ng-model="selectedWard" ng-options="ward.Name for ward in selectedDistrict.Wards">
                                                 </select>
                                             </div>
                                             <div class="input-group"> 

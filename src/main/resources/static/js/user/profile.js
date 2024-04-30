@@ -40,7 +40,11 @@ app.controller('ProfileController', function ($scope, $http, $window) {
     };
 
     $scope.addAddress = function() {
-
+        if (!valiedateAddAddressSelect()) {
+            // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
+            return;
+        }
+        
         if (!$scope.validateSonha()) {
             // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
             return;
@@ -69,6 +73,11 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                 text: "Thông tin địa chỉ đã được thêm mới !",
                 showConfirmButton: true,
               });
+              document.getElementById('updateTinhthanhpho').value = null;
+              document.getElementById('updateQuanhuyen').value = null;
+              document.getElementById('updatePhuongxa').value = null;
+              document.getElementById('updateSonha').value = null;
+              document.getElementById('updateduong').value = null;
         });
     }
 
@@ -99,9 +108,24 @@ app.controller('ProfileController', function ($scope, $http, $window) {
         document.getElementById('editSonha').value = address.sonha;
         document.getElementById('editduong').value = address.duong;
         document.getElementById('updateAddressForm').style.display = 'block';
+        document.getElementById('updateTinhthanhpho').value = null;
+        document.getElementById('updateQuanhuyen').value = null;
+        document.getElementById('updatePhuongxa').value = null;
+        document.getElementById('updateSonha').value = null;
+        document.getElementById('updateduong').value = null;
+        document.getElementById('addAddressForm').style.display = 'none';
     }
 
     $scope.updateAddress = function() {
+        
+        if (!valiedateUpdateAddressSelect()) {
+            // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
+            return;
+        }
+        if (!validateUpdateAddress()) {
+            // Nếu dữ liệu đường không hợp lệ, không thêm mới địa chỉ
+            return;
+        }
         var newAddress = {
             tinhthanhpho: $scope.selectedProvince.Name,
             quanhuyen: $scope.selectedDistrict.Name,
@@ -120,6 +144,12 @@ app.controller('ProfileController', function ($scope, $http, $window) {
                 text: "Thông tin địa chỉ đã được cập nhật !",
                 showConfirmButton: true,
               });
+            document.getElementById('addAddressForm').style.display = 'block';
+            document.getElementById('addTinhthanhpho').value = null;
+            document.getElementById('addQuanhuyen').value = null;
+            document.getElementById('addPhuongxa').value = null;
+            document.getElementById('addSonha').value = null;
+            document.getElementById('addduong').value = null;
         });
     }
     
@@ -161,41 +191,175 @@ app.controller('ProfileController', function ($scope, $http, $window) {
 
 // Bắt lỗi 
 
-    $scope.validateSonha = function() {
-        // Sử dụng biểu thức chính quy để kiểm tra xem số nhà có chứa ký tự đặc biệt không
-        var regex = /^[0-9]+$/;
-        if (!regex.test($scope.newAddress.sonha)) {
-            // Nếu không hợp lệ, hiển thị thông báo lỗi
-            Swal.fire({
-                icon: "error",
-                title: "Lỗi",
-                text: "Số nhà chỉ được chứa ký tự số!",
-                showConfirmButton: true,
-            });
-            // Xóa nội dung nhập sai
-            $scope.newAddress.sonha = '';
-            return false;
-        }
-        return true;
-    };
+$scope.validateSonha = function() {
+    if (!$scope.newAddress.sonha || $scope.newAddress.sonha.trim() === '') {
+        // Hiển thị thông báo lỗi nếu trường số nhà trống
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng nhập số nhà!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    // Sử dụng biểu thức chính quy để kiểm tra xem số nhà có chứa ký tự đặc biệt không
+    var regex = /^[0-9]+$/;
+    if (!regex.test($scope.newAddress.sonha)) {
+        // Nếu không hợp lệ, hiển thị thông báo lỗi
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Số nhà chỉ được chứa ký tự số!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    return true;
+};
 
-    $scope.validateDuong = function() {
-        // Sử dụng biểu thức chính quy để kiểm tra xem đường có chứa ký tự đặc biệt không
-        var regex = /^[a-zA-Z0-9\s]+$/;
-        if (!regex.test($scope.newAddress.duong)) {
-            // Nếu không hợp lệ, hiển thị thông báo lỗi
-            Swal.fire({
-                icon: "error",
-                title: "Lỗi",
-                text: "Đường không được chứa ký tự đặc biệt!",
-                showConfirmButton: true,
-            });
-            // Xóa nội dung nhập sai
-            $scope.newAddress.duong = '';
-            return false;
-        }
-        return true;
-    };
+$scope.validateDuong = function() {
+    if (!$scope.newAddress.duong || $scope.newAddress.duong.trim() === '') {
+        // Hiển thị thông báo lỗi nếu trường đường trống
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng nhập tên đường!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    // Sử dụng biểu thức chính quy để kiểm tra xem đường có chứa ký tự đặc biệt không
+    var regex = /^[a-zA-Z0-9\s]+$/;
+    if (!regex.test($scope.newAddress.duong)) {
+        // Nếu không hợp lệ, hiển thị thông báo lỗi
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Đường không được chứa ký tự đặc biệt!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    return true;
+};
+
+
+function validateUpdateAddress() {
+    var updateSonha = document.getElementById('updateSonha').value;
+    var updateduong = document.getElementById('updateduong').value;
+
+    // Kiểm tra số nhà
+    if (!updateSonha.trim()) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng nhập số nhà!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+    // Kiểm tra ký tự đặc biệt trong số nhà
+    var regexSonha = /^[0-9]+$/;
+    if (!regexSonha.test(updateSonha)) {
+        // Nếu không hợp lệ, hiển thị thông báo lỗi
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Số nhà chỉ được chứa ký tự số!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+    // Kiểm tra đường
+    if (!updateduong.trim()) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng nhập tên đường!",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+    return true;
+}
+
+
+function valiedateAddAddressSelect() {
+    if (!$scope.selectedProvince) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Tỉnh/Thành phố trước khi thêm mới",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    
+    if (!$scope.selectedDistrict) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Quận/Huyện trước khi thêm mới",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    
+    if (!$scope.selectedWard) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Phường/Xã trước khi thêm mới",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    return true;
+}
+
+
+function valiedateUpdateAddressSelect() {
+    var selectedProvinceUpdate = document.querySelector("#updateTinhthanhpho").value;
+    var selectedDistrictUpdate = $scope.selectedDistrict;
+    var selectedWardUpdate = $scope.selectedWard;
+
+    if (!selectedProvinceUpdate.trim()) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Tỉnh/Thành phố trước khi cập nhật",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+    if (!selectedDistrictUpdate) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Quận/Huyện trước khi cập nhật",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+    // Kiểm tra Phường/Xã chỉ khi Quận/Huyện đã được chọn
+    if (!selectedWardUpdate) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Vui lòng chọn Phường/Xã trước khi cập nhật",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+    
+    return true;
+}
+
 
       
 });
