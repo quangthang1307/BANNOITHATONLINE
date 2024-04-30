@@ -330,13 +330,8 @@
                                                                 </div>
 
                                                             </div>
-                                                            <div class="quickview-product">
-                                                                <a class="icon-quickview" href="javascript:void(0)"
-                                                                    data-handle="/products/bo-am-tra-floral-2001257"
-                                                                    title="Xem nhanh"><i class="fa fa-eye"
-                                                                        aria-hidden="true"></i></a>
-                                                            </div>
-                                                            <a href="/products/bo-am-tra-floral-2001257"
+                                                            
+                                                            <a ng-click="clickById(FlashSaleProduct.product.productid)"
                                                                 class="proloop-link quickview-product"
                                                                 data-handle="/products/bo-am-tra-floral-2001257"
                                                                 title="Bộ Ấm Trà Bằng Sứ FLORAL Hoa Văn Hoa Lá"
@@ -349,8 +344,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="proloop-detail">
-                                                            <p class="proloop--vendor"><a title="Show vendor"
-                                                                    href="/collections/vendors?q=floral"
+                                                            <p class="proloop--vendor"><a title="Show vendor" href=""
                                                                     previewlistener="true">{{FlashSaleProduct.product.brand.brandname}}</a>
                                                             </p>
                                                             <h3><a href="/products/bo-am-tra-floral-2001257"
@@ -469,8 +463,7 @@
                         <div class="container container-pd-parent">
                             <div class="section-heading">
                                 <div class="box-header">
-                                    <h2 class="hTitle"><a href="/collections/best-seller"
-                                            previewlistener="true">Best
+                                    <h2 class="hTitle"><a href="/collections/best-seller" previewlistener="true">Best
                                             seller - Sản phẩm bán chạy</a>
                                     </h2>
                                 </div>
@@ -488,7 +481,8 @@
 
 
 
-                                            <div class="owl-item" ng-repeat="productsbestseller in productsbestsellers | limitTo:5"
+                                            <div class="owl-item"
+                                                ng-repeat="productsbestseller in productsbestsellers | limitTo:5"
                                                 style="width: 255px;">
 
                                                 <div class="product-loop" data-id="1114458437">
@@ -532,7 +526,7 @@
                                                                 </div>
 
                                                             </div>
-                                                            <div class="quickview-product">
+                                                            <div class="quickview-product d-none">
                                                                 <a class="icon-quickview" href="javascript:void(0)"><i
                                                                         class="fa fa-eye" aria-hidden="true"></i></a>
                                                             </div>
@@ -548,11 +542,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="proloop-detail">
-                                                            <p class="proloop--vendor"><a title="Show vendor"
-                                                                    href="/collections/vendors?q=normandy"
+                                                            <p class="proloop--vendor"><a title="Show vendor" href=""
                                                                     previewlistener="true">{{productsbestseller.brand.brandname}}</a>
                                                             </p>
-                                                            <h3><a href="/products/sofa-normandy"
+                                                            <h3><a ng-click="clickById(productsbestseller.productid)"
                                                                     class="quickview-product"
                                                                     previewlistener="true">{{productsbestseller.productname}}</a>
                                                             </h3>
@@ -664,7 +657,7 @@
                                                 </div>
 
                                             </div>
-                                            
+
 
 
 
@@ -691,7 +684,8 @@
 
 
 
-                                            <div class="owl-item" ng-repeat="productsbestseller in productsbestsellers | limitTo:5 :5"
+                                            <div class="owl-item"
+                                                ng-repeat="productsbestseller in productsbestsellers | limitTo:5 :5"
                                                 style="width: 255px;">
 
                                                 <div class="product-loop" data-id="1114458437">
@@ -751,11 +745,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="proloop-detail">
-                                                            <p class="proloop--vendor"><a title="Show vendor"
-                                                                    href="/collections/vendors?q=normandy"
+                                                            <p class="proloop--vendor"><a title="Show vendor" href=""
                                                                     previewlistener="true">{{productsbestseller.brand.brandname}}</a>
                                                             </p>
-                                                            <h3><a href="/products/sofa-normandy"
+                                                            <h3><a ng-click="clickById(productsbestseller.productid)"
                                                                     class="quickview-product"
                                                                     previewlistener="true">{{productsbestseller.productname}}</a>
                                                             </h3>
@@ -867,7 +860,7 @@
                                                 </div>
 
                                             </div>
-                                            
+
 
 
 

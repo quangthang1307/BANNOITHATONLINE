@@ -121,25 +121,16 @@
                         <ol class="breadcrumb breadcrumb-arrows" itemscope=""
                             itemtype="http://schema.org/BreadcrumbList">
                             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a href="/" target="_self" itemprop="item" previewlistener="true"><span
+                                <a href="/index" target="_self" itemprop="item" previewlistener="true"><span
                                         itemprop="name">Trang chủ</span></a>
                                 <meta itemprop="position" content="1">
                             </li>
 
 
-
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a href="https://baya.vn/collections/noi-that-phong-khach" target="_self"
-                                    itemprop="item" previewlistener="true">
-                                    <span itemprop="name">Nội thất phòng khách</span>
-                                </a>
-                                <meta itemprop="position" content="2">
-                            </li>
-
                             <li class="active" itemprop="itemListElement" itemscope=""
                                 itemtype="http://schema.org/ListItem">
                                 <span itemprop="item" content="https://baya.vn/products/salad-bowl-floral">
-                                    <strong itemprop="name">Bát Sứ Ăn Salad FLORAL Hoa Văn Hoa Lá</strong>
+                                    <strong itemprop="name">{{productdetail.productname}}</strong>
                                 </span>
                                 <meta itemprop="position" content="3">
                             </li>
@@ -454,32 +445,11 @@
 
 
 
-                                            <div id="variant-swatch-0" class="swatch clearfix" data-option="option1"
+                                            <div id="variant-swatch-0" class="swatch clearfix d-none" data-option="option1"
                                                 data-option-index="0">
                                                 <div class="title-swap header">Màu sắc: <strong>Hoa văn hoa
                                                         lá</strong></div>
                                                 <div class="select-swap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -504,54 +474,10 @@
                                             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            <div id="variant-swatch-1" class="swatch clearfix" data-option="option2"
+                                            <div id="variant-swatch-1" class="swatch clearfix d-none" data-option="option2"
                                                 data-option-index="1">
                                                 <div class="title-swap header">Kích thước: </div>
                                                 <div class="select-swap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                                     <div data-value="Dia.12.5cm" class="n-sd swatch-element dia-12-5cm">
@@ -564,28 +490,6 @@
                                                         </label>
 
                                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                                     <div data-value="Dia.21cm" class="n-sd swatch-element dia-21cm">
@@ -748,6 +652,7 @@
                                                 </span>
                                                 Hỗ trợ đổi trong 3 ngày không cần lý do (Áp dụng cho sản phẩm nguyên
                                                 giá)
+                                                
                                             </div>
 
 
@@ -779,7 +684,7 @@
 
                                         <div class="description-productdetail" style="height: 220px; overflow: hidden;">
                                             {{productdetail.description}}<div>----------</div>
-                                            <div>
+                                            <div class="d-none">
                                                 <table id="product-attribute-specs-table">
                                                     <tbody>
                                                         <tr>
