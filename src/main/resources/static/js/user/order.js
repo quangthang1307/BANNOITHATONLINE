@@ -60,6 +60,7 @@ app.controller("OrderController", [
                   order.products.push({
                     customerid:  $scope.customer.customerId,
                     productId: orderDetail.product.productid,
+                    evaluateId: orderDetail.evaluate,
                     quantity: orderDetail.productquantity,
                     name: orderDetail.product.productname,
                     imageUrl: productResponse.data[0].image,

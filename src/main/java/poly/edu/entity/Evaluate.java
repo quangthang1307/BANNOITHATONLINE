@@ -63,4 +63,6 @@ public class Evaluate {
     // Nếu cần, bạn có thể thêm quan hệ với các entity khác tại đây.
     // Thêm getter và setter cho productId
 
+    @Column(name = "Evaluatestatus")
+    private Boolean evaluatestatus;
 }
