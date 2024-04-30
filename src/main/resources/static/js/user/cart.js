@@ -88,9 +88,23 @@ app.controller("CartController", function ($scope, $http, $window) {
         },
       })
       .then((resp) => {
-        cart.quantity++;
-        $scope.calculateTotalAmount();
-        $scope.calculateSelectedTotalAmount();
+          // Xử lý mã trạng thái 200 ở đây (thành công)
+          cart.quantity++;
+          $scope.calculateTotalAmount();
+          $scope.calculateSelectedTotalAmount();
+     
+      }).catch((error) => {
+        if(error.status === 303){
+          Swal.fire({
+            title: "Vượt quá số lượng có trong kho !",
+            text: "Không thể tăng thêm số lượng",
+            icon: "warning",
+            timer: 3000, // Tự động đóng sau 3 giây
+            timerProgressBar: true,
+            didClose: () => {
+            }
+          });
+        }
       });
   };
 
@@ -106,6 +120,21 @@ app.controller("CartController", function ($scope, $http, $window) {
         .then((resp) => {
           $scope.calculateTotalAmount();
           $scope.calculateSelectedTotalAmount();
+        }).catch((error) => {
+          if(error.status === 303){
+            Swal.fire({
+              title: "Vượt quá số lượng có trong kho !",
+              text: "Không thể tăng thêm số lượng",
+              icon: "warning",
+              timer: 3000, // Tự động đóng sau 3 giây
+              timerProgressBar: true,
+              didClose: () => {
+                $scope.$apply(() => {
+                  cart.quantity = error.data;
+                });
+              }
+            });
+          }
         });
     } else {
       $scope.calculateTotalAmount();

@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import poly.edu.Service.CartService;
 import poly.edu.entity.Flashsale;
+import poly.edu.entity.Inventory;
+import poly.edu.entity.Orderdetails;
 import poly.edu.entity.Cart;
 import poly.edu.entity.FlashSaleHour;
 import poly.edu.entity.Product;
@@ -31,6 +33,7 @@ import poly.edu.entity.Sale;
 import poly.edu.repository.CartRepository;
 import poly.edu.repository.FlashSaleHourRepository;
 import poly.edu.repository.FlashSaleRepository;
+import poly.edu.repository.InventoryRepository;
 import poly.edu.repository.ProductRepository;
 import poly.edu.repository.SaleRepository;
 
@@ -54,6 +57,9 @@ public class RestCartController {
 
     @Autowired
     FlashSaleHourRepository flashSaleHourRepository;
+
+    @Autowired InventoryRepository inventoryRepository;
+
 
     @GetMapping("/rest/showCart/{customerId}")
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {
@@ -110,10 +116,10 @@ public class RestCartController {
             }
         }
 
-        List<Cart> filteredCarts = carts.stream()
+        List<Cart> filteredCarts = newCart.stream()
                 .filter(cart -> cart.getProduct().isProductactivate())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(newCart);
+        return ResponseEntity.ok(filteredCarts);
     }
 
     @PostMapping("/rest/addToCart")
@@ -138,7 +144,16 @@ public class RestCartController {
             @RequestParam Integer quantity) {
         try {
             Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
-
+            Optional<Product> product = productRepository.findById(productId);
+            if(product.isPresent()){
+                Inventory inventory = inventoryRepository.findByProduct(product.get());
+                if(inventory.getQuantityonhand() < quantity){
+                    return ResponseEntity
+                    .status(HttpStatus.SEE_OTHER)
+                    .body(inventory.getQuantityonhand());
+                }
+            }
+             
             if (cartEntry.isPresent()) {
                 Cart cart = cartEntry.get();
                 int newQuantity = quantity;

@@ -45,7 +45,7 @@ public class OrderDetailRestController {
     @PostMapping("/rest/createOrderDetail")
     public ResponseEntity<?> createOrderDetail(@RequestBody Orderdetails orderdetails){
         Inventory inventory = inventoryRepository.findByProduct(orderdetails.getProduct());
-        if(inventory != null && inventory.getQuantityonhand() > 0){
+        if(inventory != null && inventory.getQuantityonhand() >= orderdetails.getProductquantity()){
             inventory.setQuantityonhand(inventory.getQuantityonhand() - orderdetails.getProductquantity());
             inventory.setLastupdatedate(new Date());
             inventoryRepository.save(inventory);
@@ -65,9 +65,7 @@ public class OrderDetailRestController {
                 orderRepository.delete(order.get());
             }
             return ResponseEntity.badRequest().build();
-        }
-
-        
+        }        
     }
 
 
