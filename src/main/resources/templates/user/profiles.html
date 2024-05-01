@@ -113,7 +113,7 @@
                                                         style="background-image: url('../../../images/avatar/default-avatar.jpg')">
                                                     </div>
                                                 </div>
-                                                <input type="file" accept=".jpg,.jpeg,.png" name="avatar" id="image" />
+                                                <input type="file" accept=".jpg,.jpeg,.png" name="avatar" id="image" onclick="chooseImage()" />
                                                 <small id="imageError" class="text-danger"></small>
                                                 <div class="L4SAGB col-12 mb-2">
                                                     <div class="SlaeTm text-center text-muted">Dung lượng file
@@ -172,7 +172,37 @@
         </div> -->
         </div>
     </div>
-
+<script>
+    function chooseImage() {
+  var fileInput = document.getElementById("image");
+  var imageContainer = document.getElementById("imageContainer");
+  fileInput.addEventListener(
+          "change",
+          function() {
+            var selectedFile = fileInput.files[0];
+            var maxSize = 1 * 1024 * 1024;
+            if (selectedFile) {
+                var fileSize = selectedFile.size;
+                var reader = new FileReader();
+                if (fileSize <= maxSize) {
+                reader.onload = function(e) {
+                  imageContainer.style.backgroundImage = "url("
+                      + e.target.result + ")";
+                  imageContainer.style.display = "block";
+                };
+                reader.readAsDataURL(selectedFile);
+                } else {
+					Swal.fire({
+					icon : 'error',
+					title : 'Oops...',
+					text : 'Dung lượng file tối đa 1 MB',
+					});
+					fileInput.value = null;
+				}
+            }
+          });
+}
+</script>
     <!--include footer-->
     <div data-th-insert="~{include/footer.html}"></div>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>

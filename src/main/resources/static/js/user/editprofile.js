@@ -102,6 +102,7 @@ app.controller('ProfileController', function ($scope, $http, $window) {
           } else {
             $("#phoneError").text("");
           }
+
         if (avatarValue != "") {
           console.log("đã chọn ảnh");
     
@@ -173,32 +174,32 @@ app.controller('ProfileController', function ($scope, $http, $window) {
         }
       };
     
-      // Bắt sự kiện khi người dùng chọn file ảnh
-      $("#image").change(function() {
-      // Lấy thông tin về file được chọn
-      var file = this.files[0];
+//       // Bắt sự kiện khi người dùng chọn file ảnh
+//       $("#image").change(function() {
+//       // Lấy thông tin về file được chọn
+//       var file = this.files[0];
       
-      // Kiểm tra nếu file tồn tại
-      if (file) {
-          // Lấy dung lượng của file (đơn vị bytes)
-          var fileSize = file.size;
+//       // Kiểm tra nếu file tồn tại
+//       if (file) {
+//           // Lấy dung lượng của file (đơn vị bytes)
+//           var fileSize = file.size;
 
-          // Chuyển đổi dung lượng từ bytes sang kilobytes
-          var fileSizeInKB = fileSize / 1024;
+//           // Chuyển đổi dung lượng từ bytes sang kilobytes
+//           var fileSizeInKB = fileSize / 1024;
 
-          // Kiểm tra nếu dung lượng vượt quá 2MB
-          if (fileSizeInKB > 1024) {
-              // Hiển thị thông báo
-              Swal.fire({
-                icon: "warning",
-                title: "Dung lượng vượt quá 1MB",
-                text: "Vui lòng thử lại !",
-                showConfirmButton: true,
-              });
-          } else {
+//           // Kiểm tra nếu dung lượng vượt quá 2MB
+//           if (fileSizeInKB > 1024) {
+//               // Hiển thị thông báo
+//               Swal.fire({
+//                 icon: "warning",
+//                 title: "Dung lượng vượt quá 1MB",
+//                 text: "Vui lòng thử lại !",
+//                 showConfirmButton: true,
+//               });
+//           } else {
               
-          }
-      }
-});
-  
+//           }
+//       }
+// });
+
 });

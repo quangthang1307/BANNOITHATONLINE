@@ -12,4 +12,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 
    @Query("SELECT a FROM Address a WHERE a.customer.customerId = :customerId")
     List<Address> findAddressesByCustomerId(@Param("customerId") Integer customerId);
+
+    @Query(value="SELECT * FROM Address WHERE CustomerID=?",nativeQuery = true)
+    List<Address> findARCustomerId(Integer customerId);
 }
