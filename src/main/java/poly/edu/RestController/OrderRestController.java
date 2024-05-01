@@ -359,8 +359,10 @@ public class OrderRestController {
 
                 List<ProductImage> product = productImageRepository
                         .getProductImageById(orderDetail.getProduct().getProductid());
-
-                orderDetailJson.put("imageUrl", product.get(0).getImage());
+                if(!product.isEmpty()){
+                    orderDetailJson.put("imageUrl", product.get(0).getImage());
+                }
+               
                 orderDetailJson.put("name", product.get(0).getProduct().getProductname());
                 orderDetailJson.put("quantity", orderDetail.getProductquantity());
                 orderDetailJson.put("price", orderDetail.getPrice());

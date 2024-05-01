@@ -57,7 +57,7 @@ public class TelegramRestController {
         if (order.isPresent()) {
             if (action.equals("approve")) {
                 if (order.get().getOrderstatus().getOrderstatusname().equals("Chờ xác nhận")) {
-                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đang giao hàng");
+                    Orderstatus orderstatus = orderStatusRepository.findByOrderStatusName("Đã xác nhận");
                     order.get().setOrderstatus(orderstatus);
                     orderRepository.save(order.get());
                 } else {
