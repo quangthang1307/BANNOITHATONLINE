@@ -25,7 +25,6 @@ app.controller('StatusProduct', function ($scope, $http, $window,$timeout) {
             // }
             // }
             
-
             var selectedOptionValue = selectElement.value;
             var updateButton = selectElement.closest('form').querySelector('button[type="submit"]');
         
@@ -38,14 +37,30 @@ app.controller('StatusProduct', function ($scope, $http, $window,$timeout) {
             selectElement.disabled = true;
             selectElement.style.border = '2px solid green';
         } else if(selectedOptionValue === "Thanh toán thành công") { // Thanh toán thành công
-            selectElement.options[2].style.display = 'none';
-            selectElement.options[1].style.display = 'none';
-            selectElement.options[0].style.display = 'none';
+            // selectElement.options[2].style.display = 'none';
+            // selectElement.options[1].style.display = 'none';
+            // selectElement.options[0].style.display = 'none';
+            for (var i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === "Chờ xác nhận" || selectElement.options[i].value === "Đã xác nhận" || selectElement.options[i].value === "Đang giao hàng") {
+                    selectElement.options[i].style.display = 'none';
+                }
+            }
         } else if(selectedOptionValue === "Đang giao hàng") { // Đang giao hàng
-            selectElement.options[1].style.display = 'none';
-            selectElement.options[0].style.display = 'none';
+            // selectElement.options[1].style.display = 'none';
+            // selectElement.options[0].style.display = 'none';
+            for (var i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === "Chờ xác nhận" || selectElement.options[i].value === "Đã xác nhận") {
+                    selectElement.options[i].style.display = 'none';
+                }
+            }
         } else if(selectedOptionValue === "Đã xác nhận") { // Đã xác nhận
-            selectElement.options[0].style.display = 'none';
+            for (var i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === "Chờ xác nhận") {
+                    selectElement.options[i].style.display = 'none';
+                    break; // Khi đã tìm được và ẩn phần tử "Chờ xác nhận", ta thoát khỏi vòng lặp
+                }
+            }
+            // selectElement.options[0].style.display = 'none';
         } else { // Trường hợp khác // Đã xác nhận
             // Bỏ vô hiệu hóa tất cả các phần tử option
             for (var i = 0; i < selectElement.options.length; i++) {
