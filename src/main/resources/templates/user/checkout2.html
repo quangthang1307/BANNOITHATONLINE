@@ -152,14 +152,14 @@
                                 <!-- <button type="button" class="btn btn-primary" style="float: right" ng-click=""
                                 ng-if="order.orderstatus.orderstatusname === 'Hoàn thành'">Đánh giá</button> -->
                                 <a style="margin-right: 10px;"
-                                    href="productdetail/formEvalate/{{product.productId}}/{{product.customerid}}"
-                                    class="btn btn-primary" ng-if="order.orderstatus.orderstatusname === 'Hoàn thành'"
+                                    href="productdetail/formEvalate/{{product.productId}}/{{product.customerid}}/{{order.orderID}}"
+                                    class="btn btn-primary" ng-if="order.orderstatus.orderstatusname === 'Giao hàng thành công' && product.evaluateId === null"
                                     ng-disabled="evaluationDone">
                                     Đánh giá</a>
 
 
                                 <a href="" class="btn btn-primary" style="float: right; margin-right: 10px;"
-                                    ng-if="order.orderstatus.orderstatusname === 'Hoàn thành'">Mua
+                                    ng-if="order.orderstatus.orderstatusname === 'Giao hàng thành công'">Mua
                                     tiếp</a>
                             </div>
                             <div class="col-lg-4 col-md-4">

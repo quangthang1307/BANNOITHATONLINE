@@ -41,8 +41,8 @@
     /* Card styles */
     .carder {
         background-color: #fff;
-        
-        
+
+
     }
 
     .carder .row {
@@ -68,7 +68,7 @@
 
     .carder .img-drop-fee {
         margin-top: 150px;
-      
+
     }
 
     .carder .img-drop-fee .row {
@@ -77,9 +77,12 @@
 
     .carder .img-drop-fee img {
         border-radius: 10px;
-    margin-right: 20px; /* Giảm giá trị của margin-right xuống 20px */
-    margin-bottom: 20px; /* Thêm margin phía dưới của ảnh */
-    max-width: 150px; /* Xác định kích thước tối đa cho ảnh */
+        margin-right: 20px;
+        /* Giảm giá trị của margin-right xuống 20px */
+        margin-bottom: 20px;
+        /* Thêm margin phía dưới của ảnh */
+        max-width: 150px;
+        /* Xác định kích thước tối đa cho ảnh */
     }
 
     .carder hr {
@@ -117,20 +120,24 @@
     <h5 class="pt-4 text-black text-uppercase">Đánh giá sản phẩm</h5>
     <div class=" card mb-4 mt-3" style="background: #fffbf8;">
         <div class="row py-5 ps-1">
-            <div class="col-2 pe-0 text-center">
+            <div id="noReviewMessage" class="text-center" style="display: none;">
+                <p style="float: left; margin-top: -5px; margin-left: 30px; font-size: 17px;">Chưa có đánh giá</p>
+            </div>
+            <div id="reviewContainer" class="col-2 pe-0 text-center" style="display: none;">
                 <div class="average-stars"
                     style="display: inline-block; color: red; font-size: 24px; font-weight: bold; text-transform: uppercase;">
-                </div> <!-- Thêm font-size và font-weight để đặt cỡ chữ lớn hơn và in đậm -->
+                </div>
                 <span class="fs-5 text-danger"
                     style="color: red; font-size: 24px; font-weight: bold; text-transform: uppercase;"> trên 5</span>
                 <br>
-                <!-- HTML -->
                 <div class="avenger-star-evaluate fill"></div>
             </div>
-            <div class="col-10 ps-0 text-capitalize">
+
+
+            <div class="col-10 ps-0 text-capitalize" style="margin-left: 200px; margin-top: -30px;">
                 <ul class="nav nav-pills" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" 
+                        <a class="nav-link active btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1"
                             id="home-tab" data-bs-toggle="tab" data-bs-target="#allStart" type="button" role="tab"
                             aria-controls="home" aria-selected="true" onclick="chooseStart('all')">
                             Tất cả (<span id="allCount"></span>)
@@ -258,14 +265,14 @@
                                     <!-- Add more image placeholders if needed -->
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
-                        
+
                     </div>
                     <hr class="mt-4">
                 </div>
-          
+
 
                 <!-- End of evaluation loop -->
             </div>
@@ -394,41 +401,7 @@
     </script>
 
     <script>
-        // $(document).ready(function () {
-        //     var totalStars = 0; // Tổng số sao đã đánh giá
-        //     var numReviews = 0; // Tổng số đánh giá
 
-        //     // Lặp qua mỗi đánh giá và tính tổng số sao
-        //     $(".carder").each(function () {
-        //         var starRating = parseFloat($(this).attr('data-star-rating'));
-        //         totalStars += starRating;
-        //         numReviews++;
-        //     });
-
-        //     // Tính trung bình số sao
-        //     var averageStars = totalStars / numReviews;
-
-        //     // Số ngôi sao được điền màu
-        //     var filledStars = Math.floor(averageStars);
-
-        //     // Tính phần thập phân để quyết định màu sắc của ngôi sao cuối cùng
-        //     var decimalPart = averageStars - filledStars;
-
-        //     // Tạo chuỗi HTML để điền đầy ngôi sao
-        //     var starsHTML = '';
-        //     for (var i = 0; i < 5; i++) {
-        //         if (i < filledStars) {
-        //             starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy
-        //         } else if (i === filledStars && decimalPart >= 0.50 && decimalPart < 0.75) {
-        //             starsHTML += '<span class="fa fa-star-half checked"></span>'; // Thêm nửa sao cho ngôi sao cuối cùng nếu cần
-        //         } else {
-        //             starsHTML += '<span class="fa fa-star"></span>'; // Thêm ngôi sao trống
-        //         }
-        //     }
-
-        //     // Hiển thị các ngôi sao
-        //     $(".avenger-star-evaluate.fill").html(starsHTML);
-        // });
         $(document).ready(function () {
             var totalStars = 0; // Tổng số sao đã đánh giá
             var numReviews = 0; // Tổng số đánh giá
@@ -440,34 +413,40 @@
                 numReviews++;
             });
 
-            // Tính trung bình số sao
-            var averageStars = totalStars / numReviews;
+            // Kiểm tra nếu không có đánh giá
+            if (numReviews === 0) {
+                $("#noReviewMessage").show(); // Hiển thị thông báo "Chưa có đánh giá"
+            } else {
+                // Hiển thị container chứa đánh giá
+                $("#reviewContainer").show();
 
-            // Số ngôi sao được điền màu
-            var filledStars = Math.floor(averageStars);
+                // Tính trung bình số sao
+                var averageStars = totalStars / numReviews;
 
-            // Tính phần thập phân để quyết định xem có cần thêm nửa ngôi sao không
-            var decimalPart = averageStars - filledStars;
+                // Số ngôi sao được điền màu
+                var filledStars = Math.floor(averageStars);
 
-            var starsHTML = '';
-            for (var i = 0; i < 5; i++) {
-                if (i < filledStars) {
-                    starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy
-                } else if (i === filledStars && decimalPart >= 0.50 && decimalPart < 0.75) {
-                    // Thêm hình ảnh khi decimalPart nằm trong khoảng từ 0.50 đến 0.75
-                    starsHTML += '<img src="/images/rating.png" style="width: 27px; height: 27px; border-radius: 10px; margin-top: -7px;">';
-                } else if (i === filledStars && decimalPart >= 0.75) {
-                    starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy cho ngôi sao cuối cùng nếu cần
-                } else {
-                    starsHTML += '<span class="fa fa-star"></span>'; // Thêm ngôi sao trống
+                // Tính phần thập phân để quyết định xem có cần thêm nửa ngôi sao không
+                var decimalPart = averageStars - filledStars;
+
+                var starsHTML = '';
+                for (var i = 0; i < 5; i++) {
+                    if (i < filledStars) {
+                        starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy
+                    } else if (i === filledStars && decimalPart >= 0.50 && decimalPart < 0.90) {
+                        // Thêm hình ảnh khi decimalPart nằm trong khoảng từ 0.50 đến 0.75
+                        starsHTML += '<img src="/images/rating.png" style="width: 19px; height: 19px; border-radius: 7px; margin-top: -5px;">';
+                    } else if (i === filledStars && decimalPart >= 0.75) {
+                        starsHTML += '<span class="fa fa-star checked"></span>'; // Thêm ngôi sao đầy cho ngôi sao cuối cùng nếu cần
+                    } else {
+                        starsHTML += '<span class="fa fa-star"></span>'; // Thêm ngôi sao trống
+                    }
                 }
+
+                // Hiển thị các ngôi sao
+                $(".avenger-star-evaluate.fill").html(starsHTML);
             }
-
-            // Hiển thị các ngôi sao
-            $(".avenger-star-evaluate.fill").html(starsHTML);
         });
-
-
 
     </script>
 </div>

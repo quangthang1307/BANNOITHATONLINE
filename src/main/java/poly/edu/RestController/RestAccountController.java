@@ -59,15 +59,23 @@ public class RestAccountController {
 
         if(accountDTO.getUsername() == null){
             return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tài khoản"), HttpStatus.BAD_REQUEST);
+        }else if(accountDTO.getUsername().length() < 3 || accountDTO.getUsername().length() > 20){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Tên tài khoản có độ dài từ 3 đến 20 ký tự"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getEmail() == null){
             return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập email"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getPassword() == null){
             return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập mật khẩu"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getName() == null){
             return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập tên người dùng"), HttpStatus.BAD_REQUEST);
+        }else if(accountDTO.getName().length() < 3 || accountDTO.getName().length() > 20){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Tên người dùng phải có độ dài từ 3 đến 20 ký tự"), HttpStatus.BAD_REQUEST);
         }else if(accountDTO.getPhone() == null){
             return new ResponseEntity<>(Collections.singletonMap("message", "Vui lòng nhập số điện thoại"), HttpStatus.BAD_REQUEST);
-        }
+        }else if(!accountDTO.getPhone().startsWith("0")){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Số điện thoại phải bắt đầu bằng số 0"), HttpStatus.BAD_REQUEST);
+        }else if(accountDTO.getPhone().length() > 11){
+            return new ResponseEntity<>(Collections.singletonMap("message", "Số điện thoại không được vượt quá 11 số"), HttpStatus.BAD_REQUEST);
+        }        
 
         // Kiểm tra tài khoản đã tồn tại hay chưa
         if (accountRepository.existsByUsername(accountDTO.getUsername())) {

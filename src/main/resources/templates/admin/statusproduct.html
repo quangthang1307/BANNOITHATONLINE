@@ -133,11 +133,15 @@
                                                         class="btn btn-info btn-sm">Xem</button></a>
                                             </td>
                                             <td>
-                                                <form th:action="@{'/admin/deleteoder/' + ${orderItem.OrderID}}"
-                                                    method="post">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
-                                                </form>
+                                                <span th:text="${orderItem.OrderID}" style="display: none;"></span>
+                                                <button id="deleteButton" ng-click="deleteOrder($event)"  type="button" class="btn btn-danger btn-sm">Xóa</button>
                                             </td>
+                                            <!--<td>
+                                            <form id="deleteForm" th:action="@{'/admin/deleteoder/' + ${orderItem.OrderID}}" 
+                                                    method="post">
+                                                    <button id="deleteButton" type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                            </form>
+                                            </td> -->
                                         </tr>
                                     </tbody>
                                 </table>

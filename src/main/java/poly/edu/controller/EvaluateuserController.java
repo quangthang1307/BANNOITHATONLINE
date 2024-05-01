@@ -28,9 +28,11 @@ import poly.edu.entity.Customer;
 import poly.edu.entity.DiscountUsage;
 import poly.edu.entity.Evaluate;
 import poly.edu.entity.Order;
+import poly.edu.entity.Orderdetails;
 import poly.edu.entity.Product;
 import poly.edu.repository.DiscountUsageRepository;
 import poly.edu.repository.EvaluateRepository;
+import poly.edu.repository.OrderDetailRepository;
 import poly.edu.repository.OrderRepository;
 
 @Controller
@@ -47,6 +49,10 @@ public class EvaluateuserController {
     OrderRepository orderRepository;
     @Autowired
     ImageService imageService;
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
+
+    int orderid;
 
     @GetMapping("/{productId}")
     public String showList(@PathVariable Integer productId, Model model) {
@@ -63,8 +69,10 @@ public class EvaluateuserController {
     // return "user/EvaluateForm";
     // }
 
-    @GetMapping("/formEvalate/{productId}/{customerid}")
-    public String showList1(@PathVariable Integer productId, @PathVariable Integer customerid, Model model) {
+    @GetMapping("/formEvalate/{productId}/{customerid}/{orderID}")
+    public String showList1(@PathVariable Integer productId, @PathVariable Integer customerid,
+            @PathVariable Integer orderID, Model model) {
+        orderid = orderID;
         Evaluate evaluate = new Evaluate(); // Tạo một đối tượng Evaluate mới
         evaluate.setProductId(productId);
         Customer c = new Customer();
@@ -82,8 +90,9 @@ public class EvaluateuserController {
             @ModelAttribute("evaluate") Evaluate evaluate, Model model,
             RedirectAttributes redirectAttributes) {
 
+        System.out.println(orderid);
         // Danh sách từ cấm
-        List<String> bannedWords = Arrays.asList("chết", "giết", "ngu");
+        List<String> bannedWords = Arrays.asList("chết", "giết", "ngu", "fuck", "má", "mẹ", "địt", "đụ", "hiếp", "dâm");
 
         // Kiểm tra mỗi từ trong bình luận
         for (String word : bannedWords) {
@@ -105,18 +114,27 @@ public class EvaluateuserController {
         }
 
         // Lưu hình ảnh
-        for (MultipartFile file : files) {
-            try {
-                imageService.saveImageEvaluate(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Xử lý ngoại lệ nếu cần
+
+        if (files.size() > 0) {
+            for (MultipartFile file : files) {
+                try {
+                    imageService.saveImageEvaluate(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Xử lý ngoại lệ nếu cần
+                }
             }
         }
 
         // Lưu đối tượng Evaluate
         evaluate.setEvaluateDate(LocalDateTime.now());
+        evaluate.setEvaluatestatus(false);
         evaluateRepository.save(evaluate);
+        Orderdetails orderdetails = orderDetailRepository.getOrderdetailsByOrderIDandProductid(orderid,
+                evaluate.getProductId());
+        System.out.println(orderdetails.getOrderdetailsID());
+        orderdetails.setEvaluate(evaluate);
+        orderDetailRepository.save(orderdetails);
         redirectAttributes.addFlashAttribute("success", "Đã gửi đánh giá thành công!");
 
         // Chuyển hướng đến trang productdetail với productId tương ứng

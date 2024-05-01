@@ -29,5 +29,15 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Categoryproduct> findAllCapcha() {
         return categoryProductRepository.getAllCategoryProductCapCha();
     }
+
+    @Override
+    public void save(Categoryproduct categoryproduct) {
+        categoryProductRepository.save(categoryproduct);
+    }
+
+    @Override
+    public void delete(int id) {
+      categoryProductRepository.deleteById(id);
+    }
     
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,4 +40,9 @@ public class Orderdetails {
     @ManyToOne
     @JoinColumn(name = "ProductID")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "EvaluateID")
+    private Evaluate evaluate;
+
 }

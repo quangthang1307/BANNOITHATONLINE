@@ -121,25 +121,16 @@
                         <ol class="breadcrumb breadcrumb-arrows" itemscope=""
                             itemtype="http://schema.org/BreadcrumbList">
                             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a href="/" target="_self" itemprop="item" previewlistener="true"><span
+                                <a href="/index" target="_self" itemprop="item" previewlistener="true"><span
                                         itemprop="name">Trang chủ</span></a>
                                 <meta itemprop="position" content="1">
                             </li>
 
 
-
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a href="https://baya.vn/collections/noi-that-phong-khach" target="_self"
-                                    itemprop="item" previewlistener="true">
-                                    <span itemprop="name">Nội thất phòng khách</span>
-                                </a>
-                                <meta itemprop="position" content="2">
-                            </li>
-
                             <li class="active" itemprop="itemListElement" itemscope=""
                                 itemtype="http://schema.org/ListItem">
                                 <span itemprop="item" content="https://baya.vn/products/salad-bowl-floral">
-                                    <strong itemprop="name">Bát Sứ Ăn Salad FLORAL Hoa Văn Hoa Lá</strong>
+                                    <strong itemprop="name">{{productdetail.productname}}</strong>
                                 </span>
                                 <meta itemprop="position" content="3">
                             </li>
@@ -157,7 +148,7 @@
                                     <div class="productGallery_thumb stickyProduct-gallery" id="productScroll-spy">
                                         <div class="productList-thumb list-group">
 
-                                            <div  class="product-thumb"
+                                            <div class="product-thumb"
                                                 data-image="//product.hstatic.net/200000796751/product/kdp_4008-compressed_b7c2bf9f2f9b473bab600e6710216725_compact.jpg">
                                                 <!-- <a href="#gallery-scroll-{{$index + 1}}"
                                                     class="product-thumb__item d-inline-block list-group-item">
@@ -165,7 +156,10 @@
                                                         alt=" Bát Sứ Ăn Salad FLORAL Hoa Văn Hoa Lá ">
                                                 </a> -->
 
-                                                <button ng-repeat="image in productdetail.productimages" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="{{$index}}" class="btn active" aria-current="true" aria-label="Slide 1"> <img src="/{{image.image}}"></button>
+                                                <button ng-repeat="image in productdetail.productimages" type="button"
+                                                    data-bs-target="#carouselExampleAutoplaying"
+                                                    data-bs-slide-to="{{$index}}" class="btn active" aria-current="true"
+                                                    aria-label="Slide 1"> <img src="/{{image.image}}"></button>
                                             </div>
 
                                         </div>
@@ -199,23 +193,27 @@
                                                 </a>
                                             </div> -->
                                         </div>
-                                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                                        <div id="carouselExampleAutoplaying" class="carousel slide"
+                                            data-bs-ride="carousel">
                                             <div class="carousel-inner">
-                                              <div ng-repeat="image in productdetail.productimages" class="carousel-item" ng-class="{ 'active': $index === 0 }">
-                                                <img src="/{{image.image}}" class="d-block w-100" >
-                                                
-                                              </div>
-           
+                                                <div ng-repeat="image in productdetail.productimages"
+                                                    class="carousel-item" ng-class="{ 'active': $index === 0 }">
+                                                    <img src="/{{image.image}}" class="d-block w-100">
+
+                                                </div>
+
                                             </div>
-                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                              <span class="visually-hidden">Previous</span>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
                                             </button>
-                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                              <span class="visually-hidden">Next</span>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
                                             </button>
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="wrapbox-image mobile_gallery d-sm-block d-lg-none">
@@ -268,7 +266,8 @@
                                 <div class="product-heading">
                                     <h1 ng-bind="productdetail.productname"></h1>
 
-                                    <span id="pro_sku ">Mã sản phẩm: <strong>{{productdetail.productid}}</strong> </span>
+                                    <span id="pro_sku ">Mã sản phẩm: <strong>{{productdetail.productid}}</strong>
+                                    </span>
 
                                     <span class="pro-soldold">Tình trạng:
 
@@ -283,23 +282,18 @@
                                 <style>
                                     .rating-wrapper {
                                         display: flex;
-                                        /* Sử dụng flexbox để căn chỉnh các phần tử trên cùng một hàng */
                                         align-items: center;
                                         /* Canh giữa các phần tử theo chiều dọc */
                                     }
 
                                     .average-stars {
                                         margin-right: 10px;
-                                        /* Tạo ra một khoảng cách 20px giữa .average-stars và .avenger-star-evaluate */
+                                        /* Tạo khoảng cách giữa .average-stars và .avenger-star-evaluate */
                                         font-size: 20px;
                                         /* Tăng kích thước của ngôi sao */
                                     }
 
-                                    .avenger-star-evaluate.fill {
-                                        font-size: 20px;
 
-                                        /* Kích thước của ngôi sao */
-                                    }
 
                                     .rating-wrapper {
                                         cursor: pointer;
@@ -321,6 +315,11 @@
                                         /* Đặt kiểu con trỏ thành con trỏ thông thường khi di chuột qua phần tử */
                                     }
 
+                                    .avenger-star-evaluate.fill {
+                                        font-size: 20px;
+                                        /* Kích thước của ngôi sao */
+                                    }
+
                                     .review-heading {
                                         font-size: 1.5em;
                                         /* Điều chỉnh kích thước font chữ */
@@ -329,27 +328,32 @@
                                         margin-top: 15px;
                                         font-weight: normal;
                                         /* Loại bỏ in đậm */
-
-                                    }                            
-                                   
+                                    }
                                 </style>
+
                                 <div class="rating-wrapper">
-                                    <!-- hiển thị đánh giá và ngôi sao -->
-                                    <div class="average-stars"
-                                        style="display: inline-block; color: red; font-size: 20px;  text-transform: uppercase;  border-bottom: 1px solid rgb(193, 0, 0);"
-                                        onclick="scrollToRating()"> <!-- Thêm sự kiện onclick để gọi hàm JavaScript -->
-                                    </div>
-                                    <div class="rating-stars1">
-                                        <div class="avenger-star-evaluate fill" onclick="scrollToRating()"></div>
-                                    </div>
-                                    <h3
-                                        style="color: black; margin-top: 10px; margin-left: 10px; margin-right: 10px; font-weight: normal; font-size: 25px;">
-                                        |</h3>
+                                    <!-- Container cho số lượng đánh giá -->
+                                    <div id="reviewCountContainer" style="display: none;">
 
-                                    <h1 class="review-heading"><span id="allEvaluate"></span> đánh giá</h1>
-                                    <!-- HTML -->
+                                        <div class="average-stars"
+                                            style="display: inline-block; color: red; font-size: 20px; text-transform: uppercase; border-bottom: 1px solid rgb(193, 0, 0);"
+                                            onclick="scrollToRating()">
+                                            <!-- Thêm sự kiện onclick để gọi hàm JavaScript -->
+                                        </div>
 
+                                        <div class="rating-stars1" style="margin-left: 30px; margin-top: -25px;">
+                                            <div class="avenger-star-evaluate fill" onclick="scrollToRating()">
+                                            </div>
+                                        </div>
+                                        <h3
+                                            style="color: black; margin-top: -28px; margin-left: 130px; margin-right: 10px; font-weight: normal; font-size: 25px;">
+                                            |</h3>
+
+                                        <h1 class="review-heading" style="margin-top: -38px; margin-left: 150px;"><span
+                                                id="allEvaluate"></span> đánh giá</h1>
+                                    </div>
                                 </div>
+
 
 
 
@@ -360,6 +364,22 @@
                                         // Sử dụng smooth scrolling để di chuyển đến vị trí của ratingSection
                                         ratingSection.scrollIntoView({ behavior: 'smooth' });
                                     }
+                                    $(document).ready(function () {
+                                        var numReviews = $(".carder").length; // Số lượng đánh giá
+
+                                        // Kiểm tra nếu có đánh giá
+                                        if (numReviews > 0) {
+                                            // Hiển thị nội dung của phần tử "Chưa có đánh giá"
+                                            $("#reviewCountContainer").show();
+                                        } else {
+                                            // Ẩn nội dung của phần tử "Chưa có đánh giá"
+                                            $("#reviewCountContainer").hide();
+                                        }
+
+                                        // Trang 2: Hiển thị số lượng đánh giá
+                                        $("#allEvaluate").text(numReviews);
+                                    });
+
                                 </script>
 
 
@@ -425,32 +445,11 @@
 
 
 
-                                            <div id="variant-swatch-0" class="swatch clearfix" data-option="option1"
+                                            <div id="variant-swatch-0" class="swatch clearfix d-none" data-option="option1"
                                                 data-option-index="0">
                                                 <div class="title-swap header">Màu sắc: <strong>Hoa văn hoa
                                                         lá</strong></div>
                                                 <div class="select-swap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -475,54 +474,10 @@
                                             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            <div id="variant-swatch-1" class="swatch clearfix" data-option="option2"
+                                            <div id="variant-swatch-1" class="swatch clearfix d-none" data-option="option2"
                                                 data-option-index="1">
                                                 <div class="title-swap header">Kích thước: </div>
                                                 <div class="select-swap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                                     <div data-value="Dia.12.5cm" class="n-sd swatch-element dia-12-5cm">
@@ -535,28 +490,6 @@
                                                         </label>
 
                                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                                     <div data-value="Dia.21cm" class="n-sd swatch-element dia-21cm">
@@ -719,6 +652,7 @@
                                                 </span>
                                                 Hỗ trợ đổi trong 3 ngày không cần lý do (Áp dụng cho sản phẩm nguyên
                                                 giá)
+                                                
                                             </div>
 
 
@@ -750,7 +684,7 @@
 
                                         <div class="description-productdetail" style="height: 220px; overflow: hidden;">
                                             {{productdetail.description}}<div>----------</div>
-                                            <div>
+                                            <div class="d-none">
                                                 <table id="product-attribute-specs-table">
                                                     <tbody>
                                                         <tr>
@@ -1729,227 +1663,7 @@
         <div class="d-none"></div>
         <div class="modal-coupon--backdrop"></div>
     </main>
-    <footer class="mainFooter   mainFooter-toolbar   mainFooter-product ">
-        <div class="footer-newsletter">
-            <div class="container-fluid">
-                <div class="wrapbox-newsletter">
-
-                    <div class="newsletter-block newsletter-widthAuto">
-                        <div class="newsletter-title">
-                            <h3>Đăng ký nhận tin</h3>
-                        </div>
-                        <div class="newsletter-content newsletter-form">
-                            <form accept-charset="UTF-8" action="/account/contact" class="contact-form" method="post">
-                                <input name="form_type" type="hidden" value="customer">
-                                <input name="utf8" type="hidden" value="✓">
-                                <div class="form-group input-group">
-                                    <input type="hidden" id="newsletter-tags" name="contact[tags]"
-                                        value="Đăng kí nhận tin">
-                                    <input required="" type="email" name="contact[email]"
-                                        class="form-control newsletter-input" id="newsletter-email"
-                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                        placeholder="Nhập email của bạn" aria-label="Email Address">
-                                    <span class="input-group-btn"><button type="submit"
-                                            class="button dark newsletter-btn">Đăng ký</button></span>
-                                </div>
-                                <div class="sitebox-recaptcha d-none">
-                                    This site is protected by reCAPTCHA and the Google
-                                    <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer"
-                                        previewlistener="true">Privacy Policy</a>
-                                    and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer"
-                                        previewlistener="true">Terms of Service</a> apply.
-                                </div>
-
-                                <input id="356109bfdcb94b9585240572aa246624" name="g-recaptcha-response"
-                                    type="hidden"><noscript
-                                    src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></noscript><noscript>grecaptcha.ready(function()
-                                    {grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action:
-                                    'submit'}).then(function(token)
-                                    {document.getElementById('356109bfdcb94b9585240572aa246624').value =
-                                    token;});});</noscript>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="newsletter-block newsletter-social d-none d-md-flex">
-                        <div class="newsletter-title">
-                            <h3>Kết nối với chúng tôi</h3>
-                        </div>
-                        <div class="newsletter-content">
-                            <ul class="footerNav-social">
-                                <li><a href="https://www.facebook.com/bayavietnam" target="_blank" rel="noopener"
-                                        title="Facebook" aria-label="Facebook" previewlistener="true"><i
-                                            class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCT21HABKIUjBF132nEezDaA" target="_blank"
-                                        rel="noopener" title="Youtube" aria-label="Youtube" previewlistener="true"><i
-                                            class="fa fa-youtube-play"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-container">
-            <div class="footer-expand-collapsed ">
-                <div class="container-fluid">
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-12 col-12 widget-footer">
-                            <h4 class="title-footer">CÔNG TY CỔ PHẦN NỘI THẤT BAYA</h4>
-                            <div class="content-footer block-collapse row">
-                                <div class="col-lg-12 col-md-12 col-12">
-                                    <p>Thương hiệu nội thất và trang trí hàng đầu Việt Nam, góp phần xây dựng thêm
-                                        nhiều tổ ấm mỗi ngày.</p>
-                                    <div class="address-footer">
-                                        <ul>
-                                            <li class="contact-1"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                Tầng 08, Tòa nhà Pearl Plaza, Số 561A
-                                                Điện Biên Phủ, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh
-                                            </li>
-                                            <li class="contact-2"><i class="fa fa-phone" aria-hidden="true"></i>
-                                                1900 63 64 76</li>
-                                            <li class="contact-4"><i class="fa fa-envelope" aria-hidden="true"></i>
-                                                webshop@baya.vn</li>
-                                        </ul>
-                                    </div>
-                                    <ul class="footerNav-social d-md-none">
-                                        <li><a href="https://www.facebook.com/bayavietnam" target="_blank"
-                                                rel="noopener" title="Facebook" aria-label="Facebook"
-                                                previewlistener="true"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="https://www.youtube.com/channel/UCT21HABKIUjBF132nEezDaA"
-                                                target="_blank" rel="noopener" title="Youtube" aria-label="Youtube"
-                                                previewlistener="true"><i class="fa fa-youtube-play"></i></a></li>
-                                    </ul>
-
-                                    <div class="logo-footer">
-                                        <a href="http://online.gov.vn/Home/WebDetails/97262" target="_blank"
-                                            rel="noreferrer" previewlistener="true">
-                                            <img class="lazyload"
-                                                data-src="//theme.hstatic.net/200000796751/1001150659/14/footer_logobct_img.png?v=829"
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-                                                alt="Bộ Công Thương">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-3 col-md-12 col-12 widget-footer">
-                            <h4 class="title-footer">Về BAYA</h4>
-                            <div class="content-footer block-collapse">
-                                <ul class="footerNav-link">
-
-                                    <li class="item">
-                                        <a href="/pages/about-us" title="Giới thiệu" previewlistener="true">Giới
-                                            thiệu</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/lien-he" title="Liên hệ" previewlistener="true">Liên hệ</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/blogs/nguon-cam-hung" title="Blog" previewlistener="true">Blog</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/he-thong-cua-hang" title="Hệ thống cửa hàng"
-                                            previewlistener="true">Hệ thống cửa hàng</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-3 col-md-12 col-12 widget-footer">
-                            <h4 class="title-footer">Hỗ trợ khách hàng</h4>
-                            <div class="content-footer block-collapse">
-                                <ul class="footerNav-link">
-
-                                    <li class="item">
-                                        <a href="/pages/dieu-khoan-dich-vu" title="Câu hỏi thường gặp"
-                                            previewlistener="true">Câu hỏi thường gặp</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/huong-dan-dat-hang" title="Hướng dẫn đặt hàng"
-                                            previewlistener="true">Hướng dẫn đặt hàng</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/mua-hang-tra-gop" title="Mua hàng trả góp"
-                                            previewlistener="true">Mua hàng trả góp</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-3 col-md-12 col-12 widget-footer">
-                            <h4 class="title-footer">Chính sách</h4>
-                            <div class="content-footer block-collapse">
-                                <ul class="footerNav-link">
-
-                                    <li class="item">
-                                        <a href="/pages/chinh-sach-bao-hanh" title="Chính sách bảo hành"
-                                            previewlistener="true">Chính sách bảo hành</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/chi-phi-van-chuyen" title="Chi phí vận chuyển"
-                                            previewlistener="true">Chi phí vận chuyển</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/chinh-sach-doi-tra" title="Chính sách đổi trả và hoàn tiền"
-                                            previewlistener="true">Chính sách đổi trả và hoàn tiền</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/chinh-sach-van-chuyen-va-giao-nhan"
-                                            title="Chính sách vận chuyển và giao nhận" previewlistener="true">Chính
-                                            sách vận chuyển và giao nhận</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/chinh-sach-thanh-toan" title="Các hình thức thanh toán"
-                                            previewlistener="true">Các hình thức thanh toán</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/chinh-sach-bao-mat-thong-tin"
-                                            title="Chính sách bảo mật thông tin" previewlistener="true">Chính sách
-                                            bảo mật thông tin</a>
-                                    </li>
-
-                                    <li class="item">
-                                        <a href="/pages/huong-dan-thanh-toan-vnpay-qr-tren-website"
-                                            title="Hướng dẫn thanh toán VNPAY-QR trên website"
-                                            previewlistener="true">Hướng dẫn thanh toán VNPAY-QR trên website</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="footer-copyright text-center">
-                    <div class="container">
-                        <p>Copyright © 2024 <a href="https://baya.vn" previewlistener="true"> Baya</a>.
-                            <a target="_blank" href="https://www.haravan.com" rel="noreferrer"
-                                previewlistener="true">Powered by Haravan</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div data-th-insert="~{include/footer.html}"></div>
 
     </div>
     <div class="siteCart-mobile">

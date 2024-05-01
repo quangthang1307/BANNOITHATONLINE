@@ -66,6 +66,8 @@ public class ProductController {
 
 	List<Integer> lImages = new ArrayList<>();
 
+	int idproduct;
+
 	@GetMapping("/products")
 	public String showList(Model model) {
 		lImages.removeAll(lImages);
@@ -85,7 +87,7 @@ public class ProductController {
 
 	@GetMapping("/products/form/{productid}")
 	public String showProductForm(@PathVariable("productid") Integer productid, Model model) {
-		
+		idproduct = productid;
 		if (productid == 0) {
 			model.addAttribute("product", new Product());
 			model.addAttribute("tiltePage", "Tạo Sản Phẩm Mới");
@@ -107,6 +109,19 @@ public class ProductController {
 	public String createProduct(@RequestPart("allimage") List<MultipartFile> files, Model model,@Valid @ModelAttribute("product") Product product, BindingResult result) {
 		if (result.hasErrors()) {
 			// Xử lý lỗi ở đây
+			if (idproduct == 0) {
+				
+				model.addAttribute("tiltePage", "Tạo Sản Phẩm Mới");
+				model.addAttribute("tilteButton", "Thêm sản phẩm");
+			} else {
+				Optional<Product> products = prooductService.findById(idproduct);
+				model.addAttribute("product", products.get());
+				model.addAttribute("tiltePage", products.get().getProductname());
+				model.addAttribute("tilteButton", "Cập nhật sản phẩm");
+			}
+	
+			model.addAttribute("brands", brandService.findAll());
+			model.addAttribute("categorys", categoryService.findAllCapCon());
 			return "admin/productform";
 		}
 		Employee employee = (Employee) session.getAttribute("employee");
