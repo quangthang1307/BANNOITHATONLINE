@@ -144,4 +144,46 @@ public class OrderController {
     // orderid) {
     // return "user/chitietdonhang";
     // }
+
+
+
+
+
+    ///Employee
+    @RequestMapping("/employee/invoice")
+    public String showEmployeeOrder(Model model) {
+        model.addAttribute("orders", orderRepository.findOrderAll());
+        return "employee/admininvoice";
+    }
+
+    @RequestMapping("/employee/statusproduct")
+    public String showEmployeestatusproduct(Model model) {
+        model.addAttribute("orders", orderRepository.findOrderAll());
+        model.addAttribute("statuses", orderStatusRepository.findAll());
+        return "employee/statusproduct";
+    }
+
+    @PostMapping("/employee/invoice/update")
+    public String updateEmployeeOrderStatus(@RequestParam String orderstatusname, @RequestParam Integer OrderID) {
+        Order order = orderService.findById(OrderID);
+        Orderstatus orderStatus = orderStatusRepository.findByStatusName(orderstatusname);
+        order.setOrderstatus(orderStatus);
+        orderService.save(order);
+        return "redirect:/employee/statusproduct";
+    }
+    @RequestMapping("/employee/showinvoicedetails/{orderId}")
+    public String adminEmployeeShowInvoiceDetails(Model model, @PathVariable("orderId") Integer orderId) {
+        Order order = orderService.findById(orderId); // 
+
+        List<Orderdetails> orderDetails = order.getOrderDetails();
+        List<Product> products = new ArrayList<>();
+        for (Orderdetails orderDetail : orderDetails) {
+            Product product = orderDetail.getProduct();
+            products.add(product);
+        }
+        model.addAttribute("order", order);
+        model.addAttribute("products", products);
+
+        return "employee/admininvoicedetails";
+    }
 }
