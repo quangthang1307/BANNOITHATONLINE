@@ -213,14 +213,17 @@ app.controller("IndexController", function ($scope, $http, $window, $timeout, $i
     angular.forEach($scope.FlashSaleHours, function (FlashSaleHour) {
       var delay = FlashSaleHour.delay;
       console.log(delay);
-      $timeout(function () {
-        // Thực hiện công việc khi bắt đầu flash sale
-        console.log("Flash sale is starting now at ");
-        $scope.getFlashSale();
+      if (delay >= 0) {
+        $timeout(function () {
+          // Thực hiện công việc khi bắt đầu flash sale
+          console.log("Flash sale is starting now at ");
+          $scope.getFlashSale();
 
-        // Lập lịch cho công việc khi kết thúc flash sale
-        $scope.scheduleSaleOffTask();
-      }, delay);
+          // Lập lịch cho công việc khi kết thúc flash sale
+          $scope.scheduleSaleOffTask();
+        }, delay);
+      }
+
 
     });
 

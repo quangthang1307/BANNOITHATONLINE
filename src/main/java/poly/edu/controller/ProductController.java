@@ -27,18 +27,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import poly.edu.Service.AccountService;
 import poly.edu.Service.BrandService;
 import poly.edu.Service.CategoryService;
 import poly.edu.Service.ImageService;
 import poly.edu.Service.ProductImageService;
 import poly.edu.Service.ProductService;
 import poly.edu.Service.UpdateHistoryProductService;
+import poly.edu.entity.Account;
 import poly.edu.entity.Brands;
 import poly.edu.entity.Employee;
 import poly.edu.entity.Evaluate;
 import poly.edu.entity.Product;
 import poly.edu.entity.ProductImage;
 import poly.edu.entity.UpdateHistoryProduct;
+import poly.edu.repository.EmployeeRepository;
 
 @Controller
 @RequestMapping("/admin")
@@ -59,10 +62,16 @@ public class ProductController {
 	ProductImageService PimageService;
 
 	@Autowired
+	AccountService accountService;
+
+	@Autowired
 	HttpSession session;
 
 	@Autowired
 	ImageService imageService;
+
+	@Autowired
+	EmployeeRepository eployrepository;
 
 	List<Integer> lImages = new ArrayList<>();
 
@@ -124,7 +133,10 @@ public class ProductController {
 			model.addAttribute("categorys", categoryService.findAllCapCon());
 			return "admin/productform";
 		}
-		Employee employee = (Employee) session.getAttribute("employee");
+		String username = (String) session.getAttribute("username");
+		System.out.println(username);
+		Account ac = accountService.findByUserName(username);
+		Employee employee = eployrepository.findByAccount(ac);
 		System.out.println(employee);
 
 		if (product.getProductid() == null) {

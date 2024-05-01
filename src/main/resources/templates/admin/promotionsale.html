@@ -17,6 +17,49 @@
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
     </style>
+
+    <!-- //lưu hiện thông báo -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+        var successMessage = 'Lưu thương hiệu thành công';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành  công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+    <!-- //xóa hiện thông báo -->
+    <script>
+        function confirmDelete(categoryid) {
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa không?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                    window.location.href = '/admin/deletesale/' + categoryid;
+                }
+            });
+
+            // Trả về false để ngăn chặn hành động mặc định của liên kết
+            return false;
+        }
+    </script>
+    <script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+        var successMessage = 'Xóa thương hiệu thành công';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành  công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
 </head>
 
 <body>
@@ -83,9 +126,10 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
                                 <h5 class="card-title fw-bold">Danh Sách Khuyến Mãi</h5>
-                                <a class="btn btn-sm btn-info rounded" href="/admin/formpromotionsale">Thêm khuyến mãi</a>
+                                <a class="btn btn-sm btn-info rounded" href="/admin/formpromotionsale">Thêm khuyến
+                                    mãi</a>
                             </div>
-                            
+
                             <div class="table-responsive">
 
                                 <table id="zero_config" class="table table-striped">
@@ -98,7 +142,7 @@
                                             <th class="text-center fw-bold"> Trạng thái</th>
                                             <th class="text-center fw-bold">TG bắt đầu/TG kết thúc</th>
                                             <th class="text-center fw-bold">Thao tác</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -112,7 +156,8 @@
                                                     class=" bg-success text-center text-white p-1">Đang bật</small>
                                             </td>
                                             <td th:if="${!sale.status}">
-                                                <small style="border-radius: 5px;" class=" bg-danger text-center text-white p-1">Đang
+                                                <small style="border-radius: 5px;"
+                                                    class=" bg-danger text-center text-white p-1">Đang
                                                     tắt</small>
                                             </td>
                                             <th:block
@@ -158,18 +203,52 @@
 
 
 
-                                            <td><button type="button" class="btn btn-danger"
-                                                th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'">
-                                                <i class="bi bi-trash"
-                                                    th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'"></i>
+                                            
 
-                                            </button>
+                                                <th:block
+                                                    th:with="now=${#temporals.createNow()}, 
+                    startDate=${#temporals.create(sale.dayStart.year, sale.dayStart.monthValue, sale.dayStart.dayOfMonth, sale.dayStart.hour, sale.dayStart.minute).plusSeconds(sale.dayStart.second)}, 
+                    endDate=${#temporals.create(sale.dayEnd.year, sale.dayEnd.monthValue, sale.dayEnd.dayOfMonth, sale.dayEnd.hour, sale.dayEnd.minute).plusSeconds(sale.dayEnd.second)}">
+                                                    <!-- Kiểm tra xem ngày hiện tại có nằm trong khoảng từ ngày bắt đầu đến ngày kết thúc hay không -->
+                                            <td
+                                                th:if="${now.compareTo(startDate) &gt; 0 and now.compareTo(endDate) &lt;= 0}">
+                                                <button type="button" class="btn btn-danger"
+                                                    th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'">
+                                                    <i class="bi bi-trash"
+                                                        th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'"></i>
 
-                                            <a  class="btn btn-info"  
-                                            th:href="@{/admin/formpromotionsale/{saleId}(saleId=${sale.saleID})}">
-                                                <i class="bi bi-pencil-square "></i></a>
+                                                </button>
+
+                                                <a class="btn btn-info"
+                                                    th:href="@{/admin/formpromotionsale/{saleId}(saleId=${sale.saleID})}">
+                                                    <i class="bi bi-pencil-square "></i></a>
 
                                             </td>
+                                            <td th:if="${now.isAfter(endDate)}">
+                                                <button type="button" class="btn btn-danger"
+                                                    th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'">
+                                                    <i class="bi bi-trash"
+                                                        th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'"></i>
+
+                                                </button>
+
+                                            </td>
+                                            <td th:if="${now.isBefore(startDate)}">
+                                                <button type="button" class="btn btn-danger"
+                                                    th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'">
+                                                    <i class="bi bi-trash"
+                                                        th:onclick="'return confirmDelete(\'' + ${sale.saleID} + '\')'"></i>
+
+                                                </button>
+
+                                                <a class="btn btn-info"
+                                                    th:href="@{/admin/formpromotionsale/{saleId}(saleId=${sale.saleID})}">
+                                                    <i class="bi bi-pencil-square "></i></a>
+
+                                            </td>
+                                            </th:block>
+
+                                         
 
                                         </tr>
 
@@ -333,14 +412,14 @@
 
 
 
-    <script>
+    <!-- <script>
         function confirmDelete(saleId) {
             if (confirm("Bạn có chắc muốn xóa không?")) {
                 window.location.href = '/admin/deletesale/' + saleId;
             }
             return false;
         }
-    </script>
+    </script> -->
     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
