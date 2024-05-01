@@ -101,7 +101,7 @@
                                             <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
                                             </td>
                                             <td
-                                                th:text="${orderItem.discount != null ? orderItem.discount : 'Không có'}">
+                                                th:text="${orderItem.discount != null ? 'Đang áp dụng' : 'Không có'}">
                                             </td>
                                             <td th:text="${orderItem.payment.paymentname}"></td>
                                             <td th:text="${orderItem.orderstatus.orderstatusname}" 
