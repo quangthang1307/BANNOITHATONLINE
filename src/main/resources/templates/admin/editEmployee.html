@@ -8,31 +8,7 @@
 </head>
 
 <body>
-    //lưu hiện thông báo
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-    <script th:if="${not #strings.isEmpty(successMessage)}">
-        var successMessage = /*[[${successMessage}]]*/ "Cập nhật thành công";
-        Swal.fire({
-            icon: "success",
-            title: "Thành công!",
-            text: successMessage,
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    </script>
-
-    <script th:if="${not #strings.isEmpty(errorMessage)}">
-        var errorMessage = /*[[${errorMessage}]]*/ "Cập nhật thất bại";
-        Swal.fire({
-            icon: "error",
-            title: "Thất bại!",
-            text: errorMessage,
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    </script>
-
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -64,13 +40,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Thêm nhà kho</h4>
+                        <h4 class="page-title">Chỉnh sửa thông tin tài khoản nhân viên</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Thêm nhà kho
+                                        Chỉnh sửa thông tin tài khoản nhân viên
                                     </li>
                                 </ol>
                             </nav>
@@ -89,60 +65,54 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="card-body">
-                    <form action="/admin/addWarehouses" method="post" id="addWarehouseForm" th:object="${warehouse}">
+                    <form action="/admin/updateEmployee" method="post" id="editEmployeeForm" th:object="${employee}">
                         <div class="row">
+                            <input type="hidden" class="form-control" id="employeeID" name="employeeID"
+                                aria-describedby="helpId" th:field="*{employeeID}" th:value="${employee.employeeID}" />
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="warehousename" class="form-label">Tên Kho</label>
-                                    <input type="text" class="form-control" id="warehousename" name="warehousename"
-                                        aria-describedby="helpId" placeholder="Nhập tên kho"
-                                        th:value="${warehouse.warehousename}">
-                                    <small class="text-danger" th:if="${#fields.hasErrors('warehousename')}"
-                                        th:errors="*{warehousename}">
-                                        <span th:if="${#fields.getError('warehousename').code == 'isEmpty'}">Tên kho
-                                            không được để trống.</span>
-                                        <span th:unless="${#fields.getError('warehousename').code == 'isEmpty'}">Tên kho
-                                            không được vượt quá 255 ký tự.</span>
-                                    </small>
+                                    <label for="name" class="form-label">Tên Nhân Viên</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        aria-describedby="helpId" placeholder="Nhập tên nhân viên" th:field="*{name}"
+                                        th:value="${employee.name}" />
+                                    <small class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                        th:errors="*{name}">Tên nhân viên không hợp lệ.</small>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="location" class="form-label">Vị Trí</label>
-                                    <input type="text" class="form-control" id="location" name="location"
-                                        aria-describedby="helpId" placeholder="Nhập vị trí"
-                                        th:value="${warehouse.location}" >
-                                    <small class="text-danger" th:if="${#fields.hasErrors('location')}"
-                                        th:errors="*{location}">Vị trí kho không hợp lệ.</small>
+                                    <label for="phone" class="form-label">Số Điện Thoại</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone"
+                                        aria-describedby="helpId" placeholder="Nhập số điện thoại" th:field="*{phone}"
+                                        th:value="${employee.phone}" />
+                                    <small class="text-danger" th:if="${#fields.hasErrors('phone')}"
+                                        th:errors="*{phone}">Số điện thoại không hợp lệ.</small>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <input type="number" class="form-control" id="capacity" name="capacity"
-                                        aria-describedby="helpId" placeholder="Nhập dung lượng"
-                                        th:value="${warehouse.capacity}">
-                                    <small class="text-danger" th:if="${#fields.hasErrors('capacity')}"
-                                        th:errors="*{capacity}">Dung lượng kho không hợp lệ (phải lớn hơn 0).</small>
+                                    <label for="address" class="form-label">Địa Chỉ</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        aria-describedby="helpId" placeholder="Nhập địa chỉ" th:field="*{address}"
+                                        th:value="${employee.address}" />
+                                    <small class="text-danger" th:if="${#fields.hasErrors('address')}"
+                                        th:errors="*{address}">Địa chỉ không hợp lệ.</small>
                                 </div>
                             </div>
+                            <!-- Các trường dữ liệu còn lại -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="window.location.href='/admin/warehouse'">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='/admin/employee'">
+                                Đóng
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Lưu thay đổi
+                            </button>
                         </div>
                     </form>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -167,9 +137,27 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    <!-- <script>
+    function confirmDelete(brandsId) {
+      if (confirm("Bạn có chắc muốn xóa không?")) {
+        window.location.href = '/admin/deleteBrands/' + brandsId;
+      }
+      return false;
+    }
+  </script> -->
+    <script>
+        // Đoạn mã JavaScript
+        function resetForm() {
+            // Đặt lại biểu mẫu về trạng thái ban đầu
+            document.getElementById("editWarehouseForm").reset();
 
-  
-
+            // Ẩn bất kỳ thông báo lỗi nào
+            var errorMessages = document.querySelectorAll(".text-danger");
+            errorMessages.forEach(function (element) {
+                element.style.display = "none";
+            });
+        }
+    </script>
 
     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->

@@ -31,5 +31,26 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "SELECT * FROM Accounts where Email=?", nativeQuery = true)
     List<Account> findByEmailAccount(String email);
 
-  
+    @Query(
+
+            value = "SELECT a.AccountID, a.Username, a.Email, a.Active, a.Password " +
+
+                    "FROM Accounts a " +
+
+                    "WHERE NOT EXISTS ( " +
+
+                    " SELECT 1 " +
+
+                    " FROM AccountRole ar " +
+
+                    " WHERE a.AccountID = ar.AccountID " +
+
+                    ")",
+
+            nativeQuery = true
+
+    )
+
+    List<Account> findAccountsWithoutRoles();
+
 }

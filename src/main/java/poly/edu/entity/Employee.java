@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
@@ -28,9 +29,11 @@ public class Employee {
     @Column(name = "EmployeeID")
     private Integer employeeID;
 
+    @NotBlank(message = "Tên nhân viên không được để trống")
     @Column(name = "Name")
     private String name;
 
+    @NotBlank(message = "Số điện thoại nhân viên không được để trống")
     @Column(name = "Phone")
     private String phone;
 

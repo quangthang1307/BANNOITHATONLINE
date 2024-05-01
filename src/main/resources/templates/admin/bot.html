@@ -81,9 +81,9 @@
                             <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
                                 <h5 class="card-title fw-bold">QUẢN LÝ BOT TELEGRAM</h5>
                             </div>
-                            <form method="POST" action="/admin/bot"  th:object="${telegram}">
+                            <form method="POST" action="/admin/bot"  th:object="${telegram}" id="bot-form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="NHẬP BOT TOKEN - xxxxxx:xxxxxxx"  name="botToken">
+                                    <input type="text" class="form-control" placeholder="NHẬP BOT TOKEN - xxxxxx:xxxxxxx"  name="botToken" id="botToken">
                                 </div>
                                 <select id="bot-type" class="form-select"  name="mission">
                                     <option class="form-control" value="">Chọn kiểu cho BOT</option>
@@ -171,6 +171,24 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+
+    <script>
+        document.getElementById("create").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission
+        
+            var botToken = document.getElementById("botToken").value;
+            var mission = document.getElementById("bot-type").value;
+        
+            // Kiểm tra xem các trường có được điền đầy đủ không
+            if (botToken.trim() === "" || mission.trim() === "") {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+        
+            // Nếu mọi thứ hợp lệ, tiến hành submit form
+            document.getElementById("bot-form").submit();
+        });
+        </script>
     <script>
         document.getElementById('bot-type').addEventListener('change', function() {
             var dateInputDiv = document.getElementById('date-input');

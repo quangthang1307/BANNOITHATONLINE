@@ -2,213 +2,190 @@
 <html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div data-th-insert="~{include/styleadmin.html}"></div>
+  <div data-th-insert="~{include/styleadmin.html}"></div>
 
-    <title>Tables</title>
+  <title>Tables</title>
 </head>
 
 <body>
+  //lưu hiện thông báo
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
-    //lưu hiện thông báo
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
-    <script th:if="${not #strings.isEmpty(successMessage)}">
-        var successMessage = /*[[${successMessage}]]*/ 'Cập nhật thành công';
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: successMessage,
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    </script>
-    
-    <script th:if="${not #strings.isEmpty(errorMessage)}">
-        var errorMessage = /*[[${errorMessage}]]*/ 'Cập nhật thất bại';
-        Swal.fire({
-            icon: 'error',
-            title: 'Thất bại!',
-            text: errorMessage,
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    </script>
-    
-    
-
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
     </div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- Topbar header - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <div data-th-insert="~{include/navbaradmin.html}"></div>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Chỉnh sửa kho hàng</h4>
-                        <div class="ms-auto text-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Thêm kho hàng
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+    <div data-th-insert="~{include/navbaradmin.html}"></div>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Thêm kho hàng</h4>
+            <div class="ms-auto text-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Thay đổi kho hàng tồn
+                  </li>
+                </ol>
+              </nav>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="card-body">
-                    <form action="/admin/addInventoryPlus" method="post" th:object="${inventory}">
-                        <div class="row">
-                            <!-- Các trường dữ liệu khác nếu cần -->
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="warehouseId" class="form-label">Mã Nhà Kho</label>
-                                    <select class="form-select" name="warehouseId" id="warehouseId" required>
-                                        <option value="">Chọn mã nhà kho</option>
-                                        <!-- Dữ liệu mã nhà kho được tạo từ controller và truyền vào -->
-                                        <option th:each="w : ${warehouses}" th:value="${w.warehouseID}" th:text="${w.warehouseID}"></option>
-                                    </select>
-                                    <small class="form-text text-muted">Chọn Mã Nhà Kho</small>
-                                </div>                                
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="productId" class="form-label">Mã Sản phẩm</label>
-                                    <select class="form-select" name="productId" id="productId" required>
-                                        <option value="">Chọn mã sản phẩm</option>
-                                        <!-- Dữ liệu mã sản phẩm được tạo từ controller và truyền vào -->
-                                        <option th:each="product : ${products}" th:value="${product.productid}" th:text="${product.productid}"></option>
-                                    </select>
-                                    <small class="form-text text-muted">Chọn ID sản phẩm</small>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="quantityonhand" class="form-label">Số Lượng Có</label>
-                                    <input type="number" class="form-control" name="quantityonhand" id="quantityonhand"
-                                        aria-describedby="helpId" placeholder="Nhập số lượng có" required />
-                                    <small class="form-text text-muted">Nhập số lượng có</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="closeForm()">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Thêm</button>
-                        </div>
-                    </form>
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="card-body">
+          <form action="/admin/addInventoryPlus" method="post" th:object="${move}">
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="warehouseId" class="form-label">Chọn mã nhà kho</label>
+                  <select class="form-select" name="warehouseID" id="warehouseId" required>
+                    <option value="">Vui lòng chọn mã nhà kho</option>
+                    <option th:each="w : ${warehouses}" th:value="${w.warehouseID}"
+                      th:text="${w.warehouseID+ ' - ' + w.warehousename}"></option>
+                  </select>
                 </div>
-                
-
-                <!-- Modal Form Thêm Inventory-->
-
-                <!-- Modal Form Chỉnh Sửa Inventory -->
-
-
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="productId" class="form-label">Chọn mã Sản phẩm</label>
+                  <select class="form-select" name="productId" id="productId" required>
+                    <option value="">Vui lòng chọn mã sản phẩm</option>
+                    <option th:each="product : ${products}" th:value="${product.productid}"
+                      th:text="${product.productid + ' - ' + product.productname }"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="quantityonhand" class="form-label">Số Lượng vận chuyển</label>
+                  <input type="number" class="form-control" name="quantity" id="quantity" aria-describedby="helpId"
+                    placeholder="Nhập số lượng vận chuyển" th:value="${move.quantity}" />
+                  <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">
+                    <span th:if="${#fields.getError('quantity').code == 'isEmpty'}"></span>
+                    <span th:unless="${#fields.getError('quantity').code == 'isEmpty'}"></span>
+                  </small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="" class="form-label">Hình thức vận chuyển</label>
+                  <br>
+                  <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="movementType" id="movementTypeNhap"
+                      aria-describedby="helpIdNhap" value="true" checked>
+                    <label class="form-check-label" for="movementTypeNhap">Nhập kho</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="movementType" id="movementTypeXuat"
+                      aria-describedby="helpIdXuat" value="false">
+                    <label class="form-check-label" for="movementTypeXuat">Xuất kho</label>
+                  </div>
+                  <br>
+                  <small class="form-text text-muted"></small>
+                </div>
+              </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by admin. Designed and Developed by
-                <a href="#">WrapPixel</a>.
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"
+                onclick="window.location.href='/admin/inventory'">Đóng</button>
+              <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+          </form>
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End PAge Content -->
         <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- footer -->
+      <!-- ============================================================== -->
+      <footer class="footer text-center">
+        All Rights Reserved by admin. Designed and Developed by
+        <a href="#">WrapPixel</a>.
+      </footer>
+      <!-- ============================================================== -->
+      <!-- End footer -->
+      <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- End Wrapper -->
+    <!-- End Page wrapper  -->
     <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <!-- <script>
-    function confirmDelete(brandsId) {
-      if (confirm("Bạn có chắc muốn xóa không?")) {
-        window.location.href = '/admin/deleteBrands/' + brandsId;
-      }
-      return false;
-    }
-
-    
-  </script> -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Wrapper -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- All Jquery -->
+  <!-- ============================================================== -->
 
 
-    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
-    <!--Wave Effects -->
-    <script th:src="@{/dist/js/waves.js}"></script>
-    <!--Menu sidebar -->
-    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
-    <!--Custom JavaScript -->
-    <script th:src="@{/dist/js/custom.min.js}"></script>
-    <!-- this page js -->
-    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
-    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
-    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $("#zero_config").DataTable();
-    </script>
+
+  <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+  <!-- Bootstrap tether Core JavaScript -->
+  <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+  <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+  <!--Wave Effects -->
+  <script th:src="@{/dist/js/waves.js}"></script>
+  <!--Menu sidebar -->
+  <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+  <!--Custom JavaScript -->
+  <script th:src="@{/dist/js/custom.min.js}"></script>
+  <!-- this page js -->
+  <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+  <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+  <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+  <script>
+    /****************************************
+     *       Basic Table                   *
+     ****************************************/
+    $("#zero_config").DataTable();
+  </script>
 </body>
 
 </html>

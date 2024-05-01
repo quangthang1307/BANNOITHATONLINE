@@ -9,8 +9,7 @@
 
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
     <script th:if="${not #strings.isEmpty(addsuccessMessage)}">
         var successMessage ='Thêm thành công!';
         Swal.fire({
@@ -32,10 +31,11 @@
             timer: 1500
         });
     </script>
+    
 
     //xóa hiện thông báo
     <script>
-        function confirmDelete(warehouseId) {
+        function confirmDelete(employeeID) {
             Swal.fire({
                 title: 'Bạn có chắc muốn xóa không?',
                 icon: 'question',
@@ -45,7 +45,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
-                    window.location.href = '/admin/deleteWarehouse/' + warehouseId;
+                    window.location.href = '/admin/deleteEmployee/' + employeeID;
                 }
             });
 
@@ -61,6 +61,16 @@
             text: successMessage,
             showConfirmButton: false,
             timer: 1500,
+        });
+    </script>
+     <script th:if="${not #strings.isEmpty(error)}">
+        var Message = "Bạn chưa chọn mã tài khoản làm nhân viên !";
+        Swal.fire({
+            title: "Lưu thất bại!",
+            icon: "error",
+            text: Message,
+            showConfirmButton: true,
+            
         });
     </script>
 
@@ -95,13 +105,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Nhà kho</h4>
+                        <h4 class="page-title">Nhân viên</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Nhà kho
+                                        Nhân viên
                                     </li>
                                 </ol>
                             </nav>
@@ -122,39 +132,33 @@
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Danh Sách Kho Hàng</h5>
+                            <h5 class="card-title">Danh Sách nhân viên</h5>
                             <div class="table-responsive">
                                 <table id="zero_config" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Mã Nhà Kho</th>
-                                            <th>Tên Nhà Kho</th>
-                                            <th>Vị Trí</th>
-                                            <th>Dung tích kho</th>
-                                            <th><a class="btn btn-info" href="/admin/addWarehouse">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </a></th>
+                                            <th>Mã nhân viên</th>
+                                            <th>Tên nhân viên</th>
+                                            <th>SĐT</th>
+                                            <th>Địa chỉ</th>
+                                            <th><a class="btn btn-info" href="/admin/addEmployee">
+                                                    <i class="bi bi-plus-lg"></i>
+                                                </a></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <tr th:each="warehouse : ${warehouses}">
-
-                                            <td th:text="${warehouse.warehouseID}"></td>
-                                            
-                                            <td
-                                                th:text="${warehouse.warehousename}">
+                                        <tr th:each="employee : ${employees}">
+                                            <td th:text="${employee.employeeID}">
                                             </td>
-                                            <td
-                                                th:text="${warehouse.location}">
+                                            <td th:text="${employee.name}">
                                             </td>
-                                            <td
-                                            th:text="${warehouse.capacity}"
-                                            >
+                                            <td th:text="${employee.phone}">
+                                            </td>
+                                            <td th:text="${employee.address}">
                                             </td>
                                             <td>
-                                                <a th:onclick="'return confirmDelete(\'' + *{warehouse.warehouseID} + '\');'"
-                                                    href="#">
+                                                <a th:onclick="'return confirmDelete(\'' + *{employee.employeeID} + '\');'" href="#">
                                                     <button class="btn btn-danger" type="submit"
                                                         style="width:40px; max-width: 100%;  border-radius: 5px; ">
                                                         <svg style="margin-left:-1px;"
@@ -167,8 +171,7 @@
                                                         </svg>
                                                     </button>
                                                 </a>
-                                                <a class="bi bi-pencil-square btn btn-info"
-                                                th:href="@{'/admin/editWarehouse/' + ${warehouse.warehouseID}}" ></a>
+                                                <a class="bi bi-pencil-square btn btn-info" th:href="@{'/admin/editEmployee/' + ${employee.employeeID}}"></a>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -1,26 +1,20 @@
 package poly.edu.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import poly.edu.Service.BrandService;
 import poly.edu.Service.InventoryService;
 import poly.edu.Service.WarehousesService;
-import poly.edu.entity.Inventory;
-import poly.edu.entity.Product;
 import poly.edu.entity.Warehouses;
 import poly.edu.repository.ProductRepository;
 import poly.edu.repository.WarehousesRepository;
@@ -98,13 +92,14 @@ public class WarehouseController {
           "error.warehouse",
           "Tên kho không hợp lệ."
         );
-        return "/admin/editWarehouse"; // Trả về trang brand nếu tên thương hiệu vượt quá 50 ký tự
+        return "/admin/editWarehouse";
       } else if (warehouse.getWarehousename().length() > 255) {
         bindingResult.rejectValue(
           "warehousename",
           "error.warehouse",
           "Tên kho không được vượt quá 255 ký tự."
         );
+        return "/admin/editWarehouse";
       } else if (warehouse.getLocation().isEmpty()) {
         bindingResult.rejectValue(
           "location",
@@ -152,7 +147,8 @@ public class WarehouseController {
 
   @GetMapping("/addWarehouse")
   public String showAddWarehouseForm(Model model) {
-    model.addAttribute("warehouse", wRepository.findAll());
+    Warehouses warehouse = new Warehouses();
+    model.addAttribute("warehouse", warehouse);
     return "admin/addWarehouse";
   }
 
@@ -193,6 +189,7 @@ public class WarehouseController {
         );
         return "/admin/addWarehouse"; // Trả về trang thêm kho nếu có lỗi
       }
+
       wRepository.save(warehouse);
       redirectAttributes.addFlashAttribute(
         "addsuccessMessage",

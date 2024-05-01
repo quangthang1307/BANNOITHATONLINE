@@ -25,5 +25,43 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findByUsername(String username) {
         return employeeRepository.findByUsername(username);
     }
-    
+
+    @Override
+
+    public Employee findById(Integer employeeID) {
+
+        // TODO Auto-generated method stub
+
+        return employeeRepository.findById(employeeID).get();
+
+    }
+
+    @Override
+
+    public Employee create(Employee employee) {
+
+        // TODO Auto-generated method stub
+
+        return employeeRepository.save(employee);
+
+    }
+
+    @Override
+
+    public Employee update(Employee employee) {
+        // TODO Auto-generated method stub
+
+        return employeeRepository.save(employee);
+
+    }
+
+    @Override
+
+    public void delete(Integer employeeID) {
+
+        // TODO Auto-generated method stub
+
+        employeeRepository.deleteById(employeeID);
+
+    }
 }

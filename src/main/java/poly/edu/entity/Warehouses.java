@@ -22,7 +22,7 @@ public class Warehouses {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "WarehouseID")
-  private int warehouseID;
+  private Integer warehouseID;
 
   @NotBlank(message = "Tên kho không được để trống")
   @Size(max = 255, message = "Tên kho không được vượt quá 255 ký tự")
