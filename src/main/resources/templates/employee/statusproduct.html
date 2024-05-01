@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="bannoithatonline">
+
+<head>
+    <div data-th-insert="~{include/styleadmin.html}"></div>
+
+    <title>Tables</title>
+
+    <style>
+        .table td,
+        .table th {
+            white-space: nowrap;
+            /* Ngăn các ô bảng bị xuống dòng */
+            overflow: hidden;
+            /* Ẩn nội dung bị tràn ra khỏi ô */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
+</head>
+
+<body ng-controller="StatusProduct">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div data-th-insert="~{include/navbaremployee.html}"></div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Tình trạng đơn hàng</h4>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
+                                <h5 class="card-title fw-bold">Quản lý hóa đơn</h5>
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <table id="zero_config" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center fw-bold">Mã đơn hàng</th>
+                                            <th class="text-center fw-bold">Ngày tạo</th>
+                                            <th class="text-center fw-bold">Tổng tiền</th>
+                                            <!-- <th class="text-center fw-bold">Thông tin KH</th> -->
+                                            <th class="text-center fw-bold">Phương thức thanh toán</th>
+                                            <th class="text-center fw-bold">Trạng thái</th>
+                                            <th class="text-center fw-bold">Chi tiết HĐ</th>
+                                            <!-- <th class="text-center fw-bold">Hành động</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center" >
+                                        <tr th:each="orderItem : ${orders}">
+                                            <td>
+                                                <span th:text="${orderItem.OrderID}"></span>
+                                            </td>
+                                            <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
+                                            </td>
+                                            <td>
+												<span
+													th:text="${#numbers.formatDecimal(orderItem.sumpayment,0,'COMMA',0,'POINT')} + ' VND'"></span>
+											</td>
+                                            <!-- <td><a
+                                                    th:href="@{'/admin/statusproduct/findcustomer/' +${orderItem.customer.customerId}}"><button
+                                                        class="btn btn-primary btn-sm">Xem thông tin</button></a></td> -->
+                                            <td th:text="${orderItem.payment.paymentname}"></td>
+                                            <td>
+                                                <form th:action="@{/employee/invoice/update}" th:method="post">
+                                                    <select th:name="orderstatusname" id="orderStatusSelect autoSizingSelect" style="border-radius: 5px;" class="form-select">
+                                                        <option th:each="status : ${statuses}"
+                                                            th:value="${status.orderstatusname}"
+                                                            th:text="${status.orderstatusname}"
+                                                            th:selected="${status.orderstatusname == orderItem.orderstatus.orderstatusname}">
+                                                        </option>
+                                                    </select>
+                                                    <input type="hidden" th:name="OrderID"
+                                                        th:value="${orderItem.OrderID}">
+                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    <!-- <input type="submit" value="Lưu"> -->
+                                                </form>
+                                            </td>
+                                            <td><a th:href="@{'/employee/showinvoicedetails/' +${orderItem.OrderID}}"><button
+                                                        class="btn btn-info btn-sm">Xem</button></a>
+                                            </td>
+                                            <td>
+                                                <span th:text="${orderItem.OrderID}" style="display: none;"></span>
+                                                <!-- <button id="deleteButton" ng-click="deleteOrder($event)"  type="button" class="btn btn-danger btn-sm">Xóa</button> -->
+                                            </td>
+                                            <!--<td>
+                                            <form id="deleteForm" th:action="@{'/admin/deleteoder/' + ${orderItem.OrderID}}" 
+                                                    method="post">
+                                                    <button id="deleteButton" type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                            </form>
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            All Rights Reserved by Matrix-admin. Designed and Developed by
+            <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="/js/admin/statusproduct.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{/dist/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!-- this page js -->
+    <script th:src="@{/assets/extra-libs/multicheck/datatable-checkbox-init.js}"></script>
+    <script th:src="@{/assets/extra-libs/multicheck/jquery.multicheck.js}"></script>
+    <script th:src="@{/assets/extra-libs/DataTables/datatables.min.js}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $("#zero_config").DataTable();
+    </script>
+</body>
+
+</html>

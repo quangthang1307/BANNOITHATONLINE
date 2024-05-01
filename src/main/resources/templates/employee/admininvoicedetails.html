@@ -16,13 +16,6 @@
             text-overflow: ellipsis;
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
-        .text-success {
-    color: green;
-}
-
-.text-danger {
-    color: red;
-}
     </style>
 </head>
 
@@ -44,7 +37,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <div data-th-insert="~{include/navbaradmin.html}"></div>
+        <div data-th-insert="~{include/navbaremployee.html}"></div>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -52,10 +45,13 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Đơn hàng chi tiết</h4>
+                        <h4 class="page-title">Đơn hàng | Chi tiết đơn hàng</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -66,9 +62,16 @@
                     </div>
                 </div>
             </div>
-           
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
             <div class="container-fluid">
-                
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
                 <div class="row">
 
 
@@ -76,7 +79,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-1 mt-1">
-                                <h5 class="card-title fw-bold">Quản lý hóa đơn</h5>
+                                <h5 class="card-title fw-bold">Chi tiết đơn hàng</h5>
                             </div>
 
                             <div class="table-responsive">
@@ -84,45 +87,32 @@
                                 <table id="zero_config" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-center fw-bold">Số thứ tự</th>
+                                            <th class="text-center fw-bold">Mã hóa đơn</th>
                                             <th class="text-center fw-bold">Tên khách hàng</th>
-                                            <th class="text-center fw-bold">Ngày tạo</th>
-                                            <th class="text-center fw-bold">Phiếu giảm giá</th>
-                                            <th class="text-center fw-bold">Thanh toán</th>
-                                            <th class="text-center fw-bold">Tình trạng</th>
-                                            <th class="text-center fw-bold">Người cập nhật đơn hàng</th>
-                                            <th class="text-center fw-bold">Địa chỉ</th>
+                                            <th class="text-center fw-bold">Số điện thoại</th>
+                                            <th class="text-center fw-bold">Tên sản phẩm</th>
+                                            <th class="text-center fw-bold">Số lượng</th>
+                                            <th class="text-center fw-bold">Ngày mua</th>
+                                            <th class="text-center fw-bold">Trạng thái</th>
+                                            <th class="text-center fw-bold">Tổng tiền</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center" >
-                                        <tr th:each="orderItem, itemStat : ${orders}">
-                                            <td th:text="${itemStat.index + 1}"></td>
-                                            <td th:text="${orderItem.customer.name}"></td>
-                                            <td th:text="${#temporals.format(orderItem.time, 'dd/MM/yyyy HH:mm:ss')}">
+                                    <tbody class="text-center">
+                                        <tr th:each="orderDetail : ${order.orderDetails}">
+                                            <td th:text="${order.OrderID}"></td>
+                                            <td th:text="${order.customer.name}"></td>
+                                            <td th:text="${order.customer.phone}"></td>
+                                            <td th:text="${orderDetail.product.productname}">
                                             </td>
-                                            <td
-                                                th:text="${orderItem.discount != null ? 'Đang áp dụng' : 'Không có'}">
+                                            <td th:text="${orderDetail.productquantity}">
                                             </td>
-                                            <td th:text="${orderItem.payment.paymentname}"></td>
-                                            <td th:text="${orderItem.orderstatus.orderstatusname}" 
-                                                th:class="${orderItem.orderstatus.orderstatusname eq 'Giao hàng thành công'} ? 'text-success' : 
-                                                         (${orderItem.orderstatus.orderstatusname eq 'Đã hủy'} ? 'text-danger' : '')">
-                                            </td>
-                                            <td
-                                                th:text="${orderItem.customer != null ? orderItem.customer.name : 'Không có'}">
-                                            </td>
+                                            <td th:text="${#temporals.format(order.time, 'dd/MM/yyyy HH:mm:ss')}">
+                                            <td th:text="${order.orderstatus.orderstatusname}"></td>
                                             <td>
-                                                <span th:text="${orderItem.address.sonha}">
-                                                </span>,
-                                                <span th:text="${orderItem.address.duong}">
-                                                </span>,
-                                                <span th:text="${orderItem.address.phuongxa}">
-                                                </span>,
-                                                <span th:text="${orderItem.address.quanhuyen}">
-                                                </span>,
-                                                <span th:text="${orderItem.address.tinhthanhpho}">
-                                                </span>.
+                                                <span
+													th:text="${#numbers.formatDecimal(orderDetail.totalpayment,0,'COMMA',0,'POINT')} + ' VND'"></span>
                                             </td>
+
                                         </tr>
                                     </tbody>
 
@@ -138,6 +128,16 @@
 
                 </div>
             </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
@@ -282,7 +282,7 @@
             return false;
         }
     </script>
-     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
