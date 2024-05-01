@@ -48,7 +48,7 @@ public class DoanhThuTelegram {
         for (Order order2 : ordernow) {
             List<Orderdetails> orderdetails = orderDetailRepository.getOrderdetailsByOrderID(order2.getOrderID());
             for (Orderdetails orderdetail : orderdetails) {
-                if (orderdetail.getOrder().getOrderstatus().getOrderstatusname().equals("Thành công")) {
+                if (orderdetail.getOrder().getOrderstatus().getOrderstatusname().equals("Giao hàng thành công")) {
                     doanhThuThanhCong += orderdetail.getTotalpayment();
                 }
             }
