@@ -31,7 +31,7 @@ public class RestStatisticsController {
 
         List<Integer> totatlSumpayments = new ArrayList<>();
         for (int month = 1; month <= 12; month++) {
-            Integer sumpayment = orderRepository.findSumpaymentOrder("Giao hàng thành công", month, selectedYear);
+            Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh toán thành công", month, selectedYear);
 
             totatlSumpayments.add(sumpayment);
         }

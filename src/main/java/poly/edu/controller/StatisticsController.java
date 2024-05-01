@@ -38,7 +38,7 @@ public class StatisticsController {
 
         List<Integer> totalSumpayments = new ArrayList<>();
         for (int month = 1; month <= 12; month++) {
-            Integer sumpayment = orderRepository.findSumpaymentOrder("Giao hàng thành công", month, selectedYear);
+            Integer sumpayment = orderRepository.findSumpaymentOrder("Thanh toán thành công", month, selectedYear);
             totalSumpayments.add(sumpayment);
         }
 
@@ -57,7 +57,7 @@ public class StatisticsController {
         for (int day = 0; day < 7; day++) {
             LocalDateTime dayStart = sevenDaysAgo.plusDays(day);
             LocalDateTime dayEnd = dayStart.plusDays(1);
-            Integer sumpayment = orderRepository.findSumpaymentOrderForLast7Days("Giao hàng thành công", dayStart, dayEnd);
+            Integer sumpayment = orderRepository.findSumpaymentOrderForLast7Days("Thanh toán thành công", dayStart, dayEnd);
             totalSumpaymentsLast7Days.add(sumpayment);
         }
 
