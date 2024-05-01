@@ -229,18 +229,7 @@ $scope.validateDuong = function() {
         });
         return false;
     }
-    // Sử dụng biểu thức chính quy để kiểm tra xem đường có chứa ký tự đặc biệt không
-    var regex = /^[a-zA-Z0-9\s]+$/;
-    if (!regex.test($scope.newAddress.duong)) {
-        // Nếu không hợp lệ, hiển thị thông báo lỗi
-        Swal.fire({
-            icon: "error",
-            title: "Lỗi",
-            text: "Đường không được chứa ký tự đặc biệt!",
-            showConfirmButton: true,
-        });
-        return false;
-    }
+    
     return true;
 };
 
