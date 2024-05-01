@@ -32,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/*", "/rest/**", "/user/**").permitAll()
                     .requestMatchers("/user/**").hasAuthority("USER")
-                    .requestMatchers("/admin/**", "/employee/**", "/api/telegram/approve/**").hasAuthority("ADMIN")
+                    .requestMatchers("/admin/**", "/api/telegram/approve/**").hasAuthority("ADMIN")
                     .requestMatchers("/employee/**").hasAuthority("EMPLOYEE")
                     .anyRequest().authenticated())
             .formLogin(login -> login.loginPage("/login").loginProcessingUrl("/login")
