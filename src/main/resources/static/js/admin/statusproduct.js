@@ -26,30 +26,30 @@ app.controller('StatusProduct', function ($scope, $http, $window,$timeout) {
             // }
             
 
-            var selectedOptionIndex = selectElement.selectedIndex;
+            var selectedOptionValue = selectElement.value;
             var updateButton = selectElement.closest('form').querySelector('button[type="submit"]');
         
-        if (selectedOptionIndex === 5) { // Hủy đơn hàng
+        if (selectedOptionValue === "Đã hủy") { // Hủy đơn hàng
             updateButton.style.display = 'none';
             selectElement.disabled = true;
             selectElement.style.border = '2px solid red';
-        } else if(selectedOptionIndex === 4) { // Giao hàng thành công
+        } else if(selectedOptionValue === "Giao hàng thành công") { // Giao hàng thành công
             updateButton.style.display = 'none';
             selectElement.disabled = true;
             selectElement.style.border = '2px solid green';
-        } else if(selectedOptionIndex === 3) { // Thanh toán thành công
-            selectElement.options[2].disabled = true;
-            selectElement.options[1].disabled = true;
-            selectElement.options[0].disabled = true;
-        } else if(selectedOptionIndex === 2) { // Đang giao hàng
-            selectElement.options[1].disabled = true;
-            selectElement.options[0].disabled = true;
-        } else if(selectedOptionIndex === 1) { // Đã xác nhận
-            selectElement.options[0].disabled = true;
+        } else if(selectedOptionValue === "Thanh toán thành công") { // Thanh toán thành công
+            selectElement.options[2].style.display = 'none';
+            selectElement.options[1].style.display = 'none';
+            selectElement.options[0].style.display = 'none';
+        } else if(selectedOptionValue === "Đang giao hàng") { // Đang giao hàng
+            selectElement.options[1].style.display = 'none';
+            selectElement.options[0].style.display = 'none';
+        } else if(selectedOptionValue === "Đã xác nhận") { // Đã xác nhận
+            selectElement.options[0].style.display = 'none';
         } else { // Trường hợp khác // Đã xác nhận
             // Bỏ vô hiệu hóa tất cả các phần tử option
             for (var i = 0; i < selectElement.options.length; i++) {
-                selectElement.options[i].disabled = false;
+                selectElement.options[i].style.display = 'block';
             }
         }
         });
