@@ -93,7 +93,7 @@
                                         <tr>
                                             <th class="text-center fw-bold">ID</th>
                                             <th class="text-center fw-bold">Danh mục cha</th>
-                                           
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,8 +103,8 @@
                                             <td th:text="${category.productname}"></td>
                                             <td><a th:href="@{/admin/categoryproduct/capcon/{categoryId}(categoryId=${category.ID})}">Xem danh mục con</a></td>
 
-<!-- 
-                                            <td><button type="button" class="btn btn-danger">
+                                            
+                                                <!-- <td><button type="button" class="btn btn-danger">
                                                     <i class="bi bi-trash"></i>
 
                                                 </button>
@@ -112,7 +112,7 @@
                                                 <a class="btn btn-info">
                                                     <i class="bi bi-pencil-square "></i></a>
 
-                                            </td> -->
+                                                 </td> -->
 
                                         </tr>
 
