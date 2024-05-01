@@ -398,7 +398,7 @@ public class OrderRestController {
                 }
             }
 
-            if (falshSale != null && flash.get(0).getStatus()) {
+            if (falshSale != null && !flash.isEmpty() && flash.get(0).getStatus()) {
                 Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
                         .findById(flash.get(0).getFlashSaleHourID());
                 if (flashSaleHour.isPresent()) {
