@@ -327,7 +327,11 @@ app.controller("OrderController", [
         case "Đã hủy":
           filterOrder();
           break;
-          
+
+          case "Thanh toán thành công":
+          filterOrder();
+          break;
+
         case "Tất cả":
           $scope.loadCustomer();
           $scope.fillOrder();
