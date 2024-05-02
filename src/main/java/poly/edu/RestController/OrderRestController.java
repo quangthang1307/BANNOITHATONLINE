@@ -223,6 +223,16 @@ public class OrderRestController {
 
     }
 
+    @PutMapping("/rest/order")
+    public ResponseEntity<?> xacMinh(@RequestParam Integer orderId){
+        Optional<Order> order = orderRepository.findById(orderId);
+        if(order.isPresent()){
+            Orderstatus orderstatus = orderStatusRepository.findByStatusName("Giao hàng thành công");
+            order.get().setOrderstatus(orderstatus);
+        }
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/rest/order/huydon")
     public void edit(@RequestParam Integer orderId) {
         String username = null;
