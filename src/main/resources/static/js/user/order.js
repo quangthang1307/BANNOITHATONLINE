@@ -6,7 +6,8 @@ app.controller("OrderController", [
   "$scope",
   "$http",
   "$uibModal",
-  function ($scope, $http, $uibModal) {
+  "$timeout",
+  function ($scope, $http, $uibModal, $timeout) {
     $scope.customer = {};
     $scope.orders = [];
 
@@ -306,28 +307,38 @@ app.controller("OrderController", [
     }
 
 
-//     $scope.xacNhan = function(order) {
-//     Swal.fire({
-//         title: "Xác nhận !",
-//         text: "Bạn có chắc chắn đã nhận được đơn hàng ?",
-//         icon: "question",
-//         showCancelButton: true,
-//         confirmButtonText: "Tôi chắc chắn",
-//         cancelButtonText: "Đóng",
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             $http.put('/rest/order', null, { params: { orderId: order.orderID } })
-//                 .then(function(response) {
-//                     // Xử lý response từ server (nếu cần)
-//                     console.log("Đã xác nhận đơn hàng");
-//                 })
-//                 .catch(function(error) {
-//                     // Xử lý lỗi (nếu có)
-//                     console.error("Lỗi khi xác nhận đơn hàng:", error);
-//                 });
-//         }
-//     });
-// }
+    $scope.xacNhan = function(order) {
+    Swal.fire({
+        title: "Xác nhận !",
+        text: "Bạn có chắc chắn đã nhận được đơn hàng ?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Tôi chắc chắn",
+        cancelButtonText: "Đóng",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $http.put('/rest/order', null, { params: { orderId: order.orderID } })
+                .then(function(response) {
+                  // Sử dụng $timeout để gọi hàm cập nhật dữ liệu sau một khoảng thời gian ngắn
+                  $timeout(function() {
+                    const index = $scope.orders.findIndex(o => o.orderID === order.orderID);
+                    if (index !== -1) {
+                        // Thực hiện cập nhật các thuộc tính của đơn hàng ở đây
+                         $scope.orders[index].orderstatus.orderstatusname = 'Giao hàng thành công';
+                        $scope.orders[index].confirmed = true; // Ví dụ
+                    }
+                });
+                
+                // Log thông báo xác nhận
+                console.log("Đã xác nhận đơn hàng");
+                })
+                .catch(function(error) {
+                    // Xử lý lỗi (nếu có)
+                    console.error("Lỗi khi xác nhận đơn hàng:", error);
+                });
+        }
+    });
+}
 
 
     // Chức năng sắp xếp và cập nhật giao diện

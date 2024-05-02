@@ -229,6 +229,7 @@ public class OrderRestController {
         if(order.isPresent()){
             Orderstatus orderstatus = orderStatusRepository.findByStatusName("Giao hàng thành công");
             order.get().setOrderstatus(orderstatus);
+            orderRepository.save(order.get());
         }
         return ResponseEntity.ok().build();
     }
