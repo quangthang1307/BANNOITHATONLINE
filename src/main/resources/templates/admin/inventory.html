@@ -10,17 +10,21 @@
 <body>
 
 
+    //lưu hiện thông báo
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
-        var successMessage = 'Lưu sản phẩm thành công';
+
+
+    <script th:if="${not #strings.isEmpty(successMessage)}">
+        var successMessage = /*[[${successMessage}]]*/ "Lưu lại thành công";
         Swal.fire({
-            icon: 'success',
-            title: 'Thành  công!',
+            icon: "success",
+            title: "Thành công!",
             text: successMessage,
             showConfirmButton: false,
             timer: 1500,
         });
     </script>
+
 
     <script>
         function confirmDelete(inventoryId) {
@@ -115,10 +119,7 @@
                                 <table id="zero_config" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Mã Nhà Kho</th>
-                                            <th>Tên Nhà Kho</th>
-                                            <th>Vị Trí</th>
+                                            <th>STT</th>
                                             <th>Thương Hiệu Sản Phẩm</th>
                                             <th>Tên Sản Phẩm</th>
                                             <th>Giá Nhập</th>
@@ -126,27 +127,17 @@
                                             <th>Số Lượng Có</th>
                                             <th>Chỉnh sửa gần nhất</th>
                                             <th><a class="btn btn-info" href="/admin/addInventory">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </a>
-                                                                                     
+                                                    <i class="bi bi-pencil-square btn btn-info"></i>
+                                                </a>
+
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <tr th:each="inventory : ${inventories}">
+                                        <tr th:each="inventory, rowStat  : ${inventories}">
 
-                                            <td th:text="${inventory.inventoryId}"></td>
-                                            <td
-                                                th:text="${inventory.warehouse != null ? inventory.warehouse.warehouseID : ''}">
-                                            </td>
-                                            <td
-                                                th:text="${inventory.warehouse != null ? inventory.warehouse.warehousename : ''}">
-                                            </td>
-                                            <td
-                                                th:text="${inventory.warehouse != null ? inventory.warehouse.location : ''}">
-                                            </td>
-
+                                            <td th:text="${rowStat.index + 1}"></td>
 
                                             <td
                                                 th:text="${inventory.product != null && inventory.product.brand != null ? inventory.product.brand.brandname : ''}">
@@ -177,8 +168,6 @@
                                                         </svg>
                                                     </button>
                                                 </a>
-                                                <a class="bi bi-pencil-square btn btn-info"
-                                                    th:href="@{'/admin/editInventory/' + ${inventory.inventoryId}}"></a>
                                             </td>
                                         </tr>
                                     </tbody>
