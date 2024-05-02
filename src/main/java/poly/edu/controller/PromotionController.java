@@ -37,6 +37,7 @@ import poly.edu.entity.Product;
 import poly.edu.entity.Sale;
 import poly.edu.repository.FlashSaleHourRepository;
 import poly.edu.repository.FlashSaleRepository;
+import poly.edu.repository.ProductRepository;
 
 @Controller
 @RequestMapping("/admin")
@@ -56,6 +57,9 @@ public class PromotionController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     FlashSaleRepository flashSaleRepository;
@@ -201,7 +205,7 @@ public class PromotionController {
 
     @GetMapping("formpromotionsale")
     public String showPromotionSaleForm(Model model) {
-        products = productService.findAllNoActive();
+        products = productRepository.findProductAllNoSale();
 
         if (!productselect.isEmpty()) {
             System.out.println("Khong trong");
@@ -277,7 +281,7 @@ public class PromotionController {
                 model.addAttribute("messdaystart", messageDaystart);
                 model.addAttribute("messdayend", messageDaysend);
 
-                products = productService.findAllNoActive();
+                products = productRepository.findProductAllNoSale();
 
                 if (!productselect.isEmpty()) {
                     System.out.println("Khong trong");
