@@ -34,7 +34,6 @@ public class StoclMovement {
     @JoinColumn(name = "WarehouseID")
     private Warehouses warehouses;
 
-    @NotBlank(message = "Số lượng không được để trống")
     @Column(name = "Quantity")
     private Integer quantity;
 

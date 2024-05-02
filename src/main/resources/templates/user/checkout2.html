@@ -242,6 +242,10 @@
                             <a href="" class="btn btn-danger"
                                 ng-if="order.orderstatus.orderstatusname === 'Chờ xác nhận'"
                                 ng-click="huyDon(order)">Hủy đơn</a>
+
+                            <a href="" class="btn btn-primary"
+                                ng-if="order.orderstatus.orderstatusname === 'Thanh toán thành công'"
+                                ng-click="xacNhan(order)">Xác nhận đã nhận được hàng</a>
                         </div>
 
                     </div>
