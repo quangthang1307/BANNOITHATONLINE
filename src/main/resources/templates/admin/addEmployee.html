@@ -52,13 +52,13 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Thêm vai trò cho tài khoản nhân viên</h4>
+                        <h4 class="page-title">Thêm thông tin tài khoản nhân viên</h4>
                         <div class="ms-auto text-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Thêm vai trò cho tài khoản nhân viên
+                                        Thêm thông tin tài khoản nhân viên
                                     </li>
                                 </ol>
                             </nav>
@@ -81,16 +81,7 @@
                         <div class="row">
                             <input type="hidden" class="form-control" id="employeeID" name="employeeID"
                                 aria-describedby="helpId" th:value="${employee.employeeID}">
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="account" class="form-label">Chọn mã tài khoản</label>
-                                    <select class="form-select" name="account" id="account" required>
-                                        
-                                        <option th:each="w : ${accounts}" th:value="${w.accountId}"
-                                            th:text="${w.accountId+ ' - ' + w.username}"></option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên Nhân Viên</label>
@@ -120,6 +111,14 @@
                                 </div>
                             </div>
                             <!-- Các trường dữ liệu còn lại -->
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="account" class="form-label">Chọn tài khoản cần thêm thông tin</label>
+                                    <select class="form-select" name="account" id="account">
+                                        <option th:each="w : ${accounts}" th:value="${w.accountId}" th:text="${w.accountId+ ' - ' + w.username}"></option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
