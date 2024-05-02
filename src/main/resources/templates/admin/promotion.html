@@ -16,6 +16,50 @@
             /* Hiển thị dấu chấm (...) khi nội dung bị tràn */
         }
     </style>
+
+
+<!-- //lưu hiện thông báo -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Lưu thương hiệu thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+<!-- //xóa hiện thông báo -->
+<script>
+    function confirmDelete(categoryid) {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/promotion/delete/' + categoryid;
+            }
+        });
+
+        // Trả về false để ngăn chặn hành động mặc định của liên kết
+        return false;
+    }
+</script>
+<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo lưu thành công
+    var successMessage = 'Xóa thương hiệu thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành  công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
 </head>
 
 <body>
@@ -213,14 +257,14 @@
 
 
 
-    <script>
+    <!-- <script>
         function confirmDelete(promotionId) {
             if (confirm("Bạn có chắc muốn xóa không?")) {
                 window.location.href = '/admin/promotion/delete/' + promotionId;
             }
             return false;
         }
-    </script>
+    </script> -->
     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>

@@ -18,6 +18,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM Product WHERE Productactivate = 1 AND ProductID IN :productIDs", nativeQuery = true)
     List<Product> findProductByAllId(@Param("productIDs") List<Integer> productIDs);
 
+    @Query(value = "SELECT * FROM Product WHERE ProductID NOT IN (SELECT DISTINCT ProductID FROM [Sale])", nativeQuery = true)
+    List<Product> findProductAllNoSale();
+
     // @Query(value = "SELECT * FROM Product", nativeQuery = true)
     // Page<Product> findAllProductsNoActive(Pageable pageable);
 

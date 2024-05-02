@@ -73,9 +73,8 @@
                 <div class="mb-3">
                   <label for="warehouseId" class="form-label">Chọn mã nhà kho</label>
                   <select class="form-select" name="warehouseID" id="warehouseId" required>
-                    <option value="">Vui lòng chọn mã nhà kho</option>
-                    <option th:each="w : ${warehouses}" th:value="${w.warehouseID}"
-                      th:text="${w.warehouseID+ ' - ' + w.warehousename}"></option>
+                    <option th:each="w : ${warehouses}" value="1"
+                      th:text="${w.warehouseID+ ' - ' + w.warehousename}" selected></option>
                   </select>
                 </div>
               </div>
@@ -91,7 +90,7 @@
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="quantityonhand" class="form-label">Số Lượng vận chuyển</label>
+                  <label class="form-label">Số Lượng vận chuyển</label>
                   <input type="number" class="form-control" name="quantity" id="quantity" aria-describedby="helpId"
                     placeholder="Nhập số lượng vận chuyển" th:value="${move.quantity}" />
                   <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">
@@ -102,7 +101,7 @@
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="" class="form-label">Hình thức vận chuyển</label>
+                  <label  class="form-label">Hình thức vận chuyển</label>
                   <br>
                   <div class="form-check form-check-inline">
                     <input type="radio" class="form-check-input" name="movementType" id="movementTypeNhap"

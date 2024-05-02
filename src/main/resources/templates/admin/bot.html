@@ -216,9 +216,8 @@
 
             // Lấy các dữ liệu từ hàng này
             var botToken = row.querySelector('td:nth-child(2)').textContent;
-            var chatId = row.querySelector('td:nth-child(3)').textContent;
-            var mission = row.querySelector('td:nth-child(4)').textContent;
-            var timeString = row.querySelector('td:nth-child(5)').textContent;
+            var mission = row.querySelector('td:nth-child(3)').textContent;
+            var timeString = row.querySelector('td:nth-child(4)').textContent;
             
             // Đổ dữ liệu lên form
             document.querySelector('input[name="botToken"]').value = botToken;
