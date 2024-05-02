@@ -76,7 +76,7 @@ public class AccountController {
             return "user/forgotpassword";
         }
 
-        String emailLink = "http://localhost/user/resetpassword";
+        String emailLink = "http://localhost:8080/user/resetpassword";
 
         try {
             forgotPasswordService.sendEmail(request, account.getEmail(), "Đường dẫn thay đổi mật khẩu", emailLink);
