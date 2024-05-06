@@ -58,8 +58,80 @@ public class RestCartController {
     @Autowired
     FlashSaleHourRepository flashSaleHourRepository;
 
-    @Autowired InventoryRepository inventoryRepository;
+    @Autowired
+    InventoryRepository inventoryRepository;
 
+    // @GetMapping("/rest/showCart/{customerId}")
+    // public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer
+    // customerId) {
+    // List<Cart> carts = cartService.findByCustomerId(customerId);
+    // List<Flashsale> flash = new ArrayList<>();
+    // List<Cart> newCart = new ArrayList<Cart>();
+
+    // for (Cart cart2 : carts) {
+    // if (cart2.getProduct().isProductactivate()) {
+    // Sale sale =
+    // saleRepository.findByProductID(cart2.getProduct().getProductid());
+    // List<Flashsale> falshSale =
+    // flashSaleRepository.findByProduct(cart2.getProduct());
+    // boolean giamgia = false;
+
+    // if(falshSale.size() > 0){
+    // for (Flashsale f : falshSale) {
+    // if(f.getStatus()){
+    // flash.add(f);
+    // break;
+    // }
+    // }
+    // }
+    // if (flash != null && !flash.isEmpty() && flash.get(0).getStatus()) {
+    // Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
+    // .findById(flash.get(0).getFlashSaleHourID());
+    // if (flashSaleHour.isPresent()) {
+    // if (flashSaleHour.get().getStatus()
+    // && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
+    // && flashSaleHour.get().getHourStart().isBefore(LocalTime.now())
+    // && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
+    // Optional<Product> product =
+    // productRepository.findById(cart2.getProduct().getProductid());
+    // product.get().setPricexuat(product.get().getPricexuat()
+    // - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
+    // cart2.setProduct(product.get());
+    // giamgia = true;
+    // }
+    // }
+    // }
+    // if (sale != null && !giamgia) {
+    // if (LocalDateTime.now().isAfter(sale.getDayStart())
+    // && LocalDateTime.now().isBefore(sale.getDayEnd())) {
+    // Optional<Product> product = productRepository.findById(sale.getProductID());
+    // product.get().setPricexuat(product.get().getPricexuat()
+    // - (product.get().getPricexuat() * sale.getPercent() / 100));
+    // cart2.setProduct(product.get());
+    // }
+
+    // }
+    // newCart.add(cart2);
+    // }
+    // }
+
+    // List<Cart> filteredCarts = newCart.stream()
+    // .filter(cart -> cart.getProduct().isProductactivate())
+    // .collect(Collectors.toList());
+
+    // List<Cart> show = new ArrayList<>();
+
+    // for (Cart cart3 : filteredCarts) {
+    // Inventory inventory = inventoryRepository.findByProduct(cart3.getProduct());
+    // if(inventory.getQuantityonhand() > 0){
+    // show.add(cart3);
+    // }
+    // if(inventory.getQuantityonhand() < cart3.getQuantity()){
+    // cart3.setQuantity(inventory.getQuantityonhand());
+    // }
+    // }
+    // return ResponseEntity.ok(show);
+    // }
 
     @GetMapping("/rest/showCart/{customerId}")
     public ResponseEntity<List<Cart>> getAllCarts(@PathVariable Integer customerId) {
@@ -72,31 +144,39 @@ public class RestCartController {
                 Sale sale = saleRepository.findByProductID(cart2.getProduct().getProductid());
                 List<Flashsale> falshSale = flashSaleRepository.findByProduct(cart2.getProduct());
                 boolean giamgia = false;
-                
-                if(falshSale.size() > 0){
+
+                if (falshSale.size() > 0) {
                     for (Flashsale f : falshSale) {
-                        if(f.getStatus()){
+                        if (f.getStatus()) {
                             flash.add(f);
                             break;
                         }
                     }
                 }
-                if (flash != null && !flash.isEmpty() && flash.get(0).getStatus()) {
-                    Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
-                            .findById(flash.get(0).getFlashSaleHourID());
-                    if (flashSaleHour.isPresent()) {
-                        if (flashSaleHour.get().getStatus()
-                                && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
-                                && flashSaleHour.get().getHourStart().isBefore(LocalTime.now())
-                                && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
-                            Optional<Product> product = productRepository.findById(sale.getProductID());
-                            product.get().setPricexuat(product.get().getPricexuat()
-                                    - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
-                            cart2.setProduct(product.get());
-                            giamgia = true;
+
+                for(Flashsale f2 : falshSale) {
+                    if(cart2.getProduct().getProductid() == f2.getProduct().getProductid()){
+                        if (flash != null && !flash.isEmpty() && flash.get(0).getStatus()) {
+                            Optional<FlashSaleHour> flashSaleHour = flashSaleHourRepository
+                                    .findById(flash.get(0).getFlashSaleHourID());
+                            if (flashSaleHour.isPresent()) {
+                                if (flashSaleHour.get().getStatus()
+                                        && flashSaleHour.get().getDateStart().isEqual(LocalDate.now())
+                                        && flashSaleHour.get().getHourStart().isBefore(LocalTime.now())
+                                        && flashSaleHour.get().getHourEnd().isAfter(LocalTime.now())) {
+                                    Optional<Product> product = productRepository.findById(cart2.getProduct().getProductid());
+                                    product.get().setPricexuat(product.get().getPricexuat()
+                                            - (product.get().getPricexuat() * flash.get(0).getPercent() / 100));
+                                    cart2.setProduct(product.get());
+                                    giamgia = true;
+                                }
+                            }
                         }
                     }
                 }
+
+                
+
                 if (sale != null && !giamgia) {
                     if (LocalDateTime.now().isAfter(sale.getDayStart())
                             && LocalDateTime.now().isBefore(sale.getDayEnd())) {
@@ -116,13 +196,13 @@ public class RestCartController {
                 .collect(Collectors.toList());
 
         List<Cart> show = new ArrayList<>();
-        
+
         for (Cart cart3 : filteredCarts) {
             Inventory inventory = inventoryRepository.findByProduct(cart3.getProduct());
-            if(inventory.getQuantityonhand() > 0){
+            if (inventory.getQuantityonhand() > 0) {
                 show.add(cart3);
             }
-            if(inventory.getQuantityonhand() < cart3.getQuantity()){
+            if (inventory.getQuantityonhand() < cart3.getQuantity()) {
                 cart3.setQuantity(inventory.getQuantityonhand());
             }
         }
@@ -152,15 +232,15 @@ public class RestCartController {
         try {
             Optional<Cart> cartEntry = cartService.findByCustomerAndProduct(customerId, productId);
             Optional<Product> product = productRepository.findById(productId);
-            if(product.isPresent()){
+            if (product.isPresent()) {
                 Inventory inventory = inventoryRepository.findByProduct(product.get());
-                if(inventory.getQuantityonhand() < quantity){
+                if (inventory.getQuantityonhand() < quantity) {
                     return ResponseEntity
-                    .status(HttpStatus.SEE_OTHER)
-                    .body(inventory.getQuantityonhand());
+                            .status(HttpStatus.SEE_OTHER)
+                            .body(inventory.getQuantityonhand());
                 }
             }
-             
+
             if (cartEntry.isPresent()) {
                 Cart cart = cartEntry.get();
                 int newQuantity = quantity;
